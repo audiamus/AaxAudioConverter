@@ -1,0 +1,1356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="listViewAaxFiles.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="clmHdrAlbum.Text" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="clmHdrAlbum.Width" type="System.Int32, mscorlib">
+    <value>200</value>
+  </data>
+  <data name="clmHdrArtist.Text" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="clmHdrArtist.Width" type="System.Int32, mscorlib">
+    <value>120</value>
+  </data>
+  <data name="clmHdrSize.Text" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="clmHdrDuration.Text" xml:space="preserve">
+    <value>Duration</value>
+  </data>
+  <data name="clmHdrYear.Text" xml:space="preserve">
+    <value>Year</value>
+  </data>
+  <data name="clmHdrYear.Width" type="System.Int32, mscorlib">
+    <value>50</value>
+  </data>
+  <data name="clmHdrNarrator.Text" xml:space="preserve">
+    <value>Narrator</value>
+  </data>
+  <data name="clmHdrNarrator.Width" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <data name="clmHdrSampleRate.Text" xml:space="preserve">
+    <value>Sample rate</value>
+  </data>
+  <data name="clmHdrSampleRate.Width" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <data name="clmHdrBitRate.Text" xml:space="preserve">
+    <value>Bit rate</value>
+  </data>
+  <data name="clmHdrBitRate.Width" type="System.Int32, mscorlib">
+    <value>100</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="listViewAaxFiles.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 48</value>
+  </data>
+  <data name="listViewAaxFiles.Size" type="System.Drawing.Size, System.Drawing">
+    <value>770, 193</value>
+  </data>
+  <metadata name="imageList1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>109, 17</value>
+  </metadata>
+  <data name="imageList1.ImageStream" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
+        LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACK
+        AgAAAk1TRnQBSQFMAgEBAgEAAdgBAAHYAQABEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        AwABEAMAAQEBAAEgBgABEP8A/wBsAAMDAQQDPAFmAzMBU/AAAx0BKQFaAV0BWgHKAQABbAETAf8BAAFs
+        ARMB/wMjATTnAAEBA0ABcAE3AWIBRwH2AQABbAETAf8BAAFsARMB/wEAAWwBEwH/AVIBVAFSAabkAAEw
+        ATEBMAFNAQABbAETAf8BAAFsARMB/wETAWwBKwH8AVoBXwFaAdsBAAFsARMB/wEhAV8BJwH7AxYBHuAA
+        Ax8BLQFNAWcBVQHyAV4BYQFeAdoDJwE7ASECIgExAQABbAETAf8BAAFsARMB/wNKAYzkAAMFAQcDAgED
+        CAABVgFZAVYBvgEAAWwBEwH/AU4BXQFOAfADCgEO8AADMAFMAQABbAETAf8BAAFsARMB/wNAAXHzAAEB
+        AVkBXQFZAdcBAAFsARMB/wFXAVwBVwHfAwMBBPAAATwBPQE8AWcBAAFsARMB/wEAAWwBEwH/AzUBVvAA
+        AwcBCQFVAVwBVQHqAQABbAETAf8DWwHI9AABRgFHAUYBgQEAAWwBEwH/AQABbAETAf8DJAE28AADEQEX
+        AU4BXQFOAfABIQFfAScB+wMgAS/0AAMSBBgBIf8AjQABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEA
+        AQEFAAGAFwAD/wEABP8EAAT/BAAC/wH8AX8EAAL/AfgBPwQAAv8B4AE/BAAC/wHgAR8EAAL/AeABHwQA
+        Av8B8wEPBAAD/wEPBAAD/wEHBAAD/wGHBAAD/wGHBAAD/wHDBAAD/wHDBAAD/wHnBAAE/wQACw==
+</value>
+  </data>
+  <data name="listViewAaxFiles.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;listViewAaxFiles.Name" xml:space="preserve">
+    <value>listViewAaxFiles</value>
+  </data>
+  <data name="&gt;&gt;listViewAaxFiles.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;listViewAaxFiles.Parent" xml:space="preserve">
+    <value>grpBoxAaxFiles</value>
+  </data>
+  <data name="&gt;&gt;listViewAaxFiles.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="btnRem.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="btnRem.Location" type="System.Drawing.Point, System.Drawing">
+    <value>98, 19</value>
+  </data>
+  <data name="btnRem.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btnRem.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="btnRem.Text" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="btnRem.ToolTip" xml:space="preserve">
+    <value>Remove selected files from list.</value>
+  </data>
+  <data name="&gt;&gt;btnRem.Name" xml:space="preserve">
+    <value>btnRem</value>
+  </data>
+  <data name="&gt;&gt;btnRem.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnRem.Parent" xml:space="preserve">
+    <value>grpBoxAaxFiles</value>
+  </data>
+  <data name="&gt;&gt;btnRem.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="btnAddFile.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 19</value>
+  </data>
+  <data name="btnAddFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btnAddFile.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="btnAddFile.Text" xml:space="preserve">
+    <value>Add...</value>
+  </data>
+  <data name="btnAddFile.ToolTip" xml:space="preserve">
+    <value>Open AAX or AA files
+and add them to the list.
+(Or use drag-and-drop.)</value>
+  </data>
+  <data name="&gt;&gt;btnAddFile.Name" xml:space="preserve">
+    <value>btnAddFile</value>
+  </data>
+  <data name="&gt;&gt;btnAddFile.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnAddFile.Parent" xml:space="preserve">
+    <value>grpBoxAaxFiles</value>
+  </data>
+  <data name="&gt;&gt;btnAddFile.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="grpBoxAaxFiles.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="grpBoxAaxFiles.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="grpBoxAaxFiles.Size" type="System.Drawing.Size, System.Drawing">
+    <value>782, 247</value>
+  </data>
+  <data name="grpBoxAaxFiles.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="grpBoxAaxFiles.Text" xml:space="preserve">
+    <value>AAX Files</value>
+  </data>
+  <data name="&gt;&gt;grpBoxAaxFiles.Name" xml:space="preserve">
+    <value>grpBoxAaxFiles</value>
+  </data>
+  <data name="&gt;&gt;grpBoxAaxFiles.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpBoxAaxFiles.Parent" xml:space="preserve">
+    <value>panelTop</value>
+  </data>
+  <data name="&gt;&gt;grpBoxAaxFiles.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lblTraclLen.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblTraclLen.Location" type="System.Drawing.Point, System.Drawing">
+    <value>30, 90</value>
+  </data>
+  <data name="lblTraclLen.Size" type="System.Drawing.Size, System.Drawing">
+    <value>63, 13</value>
+  </data>
+  <data name="lblTraclLen.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="lblTraclLen.Text" xml:space="preserve">
+    <value>track length</value>
+  </data>
+  <data name="&gt;&gt;lblTraclLen.Name" xml:space="preserve">
+    <value>lblTraclLen</value>
+  </data>
+  <data name="&gt;&gt;lblTraclLen.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblTraclLen.Parent" xml:space="preserve">
+    <value>grpBoxMode</value>
+  </data>
+  <data name="&gt;&gt;lblTraclLen.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lblDuration.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="lblDuration.Location" type="System.Drawing.Point, System.Drawing">
+    <value>135, 90</value>
+  </data>
+  <data name="lblDuration.Size" type="System.Drawing.Size, System.Drawing">
+    <value>81, 13</value>
+  </data>
+  <data name="lblDuration.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="lblDuration.Text" xml:space="preserve">
+    <value>minutes approx.</value>
+  </data>
+  <data name="&gt;&gt;lblDuration.Name" xml:space="preserve">
+    <value>lblDuration</value>
+  </data>
+  <data name="&gt;&gt;lblDuration.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblDuration.Parent" xml:space="preserve">
+    <value>grpBoxMode</value>
+  </data>
+  <data name="&gt;&gt;lblDuration.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="numUpDnTrkLen.Location" type="System.Drawing.Point, System.Drawing">
+    <value>95, 88</value>
+  </data>
+  <data name="numUpDnTrkLen.Size" type="System.Drawing.Size, System.Drawing">
+    <value>39, 20</value>
+  </data>
+  <data name="numUpDnTrkLen.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;numUpDnTrkLen.Name" xml:space="preserve">
+    <value>numUpDnTrkLen</value>
+  </data>
+  <data name="&gt;&gt;numUpDnTrkLen.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;numUpDnTrkLen.Parent" xml:space="preserve">
+    <value>grpBoxMode</value>
+  </data>
+  <data name="&gt;&gt;numUpDnTrkLen.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="radBtnChaptSplit.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radBtnChaptSplit.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 70</value>
+  </data>
+  <data name="radBtnChaptSplit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>252, 17</value>
+  </data>
+  <data name="radBtnChaptSplit.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="radBtnChaptSplit.Text" xml:space="preserve">
+    <value>Multiple files, by chapter, split into shorter tracks,</value>
+  </data>
+  <data name="radBtnChaptSplit.ToolTip" xml:space="preserve">
+    <value>Multiple files per chapter, 
+split into tracks of roughly equal time, 
+with playlist.</value>
+  </data>
+  <data name="&gt;&gt;radBtnChaptSplit.Name" xml:space="preserve">
+    <value>radBtnChaptSplit</value>
+  </data>
+  <data name="&gt;&gt;radBtnChaptSplit.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radBtnChaptSplit.Parent" xml:space="preserve">
+    <value>grpBoxMode</value>
+  </data>
+  <data name="&gt;&gt;radBtnChaptSplit.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="radBtnChapt.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radBtnChapt.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 46</value>
+  </data>
+  <data name="radBtnChapt.Size" type="System.Drawing.Size, System.Drawing">
+    <value>138, 17</value>
+  </data>
+  <data name="radBtnChapt.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="radBtnChapt.Text" xml:space="preserve">
+    <value>Multiple files, by chapter</value>
+  </data>
+  <data name="radBtnChapt.ToolTip" xml:space="preserve">
+    <value>One output file per chapter, 
+with playlist.</value>
+  </data>
+  <data name="&gt;&gt;radBtnChapt.Name" xml:space="preserve">
+    <value>radBtnChapt</value>
+  </data>
+  <data name="&gt;&gt;radBtnChapt.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radBtnChapt.Parent" xml:space="preserve">
+    <value>grpBoxMode</value>
+  </data>
+  <data name="&gt;&gt;radBtnChapt.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="radBtnSingle.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radBtnSingle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 22</value>
+  </data>
+  <data name="radBtnSingle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>128, 17</value>
+  </data>
+  <data name="radBtnSingle.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radBtnSingle.Text" xml:space="preserve">
+    <value>Single file per AAX file</value>
+  </data>
+  <data name="radBtnSingle.ToolTip" xml:space="preserve">
+    <value>One output file per AAX file,
+with playlist for books in parts.</value>
+  </data>
+  <data name="&gt;&gt;radBtnSingle.Name" xml:space="preserve">
+    <value>radBtnSingle</value>
+  </data>
+  <data name="&gt;&gt;radBtnSingle.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radBtnSingle.Parent" xml:space="preserve">
+    <value>grpBoxMode</value>
+  </data>
+  <data name="&gt;&gt;radBtnSingle.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="grpBoxMode.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="grpBoxMode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 52</value>
+  </data>
+  <data name="grpBoxMode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>393, 115</value>
+  </data>
+  <data name="grpBoxMode.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="grpBoxMode.Text" xml:space="preserve">
+    <value>Mode</value>
+  </data>
+  <data name="&gt;&gt;grpBoxMode.Name" xml:space="preserve">
+    <value>grpBoxMode</value>
+  </data>
+  <data name="&gt;&gt;grpBoxMode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpBoxMode.Parent" xml:space="preserve">
+    <value>panelSettingsLeft</value>
+  </data>
+  <data name="&gt;&gt;grpBoxMode.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="lblProgress.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="lblProgress.Location" type="System.Drawing.Point, System.Drawing">
+    <value>115, 8</value>
+  </data>
+  <data name="lblProgress.Size" type="System.Drawing.Size, System.Drawing">
+    <value>558, 23</value>
+  </data>
+  <data name="lblProgress.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="lblProgress.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="lblProgress.ToolTip" xml:space="preserve">
+    <value>Progress by steps. 
+Number of steps may increase during the process.
+Number of chapters = ch, number of tracks = tr.
+Silence (detection) or transcoding phase. 
+Currently processed chapter(s).</value>
+  </data>
+  <data name="&gt;&gt;lblProgress.Name" xml:space="preserve">
+    <value>lblProgress</value>
+  </data>
+  <data name="&gt;&gt;lblProgress.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblProgress.Parent" xml:space="preserve">
+    <value>panelExec</value>
+  </data>
+  <data name="&gt;&gt;lblProgress.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="btnAbort.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="btnAbort.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="btnAbort.Location" type="System.Drawing.Point, System.Drawing">
+    <value>695, 30</value>
+  </data>
+  <data name="btnAbort.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btnAbort.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="btnAbort.Text" xml:space="preserve">
+    <value>Abort</value>
+  </data>
+  <data name="btnAbort.ToolTip" xml:space="preserve">
+    <value>Abort conversion.</value>
+  </data>
+  <data name="&gt;&gt;btnAbort.Name" xml:space="preserve">
+    <value>btnAbort</value>
+  </data>
+  <data name="&gt;&gt;btnAbort.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnAbort.Parent" xml:space="preserve">
+    <value>panelExec</value>
+  </data>
+  <data name="&gt;&gt;btnAbort.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="progressBarPart.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="progressBarPart.Location" type="System.Drawing.Point, System.Drawing">
+    <value>115, 41</value>
+  </data>
+  <data name="progressBarPart.Size" type="System.Drawing.Size, System.Drawing">
+    <value>558, 12</value>
+  </data>
+  <data name="progressBarPart.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="progressBarPart.ToolTip" xml:space="preserve">
+    <value>Progress by phase and part (multipart books).</value>
+  </data>
+  <data name="&gt;&gt;progressBarPart.Name" xml:space="preserve">
+    <value>progressBarPart</value>
+  </data>
+  <data name="&gt;&gt;progressBarPart.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ProgressBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;progressBarPart.Parent" xml:space="preserve">
+    <value>panelExec</value>
+  </data>
+  <data name="&gt;&gt;progressBarPart.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="progressBarTrack.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
+  <data name="progressBarTrack.Location" type="System.Drawing.Point, System.Drawing">
+    <value>115, 59</value>
+  </data>
+  <data name="progressBarTrack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>558, 12</value>
+  </data>
+  <data name="progressBarTrack.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="progressBarTrack.ToolTip" xml:space="preserve">
+    <value>Progress by step (FFmpeg invocation).</value>
+  </data>
+  <data name="&gt;&gt;progressBarTrack.Name" xml:space="preserve">
+    <value>progressBarTrack</value>
+  </data>
+  <data name="&gt;&gt;progressBarTrack.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ProgressBar, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;progressBarTrack.Parent" xml:space="preserve">
+    <value>panelExec</value>
+  </data>
+  <data name="&gt;&gt;progressBarTrack.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="btnConvert.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
+  </data>
+  <data name="btnConvert.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="btnConvert.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 19</value>
+  </data>
+  <data name="btnConvert.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 45</value>
+  </data>
+  <data name="btnConvert.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="btnConvert.Text" xml:space="preserve">
+    <value>Convert</value>
+  </data>
+  <data name="btnConvert.ToolTip" xml:space="preserve">
+    <value>Start conversion.</value>
+  </data>
+  <data name="&gt;&gt;btnConvert.Name" xml:space="preserve">
+    <value>btnConvert</value>
+  </data>
+  <data name="&gt;&gt;btnConvert.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnConvert.Parent" xml:space="preserve">
+    <value>panelExec</value>
+  </data>
+  <data name="&gt;&gt;btnConvert.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="panelExec.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="panelExec.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="panelExec.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 495</value>
+  </data>
+  <data name="panelExec.Size" type="System.Drawing.Size, System.Drawing">
+    <value>782, 76</value>
+  </data>
+  <data name="panelExec.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;panelExec.Name" xml:space="preserve">
+    <value>panelExec</value>
+  </data>
+  <data name="&gt;&gt;panelExec.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelExec.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panelExec.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="radBtnM4a.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radBtnM4a.Location" type="System.Drawing.Point, System.Drawing">
+    <value>79, 20</value>
+  </data>
+  <data name="radBtnM4a.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 17</value>
+  </data>
+  <data name="radBtnM4a.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="radBtnM4a.Text" xml:space="preserve">
+    <value>M4A</value>
+  </data>
+  <data name="radBtnM4a.ToolTip" xml:space="preserve">
+    <value>Copying native MP4/AAC audio (very fast).</value>
+  </data>
+  <data name="&gt;&gt;radBtnM4a.Name" xml:space="preserve">
+    <value>radBtnM4a</value>
+  </data>
+  <data name="&gt;&gt;radBtnM4a.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radBtnM4a.Parent" xml:space="preserve">
+    <value>grpBoxFormat</value>
+  </data>
+  <data name="&gt;&gt;radBtnM4a.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="radBtnMp3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="radBtnMp3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 20</value>
+  </data>
+  <data name="radBtnMp3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>47, 17</value>
+  </data>
+  <data name="radBtnMp3.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="radBtnMp3.Text" xml:space="preserve">
+    <value>MP3</value>
+  </data>
+  <data name="radBtnMp3.ToolTip" xml:space="preserve">
+    <value>Transcoding to MP3.</value>
+  </data>
+  <data name="&gt;&gt;radBtnMp3.Name" xml:space="preserve">
+    <value>radBtnMp3</value>
+  </data>
+  <data name="&gt;&gt;radBtnMp3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.RadioButton, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;radBtnMp3.Parent" xml:space="preserve">
+    <value>grpBoxFormat</value>
+  </data>
+  <data name="&gt;&gt;radBtnMp3.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="grpBoxFormat.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Top</value>
+  </data>
+  <data name="grpBoxFormat.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="grpBoxFormat.Size" type="System.Drawing.Size, System.Drawing">
+    <value>393, 52</value>
+  </data>
+  <data name="grpBoxFormat.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="grpBoxFormat.Text" xml:space="preserve">
+    <value>Format</value>
+  </data>
+  <data name="&gt;&gt;grpBoxFormat.Name" xml:space="preserve">
+    <value>grpBoxFormat</value>
+  </data>
+  <data name="&gt;&gt;grpBoxFormat.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpBoxFormat.Parent" xml:space="preserve">
+    <value>panelSettingsLeft</value>
+  </data>
+  <data name="&gt;&gt;grpBoxFormat.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="btnSaveTo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 19</value>
+  </data>
+  <data name="btnSaveTo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btnSaveTo.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="btnSaveTo.Text" xml:space="preserve">
+    <value>Save to...</value>
+  </data>
+  <data name="btnSaveTo.ToolTip" xml:space="preserve">
+    <value>Destination root folder for conversion.
+Books will be sorted by author and title.</value>
+  </data>
+  <data name="&gt;&gt;btnSaveTo.Name" xml:space="preserve">
+    <value>btnSaveTo</value>
+  </data>
+  <data name="&gt;&gt;btnSaveTo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btnSaveTo.Parent" xml:space="preserve">
+    <value>grpBoxDest</value>
+  </data>
+  <data name="&gt;&gt;btnSaveTo.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="propGridNaming.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="propGridNaming.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 16</value>
+  </data>
+  <data name="propGridNaming.Size" type="System.Drawing.Size, System.Drawing">
+    <value>377, 229</value>
+  </data>
+  <data name="propGridNaming.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;propGridNaming.Name" xml:space="preserve">
+    <value>propGridNaming</value>
+  </data>
+  <data name="&gt;&gt;propGridNaming.Type" xml:space="preserve">
+    <value>System.Windows.Forms.PropertyGrid, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;propGridNaming.Parent" xml:space="preserve">
+    <value>grpBoxNaming</value>
+  </data>
+  <data name="&gt;&gt;propGridNaming.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="grpBoxNaming.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="grpBoxNaming.Location" type="System.Drawing.Point, System.Drawing">
+    <value>396, 0</value>
+  </data>
+  <data name="grpBoxNaming.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="grpBoxNaming.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 6, 3</value>
+  </data>
+  <data name="grpBoxNaming.Size" type="System.Drawing.Size, System.Drawing">
+    <value>386, 248</value>
+  </data>
+  <data name="grpBoxNaming.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="grpBoxNaming.Text" xml:space="preserve">
+    <value>Naming</value>
+  </data>
+  <data name="grpBoxNaming.ToolTip" xml:space="preserve">
+    <value>Various settings for tag, file and folder naming.</value>
+  </data>
+  <data name="&gt;&gt;grpBoxNaming.Name" xml:space="preserve">
+    <value>grpBoxNaming</value>
+  </data>
+  <data name="&gt;&gt;grpBoxNaming.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpBoxNaming.Parent" xml:space="preserve">
+    <value>tableLayoutSettings</value>
+  </data>
+  <data name="&gt;&gt;grpBoxNaming.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutSettings.ColumnCount" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="lblSaveTo.Location" type="System.Drawing.Point, System.Drawing">
+    <value>13, 49</value>
+  </data>
+  <data name="lblSaveTo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>362, 23</value>
+  </data>
+  <data name="lblSaveTo.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="lblSaveTo.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
+  <data name="&gt;&gt;lblSaveTo.Name" xml:space="preserve">
+    <value>lblSaveTo</value>
+  </data>
+  <data name="&gt;&gt;lblSaveTo.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblSaveTo.Parent" xml:space="preserve">
+    <value>grpBoxDest</value>
+  </data>
+  <data name="&gt;&gt;lblSaveTo.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="grpBoxDest.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="grpBoxDest.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 167</value>
+  </data>
+  <data name="grpBoxDest.Size" type="System.Drawing.Size, System.Drawing">
+    <value>393, 81</value>
+  </data>
+  <data name="grpBoxDest.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="grpBoxDest.Text" xml:space="preserve">
+    <value>Destination folder</value>
+  </data>
+  <data name="&gt;&gt;grpBoxDest.Name" xml:space="preserve">
+    <value>grpBoxDest</value>
+  </data>
+  <data name="&gt;&gt;grpBoxDest.Type" xml:space="preserve">
+    <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;grpBoxDest.Parent" xml:space="preserve">
+    <value>panelSettingsLeft</value>
+  </data>
+  <data name="&gt;&gt;grpBoxDest.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="panelSettingsLeft.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="panelSettingsLeft.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="panelSettingsLeft.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 3, 0</value>
+  </data>
+  <data name="panelSettingsLeft.Size" type="System.Drawing.Size, System.Drawing">
+    <value>393, 248</value>
+  </data>
+  <data name="panelSettingsLeft.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;panelSettingsLeft.Name" xml:space="preserve">
+    <value>panelSettingsLeft</value>
+  </data>
+  <data name="&gt;&gt;panelSettingsLeft.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelSettingsLeft.Parent" xml:space="preserve">
+    <value>tableLayoutSettings</value>
+  </data>
+  <data name="&gt;&gt;panelSettingsLeft.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="tableLayoutSettings.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
+  </data>
+  <data name="tableLayoutSettings.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 247</value>
+  </data>
+  <data name="tableLayoutSettings.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="tableLayoutSettings.RowCount" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutSettings.Size" type="System.Drawing.Size, System.Drawing">
+    <value>782, 248</value>
+  </data>
+  <data name="tableLayoutSettings.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutSettings.Name" xml:space="preserve">
+    <value>tableLayoutSettings</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutSettings.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutSettings.Parent" xml:space="preserve">
+    <value>panelTop</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutSettings.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="tableLayoutSettings.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="panelSettingsLeft" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="grpBoxNaming" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,50,63939,Percent,49,36061" /&gt;&lt;Rows Styles="Percent,50" /&gt;&lt;/TableLayoutSettings&gt;</value>
+  </data>
+  <data name="panelTop.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="panelTop.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="panelTop.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="panelTop.Size" type="System.Drawing.Size, System.Drawing">
+    <value>782, 495</value>
+  </data>
+  <data name="panelTop.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="&gt;&gt;panelTop.Name" xml:space="preserve">
+    <value>panelTop</value>
+  </data>
+  <data name="&gt;&gt;panelTop.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panelTop.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;panelTop.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <metadata name="contextMenuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>214, 17</value>
+  </metadata>
+  <data name="tsmiDetails.Size" type="System.Drawing.Size, System.Drawing">
+    <value>132, 22</value>
+  </data>
+  <data name="tsmiDetails.Text" xml:space="preserve">
+    <value>More details</value>
+  </data>
+  <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>133, 26</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStrip1.Name" xml:space="preserve">
+    <value>contextMenuStrip1</value>
+  </data>
+  <data name="&gt;&gt;contextMenuStrip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>de</value>
+  </metadata>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>782, 571</value>
+  </data>
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAMAMDAAAAEAIACoJQAANgAAACAgAAABACAAqBAAAN4lAAAQEAAAAQAgAGgEAACGNgAAKAAAADAA
+        AABgAAAAAQAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC5uXMLybuGE39/
+        fwIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AADSw4cRzbSDH6qqVQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAB/f38Cv39/BAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFU3AP9VNwD/VTcA/1U3
+        AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP+Xf0TizbiP/0gU
+        ieJVNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3
+        AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1o6
+        AP9VNgD/YUII/5R4Rf9+YSv/VjYA/1k5AP9aOgD/WjoA/1o6AP9aOgD/WjoA/1o6AP9aOgD/WDgA/1Ex
+        AP+gh0n/zbiP/00Wkv9kSBD/Wz0A/1o6AP9aOgD/WjoA/1o6AP9aOgD/WjoA/1o6AP9aOgD/WjoA/1o6
+        AP9aOgD/WjoA/1o6AP9aOgD/WjoA/1o6AP9aOgD/WTkA/1IyAP9VNQD/WjoA/1o6AP9aOgD/WjoA/1o6
+        AP9aOgD/WjoA/1U3AP9MLgD/Y0YS/8u2jP+fhlf/TS4A/1I0AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3
+        AP9VNwD/UzUA/00vAP+XgEX/zbiP/0kViv+Te0D/VjoA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3
+        AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9TNQD/VjgC/2NGEP9dQAr/VDUA/1Q2
+        AP9VNwD/VDYA/1M1AP9UNgD/VTcA/1U3AP9MLgD/Y0YR/8awhv+bglP/TS4A/1I0AP9VNwD/VTcA/1U3
+        AP9VNwD/VTcA/1U3AP9VNwD/UzUA/00vAP+XgEX/zbiP/0AMgP+Te0D/VjoA/1U3AP9VNwD/VTcA/1U3
+        AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9NLwD/YUQP/7ih
+        dv+TeUn/Ti8A/1M1AP9VNwD/VDYA/04wAP9RMgD/VTcA/1U3AP9NLwD/Y0YR/8Wvhf+WfU7/RicA/1Ez
+        AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/UzUA/00vAP+XgEX/zbiP/0AMgP+Te0D/VjoA/1U3
+        AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3
+        AP9MLgD/Y0YS/8y2jf+bglP/RiYA/1EzAP9RMwD/XD4I/491Rf95XSv/UTIA/1U3AP9NLwD/YkUQ/8Ot
+        g/+jilz/Wz4P/1M1AP9SNAD/UzUA/1Q2AP9VNwD/VTcA/1U3AP9VNwD/UjQA/0stAP+Wf0P/zbiP/0AM
+        gP+Te0D/VjoA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3
+        AP9VNwD/VTcA/1U3AP9NLwD/YkUQ/8Otg/+jilz/XD4P/1U3Av9LLQD/Y0YS/8u2jP+ehVf/TCwA/1U3
+        AP9NLwD/YkUP/72nff/NuI//sZpw/1w+CP9GJgD/TzAA/1Q2AP9VNwD/VTcA/1U3AP9VNwD/UjQA/0Yo
+        AP+Te0D/zbiP/0AMgP+Te0D/VjoA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3
+        AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9NLwD/YkUP/72nff/TwJf/sptw/2JFD/9GJgD/Y0YR/8aw
+        hv+Yf1D/RicA/1U3AP9IKgD/Wj0G/7ule//NuI//zbiO/5uCU/+SeE7/jHJB/1w/CP9QMgD/VTcA/1U3
+        AP9QMgD/Wj0H/4dtQP+7pnD/zbiP/0AMgP+Te0D/VjoA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3
+        AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9NLwD/YUQO/7ymfP/NuI//xK+F/11A
+        Cf9BIAD/YkUQ/8CqgP+4onb/j3ZK/1M1AP9VNwj/cFQf/7+pf//NuI//zbiP/9O+lv/NuI//xa+G/2RH
+        Ev9MLQD/VTcA/1U3AP9MLgD/YkUP/8OuhP/NuI//zbiP/0AMgP+Te0D/VjoA/1U3AP9VNwD/VDYA/1M1
+        AP9UNgD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9MLgD/YEMN/7ym
+        fP/NuI//wKuB/3JWIf9NLgf/X0IM/7ymfP/NuI//zbiP/00vAP+GbDz/xrGH/8y3jf/NuI//zbiP/865
+        kP/NuI//wKqA/2RHEf9MLQD/VTcA/1U3AP9MLgD/YkUP/76ofv/NuI//zbiP/0AMgP+Te0D/VjoA/1U3
+        AP9VNwD/VDYA/04wAP9RMgD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3
+        AP9JKwD/Wz4H/7yle//NuI//zLeO/8eyiP+AZTX/VTcA/7ulev/NuI//zbiP/0QlAP+Nc0P/2sae/8+6
+        kf/Mt47/zbiP/824j//NuI//v6l//2RHEf9NLgD/VTcA/1U3AP9NLwD/YkUP/72nff/NuI//zbiP/0AM
+        gP+Te0D/VjoA/1U3AP9QMgD/XD4I/491Rf95XSv/UTIA/1M1AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3
+        AP9VNwD/UzUA/1AyAP9uUiP/nIRV/8Wwhv/NuI//zrmQ/9fCmv+ymm3/lXxN/8Svhf/NuI//zbiP/11A
+        Ef+VfE3/0r6V/824j//NuI//zbiP/824j//NuI//v6l//2RHEf9NLgD/VTcA/1U3AP9NLwD/YkUP/72n
+        ff/NuI//zbiP/0AMgP+Te0D/VjoA/1U3AP9MLgD/Y0YS/8u2jP+ehVb/TC0A/1I0AP9VNwD/VTcA/1U3
+        AP9VNwD/VTcA/1U3AP9VNwD/UjQA/0wuAP+ReEj/zbiP/8+6kf/NuI//zLeO/8y3jv/QvJP/07+X/865
+        kP/NuI//zbiP/76of//GsIb/zbiP/824j//NuI//zbiP/824j//NuI//v6l//2RHEf9NLgD/VTcA/1U3
+        AP9NLwD/YkUP/72nff/NuI//zbiP/0AMgP+Te0D/VjoA/1U3AP9MLgD/Y0YR/8awhv+Yfk//RygA/1Iz
+        AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/UjQA/0wuAP+OdET/zbiP/865kP/Mt47/zLeO/8y3
+        jv/NuI//zrmQ/824j//NuI//zbiP/9TAl//QvJP/zLeO/8y3jv/NuI//zbiP/824j//NuI//v6l//2RH
+        Ef9NLgD/VDYA/00vAP9IKgD/YkUP/72nff/NuI//zbiP/0AMgP+Te0D/TjIA/1M1AP9NLwD/YkUP/8Cq
+        gP+8pnv/iG5B/1s+CP9RMgD/VDYA/00vAP9QMgD/VTcA/1U3AP9VNwD/UzUA/00vAP+OdET/zbiP/865
+        kP/NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//vqh+/2JFD/9LLAD/VjgC/2NGEP9VOAn/YUQN/7ymfP/NuI//zbiP/0YShv+Te0D/ZEgP/1U3
+        AP9KLAD/YEMN/7ymfP/NuI//xbCG/2VIEv9LLAD/VjgC/2NGEP9dQAr/VDUA/1Q2AP9VNwD/UzUA/00v
+        AP+OdET/zbiP/865kP/NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//vqh+/11ACf9CIgD/YUQP/7ihdv+LcUH/Wz4H/7yme//NuI//zbiP/0AM
+        gP/NuI//vql3/11ACf8/HgD/XD4H/7yle//NuI//wKqA/2RHEf9GJgD/YUQP/7ihdv+TeUn/Ti8A/1M1
+        AP9VNwD/UzUA/00vAP+OdET/zbiP/865kP/NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//xrGH/56FVv9pTSH/YEMO/8u1jP+Tekn/UzUA/7qk
+        ef/NuI//zbiP/z8Lf//NuI//zbiP/5yEVP+LcUr/mYBR/8Wvhv/NuI//v6l//2RHEf9BIQD/XD8J/8u1
+        jP+bglP/RiYA/1EzAP9VNwD/UzUA/00vAP+OdET/zbiP/865kP/NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zrmR/9rGnv+QdkT/Wz4I/8Ks
+        gf+bglP/aU0Y/76off/NuI//zbiP/0AMgP/NuI//zbiP/9TAlv/UwJf/076W/825kP/NuI//vqh+/2JF
+        D/9OLgf/cVUh/8awhv+iiVv/XD4P/1U3Av9TNQD/UzUA/00vAP+OdET/zbiP/865kP/NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zrmQ/9XA
+        mP+MckH/Wz4H/7yme//MuI//wKp//8u2jP/NuI//zbiP/0AMgP/NuI//zbiP/8+7kP/OuZD/zrmQ/824
+        j//NuI//vqh9/1w/Cf9+ZDT/xrGH/823jv/NuI//sptw/2JFD/9NLgD/UzUA/00vAP+OdET/zbiP/865
+        kP/NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zrmQ/9S/l/+HbTv/UzYA/7qkef/YxJ3/07+X/865kP/NuI//zbiP/0AMgP/NuI//zbiP/866
+        j//NuI//zbiP/824j//NuI//vKZ7/1Q2AP+Fazn/2sae/865kP/Xwpv/xbCG/2VIEv9MLQD/UzUA/00v
+        AP+OdET/zbiP/865kP/NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zLeO/8y3jv/NuI//z7qR/9O+lv+Uekr/aU0X/76off/Tvpb/zbiP/824j//NuI//zbiP/0AM
+        gP/NuI//zbiP/866j//NuI//zbiP/824j//NuI//zbiP/2pOGf+OdUX/0r6V/824j//Uv5f/v6l//2RH
+        Ef9NLgD/UzUA/00vAP+OdET/zbiP/865kP/NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zLeO/824j//NuI//zbiP/824j//GsYf/wKp//8u2jP/NuI//zbiP/824
+        j//NuI//zbiP/0AMgP/NuI//zbiP/866j//NuI//zbiP/824j//NuI//zbiP/8CqgP/Fr4X/zbiP/824
+        j//Uv5f/v6l//2RHEf9NLgD/UzUA/00vAP+OdET/zbiP/865kP/NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/0AMgP/NuI//zbiP/866j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//v6l//2RHEf9NLgD/UjMA/0UnAP+Jbz7/zbiP/865kP/NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/0AMgP/NuI//zbiP/866j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//v6l//2RHEf9MLAD/VDcB/1s+D/+WfU7/zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/0AMgP/NuI//zbiP/866
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//v6l//2RHEf9GJgD/YEMN/7CZ
+        b//Mt47/zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/z8L
+        f//NuI//zbiP/866j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//v6l//2RH
+        Ef9FJQD/YkUP/8OuhP/NuI//zbiP/8y3jv/NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/0AMgP/NuI//zbiP/866j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//vqh+/2JFD/9FJQD/YkUP/72nff/NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/0INgP/NuI//zbiP/866j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//vqh+/11ACf9CIQD/YkUP/72nff/NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/0AMgP/NuI//zbiP/866j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//xrGH/56FV/9mSBz/VzkC/7ulev/NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/0ENf//NuI//zbiP/866
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zrmQ/9nFnf+Yf07/aEwX/76o
+        ff/NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/0kX
+        f//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/04dgP/NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/1Ihgv/NuI//zbiP/9C7kP/PupD/z7qQ/8+6kP/PupD/z7qQ/8+6
+        kP/PupD/z7qQ/8+6kP/PupD/z7qQ/8+6kP/PupD/z7qQ/8+6kP/PupD/z7qQ/8+6kP/PupD/z7qQ/8+6
+        kP/PupD/z7qQ/8+6kP/PupD/zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/2s+if/NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAP///////6C0j///////oLSP//////+gtJ///////6C0////////oLT///////+gtAAA
+        AAAAAKC0AAAAAAAAoLQAAAAAAACgtAAAAAAAAKC0AAAAAAAAoLQAAAAAAACgtAAAAAAAAKC0AAAAAAAA
+        oLQAAAAAAACgtAAAAAAAAKC0AAAAAAAAoLQAAAAAAACgtAAAAAAAAKC0AAAAAAAAoLQAAAAAAACgtAAA
+        AAAAAKC0AAAAAAAAoLQAAAAAAACgtAAAAAAAAKC0AAAAAAAAoLQAAAAAAACgtAAAAAAAAKC0AAAAAAAA
+        oLQAAAAAAACgtAAAAAAAAKC0AAAAAAAAoLQAAAAAAACgtAAAAAAAAKC0AAAAAAAAoLQAAAAAAACgtAAA
+        AAAAAKC0AAAAAAAAoLQAAAAAAACgtAAAAAAAAKC0////////oLT///////+gtP///////6C0////////
+        oLT///////+gtP///////6C0////////oLT///////+gtCgAAAAgAAAAQAAAAAEAIAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADNuI8kAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFU3AP9VNwD/VTcA/1U3
+        AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/zbiP/zcAf/9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3
+        AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3
+        AP/NuI//VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP/NuI//NwB//1U3AP9VNwD/VTcA/1U3
+        AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3
+        AP9VNwD/VTcA/824j/9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/824j/83AH//VTcA/1U3
+        AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/824j/9VNwD/VTcA/1U3
+        AP9VNwD/VTcA/1U3AP9VNwD/zbiP/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/zbiP/zcA
+        f/9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/zbiP/1U3
+        AP9VNwD/VTcA/824j/9VNwD/VTcA/1U3AP/NuI//zbiP/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3
+        AP/NuI//NwB//1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3
+        AP/NuI//zbiP/1U3AP9VNwD/zbiP/1U3AP9VNwD/VTcA/824j//NuI//zbiP/824j/9VNwD/VTcA/1U3
+        AP9VNwD/zbiP/824j/83AH//VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3
+        AP9VNwD/VTcA/824j//NuI//VTcA/1U3AP/NuI//zbiP/1U3AP/NuI//zbiP/824j//NuI//zbiP/1U3
+        AP9VNwD/VTcA/1U3AP/NuI//zbiP/zcAf/9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3
+        AP9VNwD/VTcA/1U3AP9VNwD/zbiP/824j//NuI//VTcA/824j//NuI//VTcA/824j//NuI//zbiP/824
+        j//NuI//VTcA/1U3AP9VNwD/VTcA/824j//NuI//NwB//1U3AP9VNwD/VTcA/824j/9VNwD/VTcA/1U3
+        AP9VNwD/VTcA/1U3AP9VNwD/VTcA/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j/9VNwD/VTcA/1U3AP9VNwD/zbiP/824j/83AH//VTcA/1U3AP9VNwD/zbiP/1U3
+        AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/1U3AP9VNwD/VTcA/1U3AP/NuI//zbiP/zcAf/9VNwD/VTcA/1U3
+        AP/NuI//zbiP/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP/NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//VTcA/1U3AP/NuI//VTcA/824j//NuI//NwB//824
+        j/9VNwD/VTcA/824j//NuI//VTcA/1U3AP/NuI//VTcA/1U3AP9VNwD/VTcA/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//VTcA/824j/9VNwD/zbiP/824
+        j/83AH//zbiP/824j//NuI//zbiP/824j/9VNwD/VTcA/824j/9VNwD/VTcA/1U3AP9VNwD/zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j/9VNwD/zbiP/824
+        j//NuI//zbiP/zcAf//NuI//zbiP/824j//NuI//zbiP/1U3AP/NuI//zbiP/824j/9VNwD/VTcA/1U3
+        AP/NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/1U3
+        AP/NuI//zbiP/824j//NuI//NwB//824j//NuI//zbiP/824j//NuI//VTcA/824j//NuI//zbiP/1U3
+        AP9VNwD/VTcA/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j/83AH//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//VTcA/1U3AP9VNwD/zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/zcAf//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j/9VNwD/VTcA/1U3AP/NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//NwB//824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/1U3AP9VNwD/zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j/83AH//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//VTcA/1U3AP/NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/zcA
+        f//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j/9VNwD/VTcA/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//NwB//824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j/9VNwD/zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j/9CDoD/zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/0kXgf/NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//KtY7/SReB/824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//zbiP/824j/8AAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/////7///////////////wAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAA//////////////////////////8oAAAAEAAAACAAAAABACAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAxqmNCQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABVNwD/c1ck/1U3AP9VNwD/VTcA/5F4SP83AH//VTcA/1U3
+        AP9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP9VNwD/VTcA/5F4SP9VNwD/VTcA/1U3AP+ReEj/NwB//1U3
+        AP9VNwD/VTcA/1U3AP9VNwD/VTcA/5F4SP9VNwD/c1ck/1U3AP/NuI//kXhI/1U3AP9VNwD/r5hr/zcA
+        f/9VNwD/VTcA/1U3AP9VNwD/VTcA/1U3AP/NuI//VTcA/6+Ya/+ReEj/zbiP/824j/9VNwD/VTcA/824
+        j/83AH//VTcA/3NXJP9VNwD/VTcA/1U3AP9zVyT/zbiP/6+Ya//NuI//zbiP/824j//NuI//VTcA/1U3
+        AP/NuI//NwB//1U3AP+vmGv/VTcA/1U3AP9VNwD/kXhI/824j//NuI//zbiP/824j//NuI//zbiP/3NX
+        JP+ReEj/zbiP/zcAf/+ReEj/zbiP/1U3AP+ReEj/VTcA/5F4SP/NuI//zbiP/824j//NuI//zbiP/824
+        j/+ReEj/zbiP/824j/83AH//zbiP/824j/+ReEj/zbiP/1U3AP+ReEj/zbiP/824j//NuI//zbiP/824
+        j//NuI//wKyG/824j//NuI//NwB//824j//NuI//zbiP/824j/9VNwD/kXhI/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/zcAf//NuI//zbiP/824j//NuI//VTcA/824j//NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j/83AH//zbiP/824j//NuI//zbiP/3NXJP/NuI//zbiP/824
+        j//NuI//zbiP/824j//NuI//zbiP/824j//NuI//NwB//824j//NuI//zbiP/824j//NuI//zbiP/824
+        j//NuI//zbiP/wAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        AAAAAAAAAAAAAAAAAAAAAAAAAAAAAH//rEH//6xBAACsQQAArEEAAKxBAACsQQAArEEAAKxBAACsQQAA
+        rEEAAKxBAACsQQAArEHv/6xB//+sQf//rEE=
+</value>
+  </data>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>500, 450</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>AAX Audio Converter</value>
+  </data>
+  <data name="&gt;&gt;clmHdrAlbum.Name" xml:space="preserve">
+    <value>clmHdrAlbum</value>
+  </data>
+  <data name="&gt;&gt;clmHdrAlbum.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmHdrArtist.Name" xml:space="preserve">
+    <value>clmHdrArtist</value>
+  </data>
+  <data name="&gt;&gt;clmHdrArtist.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmHdrSize.Name" xml:space="preserve">
+    <value>clmHdrSize</value>
+  </data>
+  <data name="&gt;&gt;clmHdrSize.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmHdrDuration.Name" xml:space="preserve">
+    <value>clmHdrDuration</value>
+  </data>
+  <data name="&gt;&gt;clmHdrDuration.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmHdrYear.Name" xml:space="preserve">
+    <value>clmHdrYear</value>
+  </data>
+  <data name="&gt;&gt;clmHdrYear.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmHdrNarrator.Name" xml:space="preserve">
+    <value>clmHdrNarrator</value>
+  </data>
+  <data name="&gt;&gt;clmHdrNarrator.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmHdrSampleRate.Name" xml:space="preserve">
+    <value>clmHdrSampleRate</value>
+  </data>
+  <data name="&gt;&gt;clmHdrSampleRate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;clmHdrBitRate.Name" xml:space="preserve">
+    <value>clmHdrBitRate</value>
+  </data>
+  <data name="&gt;&gt;clmHdrBitRate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ColumnHeader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;imageList1.Name" xml:space="preserve">
+    <value>imageList1</value>
+  </data>
+  <data name="&gt;&gt;imageList1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ImageList, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
+    <value>toolTip1</value>
+  </data>
+  <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;tsmiDetails.Name" xml:space="preserve">
+    <value>tsmiDetails</value>
+  </data>
+  <data name="&gt;&gt;tsmiDetails.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>MainForm</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+</root>

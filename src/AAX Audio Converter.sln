@@ -1,0 +1,70 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AaxAudioConverter", "AaxAudioConverter\AaxAudioConverter.csproj", "{D186DE5D-0DEC-4FE8-80BC-9F473E804604}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuxLib", "AuxLib\AuxLib.csproj", "{64C35BCC-BF7A-47BE-89F2-7ABB470BDB0B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuxWinLib", "AuxWinLib\AuxWinLib.csproj", "{D3ED00A5-5855-40F4-AEB8-BB9EEF35B7F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AaxAudioConverterLib", "AaxAudioConverterLib\AaxAudioConverterLib.csproj", "{724C151F-65E8-4108-8CFB-AE2FD4C63033}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuxWin.DialogBox", "AuxWinLib\DialogBox\AuxWin.DialogBox.csproj", "{D8E74EAE-8661-4764-BAEF-E9E138779D85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PropGridLib", "PropGridLib\PropGridLib.csproj", "{7B091DC6-75AA-403C-AD5E-EA3CB6610CD0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuxWin32Lib", "AuxWin32Lib\AuxWin32Lib.csproj", "{66AF7DB4-AA8E-45F5-BB1B-919C5008E6B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InnoSetup", "InnoSetup", "{0C275DDF-DE38-4547-A835-6C121199055A}"
+	ProjectSection(SolutionItems) = preProject
+		InnoSetup\AaxAudioConverter setup.iss = InnoSetup\AaxAudioConverter setup.iss
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D186DE5D-0DEC-4FE8-80BC-9F473E804604}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D186DE5D-0DEC-4FE8-80BC-9F473E804604}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D186DE5D-0DEC-4FE8-80BC-9F473E804604}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D186DE5D-0DEC-4FE8-80BC-9F473E804604}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64C35BCC-BF7A-47BE-89F2-7ABB470BDB0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64C35BCC-BF7A-47BE-89F2-7ABB470BDB0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64C35BCC-BF7A-47BE-89F2-7ABB470BDB0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64C35BCC-BF7A-47BE-89F2-7ABB470BDB0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3ED00A5-5855-40F4-AEB8-BB9EEF35B7F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3ED00A5-5855-40F4-AEB8-BB9EEF35B7F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3ED00A5-5855-40F4-AEB8-BB9EEF35B7F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3ED00A5-5855-40F4-AEB8-BB9EEF35B7F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{724C151F-65E8-4108-8CFB-AE2FD4C63033}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{724C151F-65E8-4108-8CFB-AE2FD4C63033}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{724C151F-65E8-4108-8CFB-AE2FD4C63033}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{724C151F-65E8-4108-8CFB-AE2FD4C63033}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8E74EAE-8661-4764-BAEF-E9E138779D85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8E74EAE-8661-4764-BAEF-E9E138779D85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8E74EAE-8661-4764-BAEF-E9E138779D85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8E74EAE-8661-4764-BAEF-E9E138779D85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B091DC6-75AA-403C-AD5E-EA3CB6610CD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B091DC6-75AA-403C-AD5E-EA3CB6610CD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B091DC6-75AA-403C-AD5E-EA3CB6610CD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B091DC6-75AA-403C-AD5E-EA3CB6610CD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66AF7DB4-AA8E-45F5-BB1B-919C5008E6B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66AF7DB4-AA8E-45F5-BB1B-919C5008E6B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66AF7DB4-AA8E-45F5-BB1B-919C5008E6B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66AF7DB4-AA8E-45F5-BB1B-919C5008E6B0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {15FE3338-B239-4FEE-A6DC-04ED8E87F64C}
+	EndGlobalSection
+EndGlobal

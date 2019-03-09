@@ -1,0 +1,69 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="audiamus.aaxconv.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="NonParallel" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="InputDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="OutputDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FFMpegDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ConvFormat" Type="audiamus.aaxconv.lib.EConvFormat" Scope="User">
+      <Value Profile="(Default)">mp3</Value>
+    </Setting>
+    <Setting Name="ConvMode" Type="audiamus.aaxconv.lib.EConvMode" Scope="User">
+      <Value Profile="(Default)">chapters</Value>
+    </Setting>
+    <Setting Name="TrkDurMins" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="FileNaming" Type="audiamus.aaxconv.lib.EFileNaming" Scope="User">
+      <Value Profile="(Default)">track_book_author</Value>
+    </Setting>
+    <Setting Name="TitleNaming" Type="audiamus.aaxconv.lib.ETitleNaming" Scope="User">
+      <Value Profile="(Default)">track_book</Value>
+    </Setting>
+    <Setting Name="TrackNumbering" Type="audiamus.aaxconv.lib.ETrackNumbering" Scope="User">
+      <Value Profile="(Default)">track</Value>
+    </Setting>
+    <Setting Name="Narrator" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="GenreNaming" Type="audiamus.aaxconv.lib.EGeneralNaming" Scope="User">
+      <Value Profile="(Default)">standard</Value>
+    </Setting>
+    <Setting Name="GenreName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ChapterNaming" Type="audiamus.aaxconv.lib.EGeneralNaming" Scope="User">
+      <Value Profile="(Default)">standard</Value>
+    </Setting>
+    <Setting Name="ChapterName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PartNaming" Type="audiamus.aaxconv.lib.EGeneralNaming" Scope="User">
+      <Value Profile="(Default)">standard</Value>
+    </Setting>
+    <Setting Name="PartName" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="FileAssoc" Type="System.Nullable&lt;System.Boolean&gt;" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="ActivationCode" Type="System.Nullable&lt;System.UInt32&gt;" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Language" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PartNames" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+  </Settings>
+</SettingsFile>

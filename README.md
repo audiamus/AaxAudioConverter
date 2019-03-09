@@ -29,6 +29,19 @@ The application requires .Net Framework 4.7.1 to be installed. On Windows 10 sys
 
 AAX Audio Converter is configured to support high DPI monitors under Windows 10. It will scale properly when the user changes the DPI or scale factor. 
 
+## Download
+
+Windows setup package Version 1.0, English and German, with manuals:
+
+**[AaxAudioConverter-1.0-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.0/AAX.Audio.Converter-1.0-Setup.exe)**
+
+Manuals (included in the setup package):
+
+**[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.0/AaxAudioConverter.pdf)**
+
+**[German](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.0/AaxAudioConverter.de.pdf)**
+
+
 ## Dependencies
 ### Audible account
 AAX Audio Converter needs the user's personal Audible activation code to be able to process his/her Audible audiobooks.

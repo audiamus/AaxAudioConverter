@@ -31,11 +31,11 @@ AAX Audio Converter is configured to support high DPI monitors under Windows 10.
 
 ## Download
 
-Windows setup package Version 1.0, English and German, with manuals:
+Windows setup package version 1.0, English and German, with manuals, plus FFmpeg executable:
 
 **[AaxAudioConverter-1.0-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.0/AaxAudioConverter-1.0-Setup.exe)**
 
-Manuals (included in the setup package):
+Manuals (already included in the setup package):
 
 **[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.0/AaxAudioConverter.pdf)**
 

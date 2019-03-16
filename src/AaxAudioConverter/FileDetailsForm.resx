@@ -121,15 +121,11 @@
   <data name="splitContainerOuter.SplitterDistance" type="System.Int32, mscorlib">
     <value>213</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>492, 476</value>
-  </data>
   <data name="&gt;&gt;pictureBox.Parent" xml:space="preserve">
     <value>splitContainerInner.Panel2</value>
   </data>
-  <data name="pictureBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>242, 213</value>
+  <data name="&gt;&gt;splitContainerInner.Name" xml:space="preserve">
+    <value>splitContainerInner</value>
   </data>
   <data name="textBoxTitle.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -153,6 +149,7 @@
   <data name="richTextBoxAbstract.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="splitContainerInner.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -183,17 +180,14 @@
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>Manual</value>
   </data>
-  <data name="textBoxTitle.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+  <data name="splitContainerOuter.Size" type="System.Drawing.Size, System.Drawing">
+    <value>492, 426</value>
   </data>
   <data name="pictureBox.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
   <data name="&gt;&gt;pictureBox.Type" xml:space="preserve">
     <value>System.Windows.Forms.PictureBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;splitContainerOuter.Panel2.Parent" xml:space="preserve">
-    <value>splitContainerOuter</value>
   </data>
   <data name="&gt;&gt;richTextBoxAbstract.Name" xml:space="preserve">
     <value>richTextBoxAbstract</value>
@@ -228,11 +222,11 @@
   <data name="richTextBoxAbstract.Text" xml:space="preserve">
     <value />
   </data>
-  <data name="&gt;&gt;pictureBox.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;splitContainerOuter.Panel2.Parent" xml:space="preserve">
+    <value>splitContainerOuter</value>
   </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;splitContainerOuter.Panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;splitContainerOuter.Panel2.Name" xml:space="preserve">
     <value>splitContainerOuter.Panel2</value>
@@ -249,8 +243,8 @@
   <data name="richTextBoxAbstract.Size" type="System.Drawing.Size, System.Drawing">
     <value>492, 209</value>
   </data>
-  <data name="&gt;&gt;splitContainerOuter.Panel1.Type" xml:space="preserve">
-    <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;splitContainerInner.Panel1.Parent" xml:space="preserve">
+    <value>splitContainerInner</value>
   </data>
   <data name="pictureBox.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -267,8 +261,14 @@
   <data name="pictureBox.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="&gt;&gt;textBoxTitle.ZOrder" xml:space="preserve">
-    <value>1</value>
+  <data name="&gt;&gt;pictureBox.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;splitContainerOuter.Panel1.Parent" xml:space="preserve">
+    <value>splitContainerOuter</value>
+  </data>
+  <data name="pictureBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>242, 213</value>
   </data>
   <data name="textBoxTitle.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Top</value>
@@ -279,14 +279,14 @@
   <data name="richTextBoxAbstract.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
-  <data name="&gt;&gt;splitContainerInner.Name" xml:space="preserve">
-    <value>splitContainerInner</value>
+  <data name="&gt;&gt;textBoxTitle.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="&gt;&gt;textBoxTitle.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;splitContainerInner.Panel1.Parent" xml:space="preserve">
-    <value>splitContainerInner</value>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>FileDetailsForm</value>
   </data>
   <data name="&gt;&gt;richTextBoxMeta.Type" xml:space="preserve">
     <value>System.Windows.Forms.RichTextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -312,8 +312,8 @@
   <data name="&gt;&gt;splitContainerInner.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="&gt;&gt;splitContainerOuter.Panel1.Parent" xml:space="preserve">
-    <value>splitContainerOuter</value>
+  <data name="textBoxTitle.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>File details</value>
@@ -330,14 +330,14 @@
   <data name="&gt;&gt;splitContainerOuter.Panel2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="splitContainerOuter.Size" type="System.Drawing.Size, System.Drawing">
-    <value>492, 426</value>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>492, 476</value>
   </data>
   <data name="&gt;&gt;splitContainerInner.Panel2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>FileDetailsForm</value>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;splitContainerInner.Panel2.Type" xml:space="preserve">
     <value>System.Windows.Forms.SplitterPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -353,8 +353,5 @@
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
-  </metadata>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>de</value>
   </metadata>
 </root>

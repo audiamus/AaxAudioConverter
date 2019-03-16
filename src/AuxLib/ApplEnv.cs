@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Resources;
+using System.Runtime.InteropServices;
 
 namespace audiamus.aux {
   public static class ApplEnv {
@@ -19,7 +20,9 @@ namespace audiamus.aux {
     public static string AssemblyProduct { get; } = getAttribute<AssemblyProductAttribute> ()?.Product;
     public static string AssemblyCopyright { get; } = getAttribute<AssemblyCopyrightAttribute> ()?.Copyright;
     public static string AssemblyCompany { get; } = getAttribute<AssemblyCompanyAttribute> ()?.Company;
-    public static string NeutralCultureName { get; } = getAttribute<NeutralResourcesLanguageAttribute> ()?.CultureName;  
+    public static string NeutralCultureName { get; } = getAttribute<NeutralResourcesLanguageAttribute> ()?.CultureName;
+
+    public static string AssemblyGuid { get; } = getAttribute<GuidAttribute> ()?.Value;  
 
     public static string ApplName { get; } = EntryAssembly.GetName ().Name;
     public static string ApplDirectory { get; } = Path.GetDirectoryName(EntryAssembly.Location);

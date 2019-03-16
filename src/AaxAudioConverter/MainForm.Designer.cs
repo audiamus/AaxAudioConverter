@@ -368,8 +368,8 @@
       // 
       // lblSaveTo
       // 
-      this.lblSaveTo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
       resources.ApplyResources(this.lblSaveTo, "lblSaveTo");
+      this.lblSaveTo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
       this.lblSaveTo.Name = "lblSaveTo";
       // 
       // contextMenuStrip1

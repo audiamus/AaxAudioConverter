@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using audiamus.aaxconv.lib;
 using audiamus.aaxconv.lib.ex;
@@ -54,6 +55,7 @@ namespace audiamus.aaxconv {
 
     private void initControlsFromSettings () {
       txtBoxCustPart.Text = Settings.PartNames;
+      txtBoxCustTitleChars.Text = Settings.AddnlValTitlePunct;
       ckBoxFileAssoc.Checked = Settings.FileAssoc ?? false;
       var codes = _converter.RegistryActivationCodes?.Select (c => c.ToHexDashString ()).ToArray ();
       if (!(codes is null))
@@ -88,6 +90,27 @@ namespace audiamus.aaxconv {
       Settings.PartNames = txtBoxCustPart.Text.SplitTrim (new char[] {' ', ';', ','}).Combine();
       txtBoxCustPart.Text = Settings.PartNames;
     }
+
+    private static readonly Regex _rgxWord = new Regex (@"([\w\s])", RegexOptions.Compiled);
+
+    private void txtBoxCustTitleChars_TextChanged (object sender, EventArgs e) {
+      string s = txtBoxCustTitleChars.Text;
+      var match = _rgxWord.Match (s);
+      if (match.Success)
+        s = s.Remove (match.Index, 1);
+
+      char[] chars = s.ToCharArray ();
+      chars = chars.Distinct ().ToArray();
+      txtBoxCustTitleChars.Text = new string (chars);
+      txtBoxCustTitleChars.SelectionStart = txtBoxCustTitleChars.Text.Length;
+      txtBoxCustTitleChars.SelectionLength = 0;
+    }
+
+
+    private void txtBoxCustTitleChars_Leave (object sender, EventArgs e) {
+      Settings.AddnlValTitlePunct = txtBoxCustTitleChars.Text;
+    }
+
 
     private void btnUsrActCode_Click (object sender, EventArgs e) {
       new ActivationCodeForm () { Owner = this }.ShowDialog ();

@@ -1,5 +1,5 @@
 #define MyAppSetupName 'AAX Audio Converter'
-#define MyAppVersion '1.0'
+#define MyAppVersion '1.1'
 #define MyProgramExe = 'AaxAudioConverter.exe'
 #define MyCompany = 'audiamus'
 
@@ -14,8 +14,8 @@ AppPublisher={#MyCompany}
 AppPublisherURL=https://github.com/audiamus/AaxAudioConverter
 ;AppSupportURL=http://...
 ;AppUpdatesURL=http://...
-OutputBaseFilename={#MyAppSetupName}-{#MyAppVersion}-Setup
-DefaultGroupName={#MyAppSetupName}
+OutputBaseFilename=AaxAudioConverter-{#MyAppVersion}-Setup
+DefaultGroupName={#MyCompany}
 DefaultDirName={pf}\{#MyCompany}\{#MyAppSetupName}
 UninstallDisplayIcon={app}\{#MyProgramExe}
 OutputDir=.\Setup
@@ -28,6 +28,17 @@ DisableWelcomePage=no
 PrivilegesRequired=admin
 ArchitecturesAllowed=x86 x64
 ArchitecturesInstallIn64BitMode=x64
+
+[Languages]
+Name: en; MessagesFile: "compiler:Default.isl"
+Name: de; MessagesFile: "compiler:languages\German.isl"
+
+[CustomMessages]
+en.MyDocName=Manual
+en.MyDocFile=AaxAudioConverter.pdf
+
+de.MyDocName=Anleitung
+de.MyDocFile=AaxAudioConverter.de.pdf
 
 
 [Tasks]
@@ -42,6 +53,7 @@ Source: "de\*.resources.dll"; DestDir: "{app}\de"
 
 [Icons]
 Name: "{group}\{#MyAppSetupName}"; Filename: "{app}\{#MyProgramExe}"
+Name: "{group}\{#MyAppSetupName} {cm:MyDocName}"; Filename: "{app}\{cm:MyDocFile}"
 Name: "{group}\{cm:UninstallProgram,{#MyAppSetupName}}"; Filename: "{uninstallexe}"
 Name: "{commondesktop}\{#MyAppSetupName}"; Filename: "{app}\{#MyProgramExe}"; Tasks: desktopicon
 

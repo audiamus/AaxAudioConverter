@@ -146,18 +146,21 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACK
-        AgAAAk1TRnQBSQFMAgEBAgEAAcABAAHAAQABEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
-        AwABEAMAAQEBAAEgBgABEP8A/wBsAAMDAQQDPAFmAzMBU/AAAx0BKQFaAV0BWgHKAQABawESAf8BAAFr
-        ARIB/wMjATTnAAEBA0ABcAE4AWIBSAH2AQABawESAf8BAAFrARIB/wEAAWsBEgH/AVIBVAFSAabkAAEw
-        ATEBMAFNAQABawESAf8BAAFrARIB/wEUAWsBKwH8AVoBXwFaAdsBAAFrARIB/wEhAV8BJwH7AxYBHuAA
-        Ax8BLQFOAWcBVgHyAV4BYQFeAdoDJwE7ASECIgExAQABawESAf8BAAFrARIB/wNKAYzkAAMFAQcDAgED
-        CAABVgFZAVYBvgEAAWsBEgH/AU4BXQFOAfADCgEO8AADMAFMAQABawESAf8BAAFrARIB/wNAAXHzAAEB
-        AVkBXQFZAdcBAAFrARIB/wFXAVwBVwHfAwMBBPAAATwBPQE8AWcBAAFrARIB/wEAAWsBEgH/AzUBVvAA
-        AwcBCQFVAVwBVQHqAQABawESAf8DWwHI9AABRgFHAUYBgQEAAWsBEgH/AQABawESAf8DJAE28AADEQEX
+        AgAAAk1TRnQBSQFMAgEBAgEAAcgBAAHIAQABEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        AwABEAMAAQEBAAEgBgABEP8A/wBsAAMDAQQDPAFmAzMBU/AAAx0BKQFaAV0BWgHKAQABagERAf8BAAFq
+        AREB/wMjATTnAAEBA0ABcAE5AWIBSAH2AQABagERAf8BAAFqAREB/wEAAWoBEQH/AVIBVAFSAabkAAEw
+        ATEBMAFNAQABagERAf8BAAFqAREB/wEVAWoBKwH8AVoBXwFaAdsBAAFqAREB/wEhAV8BJwH7AxYBHuAA
+        Ax8BLQFPAWcBVwHyAV4BYQFeAdoDJwE7ASECIgExAQABagERAf8BAAFqAREB/wNKAYzkAAMFAQcDAgED
+        CAABVgFZAVYBvgEAAWoBEQH/AU4BXQFOAfADCgEO8AADMAFMAQABagERAf8BAAFqAREB/wNAAXHzAAEB
+        AVkBXQFZAdcBAAFqAREB/wFXAVwBVwHfAwMBBPAAATwBPQE8AWcBAAFqAREB/wEAAWoBEQH/AzUBVvAA
+        AwcBCQFVAVwBVQHqAQABagERAf8DWwHI9AABRgFHAUYBgQEAAWoBEQH/AQABagERAf8DJAE28AADEQEX
         AU4BXQFOAfABIQFfAScB+wMgAS/0AAMSBBgBIf8AjQABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEA
         AQEFAAGAFwAD/wEABP8EAAT/BAAC/wH8AX8EAAL/AfgBPwQAAv8B4AE/BAAC/wHgAR8EAAL/AeABHwQA
         Av8B8wEPBAAD/wEPBAAD/wEHBAAD/wGHBAAD/wGHBAAD/wHDBAAD/wHDBAAD/wHnBAAE/wQACw==
 </value>
+  </data>
+  <data name="listViewAaxFiles.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnRem.Size" type="System.Drawing.Size, System.Drawing">
@@ -184,6 +187,9 @@ und zu Liste hinzufügen.
   <data name="grpBoxAaxFiles.Text" xml:space="preserve">
     <value>AAX-Dateien</value>
   </data>
+  <data name="grpBoxAaxFiles.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="lblTraclLen.Location" type="System.Drawing.Point, System.Drawing">
     <value>28, 91</value>
   </data>
@@ -192,6 +198,9 @@ und zu Liste hinzufügen.
   </data>
   <data name="lblTraclLen.Text" xml:space="preserve">
     <value>Länge je Stück etwa</value>
+  </data>
+  <data name="lblTraclLen.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="lblDuration.Location" type="System.Drawing.Point, System.Drawing">
     <value>179, 91</value>
@@ -202,8 +211,14 @@ und zu Liste hinzufügen.
   <data name="lblDuration.Text" xml:space="preserve">
     <value>Minuten</value>
   </data>
+  <data name="lblDuration.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="numUpDnTrkLen.Location" type="System.Drawing.Point, System.Drawing">
     <value>138, 88</value>
+  </data>
+  <data name="numUpDnTrkLen.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="radBtnChaptSplit.Size" type="System.Drawing.Size, System.Drawing">
     <value>340, 17</value>
@@ -241,6 +256,9 @@ mit Wiedergabeliste bei mehrteiligen Büchern.</value>
   <data name="grpBoxMode.Text" xml:space="preserve">
     <value>Modus</value>
   </data>
+  <data name="grpBoxMode.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="lblProgress.ToolTip" xml:space="preserve">
     <value>Schrittweiser Fortschritt.
 Anzahl Schritte kann sich während der Bearbeitung erhöhen.
@@ -277,11 +295,17 @@ Momentan bearbeitete Kapitel.
   <data name="btnConvert.ToolTip" xml:space="preserve">
     <value>Konvertierung starten.</value>
   </data>
+  <data name="panelExec.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="radBtnM4a.ToolTip" xml:space="preserve">
     <value>Originäres MP4/AAC Audio kopieren (sehr schnell).</value>
   </data>
   <data name="radBtnMp3.ToolTip" xml:space="preserve">
     <value>Zu MP3 umwandeln.</value>
+  </data>
+  <data name="grpBoxFormat.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="btnSaveTo.Size" type="System.Drawing.Size, System.Drawing">
     <value>85, 23</value>
@@ -294,6 +318,9 @@ Momentan bearbeitete Kapitel.
 Bücher werden nach Autor und Titel sortiert. 
 </value>
   </data>
+  <data name="propGridNaming.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="grpBoxNaming.Text" xml:space="preserve">
     <value>Namensgebung</value>
   </data>
@@ -301,8 +328,23 @@ Bücher werden nach Autor und Titel sortiert.
     <value>Verschiedene Einstellungen zur Namensgebung 
 für Tags, Ordner und Dateien.</value>
   </data>
+  <data name="lblSaveTo.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="grpBoxDest.Text" xml:space="preserve">
     <value>Zielordner</value>
+  </data>
+  <data name="grpBoxDest.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panelSettingsLeft.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tableLayoutSettings.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panelTop.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="tsmiDetails.Size" type="System.Drawing.Size, System.Drawing">
     <value>147, 22</value>
@@ -312,6 +354,9 @@ für Tags, Ordner und Dateien.</value>
   </data>
   <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
     <value>148, 26</value>
+  </data>
+  <data name="contextMenuStrip1.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -568,5 +613,8 @@ für Tags, Ordner und Dateien.</value>
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAH//rEH//6xBAACsQQAArEEAAKxBAACsQQAArEEAAKxBAACsQQAA
         rEEAAKxBAACsQQAArEHv/6xB//+sQf//rEE=
 </value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>

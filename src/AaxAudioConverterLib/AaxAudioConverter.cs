@@ -89,11 +89,11 @@ namespace audiamus.aaxconv.lib {
     const string M4A = TagAndFileNamingHelper.EXT_M4A;
     const string MP3 = TagAndFileNamingHelper.EXT_MP3;
 
-    private readonly Regex _rexPart; // = new Regex (@"^(.*)\s+(\w+)\s+(\d+)$", RegexOptions.Compiled);
-    private static readonly Regex _rexChapter = new Regex (@"^(\w+)\s+", RegexOptions.Compiled);
+    private readonly Regex _rgxPart; // = new Regex (@"^(.*)\s+(\w+)\s+(\d+)$", RegexOptions.Compiled);
+    private static readonly Regex _rgxChapter = new Regex (@"^(\w+)\s+", RegexOptions.Compiled);
 
 
-    private static readonly Regex _rexNonWord = new Regex (@"\W", RegexOptions.Compiled);
+    private static readonly Regex _rgxNonWord = new Regex (@"\W", RegexOptions.Compiled);
     private readonly ActivationCode _activationCode;
     private readonly ISettings _settings;
     private readonly IResources _resources;
@@ -127,7 +127,7 @@ namespace audiamus.aaxconv.lib {
 
       _degreeOfParallelismLimit = new DegreeOfParallelism (settings);
 
-      _rexPart = new Regex (regexPartPattern (), RegexOptions.Compiled | RegexOptions.IgnoreCase);
+      _rgxPart = new Regex (regexPartPattern (), RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
       _activationCode = new ActivationCode (Settings);
 
@@ -221,7 +221,7 @@ namespace audiamus.aaxconv.lib {
       sb.Append (@"^(.*)\s+(");
       int i = 0;
       foreach (string name in partNames) {
-        Match match = _rexNonWord.Match (name);
+        Match match = _rgxNonWord.Match (name);
         if (match.Success)
           continue;
         if (i > 0)
@@ -324,7 +324,7 @@ namespace audiamus.aaxconv.lib {
           continue;
 
         // part of a multipart book?
-        Match match = _rexPart.Match (fi.BookTitle);
+        Match match = _rgxPart.Match (fi.BookTitle);
         if (match.Success) {
           //yes, get non-partial title and part# 
           string sortingtitle = match.Groups[1].Value;
@@ -382,7 +382,7 @@ namespace audiamus.aaxconv.lib {
       // Also retrieve chapters on the fly
       checkActivationAndGetChapters (book);
 
-      book.InitAuthorTitle ();
+      book.InitAuthorTitle (Settings);
 
       preProcessChapters (book);
 
@@ -420,7 +420,7 @@ namespace audiamus.aaxconv.lib {
       }
 
       if (book.ChapterNameStub is null) {
-        var match = _rexChapter.Match (book.Parts?[0].Chapters?[0].Name ?? string.Empty);
+        var match = _rgxChapter.Match (book.Parts?[0].Chapters?[0].Name ?? string.Empty);
         if (match.Success)
           book.ChapterNameStub = match.Groups[1].Value;
       }
@@ -500,8 +500,8 @@ namespace audiamus.aaxconv.lib {
       // Mode chapters with timed tracks
       //   Define author and book title folder
       //   Split into chapters, detect silence per chapter
-      //   Create cut list per chapter
-      //   Transcode per part, per chapter and per cut list item, group by chapter subfolder, several tracks per chapter 
+      //   Create cue sheet per chapter
+      //   Transcode per part, per chapter and per cue sheet item, group by chapter subfolder, several tracks per chapter 
 
       bool succ = prepareTrackFilesSplitChapterMode (book);
       if (!succ)
@@ -544,7 +544,7 @@ namespace audiamus.aaxconv.lib {
       if (outDir is null)
         return false;
 
-      bool succ = silenceAndCutList (book);
+      bool succ = silenceAndCueSheet (book);
       if (!succ)
         return false;
 
@@ -569,7 +569,7 @@ namespace audiamus.aaxconv.lib {
 
     }
 
-    private bool silenceAndCutList (Book book) {
+    private bool silenceAndCueSheet (Book book) {
 
       // silence detection will first split into chapters and then detect silence in each chapter.
       // hence add twice the total number of chapters to track progress.
@@ -582,7 +582,7 @@ namespace audiamus.aaxconv.lib {
       if (!succ)
         return false;
 
-      createCutList (book);
+      createCueSheet (book);
 
       // we now have all the tracks. Add them minus the number of chapters which have alredy been accounted for
       uint totalNumTracks = (uint)book.Parts.Select (p => p.Tracks.Count).Sum ();
@@ -683,10 +683,10 @@ namespace audiamus.aaxconv.lib {
       } catch (OperationCanceledException) { }
     }
 
-    private void createCutList (Book book) {
+    private void createCueSheet (Book book) {
       foreach (var part in book.Parts) {
 
-        // the actual cut point
+        // the actual cue marker
         TimeSpan offset = TimeSpan.FromMilliseconds (100);
 
         // do not trust the settings range check. Enforce track length between 3 and 15 min. 
@@ -929,9 +929,8 @@ namespace audiamus.aaxconv.lib {
     }
 
 
-    private bool updateTags (Book book, Track track) {
-      return TagAndFileNamingHelper.WriteMetaData (Settings, book, track);
-    }
+    private bool updateTags (Book book, Track track) => 
+      TagAndFileNamingHelper.WriteMetaData (Settings, book, track);
 
     private void makePlaylist (Book book) {
       const string EXTM3U = "#EXTM3U";

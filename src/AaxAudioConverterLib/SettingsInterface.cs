@@ -16,7 +16,11 @@
     uint? ActivationCode { get; set; }
   }
 
-  public interface ISettings : INamingSettings, IActivationSettings {
+  public interface ITitlePunctuationSettings {
+    string AddnlValTitlePunct { get; set; }
+  }
+
+  public interface ISettings : INamingSettings, IActivationSettings, ITitlePunctuationSettings {
     bool NonParallel { get; }
     string InputDirectory { get; set; }
     string OutputDirectory { get; set; }

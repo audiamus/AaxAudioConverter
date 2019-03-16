@@ -269,5 +269,17 @@ namespace audiamus.aaxconv.Properties {
                 this["PartNames"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AddnlValTitlePunct {
+            get {
+                return ((string)(this["AddnlValTitlePunct"]));
+            }
+            set {
+                this["AddnlValTitlePunct"] = value;
+            }
+        }
     }
 }

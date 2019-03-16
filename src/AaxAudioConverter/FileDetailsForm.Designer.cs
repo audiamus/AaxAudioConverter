@@ -24,13 +24,12 @@
     /// </summary>
     private void InitializeComponent () {
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileDetailsForm));
-      this.richTextBoxMeta = new System.Windows.Forms.RichTextBox();
-      this.pictureBox = new System.Windows.Forms.PictureBox();
       this.splitContainerOuter = new System.Windows.Forms.SplitContainer();
       this.splitContainerInner = new System.Windows.Forms.SplitContainer();
+      this.richTextBoxMeta = new System.Windows.Forms.RichTextBox();
+      this.pictureBox = new System.Windows.Forms.PictureBox();
       this.richTextBoxAbstract = new System.Windows.Forms.RichTextBox();
       this.textBoxTitle = new System.Windows.Forms.TextBox();
-      ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainerOuter)).BeginInit();
       this.splitContainerOuter.Panel1.SuspendLayout();
       this.splitContainerOuter.Panel2.SuspendLayout();
@@ -39,20 +38,8 @@
       this.splitContainerInner.Panel1.SuspendLayout();
       this.splitContainerInner.Panel2.SuspendLayout();
       this.splitContainerInner.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
       this.SuspendLayout();
-      // 
-      // richTextBoxMeta
-      // 
-      resources.ApplyResources(this.richTextBoxMeta, "richTextBoxMeta");
-      this.richTextBoxMeta.Name = "richTextBoxMeta";
-      this.richTextBoxMeta.ReadOnly = true;
-      // 
-      // pictureBox
-      // 
-      resources.ApplyResources(this.pictureBox, "pictureBox");
-      this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-      this.pictureBox.Name = "pictureBox";
-      this.pictureBox.TabStop = false;
       // 
       // splitContainerOuter
       // 
@@ -84,6 +71,19 @@
       resources.ApplyResources(this.splitContainerInner.Panel2, "splitContainerInner.Panel2");
       this.splitContainerInner.Panel2.Controls.Add(this.pictureBox);
       // 
+      // richTextBoxMeta
+      // 
+      resources.ApplyResources(this.richTextBoxMeta, "richTextBoxMeta");
+      this.richTextBoxMeta.Name = "richTextBoxMeta";
+      this.richTextBoxMeta.ReadOnly = true;
+      // 
+      // pictureBox
+      // 
+      resources.ApplyResources(this.pictureBox, "pictureBox");
+      this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+      this.pictureBox.Name = "pictureBox";
+      this.pictureBox.TabStop = false;
+      // 
       // richTextBoxAbstract
       // 
       resources.ApplyResources(this.richTextBoxAbstract, "richTextBoxAbstract");
@@ -105,7 +105,6 @@
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
       this.KeyPreview = true;
       this.Name = "FileDetailsForm";
-      ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
       this.splitContainerOuter.Panel1.ResumeLayout(false);
       this.splitContainerOuter.Panel2.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.splitContainerOuter)).EndInit();
@@ -114,6 +113,7 @@
       this.splitContainerInner.Panel2.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.splitContainerInner)).EndInit();
       this.splitContainerInner.ResumeLayout(false);
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
 

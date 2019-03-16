@@ -123,13 +123,6 @@
   <data name="btnReset.ToolTip" xml:space="preserve">
     <value>Alle Einstellungen zurück auf Standardwerte setzen.</value>
   </data>
-  <data name="lblLang.Text" xml:space="preserve">
-    <value>Sprache</value>
-  </data>
-  <data name="lblFileAssoc.Text" xml:space="preserve">
-    <value>.aax- und .aa-Dateien mit 
-AaxAudioConverter verknüpfen</value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="lblCustPart.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 114</value>
@@ -162,13 +155,29 @@ Audible Aktivierungscode</value>
   </data>
   <data name="txtBoxCustPart.ToolTip" xml:space="preserve">
     <value>Mehrere Suchwörter erlaubt. 
-Mit Leerzeichen oder Semikolon trennen</value>
+Mit Leerzeichen oder Semikolon trennen.</value>
   </data>
   <data name="lblRegActCode.Text" xml:space="preserve">
     <value>Audible Manager Aktivierungscode(s) </value>
   </data>
   <data name="btnRegActCode.Text" xml:space="preserve">
     <value>Einblenden</value>
+  </data>
+  <data name="lblLang.Text" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
+  <data name="lblFileAssoc.Text" xml:space="preserve">
+    <value>.aax- und .aa-Dateien mit 
+AaxAudioConverter verknüpfen</value>
+  </data>
+  <data name="lblCustTitleChars.Text" xml:space="preserve">
+    <value>Zusätzlich gültige Interpunktions-
+zeichen für gefilterten Buchtitel</value>
+  </data>
+  <data name="txtBoxCustTitleChars.ToolTip" xml:space="preserve">
+    <value>Interpunktionszeichen, die im Buchtitel verbleiben 
+sollen, wenn die anschließende Meta-Information 
+herausgefiltert wird.</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Grundeinstellungen</value>

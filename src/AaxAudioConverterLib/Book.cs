@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using audiamus.aux.ex;
 
@@ -37,16 +39,12 @@ namespace audiamus.aaxconv.lib {
     public string Author { get; private set; }
     public bool IsNewAuthor { get; set; }
     public string OutDirectory { get; set; }
-    public List<BookPart> Parts { get; } = new List<BookPart>();
+    public List<BookPart> Parts { get; } = new List<BookPart> ();
     public EParts PartsType { get; private set; }
 
-    public Book (string sortingtitle) {
-      SortingTitle = sortingtitle;
-    }
+    public Book (string sortingtitle) => SortingTitle = sortingtitle;
 
-    public Book (AaxFileItem fi) : this (fi.BookTitle) {
-      Parts.Add (new BookPart (fi));
-    }
+    public Book (AaxFileItem fi) : this (fi.BookTitle) => Parts.Add (new BookPart (fi));
 
     public void AddPart (AaxFileItem fi, int part = 0) {
       Parts.Add (new BookPart (fi, part));
@@ -116,23 +114,61 @@ namespace audiamus.aaxconv.lib {
       return (Title, chapters, tracks, partNum);
     }
 
-    private static readonly Regex _rexTitle = new Regex (@"^([\w+\s+,]+)\W*", RegexOptions.Compiled);
 
-    public void InitAuthorTitle () {
+    public void InitAuthorTitle (ITitlePunctuationSettings settings) {
       if (Parts?.Count == 0)
         return;
 
+      initRegexTitle (settings);
+
       var fi = Parts[0].AaxFileItem;
 
-      Author = fi.Author.Prune();
+      Author = fi.Author.Prune ();
 
-      Match match = _rexTitle.Match (SortingTitle);
+      Match match = _rgxTitle.Match (SortingTitle);
       string title;
       if (match.Success)
         title = match.Groups[1].Value.Trim ();
       else
         title = SortingTitle;
       Title = title.Prune ();
+    }
+
+    const string RGX_TITLE_1 = @"^([\w+\s+";
+    const string RGX_TITLE_2 = @",'";
+    const string RGX_TITLE_3 = @"]+)\W*";
+    const string ESC_CHARS = @"[\^$.|?*+()";
+
+    private static readonly Regex _rgxTitle0 = new Regex ($@"{RGX_TITLE_1}{RGX_TITLE_2}{RGX_TITLE_3}", RegexOptions.Compiled);
+    private static Regex _rgxTitle;
+    private static readonly Regex _rgxWord = new Regex (@"([\w\s])", RegexOptions.Compiled);
+
+
+    private void initRegexTitle (ITitlePunctuationSettings settings) {
+      if (settings?.AddnlValTitlePunct is null) {
+        _rgxTitle = _rgxTitle0;
+        return;
+      }
+
+      char[] chars0 = RGX_TITLE_2.ToCharArray();
+      char[] chars = settings.AddnlValTitlePunct?.ToCharArray ().Distinct ().Union(chars0).ToArray ();
+
+      string s = new string (chars);
+      while (true) {
+        var match = _rgxWord.Match (s);
+        if (!match.Success)
+          break;
+        s = s.Remove (match.Index, 1);
+      }
+
+      var sb = new StringBuilder ();
+      foreach (char c in s) {
+        if (ESC_CHARS.IndexOf(c) >= 0) 
+          sb.Append ('\\');
+        sb.Append (c);
+      }
+      s = sb.ToString ();
+      _rgxTitle = new Regex ($@"{RGX_TITLE_1}{s}{RGX_TITLE_3}", RegexOptions.Compiled);
 
     }
   }

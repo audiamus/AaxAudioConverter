@@ -179,14 +179,14 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACK
-        AgAAAk1TRnQBSQFMAgEBAgEAAdgBAAHYAQABEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
-        AwABEAMAAQEBAAEgBgABEP8A/wBsAAMDAQQDPAFmAzMBU/AAAx0BKQFaAV0BWgHKAQABbAETAf8BAAFs
-        ARMB/wMjATTnAAEBA0ABcAE3AWIBRwH2AQABbAETAf8BAAFsARMB/wEAAWwBEwH/AVIBVAFSAabkAAEw
-        ATEBMAFNAQABbAETAf8BAAFsARMB/wETAWwBKwH8AVoBXwFaAdsBAAFsARMB/wEhAV8BJwH7AxYBHuAA
-        Ax8BLQFNAWcBVQHyAV4BYQFeAdoDJwE7ASECIgExAQABbAETAf8BAAFsARMB/wNKAYzkAAMFAQcDAgED
-        CAABVgFZAVYBvgEAAWwBEwH/AU4BXQFOAfADCgEO8AADMAFMAQABbAETAf8BAAFsARMB/wNAAXHzAAEB
-        AVkBXQFZAdcBAAFsARMB/wFXAVwBVwHfAwMBBPAAATwBPQE8AWcBAAFsARMB/wEAAWwBEwH/AzUBVvAA
-        AwcBCQFVAVwBVQHqAQABbAETAf8DWwHI9AABRgFHAUYBgQEAAWwBEwH/AQABbAETAf8DJAE28AADEQEX
+        AgAAAk1TRnQBSQFMAgEBAgEAAeQBAAHkAQABEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        AwABEAMAAQEBAAEgBgABEP8A/wBsAAMDAQQDPAFmAzMBU/AAAx0BKQFaAV0BWgHKAQABawESAf8BAAFr
+        ARIB/wMjATTnAAEBA0ABcAE4AWIBSAH2AQABawESAf8BAAFrARIB/wEAAWsBEgH/AVIBVAFSAabkAAEw
+        ATEBMAFNAQABawESAf8BAAFrARIB/wEUAWsBKwH8AVoBXwFaAdsBAAFrARIB/wEhAV8BJwH7AxYBHuAA
+        Ax8BLQFOAWcBVgHyAV4BYQFeAdoDJwE7ASECIgExAQABawESAf8BAAFrARIB/wNKAYzkAAMFAQcDAgED
+        CAABVgFZAVYBvgEAAWsBEgH/AU4BXQFOAfADCgEO8AADMAFMAQABawESAf8BAAFrARIB/wNAAXHzAAEB
+        AVkBXQFZAdcBAAFrARIB/wFXAVwBVwHfAwMBBPAAATwBPQE8AWcBAAFrARIB/wEAAWsBEgH/AzUBVvAA
+        AwcBCQFVAVwBVQHqAQABawESAf8DWwHI9AABRgFHAUYBgQEAAWsBEgH/AQABawESAf8DJAE28AADEQEX
         AU4BXQFOAfABIQFfAScB+wMgAS/0AAMSBBgBIf8AjQABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEA
         AQEFAAGAFwAD/wEABP8EAAT/BAAC/wH8AX8EAAL/AfgBPwQAAv8B4AE/BAAC/wHgAR8EAAL/AeABHwQA
         Av8B8wEPBAAD/wEPBAAD/wEHBAAD/wGHBAAD/wGHBAAD/wHDBAAD/wHDBAAD/wHnBAAE/wQACw==
@@ -851,6 +851,9 @@ Books will be sorted by author and title.</value>
   <data name="tableLayoutSettings.ColumnCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
+  <data name="lblSaveTo.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left, Right</value>
+  </data>
   <data name="lblSaveTo.Location" type="System.Drawing.Point, System.Drawing">
     <value>13, 49</value>
   </data>
@@ -1007,9 +1010,6 @@ Books will be sorted by author and title.</value>
   <data name="&gt;&gt;contextMenuStrip1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ContextMenuStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>de</value>
-  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

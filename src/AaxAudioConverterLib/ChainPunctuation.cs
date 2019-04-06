@@ -1,15 +1,17 @@
 ﻿using audiamus.aux;
 
 namespace audiamus.aaxconv.lib {
-  public class ChainPunctuationDash : ChainPunctuation {
+  public class ChainPunctuationBracket : ChainPunctuation {
     public override string Prefix => "<";
     public override string Suffix => ">";
-    public override string Infix => " - ";
+    public override string[] Infix => null;
   }
 
-  public class ChainPunctuationDot : ChainPunctuation {
-    public override string Prefix => "<";
-    public override string Suffix => ">";
-    public override string Infix => ".";
+  public class ChainPunctuationDash : ChainPunctuationBracket {
+    public override string[] Infix => new[] { " - " };
+  }
+
+  public class ChainPunctuationDot : ChainPunctuationBracket {
+    public override string[] Infix => new[] { "." , "(", ")"};
   }
 }

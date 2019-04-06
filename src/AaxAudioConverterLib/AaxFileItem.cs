@@ -30,6 +30,7 @@ namespace audiamus.aaxconv.lib {
     public uint AvgBitRate { get; internal set; }
     public uint NumChapters { get; set; }
     public bool Converted { get; set; }
+    public CustomTagFileNames CustomNames { get; set; }
 
 
     public AaxFileItem (string path) {

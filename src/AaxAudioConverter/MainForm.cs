@@ -35,6 +35,7 @@ namespace audiamus.aaxconv {
     readonly SystemMenu _systemMenu;
 
     FileDetailsForm _detailsForm;
+    PreviewForm _previewForm;
 
     CancellationTokenSource _cts;
     bool _initDone;
@@ -151,12 +152,11 @@ namespace audiamus.aaxconv {
       initRadionButtons ();
       _pgaNaming.Update ();
       lblSaveTo.SetTextAsPathWithEllipsis (Settings.OutputDirectory ?? string.Empty);
+      _previewForm?.UpdatePreview ();
     }
 
 
-    private void onSysMenuAbout () {
-      new AboutForm () { Owner = this }.ShowDialog ();
-    }
+    private void onSysMenuAbout () => new AboutForm () { Owner = this }.ShowDialog ();
 
     private void onSysMenuBasicSettings () {
       var dlg = new SettingsForm (_converter, _interactionHandler.Interact) { Owner = this };
@@ -363,24 +363,36 @@ namespace audiamus.aaxconv {
     }
 
 
-    private void openFileDetailsForm (AaxFileItem fi) {
-      if (_detailsForm is null) {
-        _detailsForm = new FileDetailsForm { Owner = this, Location = _contextMenuPoint };
-        _detailsForm.FormClosed += detailsForm_FormClosed;
-        _detailsForm.Set (fi);
-        _detailsForm.Show ();
+    private void openFileDetailsForm (AaxFileItem fi) => openNonModalForm (fi, ref _detailsForm, detailsForm_FormClosed);
+
+    private void openPreviewForm (AaxFileItem fi) => openNonModalForm (fi, ref _previewForm, previewForm_FormClosed);
+
+    private void openNonModalForm<F> (AaxFileItem fi, ref F form, FormClosedEventHandler handler) where F: FileItemForm, new() {
+      if (form is null) {
+        form = new F { Owner = this, Location = _contextMenuPoint, Previewer = _converter };
+        form.FormClosed += handler;
+        form.Set (fi);
+        form.Show ();
       } else {
-        _detailsForm.Location = _contextMenuPoint;
-        _detailsForm.Set (fi);
+        //form.Location = _contextMenuPoint;
+        form.Set (fi);
       }
     }
+
+    private AaxFileItem getFocusedFileItem () {
+      var lvi = listViewAaxFiles.FocusedItem;
+      var fi = _fileItems.Where (i => i.ListViewItem == lvi).Select (i => i.FileItem).FirstOrDefault ();
+      return fi;
+    }
+
+
     #endregion Private Methods
 
     #region Event Handlers
 
-    private void detailsForm_FormClosed (object sender, FormClosedEventArgs e) {
-      _detailsForm = null;
-    }
+    private void detailsForm_FormClosed (object sender, FormClosedEventArgs e) => _detailsForm = null;
+
+    private void previewForm_FormClosed (object sender, FormClosedEventArgs e) => _previewForm = null;
 
     private async void btnAddFile_Click (object sender, EventArgs e) {
       OpenFileDialog dlg = new OpenFileDialog {
@@ -475,16 +487,27 @@ namespace audiamus.aaxconv {
     }
 
     private void tsmiDetails_Click (object sender, EventArgs e) {
-      var lvi = listViewAaxFiles.FocusedItem;
-      var fi = _fileItems.Where (i => i.ListViewItem == lvi).Select (i => i.FileItem).FirstOrDefault ();
+      AaxFileItem fi = getFocusedFileItem ();
       if (fi is null)
         return;
 
       openFileDetailsForm (fi);
     }
 
-    private void propGridNaming_PropertyValueChanged (object s, PropertyValueChangedEventArgs e) => enableButtonConvert ();
 
+    private void tsmiPreview_Click (object sender, EventArgs e) {
+      AaxFileItem fi = getFocusedFileItem ();
+      if (fi is null)
+        return;
+
+      openPreviewForm (fi);
+    }
+
+
+    private void propGridNaming_PropertyValueChanged (object s, PropertyValueChangedEventArgs e) {
+      _previewForm?.UpdatePreview ();
+      enableButtonConvert ();
+    }
 
     private void radBtnM4A_CheckedChanged (object sender, EventArgs e) => 
       radioButton (sender, v => Settings.ConvFormat = v, EConvFormat.m4a);
@@ -611,5 +634,6 @@ namespace audiamus.aaxconv {
       enableButtonConvert ();
     }
     #endregion Event Handlers
+
   }
 }

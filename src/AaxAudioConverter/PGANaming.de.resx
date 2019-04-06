@@ -165,16 +165,16 @@
   <data name="ChapterNameDescription" xml:space="preserve">
     <value>Benutzerdefinierter Präfix für "Kapitel"-Ordner.</value>
   </data>
-  <data name="PartNaming" xml:space="preserve">
-    <value>Namensgebung Teil </value>
+  <data name="SeriesTitleLeft" xml:space="preserve">
+    <value>Serientitel vor Doppelpunkt</value>
   </data>
-  <data name="PartNamingDescription" xml:space="preserve">
-    <value>Namensquelle für Ordner vom Teil eines Buches, falls erforderlich. &lt;Quelle&gt;: aus aax-Datei; &lt;Standard&gt;: setzt zu 'Teil'; &lt;Benutzerdefiniert&gt;: eigene Angabe.</value>
+  <data name="SeriesTitleLeftDescription" xml:space="preserve">
+    <value>Für gekürzten Buchtitel, Serientitel wird entfernt: Titel der Serie steht vor Buchtitel, wenn [ja], sonst hinter Buchtitel, immer getrennt durch Doppelpunkt.</value>
   </data>
-  <data name="PartName" xml:space="preserve">
-    <value>Benutzerdefiniertes Teil</value>
+  <data name="LongBookTitle" xml:space="preserve">
+    <value>Langer Buchtitel</value>
   </data>
-  <data name="PartNameDescription" xml:space="preserve">
-    <value>Benutzerdefinierter Präfix für "Teil"-Ordner.</value>
+  <data name="LongBookTitleDescription" xml:space="preserve">
+    <value>Resultierender Buchtitel soll auch den Serientitel enthalten, wenn[ja]. Sonst wird der Serientitel entfernt, ab/bis Doppelpunkt.</value>
   </data>
 </root>

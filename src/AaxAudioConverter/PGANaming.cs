@@ -45,7 +45,7 @@ namespace audiamus.aaxconv {
     }
 
     [PropertyOrder (5)]
-    [TypeConverter (typeof (EnumChainConverterRM<EGeneralNaming, ChainPunctuationDot>))]
+    [TypeConverter (typeof (EnumChainConverterRM<EGeneralNaming, ChainPunctuationBracket>))]
     public EGeneralNaming GenreNaming {
       get => DataSource.GenreNaming;
       set
@@ -62,7 +62,7 @@ namespace audiamus.aaxconv {
     }
 
     [PropertyOrder (7)]
-    [TypeConverter (typeof (EnumChainConverterRM<EGeneralNaming, ChainPunctuationDot>))]
+    [TypeConverter (typeof (EnumChainConverterRM<EGeneralNaming, ChainPunctuationBracket>))]
     public EGeneralNaming ChapterNaming {
       get => DataSource.ChapterNaming;
       set
@@ -79,20 +79,17 @@ namespace audiamus.aaxconv {
     }
 
     [PropertyOrder (9)]
-    [TypeConverter (typeof (EnumChainConverterRM<EGeneralNaming, ChainPunctuationDot>))]
-    public EGeneralNaming PartNaming {
-      get => DataSource.PartNaming;
-      set
-      {
-        DataSource.PartNaming = value;
-        Update ();
-      }
+    [TypeConverter (typeof (BooleanYesNoConverterRM))]
+    public bool SeriesTitleLeft {
+      get => DataSource.SeriesTitleLeft;
+      set => DataSource.SeriesTitleLeft = value;
     }
 
     [PropertyOrder (10)]
-    public string PartName {
-      get => DataSource.PartName;
-      set => DataSource.PartName = value;
+    [TypeConverter (typeof (BooleanYesNoConverterRM))]
+    public bool LongBookTitle {
+      get => DataSource.LongBookTitle;
+      set => DataSource.LongBookTitle = value;
     }
 
     #region Private Properties
@@ -113,7 +110,6 @@ namespace audiamus.aaxconv {
     #region Public Methods
 
     public void Update () {
-      PropertyCommands[nameof (PartName)].ReadOnly = PartNaming != EGeneralNaming.custom;
       PropertyCommands[nameof (ChapterName)].ReadOnly = ChapterNaming != EGeneralNaming.custom;
       PropertyCommands[nameof (GenreName)].ReadOnly = GenreNaming != EGeneralNaming.custom;
       naming ();
@@ -128,8 +124,6 @@ namespace audiamus.aaxconv {
         DataSource.GenreName = ResourceManager.GetStringEx (AUDIOBOOK);
       if (DataSource.ChapterNaming == EGeneralNaming.standard)
         DataSource.ChapterName = ResourceManager.GetStringEx (CHAPTER);
-      if (DataSource.PartNaming == EGeneralNaming.standard)
-        DataSource.PartName = ResourceManager.GetStringEx (PART);
     }
 
     #endregion Private Methods

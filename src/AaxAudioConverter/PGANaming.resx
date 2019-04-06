@@ -165,16 +165,16 @@
   <data name="ChapterNameDescription" xml:space="preserve">
     <value>Custom name prefix for chapter folders.</value>
   </data>
-  <data name="PartNaming" xml:space="preserve">
-    <value>Book part folders name prefix</value>
+  <data name="SeriesTitleLeft" xml:space="preserve">
+    <value>Series title left of colon</value>
   </data>
-  <data name="PartNamingDescription" xml:space="preserve">
-    <value>Source for book part folder name prefix, if needed: &lt;source&gt;: taken from aax source; &lt;standard&gt; sets to 'Part'; &lt;custom&gt; allows custom value.</value>
+  <data name="SeriesTitleLeftDescription" xml:space="preserve">
+    <value>For shortened book title, where series title will be removed: Series title expected ahead of book title, if [yes]. Otherwise behind, always separated by colon.</value>
   </data>
-  <data name="PartName" xml:space="preserve">
-    <value>Custom part</value>
+  <data name="LongBookTitle" xml:space="preserve">
+    <value>Long book title</value>
   </data>
-  <data name="PartNameDescription" xml:space="preserve">
-    <value>Custom name prefix for part folders.</value>
+  <data name="LongBookTitleDescription" xml:space="preserve">
+    <value>Resulting book title shall also include series title, if [yes]. Otherwise, series title will be removed, from/to colon.</value>
   </data>
 </root>

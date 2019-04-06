@@ -3,94 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using audiamus.aaxconv.lib.ex;
-using Microsoft.Win32;
 
 namespace audiamus.aaxconv.lib {
-  public class ActivationCode {
+  interface IActivationCode {
+    IEnumerable<string> ActivationCodes { get; }
+    bool HasActivationCode { get; }
+  }
 
-    const string SOFTWARE = "SOFTWARE";
-    const string WOW6432NODE = "Wow6432Node";
-    const string AUDIBLE = "Audible";
-    const string SWGIDMAP = "SWGIDMAP";
+  class ActivationCode : IActivationCode {
 
-    readonly IEnumerable<string> _registryActivationCodes;
-    readonly IActivationSettings _settings;
+    private List<string> _activationCodes = new List<string> ();
 
-    public IEnumerable<uint> RegistryCodes => _registryActivationCodes?.Select (s => Convert.ToUInt32 (s, 16)).ToList();
-    public IEnumerable<string> ActivationCodes => activationCodes ();
+    public IEnumerable<uint> RegistryCodes => _activationCodes?.Select (s => Convert.ToUInt32 (s, 16)).ToList();
+    public IEnumerable<string> ActivationCodes => _activationCodes;
     public bool HasActivationCode => ActivationCodes?.Count () > 0;
 
-    private IActivationSettings Settings => _settings;
-
     public ActivationCode (IActivationSettings settings) {
-      _settings = settings;
+      if (settings.ActivationCode.HasValue)
+        _activationCodes.Add (settings.ActivationCode.Value.ToHexString ());
 
-      _registryActivationCodes = getBytes ();
-    } 
-
-    private IEnumerable<string> activationCodes () {
-      if (!Settings.ActivationCode.HasValue)
-        return _registryActivationCodes;
-
-      var list = new List<string> { Settings.ActivationCode.Value.ToHexString () };
-      if (_registryActivationCodes is null)
-        return list;
-
-      list = list.Union(_registryActivationCodes).ToList ();
-      return list;
-    }
-
-
-    private static IEnumerable<string> getBytes () {
-      var activationBytes = new List<String> ();
-      var rk = getKey ();
-      if (rk is null)
-        return null;
-      if (rk.GetValueNames ().Length == 0) {
-        rk.Dispose ();
-        rk = getKey (true);
-      }
-      if (rk is null)
-        return null;
-      if (rk.GetValueNames ().Length == 0) {
-        rk.Dispose ();
-        return null;
+      if (!HasActivationCode) {
+        ActivationCodeRegistry registryCodes = new ActivationCodeRegistry ();
+        if (registryCodes.HasActivationCode)
+          _activationCodes = _activationCodes.Union (registryCodes.ActivationCodes).ToList ();
       }
 
-      using (rk) {
-        var valNames = rk.GetValueNames ();
-
-        for (int i = valNames.Length - 1; i >= 0; i--) {
-          bool succ = uint.TryParse (valNames[i], out uint k);
-          if (!succ)
-            continue;
-          if (k > 8)
-            continue;
-          byte[] bytes = rk.GetValue (valNames[i]) as byte[];
-          if (bytes is null || bytes.Length < 4)
-            continue;
-          uint val = BitConverter.ToUInt32 (bytes, 0);
-          if (val == 0xffffffff)
-            continue;
-
-          string hex = val.ToHexString ();
-
-          if (activationBytes.IndexOf (hex) < 0)
-            activationBytes.Add (hex);
-        }
-
-        return activationBytes;
+      if (!HasActivationCode) {
+        ActivationCodeApp appCodes = new ActivationCodeApp ();
+        if (appCodes.HasActivationCode)
+          _activationCodes = _activationCodes.Union (appCodes.ActivationCodes).ToList ();
       }
-    }
 
-    private static RegistryKey getKey (bool wow = false) {
-      RegistryKey hklm = Registry.LocalMachine;
-      string keyPath;
-      if (wow)
-        keyPath = $"{SOFTWARE}\\{WOW6432NODE}\\{AUDIBLE}\\{SWGIDMAP}";
-      else
-        keyPath = $"{SOFTWARE}\\{AUDIBLE}\\{SWGIDMAP}";
-      return hklm.OpenSubKey (keyPath);
     }
   }
 

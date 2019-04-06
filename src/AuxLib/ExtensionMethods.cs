@@ -47,6 +47,8 @@ namespace audiamus.aux.ex {
       return sb.ToString ();
     }
 
+    public static string[] SplitTrim (this string value, char separator) => value.SplitTrim (new[] { separator });
+
     public static string[] SplitTrim (this string value, char[] separators = null) {
       if (string.IsNullOrWhiteSpace (value))
         return new string[0];

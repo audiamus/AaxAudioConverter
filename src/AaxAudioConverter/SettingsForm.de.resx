@@ -124,18 +124,17 @@
     <value>Alle Einstellungen zurück auf Standardwerte setzen.</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="lblCustPart.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 114</value>
+  <data name="btnOK.Location" type="System.Drawing.Point, System.Drawing">
+    <value>379, 15</value>
   </data>
-  <data name="lblCustPart.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 30</value>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>466, 50</value>
   </data>
-  <data name="lblCustPart.Text" xml:space="preserve">
-    <value>Benutzerdefinierte Suchwörter für "Teil"
-im Titel mehrteiliger Bücher</value>
+  <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>466, 298</value>
   </data>
   <data name="lblUsrActCode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 77</value>
+    <value>9, 77</value>
   </data>
   <data name="lblUsrActCode.Size" type="System.Drawing.Size, System.Drawing">
     <value>206, 30</value>
@@ -144,40 +143,144 @@ im Titel mehrteiliger Bücher</value>
     <value>Benutzereingabe für 
 Audible Aktivierungscode</value>
   </data>
+  <data name="lblFfmpegLoc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>28, 7</value>
+  </data>
   <data name="lblFfmpegLoc.Text" xml:space="preserve">
     <value>Pfad zu FFmpeg.exe</value>
+  </data>
+  <data name="btnUsrActCode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>228, 81</value>
   </data>
   <data name="btnUsrActCode.Text" xml:space="preserve">
     <value>Bearbeiten</value>
   </data>
+  <data name="btnFfmpegLoc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>228, 7</value>
+  </data>
   <data name="btnFfmpegLoc.Text" xml:space="preserve">
     <value>Bearbeiten</value>
   </data>
-  <data name="txtBoxCustPart.ToolTip" xml:space="preserve">
-    <value>Mehrere Suchwörter erlaubt. 
-Mit Leerzeichen oder Semikolon trennen.</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lblRegActCode.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Top, Left</value>
+  </data>
+  <data name="lblRegActCode.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="lblRegActCode.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 37</value>
+  </data>
+  <data name="lblRegActCode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>212, 37</value>
   </data>
   <data name="lblRegActCode.Text" xml:space="preserve">
-    <value>Audible Manager Aktivierungscode(s) </value>
+    <value>Audible Manager/App Aktivierungscode(s) </value>
+  </data>
+  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>218, 37</value>
+  </data>
+  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>248, 37</value>
+  </data>
+  <data name="listBoxActCode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>135, 30</value>
   </data>
   <data name="btnRegActCode.Text" xml:space="preserve">
     <value>Einblenden</value>
   </data>
+  <data name="cmBoxLang.Location" type="System.Drawing.Point, System.Drawing">
+    <value>228, 268</value>
+  </data>
+  <data name="cmBoxLang.Size" type="System.Drawing.Size, System.Drawing">
+    <value>226, 21</value>
+  </data>
+  <data name="lblLang.Location" type="System.Drawing.Point, System.Drawing">
+    <value>93, 267</value>
+  </data>
   <data name="lblLang.Text" xml:space="preserve">
     <value>Sprache</value>
+  </data>
+  <data name="ckBoxFileAssoc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>228, 233</value>
+  </data>
+  <data name="lblFileAssoc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>33, 225</value>
   </data>
   <data name="lblFileAssoc.Text" xml:space="preserve">
     <value>.aax- und .aa-Dateien mit 
 AaxAudioConverter verknüpfen</value>
   </data>
+  <data name="lblCustTitleChars.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 188</value>
+  </data>
   <data name="lblCustTitleChars.Text" xml:space="preserve">
     <value>Zusätzlich gültige Interpunktions-
 zeichen für gefilterten Buchtitel</value>
+  </data>
+  <data name="txtBoxCustTitleChars.Location" type="System.Drawing.Point, System.Drawing">
+    <value>228, 193</value>
+  </data>
+  <data name="txtBoxCustTitleChars.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 20</value>
   </data>
   <data name="txtBoxCustTitleChars.ToolTip" xml:space="preserve">
     <value>Interpunktionszeichen, die im Buchtitel verbleiben 
 sollen, wenn die anschließende Meta-Information 
 herausgefiltert wird.</value>
+  </data>
+  <data name="txtBoxCustPart.Location" type="System.Drawing.Point, System.Drawing">
+    <value>228, 156</value>
+  </data>
+  <data name="txtBoxCustPart.Size" type="System.Drawing.Size, System.Drawing">
+    <value>226, 20</value>
+  </data>
+  <data name="txtBoxCustPart.ToolTip" xml:space="preserve">
+    <value>Mehrere Suchwörter erlaubt. 
+Mit Leerzeichen oder Semikolon trennen.</value>
+  </data>
+  <data name="lblCustPart.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 151</value>
+  </data>
+  <data name="lblCustPart.Size" type="System.Drawing.Size, System.Drawing">
+    <value>203, 30</value>
+  </data>
+  <data name="lblCustPart.Text" xml:space="preserve">
+    <value>Benutzerdefinierte Suchwörter für "Teil"
+im Titel mehrteiliger Bücher</value>
+  </data>
+  <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>218, 111</value>
+  </data>
+  <data name="panel3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>248, 37</value>
+  </data>
+  <data name="txtBoxPartName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>136, 8</value>
+  </data>
+  <data name="txtBoxPartName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="txtBoxPartName.ToolTip" xml:space="preserve">
+    <value>Benutzerdefinierter Präfix für "Teil"-Ordner.</value>
+  </data>
+  <data name="cmBoxPartName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 21</value>
+  </data>
+  <data name="cmBoxPartName.ToolTip" xml:space="preserve">
+    <value>Namensquelle für Ordner vom Teil eines Buches, falls erforderlich. 
+&lt;Quelle&gt;: aus aax-Datei; 
+&lt;Standard&gt;: setzt zu 'Teil'; 
+&lt;Benutzerdefiniert&gt;: eigene Angabe.</value>
+  </data>
+  <data name="lblPartName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 114</value>
+  </data>
+  <data name="lblPartName.Text" xml:space="preserve">
+    <value>Präfix für "Teil"-Ordner.</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>466, 348</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Grundeinstellungen</value>

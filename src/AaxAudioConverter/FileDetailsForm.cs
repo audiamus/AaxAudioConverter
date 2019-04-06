@@ -7,14 +7,14 @@ using audiamus.aux.win;
 namespace audiamus.aaxconv {
   using R = Properties.Resources;
 
-  public partial class FileDetailsForm : Form {
+  public partial class FileDetailsForm : FileItemForm {
 
     public FileDetailsForm () {
       InitializeComponent ();
     }
 
 
-    public void Set (AaxFileItem fileItem) {
+    public override void Set (AaxFileItem fileItem) {
       textBoxTitle.Text = fileItem.BookTitle;
 
       var rtfbld = new RtfBuilder ();

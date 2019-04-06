@@ -7,7 +7,7 @@ Convert Audible aax files to mp3 and m4a
 - Converts Audible proprietary .aax files to plain .mp3 or .m4a. 
 - Also offers basic support for older .aa files.
 - Windows application, with all the classic features of the Windows eco-system.
-- Requires activated Audible Manager or personal activation code.
+- Requires activated Audible Manager/App or personal activation code.
 - Processing Modes: 
   - One output file per input file.
   - Multiple output files per input file, divided by chapter.
@@ -31,21 +31,21 @@ AAX Audio Converter is configured to support high DPI monitors under Windows 10.
 
 ## Download
 
-Windows setup package version 1.1, English and German, with manuals, plus FFmpeg executable:
+Windows setup package version 1.2, English and German, with manuals, plus FFmpeg executable:
 
-**[AaxAudioConverter-1.1-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.1/AaxAudioConverter-1.1-Setup.exe)**
+**[AaxAudioConverter-1.2-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.2/AaxAudioConverter-1.2-Setup.exe)**
 
 Manuals (already included in the setup package):
 
-**[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.1/AaxAudioConverter.pdf)**
+**[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.2/AaxAudioConverter.pdf)**
 
-**[German](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.1/AaxAudioConverter.de.pdf)**
+**[German](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.2/AaxAudioConverter.de.pdf)**
 
 
 ## Dependencies
 ### Audible account
 AAX Audio Converter needs the user's personal Audible activation code to be able to process his/her Audible audiobooks.
-The easiest way to obtain the Audible activation code is to install and activate “Audible Manager”. Audible Manager can be downloaded from the Audible website, on the software page. With Audible Manager installed and activated, i.e. associated with the Audible account, AAX Audio Converter should be able to find the activation code automatically.
+The easiest way to obtain the Audible activation code is to install and activate “Audible Manager” or “Audible App”. Audible Manager/App can be downloaded from the Audible website, on the software page. With Audible Manager or App installed and activated, i.e. associated with the Audible account, AAX Audio Converter should be able to find the activation code automatically.
 
 ### FFmpeg
 All audio processing in AAX Audio Converter, including DRM handling, is carried out by [FFmpeg](https://www.ffmpeg.org/). 

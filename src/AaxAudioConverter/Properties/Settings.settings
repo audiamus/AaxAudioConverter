@@ -47,6 +47,12 @@
     <Setting Name="ChapterName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="SeriesTitleLeft" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="LongBookTitle" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
     <Setting Name="PartNaming" Type="audiamus.aaxconv.lib.EGeneralNaming" Scope="User">
       <Value Profile="(Default)">standard</Value>
     </Setting>
@@ -66,6 +72,9 @@
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="AddnlValTitlePunct" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Genres" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

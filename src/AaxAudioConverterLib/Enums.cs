@@ -37,7 +37,8 @@
   //<chapter>.<track>
   public enum ETrackNumbering {
     track,
-    chapter_track
+    chapter_a_track,
+    track_b_chapter_c,
   }
 
   public enum EGeneralNaming {

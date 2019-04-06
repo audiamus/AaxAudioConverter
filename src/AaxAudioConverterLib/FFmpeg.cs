@@ -52,7 +52,7 @@ namespace audiamus.aaxconv.lib {
     //--------------------------------------------------
     #region private fields
 
-    private string _filename;
+    private readonly string _filename;
 
     private readonly object _lockable = new object ();
 

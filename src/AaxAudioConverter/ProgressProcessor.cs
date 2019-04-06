@@ -199,7 +199,7 @@ namespace audiamus.aaxconv {
 
       private uint _maximum; 
       private uint _value;
-      private uint M = 1;
+      private readonly uint M = 1;
 
       public uint Maximum => _maximum / M;
       public uint Value => Math.Min (_value / M + 1, Maximum);

@@ -14,9 +14,9 @@ namespace audiamus.aux {
     where TEnum : struct, Enum 
     where TPunct : class, IChainPunctuation, new() 
   {
-    const char USCORE = '_';
+    //const char USCORE = '_';
     readonly TEnum[] _values;
-    readonly IChainPunctuation _punct;
+    //readonly IChainPunctuation _punct;
 
     private ResourceManager _resourceManager;
 
@@ -32,7 +32,7 @@ namespace audiamus.aux {
     Dictionary<string, TEnum> _reverseLookup;
 
     public EnumChainConverter () {
-      _punct = Singleton<TPunct>.Instance;
+      //_punct = Singleton<TPunct>.Instance;
       _values = GetValues<TEnum> ().ToArray();
     }
 
@@ -84,19 +84,42 @@ namespace audiamus.aux {
 
     }
 
-    private string toDisplayString (TEnum value) {
-      string sval = value.ToString ();
-      string[] parts = sval.Split (USCORE);
-      for (int i = 0; i < parts.Length; i++)
-        parts[i] = _punct.Prefix + ResourceManager.GetStringEx (parts[i]) + _punct.Suffix;
-      StringBuilder sb = new StringBuilder ();
-      foreach (string s in parts) {
-        if (sb.Length > 0)
-          sb.Append (_punct.Infix);
-        sb.Append (s);
-      }
-      return sb.ToString ();
-    }
+    //static readonly byte __a = Convert.ToByte ('a');
+
+    private string toDisplayString (TEnum value) => value.ToDisplayString<TEnum, TPunct> (ResourceManager);
+
+    //private string toDisplayString (TEnum value) {
+    //  string sval = value.ToString ();
+    //  string[] parts = sval.Split (USCORE);
+
+    //  bool noSubstitutes = parts.Select (s => s.Length).Min () > 1;
+    //  StringBuilder sb = new StringBuilder ();
+    //  if (noSubstitutes) {
+    //    for (int i = 0; i < parts.Length; i++)
+    //      parts[i] = _punct.Prefix + ResourceManager.GetStringEx (parts[i]) + _punct.Suffix;
+    //    foreach (string s in parts) {
+    //      if (sb.Length > 0)
+    //        sb.Append (_punct.Infix?[0]);
+    //      sb.Append (s);
+    //    }
+    //  } else {
+    //    for (int i = 0; i < parts.Length; i++) {
+    //      if (parts[i].Length > 1)
+    //        parts[i] = _punct.Prefix + ResourceManager.GetStringEx (parts[i]) + _punct.Suffix;
+    //      else {
+    //        byte x = Convert.ToByte (parts[i][0]);
+    //        try {
+    //          parts[i] = _punct.Infix?[x - __a];
+    //        } catch (IndexOutOfRangeException) {
+    //          parts[i] = string.Empty;
+    //        }
+    //      }
+    //    }
+    //    foreach (string s in parts)
+    //      sb.Append (s);
+    //  }
+    //  return sb.ToString ();
+    //}
 
     private void initReverseLookup () {
       _reverseLookup = new Dictionary<string, TEnum> ();

@@ -12,7 +12,7 @@ using audiamus.aux.ex;
 using static audiamus.aux.ApplEnv;
 
 namespace audiamus.aaxconv.lib {
-  public class AaxAudioConverter : IDisposable {
+  public class AaxAudioConverter : IPreviewTitle, IDisposable {
     class DegreeOfParallelism {
 
       private readonly ISettings _settings;
@@ -89,6 +89,8 @@ namespace audiamus.aaxconv.lib {
     const string M4A = TagAndFileNamingHelper.EXT_M4A;
     const string MP3 = TagAndFileNamingHelper.EXT_MP3;
 
+    const string UNC = @"\\?\";
+
     private readonly Regex _rgxPart; // = new Regex (@"^(.*)\s+(\w+)\s+(\d+)$", RegexOptions.Compiled);
     private static readonly Regex _rgxChapter = new Regex (@"^(\w+)\s+", RegexOptions.Compiled);
 
@@ -106,6 +108,7 @@ namespace audiamus.aaxconv.lib {
 
     public IEnumerable<uint> RegistryActivationCodes => _activationCode.RegistryCodes;
     public bool HasActivationCode => _activationCode.HasActivationCode;
+    public ISettings Settings => _settings;
 
     #endregion Public Properties
     #region Private Properties
@@ -115,8 +118,10 @@ namespace audiamus.aaxconv.lib {
     private ParallelOptions DefaultParallelOptions { get; set; }
     private DegreeOfParallelism DegreeOfParallelismLimit => _degreeOfParallelismLimit;
     private int MaxDegreeOfParallelism => Settings.NonParallel ? 1 : Environment.ProcessorCount;
-    private ISettings Settings => _settings;
     private IResources Resources => _resources;
+
+    // support long path names
+    private static string TempDirectoryLong { get; } = UNC + TempDirectory;
 
     #endregion Private Properties
     #region Public Constructors
@@ -198,6 +203,23 @@ namespace audiamus.aaxconv.lib {
       return succ;
     }
 
+
+    public (string tag, string file) TitlePreview (AaxFileItem fileItem) {
+      var (match, sortingTitle, partNameStub, part) = parseTitleForPart (fileItem.BookTitle);
+      Book book = null;
+      if (match) {
+        book = new Book (sortingTitle);
+        book.AddPart (fileItem, part);
+      } else
+        book = new Book (fileItem);
+      book.InitAuthorTitle (Settings);
+      return (book.TagCaption.Title, book.FileCaption.Title);
+    }
+
+    public string PruneTitle (string title) => Book.PruneTitle (title);
+
+    public string GetGenre (AaxFileItem fileItem) => TagAndFileNamingHelper.GetGenre (Settings, fileItem);
+
     #endregion Public Methods
     #region Private Methods
 
@@ -207,8 +229,9 @@ namespace audiamus.aaxconv.lib {
     private string regexPartPattern () {
       // @"^(.*)\s+(\w+)\s+(\d+)$";
 
-      var partNames = new List<string> ();
-      partNames.Add (TagAndFileNamingHelper.PART);
+      var partNames = new List<string> {
+        TagAndFileNamingHelper.PART
+      };
       string pn = Settings.PartName;
       if (!string.IsNullOrEmpty (pn))
         partNames.Add (pn);
@@ -218,7 +241,7 @@ namespace audiamus.aaxconv.lib {
       partNames = partNames.Select (n => n.ToLowerInvariant ()).Distinct ().ToList ();
 
       var sb = new StringBuilder ();
-      sb.Append (@"^(.*)\s+(");
+      sb.Append (@"^(.*)\s+((");
       int i = 0;
       foreach (string name in partNames) {
         Match match = _rgxNonWord.Match (name);
@@ -230,7 +253,7 @@ namespace audiamus.aaxconv.lib {
         i++;
       }
 
-      sb.Append (@")\s+(\d+)");
+      sb.Append (@")\s+(\d+))");
 
       return sb.ToString ();
     }
@@ -324,11 +347,11 @@ namespace audiamus.aaxconv.lib {
           continue;
 
         // part of a multipart book?
-        Match match = _rgxPart.Match (fi.BookTitle);
-        if (match.Success) {
+        var mpb = parseTitleForPart (fi.BookTitle);
+        if (mpb.match) {
           //yes, get non-partial title and part# 
-          string sortingtitle = match.Groups[1].Value;
-          int.TryParse (match.Groups[3].Value, out int part);
+          string sortingtitle = mpb.sortingTitle;
+          int part = mpb.part;
 
           // no previous book or different title?
           if (book is null || sortingtitle != book.SortingTitle) {
@@ -336,7 +359,7 @@ namespace audiamus.aaxconv.lib {
             if (book != null)
               books.Add (book);
             // new book, save part name stub
-            book = new Book (sortingtitle) { PartNameStub = match.Groups[2].Value };
+            book = new Book (sortingtitle) { PartNameStub = mpb.partNameStub };
           }
           // same book
           book.AddPart (fi, part);
@@ -356,6 +379,22 @@ namespace audiamus.aaxconv.lib {
         books.Add (book);
 
       convertBooksParallel (books);
+    }
+
+    private (bool match, string sortingTitle, string partNameStub, int part) parseTitleForPart (string bookTitle) {
+      Match match = _rgxPart.Match (bookTitle);
+      if (!match.Success)
+        return (false, null, null, 0);
+
+      string partNameStub = match.Groups[3].Value;
+      int.TryParse (match.Groups[4].Value, out int part);
+
+      //yes, get non-partial title by removing "part #"
+      string sortingTitle = bookTitle.Remove (match.Groups[2].Index, match.Groups[2].Length);
+      sortingTitle = sortingTitle.Replace ("  ", " ");
+      sortingTitle = sortingTitle.Replace (" :", ":");
+
+      return (true, sortingTitle, partNameStub, part);
     }
 
     private void convertBooksParallel (IEnumerable<Book> books) {
@@ -601,11 +640,11 @@ namespace audiamus.aaxconv.lib {
       using (new ResourceGuard (f => Callbacks.Progress (
         new ProgressMessage {
           Info = f ?
-            ProgressInfo.ProgressInfoBook (book.Title, EProgressPhase.silence) :
-            ProgressInfo.ProgressInfoBookCancel (book.Title)
+            ProgressInfo.ProgressInfoBook (book.TitleTag, EProgressPhase.silence) :
+            ProgressInfo.ProgressInfoBookCancel (book.TitleTag)
         }))) {
 
-        string filestub = book.Author + " - " + book.Title;
+        string filestub = book.AuthorFile + " - " + book.TitleFile;
 
         // always serial
         foreach (var part in book.Parts) {
@@ -642,12 +681,12 @@ namespace audiamus.aaxconv.lib {
           using (new ResourceGuard (f => Callbacks.Progress (
             new ProgressMessage {
               Info = f ?
-              ProgressInfo.ProgressInfoChapter (book.Title, ch) :
-              ProgressInfo.ProgressInfoChapterCancel (book.Title, ch)
+              ProgressInfo.ProgressInfoChapter (book.TitleTag, ch) :
+              ProgressInfo.ProgressInfoChapterCancel (book.TitleTag, ch)
             }))) {
 
             string filename = $"{filestub} - {part.PartNumber}.{i}{ext}";
-            chapter.TmpFileName = Path.Combine (TempDirectory, filename);
+            chapter.TmpFileName = Path.Combine (TempDirectoryLong, filename);
 
             // Extract chapter to temp file
             using (var threadProg = new ThreadProgress (Callbacks.Progress)) {
@@ -806,8 +845,8 @@ namespace audiamus.aaxconv.lib {
       using (new ResourceGuard (f => Callbacks.Progress (
         new ProgressMessage {
           Info = f ?
-            ProgressInfo.ProgressInfoBook (book.Title, EProgressPhase.transcoding) :
-            ProgressInfo.ProgressInfoBookCancel (book.Title)
+            ProgressInfo.ProgressInfoBook (book.TitleTag, EProgressPhase.transcoding) :
+            ProgressInfo.ProgressInfoBookCancel (book.TitleTag)
         }))) {
 
         // by chapter
@@ -829,8 +868,8 @@ namespace audiamus.aaxconv.lib {
           using (new ResourceGuard (f => Callbacks.Progress (
             new ProgressMessage {
               Info = f ?
-                ProgressInfo.ProgressInfoPart (book.Title, partNum) :
-                ProgressInfo.ProgressInfoPartCancel (book.Title, partNum)
+                ProgressInfo.ProgressInfoPart (book.TitleTag, partNum) :
+                ProgressInfo.ProgressInfoPartCancel (book.TitleTag, partNum)
             }))) {
 
             // update counters. Number of tracks is known
@@ -865,8 +904,8 @@ namespace audiamus.aaxconv.lib {
           using (new ResourceGuard (f => Callbacks.Progress (
             new ProgressMessage {
               Info = f ?
-                ProgressInfo.ProgressInfoChapter (book.Title, chapter.ChapterNumber) :
-                ProgressInfo.ProgressInfoChapterCancel (book.Title, chapter.ChapterNumber)
+                ProgressInfo.ProgressInfoChapter (book.TitleTag, chapter.ChapterNumber) :
+                ProgressInfo.ProgressInfoChapterCancel (book.TitleTag, chapter.ChapterNumber)
             }))) {
 
             transcodeTracksParallel (book, part.Part, chapter);
@@ -944,35 +983,40 @@ namespace audiamus.aaxconv.lib {
         return; // no playlist for single file
 
 
-      string filename = $"{book.Author} - {book.Title}.m3u";
-      string path = Path.Combine (book.OutDirectory, filename);
-      using (var wr = new StreamWriter (new FileStream (path, FileMode.Create, FileAccess.Write))) {
-        wr.WriteLine (EXTM3U);
-        foreach (var part in book.Parts) {
-          if (part.Tracks is null)
-            continue;
-
-          foreach (var track in part.Tracks) {
-            bool hasDir = track.FileName.StartsWith (book.OutDirectory);
-            if (!hasDir)
+      string filename = $"{book.AuthorFile} - {book.TitleFile}.m3u";
+      string path = Path.Combine (book.OutDirectoryLong, filename);
+      try {
+        using (var wr = new StreamWriter (new FileStream (path, FileMode.Create, FileAccess.Write))) {
+          wr.WriteLine (EXTM3U);
+          foreach (var part in book.Parts) {
+            if (part.Tracks is null)
               continue;
-            string subpath = track.FileName.Substring (book.OutDirectory.Length + 1);
-            string title = track.Title ?? Path.GetFileNameWithoutExtension (subpath);
-            int duration = (int)track.Time.Duration.TotalSeconds;
 
-            wr.WriteLine ($"{EXTINF}:{duration}, {title}");
-            wr.WriteLine (subpath);
+            foreach (var track in part.Tracks) {
+              bool hasDir = track.FileName.StartsWith (book.OutDirectoryLong);
+              if (!hasDir)
+                continue;
+              string subpath = track.FileName.Substring (book.OutDirectoryLong.Length + 1);
+              string title = track.Title ?? Path.GetFileNameWithoutExtension (subpath);
+              int duration = (int)track.Time.Duration.TotalSeconds;
 
+              wr.WriteLine ($"{EXTINF}:{duration}, {title}");
+              wr.WriteLine (subpath);
+
+            }
           }
+          wr.WriteLine ();
         }
-        wr.WriteLine ();
+      } catch (Exception exc) {
+        exceptionCallback (exc);
+        Callbacks.Cancel ();
       }
     }
 
     private void deleteOutDirectory (Book book) {
       try {
-        DirectoryInfo dia = Directory.GetParent (book.OutDirectory);
-        DirectoryInfo dib = new DirectoryInfo (book.OutDirectory);
+        DirectoryInfo dia = Directory.GetParent (book.OutDirectoryLong);
+        DirectoryInfo dib = new DirectoryInfo (book.OutDirectoryLong);
         dib.Delete (true);
 
         if (book.IsNewAuthor) {
@@ -989,7 +1033,7 @@ namespace audiamus.aaxconv.lib {
 
     private void cleanTempDirectory () {
       try {
-        DirectoryInfo di = new DirectoryInfo (TempDirectory);
+        DirectoryInfo di = new DirectoryInfo (TempDirectoryLong);
         di.Clear ();
       } catch (Exception exc) {
         exceptionCallback (exc);
@@ -998,65 +1042,71 @@ namespace audiamus.aaxconv.lib {
 
     private string initDirectory (Book book) {
 
-      string rootDir = Settings.OutputDirectory;
-      string outDirAuthor = Path.Combine (
-        rootDir,
-        book.Author
+      // support long path names
+      string rootDirLong = UNC + Settings.OutputDirectory;
+      string outDirAuthorLong = Path.Combine (
+        rootDirLong,
+        book.AuthorFile
       );
 
-      string outDir = Path.Combine (
-        outDirAuthor,
-        book.Title
+      string outDirLong = Path.Combine (
+        outDirAuthorLong,
+        book.TitleFile
       );
 
       try {
-        if (!Directory.Exists (outDirAuthor))
+        if (!Directory.Exists (outDirAuthorLong))
           book.IsNewAuthor = true;
 
         bool newFolder = false;
-        if (Directory.Exists (outDir)) {
-          int cnt = Directory.GetDirectories (outDir).Length;
-          cnt += Directory.GetFiles (outDir).Length;
+        if (Directory.Exists (outDirLong)) {
+          int cnt = Directory.GetDirectories (outDirLong).Length;
+          cnt += Directory.GetFiles (outDirLong).Length;
           if (cnt > 0) {
-            bool? result = directoryCreationCallback (outDir);
+            string outDir = outDirLong;
+            int idx = outDir.IndexOf (UNC);
+            if (idx == 0)
+              outDir = outDir.Substring (UNC.Length); 
+
+            bool? result = directoryCreationCallback (Path.GetFullPath (outDir));
             if (!result.HasValue)
               return null;
             newFolder = !result.Value;
           }
         }
 
-        string dirtitle = book.Title;
+        string dirtitle = book.TitleFile;
         if (newFolder) {
           int n = 2;
           while (true) {
-            dirtitle = $"{book.Title} ({n})";
-            outDir = Path.Combine (
-              rootDir,
-              book.Author,
+            dirtitle = $"{book.TitleFile} ({n})";
+            outDirLong = Path.Combine (
+              rootDirLong,
+              book.AuthorFile,
               dirtitle
             );
-            if (!Directory.Exists (outDir))
+            if (!Directory.Exists (outDirLong))
               break;
             n++;
           }
         }
 
-        book.OutDirectory = outDir;
+        book.OutDirectoryLong = outDirLong;
 
-        Directory.CreateDirectory (outDir);
-        DirectoryInfo di = new DirectoryInfo (outDir);
+        Directory.CreateDirectory (outDirLong);
+        DirectoryInfo di = new DirectoryInfo (outDirLong);
         di.Clear ();
       } catch (Exception exc) {
         exceptionCallback (exc);
         return null;
       }
 
-      return outDir;
+      return outDirLong;
     }
 
     private void initTempDirectory () {
       try {
-        Directory.CreateDirectory (TempDirectory);
+        Directory.CreateDirectory (TempDirectoryLong);
         cleanTempDirectory ();
       } catch (Exception exc) {
         exceptionCallback (exc);

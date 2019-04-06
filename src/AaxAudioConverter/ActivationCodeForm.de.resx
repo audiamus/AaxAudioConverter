@@ -120,17 +120,32 @@
   <data name="btnCancel.Text" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 230</value>
+  </data>
+  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 197</value>
+  </data>
+  <data name="lblInfo.Size" type="System.Drawing.Size, System.Drawing">
+    <value>270, 163</value>
+  </data>
   <data name="lblInfo.Text" xml:space="preserve">
-    <value>Der einfachste Weg, den Audible-Aktivierungscode zu erhalten, ist die Installation und Aktivierung von „Audible Manager“. Audible Manager kann von der Audible-Webseite unter Software heruntergeladen werden. Nach der Installation und Aktivierung von Audible Manager, d.h. der Verknüpfung mit dem eigenen Audible-Konto, sollte AaxAudioConverter den Aktivierungscode automatisch finden. 
+    <value>Der einfachste Weg, den Audible-Aktivierungscode zu erhalten, ist die Installation und Aktivierung von „Audible Manager“, oder, unter Windows 10, der "Audible App". Audible Manager bzw. App können von der Audible-Webseite unter Software heruntergeladen werden. Nach der Installation und Aktivierung von Audible Manager/App, d.h. der Verknüpfung mit dem eigenen Audible-Konto, sollte AaxAudioConverter den Aktivierungscode automatisch finden. 
 
 Falls bekannt, kann der Aktivierungscode hier auch manuell eingegeben werden.</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="lblFormat.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 181</value>
+  </data>
   <data name="lblFormat.Size" type="System.Drawing.Size, System.Drawing">
     <value>165, 13</value>
   </data>
   <data name="lblFormat.Text" xml:space="preserve">
     <value>Format: 8 hex-Zeichen xx-xx-xx-xx</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>295, 282</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Audible-Aktivierungscode</value>

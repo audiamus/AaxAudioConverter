@@ -232,7 +232,7 @@
     <value>2</value>
   </data>
   <data name="lblInfo.Text" xml:space="preserve">
-    <value>The easiest way to obtain the Audible activation code is to install and activate “Audible Manager”. Audible Manager can be downloaded from the Audible website on the software page. With Audible Manager installed and activated, i.e. associated with your Audible account, AaxAudioConverter should be able to find your activation code automatically.
+    <value>The easiest way to obtain the Audible activation code is to install and activate “Audible Manager” or – with Windows 10 – the "Audible App". Audible Manager and App can be downloaded from the Audible website on the software page. With Audible Manager/App installed and activated, i.e. associated with your Audible account, AaxAudioConverter should be able to find your activation code automatically.
 
 You can also enter your activation code manually here, if you know it. 
 </value>

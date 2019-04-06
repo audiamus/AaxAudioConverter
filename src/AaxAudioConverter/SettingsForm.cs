@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -15,22 +16,26 @@ namespace audiamus.aaxconv {
 
   partial class SettingsForm : Form {
 
-    readonly ISettings _settings = Properties.Settings.Default;
-    readonly AaxAudioConverter _converter;
-    readonly Func<InteractionMessage, bool?> _callback;
+    private readonly ISettings _settings = Properties.Settings.Default;
+    private readonly AaxAudioConverter _converter;
+    private readonly Func<InteractionMessage, bool?> _callback;
+    private bool _flag;
 
     public bool SettingsReset { get; private set; }
 
     private ISettings Settings => _settings;
 
     public SettingsForm (AaxAudioConverter converter, Func<InteractionMessage, bool?> callback) {
-      InitializeComponent ();
+      using (new ResourceGuard (x => _flag = x))
+        InitializeComponent ();
 
       _converter = converter;
       _callback = callback;
 
+      initPartNaming ();
       initControlsFromSettings ();
     }
+
 
     protected override void OnLoad (EventArgs e) {
       base.OnLoad (e);
@@ -53,10 +58,24 @@ namespace audiamus.aaxconv {
         base.OnKeyDown (e);
     }
 
+    private void initPartNaming () {
+      var rm = this.GetDefaultResourceManager ();
+      var enums = EnumUtil.GetValues<EGeneralNaming> ();
+      var data = enums.Select (e => e.ToDisplayString<EGeneralNaming, ChainPunctuationBracket> (rm)).ToArray ();
+      using (new ResourceGuard (x => _flag = x))
+        cmBoxPartName.DataSource = data;
+      txtBoxPartName.DataBindings.Add (nameof (txtBoxPartName.Text), Settings, nameof (Settings.PartName));
+    }
+
+
     private void initControlsFromSettings () {
       txtBoxCustPart.Text = Settings.PartNames;
       txtBoxCustTitleChars.Text = Settings.AddnlValTitlePunct;
       ckBoxFileAssoc.Checked = Settings.FileAssoc ?? false;
+      using (new ResourceGuard (x => _flag = x))
+        cmBoxPartName.SelectedIndex = (int)Settings.PartNaming;
+      txtBoxPartName.Enabled = Settings.PartNaming == EGeneralNaming.custom;
+
       var codes = _converter.RegistryActivationCodes?.Select (c => c.ToHexDashString ()).ToArray ();
       if (!(codes is null))
         listBoxActCode.Items.AddRange (codes);
@@ -85,15 +104,18 @@ namespace audiamus.aaxconv {
         Clipboard.SetData (DataFormats.Text, sb.ToString ());
       } catch (Exception) { }
     }
-
+       
     private void txtBoxCustPart_Leave (object sender, EventArgs e) {
       Settings.PartNames = txtBoxCustPart.Text.SplitTrim (new char[] {' ', ';', ','}).Combine();
       txtBoxCustPart.Text = Settings.PartNames;
     }
 
-    private static readonly Regex _rgxWord = new Regex (@"([\w\s])", RegexOptions.Compiled);
+    private static readonly Regex _rgxWord = new Regex (@"[\w\s]", RegexOptions.Compiled);
 
     private void txtBoxCustTitleChars_TextChanged (object sender, EventArgs e) {
+      if (_flag)
+        return;
+
       string s = txtBoxCustTitleChars.Text;
       var match = _rgxWord.Match (s);
       if (match.Success)
@@ -101,7 +123,8 @@ namespace audiamus.aaxconv {
 
       char[] chars = s.ToCharArray ();
       chars = chars.Distinct ().ToArray();
-      txtBoxCustTitleChars.Text = new string (chars);
+      using (new ResourceGuard (x => _flag = x)) 
+        txtBoxCustTitleChars.Text = new string (chars);
       txtBoxCustTitleChars.SelectionStart = txtBoxCustTitleChars.Text.Length;
       txtBoxCustTitleChars.SelectionLength = 0;
     }
@@ -155,10 +178,20 @@ namespace audiamus.aaxconv {
             MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
           return;
 
-        Application.Restart ();
+        try {
+          Application.Restart ();
+        } catch (Exception) { }
+
         Environment.Exit (0);
       }
 
+    }
+
+    private void cmBoxPartName_SelectedIndexChanged (object sender, EventArgs e) {
+      if (_flag)
+        return;
+      Settings.PartNaming = (EGeneralNaming)cmBoxPartName.SelectedIndex;
+      txtBoxPartName.Enabled = Settings.PartNaming == EGeneralNaming.custom;
     }
   }
 }

@@ -1,5 +1,5 @@
 ﻿namespace audiamus.aaxconv.lib {
-  public interface INamingSettings {
+  public interface INamingSettings : ITitleNamingSettings {
     EFileNaming FileNaming { get; set; }
     ETitleNaming TitleNaming { get; set; }
     ETrackNumbering TrackNumbering { get; set; }
@@ -8,6 +8,9 @@
     string GenreName { get; set; }
     EGeneralNaming ChapterNaming { get; set; }
     string ChapterName { get; set; }
+  }
+
+  public interface INamingSettingsEx : INamingSettings {
     EGeneralNaming PartNaming { get; set; }
     string PartName { get; set; }
   }
@@ -16,11 +19,17 @@
     uint? ActivationCode { get; set; }
   }
 
-  public interface ITitlePunctuationSettings {
+  public interface ITitleNamingSettings {
+    bool SeriesTitleLeft { get; set; }
+    bool LongBookTitle { get; set; }
+  }
+
+
+  public interface ITitleSettingsEx : ITitleNamingSettings {
     string AddnlValTitlePunct { get; set; }
   }
 
-  public interface ISettings : INamingSettings, IActivationSettings, ITitlePunctuationSettings {
+  public interface ISettings : INamingSettingsEx, IActivationSettings, ITitleSettingsEx {
     bool NonParallel { get; }
     string InputDirectory { get; set; }
     string OutputDirectory { get; set; }
@@ -29,6 +38,7 @@
     EConvMode ConvMode { get; set; }
     byte TrkDurMins { get; set; }
     string PartNames { get; set; }
+    string Genres { get; set; }
   }
 
 }

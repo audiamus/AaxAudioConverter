@@ -172,6 +172,15 @@ namespace audiamus.aaxconv.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Genre.
+        /// </summary>
+        internal static string HdrGenre {
+            get {
+                return ResourceManager.GetString("HdrGenre", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Narrator.
         /// </summary>
         internal static string HdrNarrator {
@@ -392,6 +401,19 @@ namespace audiamus.aaxconv.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unsaved changes for last file!
+        ///
+        ///[Yes]: Save changes before switching to the new file.
+        ///[No]: Discard last file changes, just switch to the new file.
+        ///[Cancel]: Cancel new file..
+        /// </summary>
+        internal static string MsgPreviewUnsavedChanges {
+            get {
+                return ResourceManager.GetString("MsgPreviewUnsavedChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ch.
         /// </summary>
         internal static string MsgProgCh {
@@ -424,6 +446,15 @@ namespace audiamus.aaxconv.Properties {
         internal static string MsgProgTr {
             get {
                 return ResourceManager.GetString("MsgProgTr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove selected custom genres?.
+        /// </summary>
+        internal static string MsgRemoveGenres {
+            get {
+                return ResourceManager.GetString("MsgRemoveGenres", resourceCulture);
             }
         }
         
@@ -461,6 +492,33 @@ namespace audiamus.aaxconv.Properties {
         internal static string PartNames {
             get {
                 return ResourceManager.GetString("PartNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Has customization.
+        /// </summary>
+        internal static string StsHasCustomization {
+            get {
+                return ResourceManager.GetString("StsHasCustomization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No customization.
+        /// </summary>
+        internal static string StsNoCustomization {
+            get {
+                return ResourceManager.GetString("StsNoCustomization", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Customization removed, [OK] to apply..
+        /// </summary>
+        internal static string StsNoCustomizationOk {
+            get {
+                return ResourceManager.GetString("StsNoCustomizationOk", resourceCulture);
             }
         }
         

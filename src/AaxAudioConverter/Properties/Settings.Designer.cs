@@ -202,6 +202,30 @@ namespace audiamus.aaxconv.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SeriesTitleLeft {
+            get {
+                return ((bool)(this["SeriesTitleLeft"]));
+            }
+            set {
+                this["SeriesTitleLeft"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool LongBookTitle {
+            get {
+                return ((bool)(this["LongBookTitle"]));
+            }
+            set {
+                this["LongBookTitle"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("standard")]
         public global::audiamus.aaxconv.lib.EGeneralNaming PartNaming {
             get {
@@ -279,6 +303,18 @@ namespace audiamus.aaxconv.Properties {
             }
             set {
                 this["AddnlValTitlePunct"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Genres {
+            get {
+                return ((string)(this["Genres"]));
+            }
+            set {
+                this["Genres"] = value;
             }
         }
     }

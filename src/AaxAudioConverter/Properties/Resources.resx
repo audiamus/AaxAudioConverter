@@ -269,4 +269,26 @@ Restart now?</value>
   <data name="SysMenuItemHelp" xml:space="preserve">
     <value>&amp;Help</value>
   </data>
+  <data name="HdrGenre" xml:space="preserve">
+    <value>Genre</value>
+  </data>
+  <data name="MsgPreviewUnsavedChanges" xml:space="preserve">
+    <value>Unsaved changes for last file!
+
+[Yes]: Save changes before switching to the new file.
+[No]: Discard last file changes, just switch to the new file.
+[Cancel]: Cancel new file.</value>
+  </data>
+  <data name="MsgRemoveGenres" xml:space="preserve">
+    <value>Remove selected custom genres?</value>
+  </data>
+  <data name="StsHasCustomization" xml:space="preserve">
+    <value>Has customization</value>
+  </data>
+  <data name="StsNoCustomization" xml:space="preserve">
+    <value>No customization</value>
+  </data>
+  <data name="StsNoCustomizationOk" xml:space="preserve">
+    <value>Customization removed, [OK] to apply.</value>
+  </data>
 </root>

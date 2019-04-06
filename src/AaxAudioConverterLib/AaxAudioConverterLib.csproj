@@ -45,10 +45,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AaPictureExtractor.cs" />
+    <Compile Include="ActivationCodeApp.cs" />
+    <Compile Include="ActivationCodeRegistry.cs" />
     <Compile Include="ChainPunctuation.cs" />
     <Compile Include="AudioMeta.cs" />
+    <Compile Include="CustomTagFileNames.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Chapter.cs" />
+    <Compile Include="Interfaces.cs" />
     <Compile Include="ThreadProgress.cs" />
     <Compile Include="Track.cs" />
     <Compile Include="ProgressMessage.cs" />

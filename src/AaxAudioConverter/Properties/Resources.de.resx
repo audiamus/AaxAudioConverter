@@ -196,7 +196,7 @@ geändert werden, über das System-Menü</value>
     <value>Größe</value>
   </data>
   <data name="HdrYear" xml:space="preserve">
-    <value>Jahr der Veröffentlichung</value>
+    <value>Erscheinungsjahr</value>
   </data>
   <data name="SysMenuItemAbout" xml:space="preserve">
     <value>Ü&amp;ber…</value>
@@ -294,5 +294,27 @@ Jetzt neu starten?</value>
   </data>
   <data name="SysMenuItemHelp" xml:space="preserve">
     <value>&amp;Hilfe</value>
+  </data>
+  <data name="HdrGenre" xml:space="preserve">
+    <value>Genre</value>
+  </data>
+  <data name="MsgPreviewUnsavedChanges" xml:space="preserve">
+    <value>Nicht gespeicherte Änderungen für vorige Datei!
+
+[Ja]: Änderungen speichern, dann zu neuer Datei wechseln.
+[Nein]: Änderungen verwerfen, nur zu neuer Datei wechseln.
+[Abbrechen]: Nicht zu neuer Datei wechseln.</value>
+  </data>
+  <data name="MsgRemoveGenres" xml:space="preserve">
+    <value>Ausgewählte eigene Genres entfernen?</value>
+  </data>
+  <data name="StsHasCustomization" xml:space="preserve">
+    <value>Enthält Anpassungen</value>
+  </data>
+  <data name="StsNoCustomization" xml:space="preserve">
+    <value>Keine Anpassungen</value>
+  </data>
+  <data name="StsNoCustomizationOk" xml:space="preserve">
+    <value>Keine Anpassungen mehr, übernehmen mit [OK]</value>
   </data>
 </root>

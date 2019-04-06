@@ -32,10 +32,10 @@ namespace audiamus.aaxconv.lib {
     const string PUBDATE = "pubdate"; 
     const string LONG_DESC = "long_description"; 
 
-    readonly string _sepDash = Singleton<ChainPunctuationDash>.Instance.Infix;
-    readonly string _sepDot = Singleton<ChainPunctuationDot>.Instance.Infix;
+    readonly string _sepDash = Singleton<ChainPunctuationDash>.Instance.Infix[0];
+    readonly string[] _seps = Singleton<ChainPunctuationDot>.Instance.Infix;
 
-    readonly INamingSettings _settings;
+    readonly INamingSettingsEx _settings;
     readonly AaxFileItem _aaxFileItem;
     readonly Book _book;
     readonly EConvMode _convMode;
@@ -43,7 +43,7 @@ namespace audiamus.aaxconv.lib {
     Track _track;
     Numbers _numbers;
 
-    private INamingSettings Settings => _settings;
+    private INamingSettingsEx Settings => _settings;
 
     private string Track => track ();
     private string Title => titleNaming ();
@@ -57,7 +57,7 @@ namespace audiamus.aaxconv.lib {
       _aaxFileItem = aaxFileItem;
     }
 
-    private TagAndFileNamingHelper (INamingSettings settings, Book book, Track track) {
+    private TagAndFileNamingHelper (INamingSettingsEx settings, Book book, Track track) {
       _settings = settings;
       _book = book;
       _track = track;
@@ -89,7 +89,7 @@ namespace audiamus.aaxconv.lib {
       return new TagAndFileNamingHelper (aaxFileItem).readMetaData ();
     }
 
-    public static bool WriteMetaData (INamingSettings settings, Book book, Track track) {
+    public static bool WriteMetaData (INamingSettingsEx settings, Book book, Track track) {
       return new TagAndFileNamingHelper (settings, book, track).writeMetaData ();
     }
 
@@ -100,6 +100,9 @@ namespace audiamus.aaxconv.lib {
     public static void SetFileNames (ISettings settings, Book book) {
       new TagAndFileNamingHelper (settings, book).setFileNames ();
     }
+
+    public static string GetGenre (INamingSettings settings, AaxFileItem afi) =>
+          (settings.GenreNaming == EGeneralNaming.source ? afi.Genre : settings.GenreName) ?? GENRE;
 
     private void setFileName () {
       string path = FullPath;
@@ -121,14 +124,19 @@ namespace audiamus.aaxconv.lib {
 
     private string track () {
       var n = _numbers;
-      string p = _sepDot;
+      string[] p = _seps;
       switch (Settings.TrackNumbering) {
         case ETrackNumbering.track:
         default:
           return n.nTrk.Str (n.nnTrk);
-        case ETrackNumbering.chapter_track:
+        case ETrackNumbering.chapter_a_track:
           if (_convMode == EConvMode.splitChapters && n.nChp > 0)
-            return n.nChp.Str (n.nnChp) + p + n.nChTrk.Str (n.nnChTrk);
+            return n.nChp.Str (n.nnChp) + _seps[0] + n.nChTrk.Str (n.nnChTrk);
+          else
+            return n.nTrk.Str (n.nnTrk);
+        case ETrackNumbering.track_b_chapter_c:
+          if (_convMode == EConvMode.splitChapters && n.nChp > 0)
+            return n.nTrk.Str (n.nnTrk) + _seps[1] + n.nChp.Str (n.nnChp) + _seps[2];
           else
             return n.nTrk.Str (n.nnTrk);
       }
@@ -142,17 +150,17 @@ namespace audiamus.aaxconv.lib {
         default:
           return Track;
         case ETitleNaming.track_book:
-          return Track + p + _book.Title;
+          return Track + p + _book.TitleTag;
         case ETitleNaming.track_book_author:
-          return Track + p + _book.Title + p + _book.Author;
+          return Track + p + _book.TitleTag + p + _book.AuthorTag;
         case ETitleNaming.book_author:
-          return _book.Title + p + _book.Author;
+          return _book.TitleTag + p + _book.AuthorTag;
         case ETitleNaming.author_book:
-          return _book.Author + p + _book.Title;
+          return _book.AuthorTag + p + _book.TitleTag;
         case ETitleNaming.author_book_track:
-          return _book.Author + p + _book.Title + p + Track;
+          return _book.AuthorTag + p + _book.TitleTag + p + Track;
         case ETitleNaming.book_track:
-          return _book.Title + p + Track;
+          return _book.TitleTag + p + Track;
       }
     }
 
@@ -175,25 +183,25 @@ namespace audiamus.aaxconv.lib {
       string filename = File + ext;
       switch (_convMode) {
         case EConvMode.single:
-          return Path.Combine (_book.OutDirectory, filename);
+          return Path.Combine (_book.OutDirectoryLong, filename);
         case EConvMode.chapters:
           switch (_book.PartsType) {
             case Book.EParts.some:
-              return Path.Combine (_book.OutDirectory, Part, filename);
+              return Path.Combine (_book.OutDirectoryLong, Part, filename);
             case Book.EParts.none:
             case Book.EParts.all:
             default:
-              return Path.Combine (_book.OutDirectory, filename);
+              return Path.Combine (_book.OutDirectoryLong, filename);
           }
         case EConvMode.splitChapters:
         default:
           switch (_book.PartsType) {
             case Book.EParts.some:
-              return Path.Combine (_book.OutDirectory, Part, Chapter, filename);
+              return Path.Combine (_book.OutDirectoryLong, Part, Chapter, filename);
             case Book.EParts.none:
             case Book.EParts.all:
             default:
-              return Path.Combine (_book.OutDirectory, Chapter, filename);
+              return Path.Combine (_book.OutDirectoryLong, Chapter, filename);
           }
       }
     }
@@ -216,13 +224,13 @@ namespace audiamus.aaxconv.lib {
         default:
           return Track;
         case EFileNaming.track_book:
-          return Track + p + _book.Title;
+          return Track + p + _book.TitleFile;
         case EFileNaming.track_book_author:
-          return Track + p + _book.Title + p + _book.Author;
+          return Track + p + _book.TitleFile + p + _book.AuthorFile;
         case EFileNaming.author_book_track:
-          return _book.Author + p + _book.Title + p + Track;
+          return _book.AuthorFile + p + _book.TitleFile + p + Track;
         case EFileNaming.book_track:
-          return _book.Title + p + Track;
+          return _book.TitleFile + p + Track;
       }
     }
 
@@ -247,13 +255,13 @@ namespace audiamus.aaxconv.lib {
         default:
           return prt;
         case EFileNaming.track_book:
-          return prt + p + _book.Title;
+          return prt + p + _book.TitleFile;
         case EFileNaming.book_track:
-          return _book.Title + p + prt;
+          return _book.TitleFile + p + prt;
         case EFileNaming.track_book_author:
-          return prt + p + _book.Title + p + _book.Author;
+          return prt + p + _book.TitleFile + p + _book.AuthorFile;
         case EFileNaming.author_book_track:
-          return _book.Author + p + _book.Title + p + prt;
+          return _book.AuthorFile + p + _book.TitleFile + p + prt;
       }
     }
 
@@ -265,11 +273,11 @@ namespace audiamus.aaxconv.lib {
         case EFileNaming.track_book:
         case EFileNaming.book_track:
         default:
-          return _book.Title;
+          return _book.TitleFile;
         case EFileNaming.track_book_author:
-          return _book.Title + p + _book.Author;
+          return _book.TitleFile + p + _book.AuthorFile;
         case EFileNaming.author_book_track:
-          return _book.Author + p + _book.Title;
+          return _book.AuthorFile + p + _book.TitleFile;
       }
     }
 
@@ -420,7 +428,7 @@ namespace audiamus.aaxconv.lib {
         var tags = tagfile.Tag;
 
         // album
-        tags.Album = _book.Title;
+        tags.Album = _book.TitleTag;
 
         // album artist  
         tags.AlbumArtists = afi.Authors;
@@ -449,10 +457,10 @@ namespace audiamus.aaxconv.lib {
         tags.Comment = afi.Abstract;
 
         // year
-        tags.Year = (uint)(afi.PublishingDate?.Year ?? 0);
+        tags.Year = (uint)((_book.CustomNames?.YearTag ?? afi.PublishingDate)?.Year ?? 0);
 
         // genre
-        string genre = (Settings.GenreNaming == EGeneralNaming.source ? afi.Genre : Settings.GenreName) ?? GENRE;
+        string genre = _book.CustomNames?.GenreTag ?? getGenre (afi);
         tags.Genres = new string[] { genre };
 
         // cover picture
@@ -496,6 +504,8 @@ namespace audiamus.aaxconv.lib {
 
     }
 
+    private string getGenre (AaxFileItem afi) => GetGenre (Settings, afi);
+    
     //TagLib.Mpeg4.AppleTag
     private static string appleCustomTag (TagLib.Mpeg4.AppleTag atags, string key) {
       var type = atags.GetType ();

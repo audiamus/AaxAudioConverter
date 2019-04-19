@@ -63,7 +63,7 @@ namespace audiamus.aaxconv {
       var enums = EnumUtil.GetValues<EGeneralNaming> ();
       var data = enums.Select (e => e.ToDisplayString<EGeneralNaming, ChainPunctuationBracket> (rm)).ToArray ();
       using (new ResourceGuard (x => _flag = x))
-        cmBoxPartName.DataSource = data;
+        comBoxPartName.DataSource = data;
       txtBoxPartName.DataBindings.Add (nameof (txtBoxPartName.Text), Settings, nameof (Settings.PartName));
     }
 
@@ -73,14 +73,26 @@ namespace audiamus.aaxconv {
       txtBoxCustTitleChars.Text = Settings.AddnlValTitlePunct;
       ckBoxFileAssoc.Checked = Settings.FileAssoc ?? false;
       using (new ResourceGuard (x => _flag = x))
-        cmBoxPartName.SelectedIndex = (int)Settings.PartNaming;
+        comBoxPartName.SelectedIndex = (int)Settings.PartNaming;
       txtBoxPartName.Enabled = Settings.PartNaming == EGeneralNaming.custom;
 
       var codes = _converter.RegistryActivationCodes?.Select (c => c.ToHexDashString ()).ToArray ();
       if (!(codes is null))
         listBoxActCode.Items.AddRange (codes);
 
-      cmBoxLang.SetCultures (typeof(MainForm), Settings);
+      comBoxLang.SetCultures (typeof(MainForm), Settings);
+
+      switch (Settings.OnlineUpdate) {
+        case null:
+          comBoxUpdate.SelectedIndex = 0;
+          break;
+        case false:
+          comBoxUpdate.SelectedIndex = 1;
+          break;
+        case true:
+          comBoxUpdate.SelectedIndex = 2;
+          break;
+      }
     }
 
 
@@ -170,8 +182,21 @@ namespace audiamus.aaxconv {
         new FileAssoc (Settings, this).Update ();
       }
 
+      switch (comBoxUpdate.SelectedIndex) {
+        case 0:
+          Settings.OnlineUpdate = null;
+          break;
+        case 1:
+          Settings.OnlineUpdate = false;
+          break;
+        case 2:
+          Settings.OnlineUpdate = true;
+          break;
+      }
 
-      if (Culture.ChangeLanguage (cmBoxLang, Settings)) {
+
+
+      if (Culture.ChangeLanguage (comBoxLang, Settings)) {
         Settings.Save ();
 
         if (MsgBox.Show (this, $"{ApplName} {R.MsgLangRestart}", Owner.Text, MessageBoxButtons.YesNo,
@@ -187,10 +212,10 @@ namespace audiamus.aaxconv {
 
     }
 
-    private void cmBoxPartName_SelectedIndexChanged (object sender, EventArgs e) {
+    private void comBoxPartName_SelectedIndexChanged (object sender, EventArgs e) {
       if (_flag)
         return;
-      Settings.PartNaming = (EGeneralNaming)cmBoxPartName.SelectedIndex;
+      Settings.PartNaming = (EGeneralNaming)comBoxPartName.SelectedIndex;
       txtBoxPartName.Enabled = Settings.PartNaming == EGeneralNaming.custom;
     }
   }

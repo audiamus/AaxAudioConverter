@@ -16,5 +16,12 @@
                                               //"[Cancel]: Skip book"
 
     string PartNames { get; }
+
+    string MsgOnlineUpdateNewVersion { get; }
+    string MsgOnlineUpdateDownload { get; }
+    string MsgOnlineUpdateInstall { get; }
+    string MsgOnlineUpdateInstallNow { get; }
+    string MsgOnlineUpdateInstallLater { get; }
+
   }
 }

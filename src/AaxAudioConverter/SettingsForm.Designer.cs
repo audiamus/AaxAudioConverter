@@ -37,8 +37,6 @@
       this.panel2 = new System.Windows.Forms.Panel();
       this.listBoxActCode = new System.Windows.Forms.ListBox();
       this.btnRegActCode = new System.Windows.Forms.Button();
-      this.cmBoxLang = new System.Windows.Forms.ComboBox();
-      this.lblLang = new System.Windows.Forms.Label();
       this.ckBoxFileAssoc = new System.Windows.Forms.CheckBox();
       this.lblFileAssoc = new System.Windows.Forms.Label();
       this.lblCustTitleChars = new System.Windows.Forms.Label();
@@ -47,8 +45,12 @@
       this.lblCustPart = new System.Windows.Forms.Label();
       this.panel3 = new System.Windows.Forms.Panel();
       this.txtBoxPartName = new System.Windows.Forms.TextBox();
-      this.cmBoxPartName = new System.Windows.Forms.ComboBox();
+      this.comBoxPartName = new System.Windows.Forms.ComboBox();
       this.lblPartName = new System.Windows.Forms.Label();
+      this.comBoxLang = new System.Windows.Forms.ComboBox();
+      this.lblLang = new System.Windows.Forms.Label();
+      this.lblUpdate = new System.Windows.Forms.Label();
+      this.comBoxUpdate = new System.Windows.Forms.ComboBox();
       this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
       this.panel1.SuspendLayout();
       this.tableLayoutPanel1.SuspendLayout();
@@ -88,8 +90,6 @@
       this.tableLayoutPanel1.Controls.Add(this.btnFfmpegLoc, 1, 0);
       this.tableLayoutPanel1.Controls.Add(this.lblRegActCode, 0, 1);
       this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 1);
-      this.tableLayoutPanel1.Controls.Add(this.cmBoxLang, 1, 7);
-      this.tableLayoutPanel1.Controls.Add(this.lblLang, 0, 7);
       this.tableLayoutPanel1.Controls.Add(this.ckBoxFileAssoc, 1, 6);
       this.tableLayoutPanel1.Controls.Add(this.lblFileAssoc, 0, 6);
       this.tableLayoutPanel1.Controls.Add(this.lblCustTitleChars, 0, 5);
@@ -98,6 +98,10 @@
       this.tableLayoutPanel1.Controls.Add(this.lblCustPart, 0, 4);
       this.tableLayoutPanel1.Controls.Add(this.panel3, 1, 3);
       this.tableLayoutPanel1.Controls.Add(this.lblPartName, 0, 3);
+      this.tableLayoutPanel1.Controls.Add(this.comBoxLang, 1, 8);
+      this.tableLayoutPanel1.Controls.Add(this.lblLang, 0, 8);
+      this.tableLayoutPanel1.Controls.Add(this.lblUpdate, 0, 7);
+      this.tableLayoutPanel1.Controls.Add(this.comBoxUpdate, 1, 7);
       this.tableLayoutPanel1.Name = "tableLayoutPanel1";
       // 
       // lblUsrActCode
@@ -150,20 +154,6 @@
       this.btnRegActCode.UseVisualStyleBackColor = true;
       this.btnRegActCode.Click += new System.EventHandler(this.btnRegActCode_Click);
       // 
-      // cmBoxLang
-      // 
-      resources.ApplyResources(this.cmBoxLang, "cmBoxLang");
-      this.cmBoxLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-      this.cmBoxLang.FormattingEnabled = true;
-      this.cmBoxLang.Items.AddRange(new object[] {
-            resources.GetString("cmBoxLang.Items")});
-      this.cmBoxLang.Name = "cmBoxLang";
-      // 
-      // lblLang
-      // 
-      resources.ApplyResources(this.lblLang, "lblLang");
-      this.lblLang.Name = "lblLang";
-      // 
       // ckBoxFileAssoc
       // 
       resources.ApplyResources(this.ckBoxFileAssoc, "ckBoxFileAssoc");
@@ -203,7 +193,7 @@
       // panel3
       // 
       this.panel3.Controls.Add(this.txtBoxPartName);
-      this.panel3.Controls.Add(this.cmBoxPartName);
+      this.panel3.Controls.Add(this.comBoxPartName);
       resources.ApplyResources(this.panel3, "panel3");
       this.panel3.Name = "panel3";
       // 
@@ -213,19 +203,49 @@
       this.txtBoxPartName.Name = "txtBoxPartName";
       this.toolTip1.SetToolTip(this.txtBoxPartName, resources.GetString("txtBoxPartName.ToolTip"));
       // 
-      // cmBoxPartName
+      // comBoxPartName
       // 
-      resources.ApplyResources(this.cmBoxPartName, "cmBoxPartName");
-      this.cmBoxPartName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-      this.cmBoxPartName.FormattingEnabled = true;
-      this.cmBoxPartName.Name = "cmBoxPartName";
-      this.toolTip1.SetToolTip(this.cmBoxPartName, resources.GetString("cmBoxPartName.ToolTip"));
-      this.cmBoxPartName.SelectedIndexChanged += new System.EventHandler(this.cmBoxPartName_SelectedIndexChanged);
+      resources.ApplyResources(this.comBoxPartName, "comBoxPartName");
+      this.comBoxPartName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.comBoxPartName.FormattingEnabled = true;
+      this.comBoxPartName.Name = "comBoxPartName";
+      this.toolTip1.SetToolTip(this.comBoxPartName, resources.GetString("comBoxPartName.ToolTip"));
+      this.comBoxPartName.SelectedIndexChanged += new System.EventHandler(this.comBoxPartName_SelectedIndexChanged);
       // 
       // lblPartName
       // 
       resources.ApplyResources(this.lblPartName, "lblPartName");
       this.lblPartName.Name = "lblPartName";
+      // 
+      // comBoxLang
+      // 
+      resources.ApplyResources(this.comBoxLang, "comBoxLang");
+      this.comBoxLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.comBoxLang.FormattingEnabled = true;
+      this.comBoxLang.Items.AddRange(new object[] {
+            resources.GetString("comBoxLang.Items")});
+      this.comBoxLang.Name = "comBoxLang";
+      // 
+      // lblLang
+      // 
+      resources.ApplyResources(this.lblLang, "lblLang");
+      this.lblLang.Name = "lblLang";
+      // 
+      // lblUpdate
+      // 
+      resources.ApplyResources(this.lblUpdate, "lblUpdate");
+      this.lblUpdate.Name = "lblUpdate";
+      // 
+      // comBoxUpdate
+      // 
+      resources.ApplyResources(this.comBoxUpdate, "comBoxUpdate");
+      this.comBoxUpdate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.comBoxUpdate.FormattingEnabled = true;
+      this.comBoxUpdate.Items.AddRange(new object[] {
+            resources.GetString("comBoxUpdate.Items"),
+            resources.GetString("comBoxUpdate.Items1"),
+            resources.GetString("comBoxUpdate.Items2")});
+      this.comBoxUpdate.Name = "comBoxUpdate";
       // 
       // SettingsForm
       // 
@@ -267,7 +287,7 @@
     private System.Windows.Forms.TextBox txtBoxCustPart;
     private System.Windows.Forms.ToolTip toolTip1;
     private System.Windows.Forms.Label lblLang;
-    private System.Windows.Forms.ComboBox cmBoxLang;
+    private System.Windows.Forms.ComboBox comBoxLang;
     private System.Windows.Forms.Button btnReset;
     private System.Windows.Forms.Panel panel2;
     private System.Windows.Forms.ListBox listBoxActCode;
@@ -275,7 +295,9 @@
     private System.Windows.Forms.TextBox txtBoxCustTitleChars;
     private System.Windows.Forms.Panel panel3;
     private System.Windows.Forms.TextBox txtBoxPartName;
-    private System.Windows.Forms.ComboBox cmBoxPartName;
+    private System.Windows.Forms.ComboBox comBoxPartName;
     private System.Windows.Forms.Label lblPartName;
+    private System.Windows.Forms.Label lblUpdate;
+    private System.Windows.Forms.ComboBox comBoxUpdate;
   }
 }

@@ -39,9 +39,11 @@
       this.btnRem = new System.Windows.Forms.Button();
       this.btnAddFile = new System.Windows.Forms.Button();
       this.grpBoxMode = new System.Windows.Forms.GroupBox();
-      this.lblTraclLen = new System.Windows.Forms.Label();
+      this.panelTrkLen = new System.Windows.Forms.Panel();
       this.lblDuration = new System.Windows.Forms.Label();
+      this.lblTraclLen = new System.Windows.Forms.Label();
       this.numUpDnTrkLen = new System.Windows.Forms.NumericUpDown();
+      this.radBtnTimeSplit = new System.Windows.Forms.RadioButton();
       this.radBtnChaptSplit = new System.Windows.Forms.RadioButton();
       this.radBtnChapt = new System.Windows.Forms.RadioButton();
       this.radBtnSingle = new System.Windows.Forms.RadioButton();
@@ -68,6 +70,7 @@
       this.tsmiPreview = new System.Windows.Forms.ToolStripMenuItem();
       this.grpBoxAaxFiles.SuspendLayout();
       this.grpBoxMode.SuspendLayout();
+      this.panelTrkLen.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.numUpDnTrkLen)).BeginInit();
       this.panelExec.SuspendLayout();
       this.grpBoxFormat.SuspendLayout();
@@ -81,18 +84,17 @@
       // 
       // grpBoxAaxFiles
       // 
-      resources.ApplyResources(this.grpBoxAaxFiles, "grpBoxAaxFiles");
       this.grpBoxAaxFiles.Controls.Add(this.listViewAaxFiles);
       this.grpBoxAaxFiles.Controls.Add(this.btnRem);
       this.grpBoxAaxFiles.Controls.Add(this.btnAddFile);
+      resources.ApplyResources(this.grpBoxAaxFiles, "grpBoxAaxFiles");
       this.grpBoxAaxFiles.Name = "grpBoxAaxFiles";
       this.grpBoxAaxFiles.TabStop = false;
-      this.toolTip1.SetToolTip(this.grpBoxAaxFiles, resources.GetString("grpBoxAaxFiles.ToolTip"));
       // 
       // listViewAaxFiles
       // 
-      resources.ApplyResources(this.listViewAaxFiles, "listViewAaxFiles");
       this.listViewAaxFiles.AllowDrop = true;
+      resources.ApplyResources(this.listViewAaxFiles, "listViewAaxFiles");
       this.listViewAaxFiles.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.clmHdrAlbum,
             this.clmHdrArtist,
@@ -107,7 +109,6 @@
       this.listViewAaxFiles.HideSelection = false;
       this.listViewAaxFiles.Name = "listViewAaxFiles";
       this.listViewAaxFiles.SmallImageList = this.imageList1;
-      this.toolTip1.SetToolTip(this.listViewAaxFiles, resources.GetString("listViewAaxFiles.ToolTip"));
       this.listViewAaxFiles.UseCompatibleStateImageBehavior = false;
       this.listViewAaxFiles.View = System.Windows.Forms.View.Details;
       this.listViewAaxFiles.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.listViewAaxFiles_ColumnClick);
@@ -174,34 +175,38 @@
       // 
       // grpBoxMode
       // 
-      resources.ApplyResources(this.grpBoxMode, "grpBoxMode");
-      this.grpBoxMode.Controls.Add(this.lblTraclLen);
-      this.grpBoxMode.Controls.Add(this.lblDuration);
-      this.grpBoxMode.Controls.Add(this.numUpDnTrkLen);
+      this.grpBoxMode.Controls.Add(this.panelTrkLen);
+      this.grpBoxMode.Controls.Add(this.radBtnTimeSplit);
       this.grpBoxMode.Controls.Add(this.radBtnChaptSplit);
       this.grpBoxMode.Controls.Add(this.radBtnChapt);
       this.grpBoxMode.Controls.Add(this.radBtnSingle);
+      resources.ApplyResources(this.grpBoxMode, "grpBoxMode");
       this.grpBoxMode.Name = "grpBoxMode";
       this.grpBoxMode.TabStop = false;
-      this.toolTip1.SetToolTip(this.grpBoxMode, resources.GetString("grpBoxMode.ToolTip"));
       // 
-      // lblTraclLen
+      // panelTrkLen
       // 
-      resources.ApplyResources(this.lblTraclLen, "lblTraclLen");
-      this.lblTraclLen.Name = "lblTraclLen";
-      this.toolTip1.SetToolTip(this.lblTraclLen, resources.GetString("lblTraclLen.ToolTip"));
+      this.panelTrkLen.Controls.Add(this.lblDuration);
+      this.panelTrkLen.Controls.Add(this.lblTraclLen);
+      this.panelTrkLen.Controls.Add(this.numUpDnTrkLen);
+      resources.ApplyResources(this.panelTrkLen, "panelTrkLen");
+      this.panelTrkLen.Name = "panelTrkLen";
       // 
       // lblDuration
       // 
       resources.ApplyResources(this.lblDuration, "lblDuration");
       this.lblDuration.Name = "lblDuration";
-      this.toolTip1.SetToolTip(this.lblDuration, resources.GetString("lblDuration.ToolTip"));
+      // 
+      // lblTraclLen
+      // 
+      resources.ApplyResources(this.lblTraclLen, "lblTraclLen");
+      this.lblTraclLen.Name = "lblTraclLen";
       // 
       // numUpDnTrkLen
       // 
       resources.ApplyResources(this.numUpDnTrkLen, "numUpDnTrkLen");
       this.numUpDnTrkLen.Maximum = new decimal(new int[] {
-            15,
+            30,
             0,
             0,
             0});
@@ -218,6 +223,15 @@
             0,
             0});
       this.numUpDnTrkLen.ValueChanged += new System.EventHandler(this.numUpDnTrkLen_ValueChanged);
+      // 
+      // radBtnTimeSplit
+      // 
+      resources.ApplyResources(this.radBtnTimeSplit, "radBtnTimeSplit");
+      this.radBtnTimeSplit.Name = "radBtnTimeSplit";
+      this.radBtnTimeSplit.TabStop = true;
+      this.toolTip1.SetToolTip(this.radBtnTimeSplit, resources.GetString("radBtnTimeSplit.ToolTip"));
+      this.radBtnTimeSplit.UseVisualStyleBackColor = true;
+      this.radBtnTimeSplit.CheckedChanged += new System.EventHandler(this.radBtnTimeSplit_CheckedChanged);
       // 
       // radBtnChaptSplit
       // 
@@ -248,14 +262,13 @@
       // 
       // panelExec
       // 
-      resources.ApplyResources(this.panelExec, "panelExec");
       this.panelExec.Controls.Add(this.lblProgress);
       this.panelExec.Controls.Add(this.btnAbort);
       this.panelExec.Controls.Add(this.progressBarPart);
       this.panelExec.Controls.Add(this.progressBarTrack);
       this.panelExec.Controls.Add(this.btnConvert);
+      resources.ApplyResources(this.panelExec, "panelExec");
       this.panelExec.Name = "panelExec";
-      this.toolTip1.SetToolTip(this.panelExec, resources.GetString("panelExec.ToolTip"));
       // 
       // lblProgress
       // 
@@ -296,12 +309,11 @@
       // 
       // grpBoxFormat
       // 
-      resources.ApplyResources(this.grpBoxFormat, "grpBoxFormat");
       this.grpBoxFormat.Controls.Add(this.radBtnM4a);
       this.grpBoxFormat.Controls.Add(this.radBtnMp3);
+      resources.ApplyResources(this.grpBoxFormat, "grpBoxFormat");
       this.grpBoxFormat.Name = "grpBoxFormat";
       this.grpBoxFormat.TabStop = false;
-      this.toolTip1.SetToolTip(this.grpBoxFormat, resources.GetString("grpBoxFormat.ToolTip"));
       // 
       // radBtnM4a
       // 
@@ -331,8 +343,8 @@
       // 
       // grpBoxNaming
       // 
-      resources.ApplyResources(this.grpBoxNaming, "grpBoxNaming");
       this.grpBoxNaming.Controls.Add(this.propGridNaming);
+      resources.ApplyResources(this.grpBoxNaming, "grpBoxNaming");
       this.grpBoxNaming.Name = "grpBoxNaming";
       this.grpBoxNaming.TabStop = false;
       this.toolTip1.SetToolTip(this.grpBoxNaming, resources.GetString("grpBoxNaming.ToolTip"));
@@ -343,16 +355,14 @@
       this.propGridNaming.Name = "propGridNaming";
       this.propGridNaming.PropertySort = System.Windows.Forms.PropertySort.NoSort;
       this.propGridNaming.ToolbarVisible = false;
-      this.toolTip1.SetToolTip(this.propGridNaming, resources.GetString("propGridNaming.ToolTip"));
       this.propGridNaming.PropertyValueChanged += new System.Windows.Forms.PropertyValueChangedEventHandler(this.propGridNaming_PropertyValueChanged);
       // 
       // panelTop
       // 
-      resources.ApplyResources(this.panelTop, "panelTop");
       this.panelTop.Controls.Add(this.grpBoxAaxFiles);
       this.panelTop.Controls.Add(this.tableLayoutSettings);
+      resources.ApplyResources(this.panelTop, "panelTop");
       this.panelTop.Name = "panelTop";
-      this.toolTip1.SetToolTip(this.panelTop, resources.GetString("panelTop.ToolTip"));
       // 
       // tableLayoutSettings
       // 
@@ -360,52 +370,47 @@
       this.tableLayoutSettings.Controls.Add(this.panelSettingsLeft, 0, 0);
       this.tableLayoutSettings.Controls.Add(this.grpBoxNaming, 1, 0);
       this.tableLayoutSettings.Name = "tableLayoutSettings";
-      this.toolTip1.SetToolTip(this.tableLayoutSettings, resources.GetString("tableLayoutSettings.ToolTip"));
       // 
       // panelSettingsLeft
       // 
-      resources.ApplyResources(this.panelSettingsLeft, "panelSettingsLeft");
       this.panelSettingsLeft.Controls.Add(this.grpBoxMode);
       this.panelSettingsLeft.Controls.Add(this.grpBoxFormat);
       this.panelSettingsLeft.Controls.Add(this.grpBoxDest);
+      resources.ApplyResources(this.panelSettingsLeft, "panelSettingsLeft");
       this.panelSettingsLeft.Name = "panelSettingsLeft";
-      this.toolTip1.SetToolTip(this.panelSettingsLeft, resources.GetString("panelSettingsLeft.ToolTip"));
       // 
       // grpBoxDest
       // 
-      resources.ApplyResources(this.grpBoxDest, "grpBoxDest");
       this.grpBoxDest.Controls.Add(this.lblSaveTo);
       this.grpBoxDest.Controls.Add(this.btnSaveTo);
+      resources.ApplyResources(this.grpBoxDest, "grpBoxDest");
       this.grpBoxDest.Name = "grpBoxDest";
       this.grpBoxDest.TabStop = false;
-      this.toolTip1.SetToolTip(this.grpBoxDest, resources.GetString("grpBoxDest.ToolTip"));
       // 
       // lblSaveTo
       // 
       resources.ApplyResources(this.lblSaveTo, "lblSaveTo");
       this.lblSaveTo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
       this.lblSaveTo.Name = "lblSaveTo";
-      this.toolTip1.SetToolTip(this.lblSaveTo, resources.GetString("lblSaveTo.ToolTip"));
       // 
       // contextMenuStrip1
       // 
-      resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
       this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiDetails,
             this.tsmiPreview});
       this.contextMenuStrip1.Name = "contextMenuStrip1";
-      this.toolTip1.SetToolTip(this.contextMenuStrip1, resources.GetString("contextMenuStrip1.ToolTip"));
+      resources.ApplyResources(this.contextMenuStrip1, "contextMenuStrip1");
       // 
       // tsmiDetails
       // 
-      resources.ApplyResources(this.tsmiDetails, "tsmiDetails");
       this.tsmiDetails.Name = "tsmiDetails";
+      resources.ApplyResources(this.tsmiDetails, "tsmiDetails");
       this.tsmiDetails.Click += new System.EventHandler(this.tsmiDetails_Click);
       // 
       // tsmiPreview
       // 
-      resources.ApplyResources(this.tsmiPreview, "tsmiPreview");
       this.tsmiPreview.Name = "tsmiPreview";
+      resources.ApplyResources(this.tsmiPreview, "tsmiPreview");
       this.tsmiPreview.Click += new System.EventHandler(this.tsmiPreview_Click);
       // 
       // MainForm
@@ -417,10 +422,11 @@
       this.Controls.Add(this.panelExec);
       this.KeyPreview = true;
       this.Name = "MainForm";
-      this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
       this.grpBoxAaxFiles.ResumeLayout(false);
       this.grpBoxMode.ResumeLayout(false);
       this.grpBoxMode.PerformLayout();
+      this.panelTrkLen.ResumeLayout(false);
+      this.panelTrkLen.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.numUpDnTrkLen)).EndInit();
       this.panelExec.ResumeLayout(false);
       this.grpBoxFormat.ResumeLayout(false);
@@ -477,6 +483,8 @@
     private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
     private System.Windows.Forms.ToolStripMenuItem tsmiDetails;
     private System.Windows.Forms.ToolStripMenuItem tsmiPreview;
+    private System.Windows.Forms.RadioButton radBtnTimeSplit;
+    private System.Windows.Forms.Panel panelTrkLen;
   }
 }
 

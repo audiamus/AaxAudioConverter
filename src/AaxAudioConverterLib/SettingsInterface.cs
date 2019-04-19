@@ -29,7 +29,11 @@
     string AddnlValTitlePunct { get; set; }
   }
 
-  public interface ISettings : INamingSettingsEx, IActivationSettings, ITitleSettingsEx {
+  public interface IUpdateSetting {
+    bool? OnlineUpdate { get; set; }
+  }
+
+  public interface ISettings : INamingSettingsEx, IActivationSettings, ITitleSettingsEx, IUpdateSetting {
     bool NonParallel { get; }
     string InputDirectory { get; set; }
     string OutputDirectory { get; set; }

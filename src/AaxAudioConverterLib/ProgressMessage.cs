@@ -19,6 +19,7 @@
     public uint? NumberOfTracks { get; private set; }
     public ProgressEntry<uint> Chapter { get; private set; }
     public ProgressEntry<uint> Part { get; private set; }
+    public ProgressEntry<uint> Track { get; private set; }
 
     private ProgressInfo (string title, bool cancel = false) {
       Title = new ProgressEntry<string> (title, cancel);
@@ -46,6 +47,21 @@
     public static ProgressInfo ProgressInfoChapterCancel (string title, uint numChapter) {
       var info = new ProgressInfo (title) {
         Chapter = new ProgressEntry<uint> (numChapter, true)
+      };
+      return info;
+    }
+
+
+    public static ProgressInfo ProgressInfoTrack (string title, uint numTrack) {
+      var info = new ProgressInfo (title) {
+        Track = new ProgressEntry<uint> (numTrack)
+      };
+      return info;
+    }
+
+    public static ProgressInfo ProgressInfoTrackCancel (string title, uint numTrack) {
+      var info = new ProgressInfo (title) {
+        Track = new ProgressEntry<uint> (numTrack, true)
       };
       return info;
     }
@@ -80,7 +96,7 @@
     public bool Reset;
     public uint? AddTotalParts;
     public uint? IncParts;
-    public uint? AddTotalTracks;
+    public int? AddTotalTracks; // Note: can be negative
     public uint? IncTracks;
     public uint? IncTracksPerMille;
     public ProgressInfo Info;

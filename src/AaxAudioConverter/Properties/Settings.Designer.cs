@@ -317,5 +317,17 @@ namespace audiamus.aaxconv.Properties {
                 this["Genres"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("true")]
+        public global::System.Nullable<System.Boolean> OnlineUpdate {
+            get {
+                return ((global::System.Nullable<System.Boolean>)(this["OnlineUpdate"]));
+            }
+            set {
+                this["OnlineUpdate"] = value;
+            }
+        }
     }
 }

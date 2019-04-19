@@ -317,4 +317,22 @@ Jetzt neu starten?</value>
   <data name="StsNoCustomizationOk" xml:space="preserve">
     <value>Keine Anpassungen mehr, übernehmen mit [OK]</value>
   </data>
+  <data name="MsgOnlineUpdateDownload" xml:space="preserve">
+    <value>von AaxAudioConverter ist verfügbar.
+Jetzt herunterladen?</value>
+  </data>
+  <data name="MsgOnlineUpdateInstall" xml:space="preserve">
+    <value>von AaxAudioConverter 
+ist zur Installation bereit.</value>
+  </data>
+  <data name="MsgOnlineUpdateNewVersion" xml:space="preserve">
+    <value>Neue Version</value>
+  </data>
+  <data name="MsgOnlineUpdateInstallLater" xml:space="preserve">
+    <value>Jetzt installieren?</value>
+  </data>
+  <data name="MsgOnlineUpdateInstallNow" xml:space="preserve">
+    <value>Jetzt installieren? 
+(Schließt das aktuelle AaxAudioConverter-Fenster.)</value>
+  </data>
 </root>

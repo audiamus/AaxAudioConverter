@@ -145,22 +145,19 @@
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
-        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACK
-        AgAAAk1TRnQBSQFMAgEBAgEAAdgBAAHYAQABEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
-        AwABEAMAAQEBAAEgBgABEP8A/wBsAAMDAQQDPAFmAzMBU/AAAx0BKQFaAV0BWgHKAQABaAEPAf8BAAFo
-        AQ8B/wMjATTnAAEBA0ABcAE9AWIBSAH2AQABaAEPAf8BAAFoAQ8B/wEAAWgBDwH/AVIBVAFSAabkAAEw
-        ATEBMAFNAQABaAEPAf8BAAFoAQ8B/wEXAWgBKwH8AVoBXwFaAdsBAAFoAQ8B/wEhAV8BJwH7AxYBHuAA
-        Ax8BLQFTAWcBWQHyAV4BYQFeAdoDJwE7ASECIgExAQABaAEPAf8BAAFoAQ8B/wNKAYzkAAMFAQcDAgED
-        CAABVgFZAVYBvgEAAWgBDwH/AU4BXQFOAfADCgEO8AADMAFMAQABaAEPAf8BAAFoAQ8B/wNAAXHzAAEB
-        AVkBXQFZAdcBAAFoAQ8B/wFXAVwBVwHfAwMBBPAAATwBPQE8AWcBAAFoAQ8B/wEAAWgBDwH/AzUBVvAA
-        AwcBCQFVAVwBVQHqAQABaAEPAf8DWwHI9AABRgFHAUYBgQEAAWgBDwH/AQABaAEPAf8DJAE28AADEQEX
-        AU4BXQFOAfABIQFfAScB+wMgAS/0AAMSBBgBIf8AjQABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEA
-        AQEFAAGAFwAD/wEABP8EAAT/BAAC/wH8AX8EAAL/AfgBPwQAAv8B4AE/BAAC/wHgAR8EAAL/AeABHwQA
-        Av8B8wEPBAAD/wEPBAAD/wEHBAAD/wGHBAAD/wGHBAAD/wHDBAAD/wHDBAAD/wHnBAAE/wQACw==
+        ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACI
+        AgAAAk1TRnQBSQFMAgEBAgIAAQEBAAEBARABAAEQAQAE/wEhAQAI/wFCAU0BNgcAATYDAAEoAwABQAMA
+        ARADAAEBAQABIAYAARD/AP8AbAADAwEEAzwBZgMzAVPwAAMdASkBWgFdAVoBygEAAWMBCgH/AQABYwEK
+        Af8DIwE05wABAQNAAXABRwFiAUgB9gEAAWMBCgH/AQABYwEKAf8BAAFjAQoB/wFSAVQBUgGm5AABMAEx
+        ATABTQEAAWMBCgH/AQABYwEKAf8BHAFjASsB/AFaAV8BWgHbAQABYwEKAf8BIQFfAScB+wMWAR7gAAMf
+        AS0BWQFnAVkB8gFeAWEBXgHaAycBOwEhAiIBMQEAAWMBCgH/AQABYwEKAf8DSgGM5AADBQEHAwIBAwgA
+        AVYBWQFWAb4BAAFjAQoB/wFOAV0BTgHwAwoBDvAAAzABTAEAAWMBCgH/AQABYwEKAf8DQAFx8wABAQFZ
+        AV0BWQHXAQABYwEKAf8BVwFcAVcB3wMDAQTwAAE8AT0BPAFnAQABYwEKAf8BAAFjAQoB/wM1AVbwAAMH
+        AQkBVQFcAVUB6gEAAWMBCgH/A1sByPQAAUYBRwFGAYEBAAFjAQoB/wEAAWMBCgH/AyQBNvAAAxEBFwFO
+        AV0BTgHwASEBXwEnAfsDIAEv9AADEgQYASH/AI0AAUIBTQE+BwABPgMAASgDAAFAAwABEAMAAQEBAAEB
+        BQABgBcAA/8BAAT/BAAE/wQAAv8B/AF/BAAC/wH4AT8EAAL/AeABPwQAAv8B4AEfBAAC/wHgAR8EAAL/
+        AfMBDwQAA/8BDwQAA/8BBwQAA/8BhwQAA/8BhwQAA/8BwwQAA/8BwwQAA/8B5wQABP8EAAs=
 </value>
-  </data>
-  <data name="listViewAaxFiles.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="btnRem.Size" type="System.Drawing.Size, System.Drawing">
@@ -187,23 +184,8 @@ und zu Liste hinzufügen.
   <data name="grpBoxAaxFiles.Text" xml:space="preserve">
     <value>AAX-Dateien</value>
   </data>
-  <data name="grpBoxAaxFiles.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="lblTraclLen.Location" type="System.Drawing.Point, System.Drawing">
-    <value>28, 91</value>
-  </data>
-  <data name="lblTraclLen.Size" type="System.Drawing.Size, System.Drawing">
-    <value>105, 13</value>
-  </data>
-  <data name="lblTraclLen.Text" xml:space="preserve">
-    <value>Länge je Stück etwa</value>
-  </data>
-  <data name="lblTraclLen.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="lblDuration.Location" type="System.Drawing.Point, System.Drawing">
-    <value>179, 91</value>
+    <value>162, 10</value>
   </data>
   <data name="lblDuration.Size" type="System.Drawing.Size, System.Drawing">
     <value>45, 13</value>
@@ -211,14 +193,36 @@ und zu Liste hinzufügen.
   <data name="lblDuration.Text" xml:space="preserve">
     <value>Minuten</value>
   </data>
-  <data name="lblDuration.ToolTip" xml:space="preserve">
-    <value />
+  <data name="lblTraclLen.Size" type="System.Drawing.Size, System.Drawing">
+    <value>105, 13</value>
+  </data>
+  <data name="lblTraclLen.Text" xml:space="preserve">
+    <value>Länge je Stück etwa</value>
   </data>
   <data name="numUpDnTrkLen.Location" type="System.Drawing.Point, System.Drawing">
-    <value>138, 88</value>
+    <value>117, 6</value>
   </data>
   <data name="numUpDnTrkLen.ToolTip" xml:space="preserve">
-    <value />
+    <value>Angestrebte mittlere Länge eines Stücks.
+Tatsächliche Länge richtet sich nach Gesamtlänge
+und verfügbaren Stille-Intervallen.</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="panelTrkLen.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="radBtnTimeSplit.Size" type="System.Drawing.Size, System.Drawing">
+    <value>301, 17</value>
+  </data>
+  <data name="radBtnTimeSplit.Text" xml:space="preserve">
+    <value>Mehrere Dateien, unterteilt in kürzere Stücke, ohne Kapitel
+</value>
+  </data>
+  <data name="radBtnTimeSplit.ToolTip" xml:space="preserve">
+    <value>Mehrere Audiodateien. 
+AAX-Datei wird in Stücke etwa gleicher 
+Länge geteilt, ohne Berücksichtigung der Kapitel.
+Mit Wiedergabeliste.</value>
   </data>
   <data name="radBtnChaptSplit.Size" type="System.Drawing.Size, System.Drawing">
     <value>340, 17</value>
@@ -227,9 +231,9 @@ und zu Liste hinzufügen.
     <value>Mehrere Dateien, je Kapitel noch weiter unterteilt in kürzere Stücke</value>
   </data>
   <data name="radBtnChaptSplit.ToolTip" xml:space="preserve">
-    <value>Mehrere Dateien je Kapitel,
-in Stücke etwa gleicher Länge geteilt,
-mit Wiedergabeliste.
+    <value>Mehrere Audiodateien je Kapitel.
+Kapitel wird in Stücke etwa gleicher Länge geteilt.
+Mit Wiedergabeliste.
 </value>
   </data>
   <data name="radBtnChapt.Size" type="System.Drawing.Size, System.Drawing">
@@ -239,7 +243,7 @@ mit Wiedergabeliste.
     <value>Mehrere Dateien, geteilt nach Kapitel</value>
   </data>
   <data name="radBtnChapt.ToolTip" xml:space="preserve">
-    <value>Eine Ausgabedatei je Kapitel,
+    <value>Eine Audiodatei je Kapitel, 
 mit Wiedergabeliste.
 </value>
   </data>
@@ -250,14 +254,11 @@ mit Wiedergabeliste.
     <value>Eine Datei pro AAX-Datei</value>
   </data>
   <data name="radBtnSingle.ToolTip" xml:space="preserve">
-    <value>Eine Ausgabedatei je AAX-Datei,
+    <value>Eine Audiodatei je AAX-Datei,
 mit Wiedergabeliste bei mehrteiligen Büchern.</value>
   </data>
   <data name="grpBoxMode.Text" xml:space="preserve">
     <value>Modus</value>
-  </data>
-  <data name="grpBoxMode.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="lblProgress.ToolTip" xml:space="preserve">
     <value>Schrittweiser Fortschritt.
@@ -295,17 +296,11 @@ Momentan bearbeitete Kapitel.
   <data name="btnConvert.ToolTip" xml:space="preserve">
     <value>Konvertierung starten.</value>
   </data>
-  <data name="panelExec.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="radBtnM4a.ToolTip" xml:space="preserve">
     <value>Originäres MP4/AAC Audio kopieren (sehr schnell).</value>
   </data>
   <data name="radBtnMp3.ToolTip" xml:space="preserve">
     <value>Zu MP3 umwandeln.</value>
-  </data>
-  <data name="grpBoxFormat.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="btnSaveTo.Size" type="System.Drawing.Size, System.Drawing">
     <value>85, 23</value>
@@ -318,9 +313,6 @@ Momentan bearbeitete Kapitel.
 Bücher werden nach Autor und Titel sortiert. 
 </value>
   </data>
-  <data name="propGridNaming.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="grpBoxNaming.Text" xml:space="preserve">
     <value>Namensgebung</value>
   </data>
@@ -328,23 +320,11 @@ Bücher werden nach Autor und Titel sortiert.
     <value>Verschiedene Einstellungen zur Namensgebung 
 für Tags, Ordner und Dateien.</value>
   </data>
-  <data name="lblSaveTo.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="grpBoxDest.Text" xml:space="preserve">
     <value>Zielordner</value>
   </data>
-  <data name="grpBoxDest.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panelSettingsLeft.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tableLayoutSettings.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panelTop.ToolTip" xml:space="preserve">
-    <value />
+  <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>176, 48</value>
   </data>
   <data name="tsmiDetails.Size" type="System.Drawing.Size, System.Drawing">
     <value>175, 22</value>
@@ -357,12 +337,6 @@ für Tags, Ordner und Dateien.</value>
   </data>
   <data name="tsmiPreview.Text" xml:space="preserve">
     <value>Vorschau / Anpassen</value>
-  </data>
-  <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>176, 48</value>
-  </data>
-  <data name="contextMenuStrip1.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -619,8 +593,5 @@ für Tags, Ordner und Dateien.</value>
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAH//rEH//6xBAACsQQAArEEAAKxBAACsQQAArEEAAKxBAACsQQAA
         rEEAAKxBAACsQQAArEHv/6xB//+sQf//rEE=
 </value>
-  </data>
-  <data name="$this.ToolTip" xml:space="preserve">
-    <value />
   </data>
 </root>

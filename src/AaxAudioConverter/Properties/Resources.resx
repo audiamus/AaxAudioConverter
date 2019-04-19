@@ -291,4 +291,20 @@ Restart now?</value>
   <data name="StsNoCustomizationOk" xml:space="preserve">
     <value>Customization removed, [OK] to apply.</value>
   </data>
+  <data name="MsgOnlineUpdateDownload" xml:space="preserve">
+    <value>of AaxAudioConverter is avaliable.
+Download now?</value>
+  </data>
+  <data name="MsgOnlineUpdateInstall" xml:space="preserve">
+    <value>of AaxAudioConverter is ready for installation.</value>
+  </data>
+  <data name="MsgOnlineUpdateNewVersion" xml:space="preserve">
+    <value>New version</value>
+  </data>
+  <data name="MsgOnlineUpdateInstallLater" xml:space="preserve">
+    <value>Install now?</value>
+  </data>
+  <data name="MsgOnlineUpdateInstallNow" xml:space="preserve">
+    <value>Install now? (Will close cuirrent AaxAudioConverter window.)</value>
+  </data>
 </root>

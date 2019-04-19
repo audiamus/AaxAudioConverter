@@ -185,6 +185,7 @@ namespace audiamus.aaxconv.lib {
         case EConvMode.single:
           return Path.Combine (_book.OutDirectoryLong, filename);
         case EConvMode.chapters:
+        case EConvMode.splitTime:
           switch (_book.PartsType) {
             case Book.EParts.some:
               return Path.Combine (_book.OutDirectoryLong, Part, filename);

@@ -51,6 +51,8 @@ namespace audiamus.aaxconv.lib {
         _duration = end - begin;
     }
 
+    public TimeInterval Shifted (TimeSpan offset) => new TimeInterval (Begin + offset, End + offset);
+
     public override string ToString () {
       return $"{Begin} -> {End}";
     }

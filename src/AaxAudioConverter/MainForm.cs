@@ -42,6 +42,7 @@ namespace audiamus.aaxconv {
     bool _closing;
     bool _resetFlag;
     bool _ffMpegPathVerified;
+    bool _updateAvailableFlag; 
 
     Point _contextMenuPoint;
 
@@ -82,7 +83,6 @@ namespace audiamus.aaxconv {
     }
 
     #endregion Public Constructors
-
     #region Protected Methods
 
     protected override void OnActivated (EventArgs e) {
@@ -91,7 +91,6 @@ namespace audiamus.aaxconv {
       if (_initDone)
         return;
       _initDone = true;
-
       makeFileAssoc ();
 
       checkAudibleActivationCode ();
@@ -112,6 +111,8 @@ namespace audiamus.aaxconv {
 
       propGridNaming.SelectedObject = _pgaNaming;
       propGridNaming.Refresh ();
+      
+      checkOnlineUpdate ();
     }
 
     protected override void OnClosing (CancelEventArgs e) {
@@ -121,6 +122,11 @@ namespace audiamus.aaxconv {
       if (!(_cts is null)) {
         _cts.Cancel ();
         Thread.Sleep (2000); // deliberately in the main thread, to make sure ffmpeg processes receive the quit signal
+      }
+
+      if (_updateAvailableFlag) {
+        e.Cancel = true;
+        handleDeferredUpdateAsync ();
       }
     }
 
@@ -147,6 +153,23 @@ namespace audiamus.aaxconv {
     #endregion Protected Methods
 
     #region Private Methods
+
+    private async void checkOnlineUpdate () {
+      var update = new OnlineUpdate (Settings, Resources.Default);
+      await update.UpdateAsync (_interactionHandler, () => Application.Exit(), isBusyForUpdate);
+    }
+
+    private async void handleDeferredUpdateAsync () {
+      var update = new OnlineUpdate (Settings, Resources.Default);
+      await update.InstallAsync (_interactionHandler, () => Application.Exit ());
+    }
+    
+    private bool isBusyForUpdate () {
+      bool busy = this.listViewAaxFiles.Items.Count > 0;
+      if (busy)
+        _updateAvailableFlag = true;
+      return busy;
+    }
 
     private void reinitControlsFromSettings () {
       initRadionButtons ();
@@ -287,6 +310,7 @@ namespace audiamus.aaxconv {
         radBtnSingle.Checked = false;
         radBtnChapt.Checked = false;
         radBtnChaptSplit.Checked = false;
+        radBtnTimeSplit.Checked = false;
 
         switch (Settings.ConvMode) {
           case EConvMode.single:
@@ -298,9 +322,13 @@ namespace audiamus.aaxconv {
           case EConvMode.splitChapters:
             radBtnChaptSplit.Checked = true;
             break;
+          case EConvMode.splitTime:
+            radBtnTimeSplit.Checked = true;
+            break;
         }
 
         numUpDnTrkLen.Value = Settings.TrkDurMins;
+        panelTrkLen.Enabled = Settings.ConvMode >= EConvMode.splitChapters;
       }
     }
 
@@ -358,6 +386,7 @@ namespace audiamus.aaxconv {
         return;
       if (sender is RadioButton rb && rb.Checked) {
         action (value);
+        panelTrkLen.Enabled = Settings.ConvMode >= EConvMode.splitChapters;
         enableButtonConvert ();
       }
     }
@@ -524,6 +553,9 @@ namespace audiamus.aaxconv {
     private void radBtnChaptSplit_CheckedChanged (object sender, EventArgs e) => 
       radioButton (sender, v => Settings.ConvMode = v, EConvMode.splitChapters);
 
+    private void radBtnTimeSplit_CheckedChanged (object sender, EventArgs e) =>
+      radioButton (sender, v => Settings.ConvMode = v, EConvMode.splitTime);
+
     private async void btnConvert_Click (object sender, EventArgs e) {
 
       if (!Directory.Exists (Settings.OutputDirectory))
@@ -597,6 +629,7 @@ namespace audiamus.aaxconv {
         MessageBoxButtons.OK, mbIcon);
 
       _progress.Reset ();
+
     }
 
     private void btnAbort_Click (object sender, EventArgs e) {
@@ -634,6 +667,5 @@ namespace audiamus.aaxconv {
       enableButtonConvert ();
     }
     #endregion Event Handlers
-
   }
 }

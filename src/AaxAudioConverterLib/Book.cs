@@ -123,6 +123,10 @@ namespace audiamus.aaxconv.lib {
       } else {
         numChapters = (uint)Parts.Select (p => p.Chapters.Count).Sum ();
         numTracks = (uint)Parts.Select (p => p.Tracks.Count).Sum ();
+
+        if (mode == EConvMode.splitTime && numTracks > 0)
+          numChapters = 0;
+
       }
 
       uint? chapters = null;

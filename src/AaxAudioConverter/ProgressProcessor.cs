@@ -34,6 +34,7 @@ namespace audiamus.aaxconv {
         public uint? NumberOfTracks;
         public readonly List<uint> Parts = new List<uint> ();
         public readonly List<uint> Chapters = new List<uint> ();
+        public readonly List<uint> Tracks = new List<uint> ();
       }
 
       private readonly SortedDictionary<string, BookInfo> _books = new SortedDictionary<string, BookInfo> ();
@@ -99,6 +100,7 @@ namespace audiamus.aaxconv {
 
         processItems (bi.Parts, info.Part);
         processItems (bi.Chapters, info.Chapter);
+        processItems (bi.Tracks, info.Track);
         
       }
 
@@ -143,6 +145,7 @@ namespace audiamus.aaxconv {
           if (verbosity.HasFlag (EVerbosity.chapters)) {
             buildInfoLabelSequence (sb, bi.Parts, R.MsgProgPt);
             buildInfoLabelSequence (sb, bi.Chapters, R.MsgProgCh);
+            buildInfoLabelSequence (sb, bi.Tracks, R.MsgProgTr);
           }
         }
 
@@ -219,8 +222,9 @@ namespace audiamus.aaxconv {
         _progBar.Maximum = 1; // not 0
       }
 
-      public void UpdateMaximum (uint incMax) {
-        _maximum += incMax * M;
+      public void UpdateMaximum (int incMax) {
+        int max = (int)_maximum + incMax * (int)M;
+        _maximum = (uint)Math.Max (1, max);
         int val = Math.Max ((int)_maximum, _progBar.Value);
         _progBar.Maximum = val;
         Callback?.Invoke ();
@@ -272,7 +276,7 @@ namespace audiamus.aaxconv {
       }
 
       if (msg.AddTotalParts.HasValue)
-        _progBarPart.UpdateMaximum (msg.AddTotalParts.Value);
+        _progBarPart.UpdateMaximum ((int)msg.AddTotalParts.Value);
       if (msg.IncParts.HasValue)
         _progBarPart.UpdateValue (msg.IncParts.Value);
 

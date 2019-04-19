@@ -25,5 +25,10 @@ namespace audiamus.aaxconv {
     public string MsgActivationError3 => R.MsgActivationError3;
     public string MsgDirectoryCreationCallback => R.MsgDirectoryCreationCallback;
     public string PartNames => R.PartNames;
+    public string MsgOnlineUpdateNewVersion => R.MsgOnlineUpdateNewVersion;
+    public string MsgOnlineUpdateDownload => R.MsgOnlineUpdateDownload;
+    public string MsgOnlineUpdateInstall => R.MsgOnlineUpdateInstall;
+    public string MsgOnlineUpdateInstallNow => R.MsgOnlineUpdateInstallNow;
+    public string MsgOnlineUpdateInstallLater => R.MsgOnlineUpdateInstallLater;
   }
 }

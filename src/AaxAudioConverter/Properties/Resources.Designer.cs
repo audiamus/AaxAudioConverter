@@ -401,6 +401,52 @@ namespace audiamus.aaxconv.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to of AaxAudioConverter is avaliable.
+        ///Download now?.
+        /// </summary>
+        internal static string MsgOnlineUpdateDownload {
+            get {
+                return ResourceManager.GetString("MsgOnlineUpdateDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to of AaxAudioConverter is ready for installation..
+        /// </summary>
+        internal static string MsgOnlineUpdateInstall {
+            get {
+                return ResourceManager.GetString("MsgOnlineUpdateInstall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Install now?.
+        /// </summary>
+        internal static string MsgOnlineUpdateInstallLater {
+            get {
+                return ResourceManager.GetString("MsgOnlineUpdateInstallLater", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Install now? (Will close cuirrent AaxAudioConverter window.).
+        /// </summary>
+        internal static string MsgOnlineUpdateInstallNow {
+            get {
+                return ResourceManager.GetString("MsgOnlineUpdateInstallNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New version.
+        /// </summary>
+        internal static string MsgOnlineUpdateNewVersion {
+            get {
+                return ResourceManager.GetString("MsgOnlineUpdateNewVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unsaved changes for last file!
         ///
         ///[Yes]: Save changes before switching to the new file.

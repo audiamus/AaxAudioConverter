@@ -12,12 +12,14 @@ Convert Audible aax files to mp3 and m4a
   - One output file per input file.
   - Multiple output files per input file, divided by chapter.
   - Multiple output files per input file, divided by chapter and further split into shorter tracks of roughly equal length. 
+  - Multiple output files per input file,  split into shorter tracks of roughly equal length, ignoring chapters.
 - Creates additional playlist if more than one output file is created per book.
 - Handles books with multiple parts.
 - Manages and preserves all meta-tag information.  
 - Allows customization of output naming: files, folders and tags.
 - Delegates all audio processing to powerful [FFmpeg](https://www.ffmpeg.org/), including DRM handling.
 - High performance: Utilizes all available processor cores to run conversion work in parallel.
+- Online update function: Will automatically scan the website for a new version, download and install it.
 - *Technical*: 
   - .Net Framework application, written in C# with Windows Forms, the Task Parallel Library and other goodies from language and framework. 
   - Incorporating a number of snippets from the Open Source community. 
@@ -31,15 +33,15 @@ AAX Audio Converter is configured to support high DPI monitors under Windows 10.
 
 ## Download
 
-Windows setup package version 1.2, English and German, with manuals, plus FFmpeg executable:
+Windows setup package version 1.3, English and German, with manuals, plus FFmpeg executable:
 
-**[AaxAudioConverter-1.2-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.2/AaxAudioConverter-1.2-Setup.exe)**
+**[AaxAudioConverter-1.3-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.3/AaxAudioConverter-1.3-Setup.exe)**
 
 Manuals (already included in the setup package):
 
-**[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.2/AaxAudioConverter.pdf)**
+**[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.3/AaxAudioConverter.pdf)**
 
-**[German](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.2/AaxAudioConverter.de.pdf)**
+**[German](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.3/AaxAudioConverter.de.pdf)**
 
 
 ## Dependencies

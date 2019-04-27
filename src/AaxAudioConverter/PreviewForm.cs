@@ -362,6 +362,20 @@ namespace audiamus.aaxconv {
           if (nud.Value == 0)
             nud.Value = (decimal)ctl.Tag;
         } else {
+          if (sender is TextBox tb) {
+            if (tb == txtBoxAuthorFile || tb == txtBoxTitleFile) {
+              int i = tb.SelectionStart;
+              int l0 = tb.Text.Length;
+              using (new ResourceGuard (x => _flag = x))
+                ctl.Text = ctl.Text.Prune ();
+              int l = tb.Text.Length;
+              if (l < l0) {
+                tb.SelectionLength = 0;
+                tb.SelectionStart = i >= l ? l : 0;
+              }
+            }
+          }
+
           if (string.IsNullOrWhiteSpace (ctl.Text))
             ctl.Text = (string)ctl.Tag;
         }

@@ -61,7 +61,7 @@ namespace audiamus.aaxconv.lib {
 
     public Book (string sortingtitle) => SortingTitle = sortingtitle;
 
-    public Book (AaxFileItem fi) : this (fi.BookTitle) => Parts.Add (new BookPart (fi));
+    public Book (AaxFileItem fi) : this (fi.BookTitle) => AddPart (fi);
 
     public void AddPart (AaxFileItem fi, int part = 0) {
       Parts.Add (new BookPart (fi, part));

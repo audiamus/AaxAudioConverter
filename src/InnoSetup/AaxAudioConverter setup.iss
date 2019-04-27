@@ -1,5 +1,5 @@
 #define MyAppSetupName 'AAX Audio Converter'
-#define MyAppVersion '1.3'
+#define MyAppVersion '1.3.1'
 #define MyProgramExe = 'AaxAudioConverter.exe'
 #define MyCompany = 'audiamus'
 

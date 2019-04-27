@@ -62,7 +62,7 @@ namespace audiamus.aux.ex {
 
     static readonly char[] InvalidFileNameChars = Path.GetInvalidFileNameChars ();
 
-    public static string Prune (this string s, char[] invalid = null) {
+    public static string Prune (this string s, char[] invalid) {
       if (invalid is null)
         invalid = InvalidFileNameChars;
       StringBuilder sb = new StringBuilder ();
@@ -74,6 +74,12 @@ namespace audiamus.aux.ex {
           sb.Append (c);
       }
       return sb.ToString ();
+    }
+
+    public static string Prune (this string s) {
+      string pruned = s.Prune (null);
+      pruned = pruned.Trim ('.');
+      return pruned;
     }
 
   }

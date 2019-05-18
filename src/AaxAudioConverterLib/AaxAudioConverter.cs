@@ -455,11 +455,19 @@ namespace audiamus.aaxconv.lib {
       // On cancel remove book output, otherwise make playlist
       if (Callbacks?.Cancelled ?? false)
         deleteOutDirectory (book);
-      else
+      else {
         makePlaylist (book);
-
+        extraMetaFiles (book);
+      }
 
       cleanTempDirectory ();
+    }
+
+    private void extraMetaFiles (Book book) {
+      if (Settings.ExtraMetaFiles) {
+        var emf = new ExtraMetaFiles (book, Settings, Resources);
+        emf.WriteFiles (flatDir);
+      }
     }
 
     private void preProcessChapters (Book book) {
@@ -1097,7 +1105,7 @@ namespace audiamus.aaxconv.lib {
         return; // no playlist for single file
 
 
-      string filename = $"{book.AuthorFile} - {book.TitleFile}.m3u";
+      string filename = flatDir(book) + ".m3u";
       string path = Path.Combine (book.OutDirectoryLong, filename);
       try {
         using (var wr = new StreamWriter (new FileStream (path, FileMode.Create, FileAccess.Write))) {
@@ -1133,7 +1141,7 @@ namespace audiamus.aaxconv.lib {
         DirectoryInfo dib = new DirectoryInfo (book.OutDirectoryLong);
         dib.Delete (true);
 
-        if (book.IsNewAuthor) {
+        if (!Settings.FlatFolders && book.IsNewAuthor) {
           int n = dia.GetDirectories ().Count ();
           if (n == 0)
             dia.Delete (true);
@@ -1155,22 +1163,39 @@ namespace audiamus.aaxconv.lib {
     }
 
     private string initDirectory (Book book) {
+      if (Settings.FlatFolders)
+        return initDirectory (book, null, flatDir (book));
+      else
+        return initDirectory (book, book.AuthorFile, book.TitleFile);
+    }
 
-      // support long path names
+    private string flatDir (Book book) {
+      if (Settings.FlatFolders)
+        switch (Settings.FlatFolderNaming) {
+          default:
+          case EFlatFolderNaming.author_book:
+            return $"{book.AuthorFile} - {book.TitleFile}";
+          case EFlatFolderNaming.book_author:
+            return $"{book.TitleFile} - {book.AuthorFile}";
+        } else
+        return $"{book.AuthorFile} - {book.TitleFile}";
+    }
+
+    private string initDirectory (Book book, string author, string title) {
       string rootDirLong = UNC + Settings.OutputDirectory;
-      string outDirAuthorLong = Path.Combine (
-        rootDirLong,
-        book.AuthorFile
-      );
 
-      string outDirLong = Path.Combine (
-        outDirAuthorLong,
-        book.TitleFile
-      );
-
+      string outDirLong;
+      string outDirAuthorLong;
       try {
-        if (!Directory.Exists (outDirAuthorLong))
-          book.IsNewAuthor = true;
+        if (string.IsNullOrWhiteSpace (author)) {
+          outDirAuthorLong = rootDirLong;
+          outDirLong = Path.Combine (rootDirLong, title);
+        } else {
+          outDirAuthorLong = Path.Combine (rootDirLong, author);
+          if (!Directory.Exists (outDirAuthorLong))
+            book.IsNewAuthor = true;
+          outDirLong = Path.Combine (outDirAuthorLong, title);
+        }
 
         bool newFolder = false;
         if (Directory.Exists (outDirLong)) {
@@ -1189,14 +1214,13 @@ namespace audiamus.aaxconv.lib {
           }
         }
 
-        string dirtitle = book.TitleFile;
+        string dirtitle = title;
         if (newFolder) {
           int n = 2;
           while (true) {
-            dirtitle = $"{book.TitleFile} ({n})";
+            dirtitle = $"{title} ({n})";
             outDirLong = Path.Combine (
-              rootDirLong,
-              book.AuthorFile,
+              outDirAuthorLong,
               dirtitle
             );
             if (!Directory.Exists (outDirLong))
@@ -1216,6 +1240,7 @@ namespace audiamus.aaxconv.lib {
       }
 
       return outDirLong;
+
     }
 
     private void initTempDirectory () {

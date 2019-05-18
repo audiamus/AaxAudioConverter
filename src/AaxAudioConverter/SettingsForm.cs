@@ -15,6 +15,7 @@ namespace audiamus.aaxconv {
   using R = Properties.Resources;
 
   partial class SettingsForm : Form {
+    public const string PART = "Part";
 
     private readonly ISettings _settings = Properties.Settings.Default;
     private readonly AaxAudioConverter _converter;
@@ -33,6 +34,7 @@ namespace audiamus.aaxconv {
       _callback = callback;
 
       initPartNaming ();
+      initFlatFoldersNaming ();
       initControlsFromSettings ();
     }
 
@@ -59,22 +61,49 @@ namespace audiamus.aaxconv {
     }
 
     private void initPartNaming () {
-      var rm = this.GetDefaultResourceManager ();
+      var rm = R.ResourceManager; // this.GetDefaultResourceManager ();
       var enums = EnumUtil.GetValues<EGeneralNaming> ();
       var data = enums.Select (e => e.ToDisplayString<EGeneralNaming, ChainPunctuationBracket> (rm)).ToArray ();
       using (new ResourceGuard (x => _flag = x))
         comBoxPartName.DataSource = data;
-      txtBoxPartName.DataBindings.Add (nameof (txtBoxPartName.Text), Settings, nameof (Settings.PartName));
+      //txtBoxPartName.DataBindings.Add (nameof (txtBoxPartName.Text), Settings, nameof (Settings.PartName));
+      txtBoxPartName.Text = Settings.PartName;
     }
 
+    private void updatePartNaming () {
+      var rm = R.ResourceManager; // this.GetDefaultResourceManager ();
+      var partNaming = (EGeneralNaming)comBoxPartName.SelectedIndex;
+      if (partNaming == EGeneralNaming.standard)
+        using (new ResourceGuard (x => _flag = x))
+          txtBoxPartName.Text = rm.GetStringEx (PART);
+
+    }
+
+    private void initFlatFoldersNaming () {
+      var rm = this.GetDefaultResourceManager ();
+      var enums = EnumUtil.GetValues<EFlatFolderNaming> ();
+      var data = enums.Select (e => e.ToDisplayString<EFlatFolderNaming, ChainPunctuationDash> (rm)).ToArray ();
+      using (new ResourceGuard (x => _flag = x))
+        comBoxFlatFolders.DataSource = data;
+    }
 
     private void initControlsFromSettings () {
       txtBoxCustPart.Text = Settings.PartNames;
       txtBoxCustTitleChars.Text = Settings.AddnlValTitlePunct;
       ckBoxFileAssoc.Checked = Settings.FileAssoc ?? false;
+
       using (new ResourceGuard (x => _flag = x))
         comBoxPartName.SelectedIndex = (int)Settings.PartNaming;
       txtBoxPartName.Enabled = Settings.PartNaming == EGeneralNaming.custom;
+      updatePartNaming ();
+
+
+      ckBoxFlatFolders.Checked = Settings.FlatFolders;
+      comBoxFlatFolders.Enabled = Settings.FlatFolders;
+      using (new ResourceGuard (x => _flag = x))
+        comBoxFlatFolders.SelectedIndex = (int)Settings.FlatFolderNaming;
+
+      ckBoxExtraMetaFiles.Checked = Settings.ExtraMetaFiles;
 
       var codes = _converter.RegistryActivationCodes?.Select (c => c.ToHexDashString ()).ToArray ();
       if (!(codes is null))
@@ -118,8 +147,8 @@ namespace audiamus.aaxconv {
     }
        
     private void txtBoxCustPart_Leave (object sender, EventArgs e) {
-      Settings.PartNames = txtBoxCustPart.Text.SplitTrim (new char[] {' ', ';', ','}).Combine();
-      txtBoxCustPart.Text = Settings.PartNames;
+      string partNames = txtBoxCustPart.Text.SplitTrim (new char[] {' ', ';', ','}).Combine();
+      txtBoxCustPart.Text = partNames;
     }
 
     private static readonly Regex _rgxWord = new Regex (@"[\w\s]", RegexOptions.Compiled);
@@ -139,11 +168,6 @@ namespace audiamus.aaxconv {
         txtBoxCustTitleChars.Text = new string (chars);
       txtBoxCustTitleChars.SelectionStart = txtBoxCustTitleChars.Text.Length;
       txtBoxCustTitleChars.SelectionLength = 0;
-    }
-
-
-    private void txtBoxCustTitleChars_Leave (object sender, EventArgs e) {
-      Settings.AddnlValTitlePunct = txtBoxCustTitleChars.Text;
     }
 
 
@@ -175,6 +199,14 @@ namespace audiamus.aaxconv {
     }
 
     private void btnOK_Click (object sender, EventArgs e) {
+      
+      Settings.PartNaming = (EGeneralNaming)comBoxPartName.SelectedIndex;
+      Settings.PartName = txtBoxPartName.Text;
+      Settings.ExtraMetaFiles = ckBoxExtraMetaFiles.Checked;
+      Settings.FlatFolders = ckBoxFlatFolders.Checked;
+      Settings.FlatFolderNaming = (EFlatFolderNaming)comBoxFlatFolders.SelectedIndex;
+      Settings.PartNames = txtBoxCustPart.Text;
+      Settings.AddnlValTitlePunct = txtBoxCustTitleChars.Text;
 
       bool ck = ckBoxFileAssoc.Checked;
       if ((Settings.FileAssoc ?? false) != ck) {
@@ -193,7 +225,6 @@ namespace audiamus.aaxconv {
           Settings.OnlineUpdate = true;
           break;
       }
-
 
 
       if (Culture.ChangeLanguage (comBoxLang, Settings)) {
@@ -215,8 +246,15 @@ namespace audiamus.aaxconv {
     private void comBoxPartName_SelectedIndexChanged (object sender, EventArgs e) {
       if (_flag)
         return;
-      Settings.PartNaming = (EGeneralNaming)comBoxPartName.SelectedIndex;
-      txtBoxPartName.Enabled = Settings.PartNaming == EGeneralNaming.custom;
+      var partNaming = (EGeneralNaming)comBoxPartName.SelectedIndex;
+      txtBoxPartName.Enabled = partNaming == EGeneralNaming.custom;
+      updatePartNaming ();
     }
+
+    private void ckBoxFlatFolders_CheckedChanged (object sender, EventArgs e) {
+      bool flatFolders = ckBoxFlatFolders.Checked;
+      comBoxFlatFolders.Enabled = flatFolders;
+    }
+
   }
 }

@@ -23,5 +23,17 @@
     string MsgOnlineUpdateInstallNow { get; }
     string MsgOnlineUpdateInstallLater { get; }
 
+    string HdrAuthor { get; }
+    string HdrTitle { get; }
+    string HdrNarrator { get; }
+    string HdrDuration { get; }
+    string HdrYear { get; }
+    string HdrPublisher { get; }
+    string HdrCopyright { get; }
+    string HdrGenre { get; }
+    string HdrSampleRate { get; }
+    string HdrBitRate { get; }
+
+
   }
 }

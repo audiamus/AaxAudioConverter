@@ -43,6 +43,9 @@
     byte TrkDurMins { get; set; }
     string PartNames { get; set; }
     string Genres { get; set; }
+    bool FlatFolders { get; set; }
+    EFlatFolderNaming FlatFolderNaming { get; set; }
+    bool ExtraMetaFiles { get; set; }
   }
 
 }

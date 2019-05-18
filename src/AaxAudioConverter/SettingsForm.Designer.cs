@@ -37,8 +37,6 @@
       this.panel2 = new System.Windows.Forms.Panel();
       this.listBoxActCode = new System.Windows.Forms.ListBox();
       this.btnRegActCode = new System.Windows.Forms.Button();
-      this.ckBoxFileAssoc = new System.Windows.Forms.CheckBox();
-      this.lblFileAssoc = new System.Windows.Forms.Label();
       this.lblCustTitleChars = new System.Windows.Forms.Label();
       this.txtBoxCustTitleChars = new System.Windows.Forms.TextBox();
       this.txtBoxCustPart = new System.Windows.Forms.TextBox();
@@ -49,13 +47,22 @@
       this.lblPartName = new System.Windows.Forms.Label();
       this.comBoxLang = new System.Windows.Forms.ComboBox();
       this.lblLang = new System.Windows.Forms.Label();
-      this.lblUpdate = new System.Windows.Forms.Label();
       this.comBoxUpdate = new System.Windows.Forms.ComboBox();
+      this.lblUpdate = new System.Windows.Forms.Label();
+      this.lblFileAssoc = new System.Windows.Forms.Label();
+      this.ckBoxFileAssoc = new System.Windows.Forms.CheckBox();
+      this.panel4 = new System.Windows.Forms.Panel();
+      this.comBoxFlatFolders = new System.Windows.Forms.ComboBox();
+      this.ckBoxFlatFolders = new System.Windows.Forms.CheckBox();
+      this.lblExtraMetaFiles = new System.Windows.Forms.Label();
+      this.lblFlatFolders = new System.Windows.Forms.Label();
+      this.ckBoxExtraMetaFiles = new System.Windows.Forms.CheckBox();
       this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
       this.panel1.SuspendLayout();
       this.tableLayoutPanel1.SuspendLayout();
       this.panel2.SuspendLayout();
       this.panel3.SuspendLayout();
+      this.panel4.SuspendLayout();
       this.SuspendLayout();
       // 
       // panel1
@@ -90,18 +97,22 @@
       this.tableLayoutPanel1.Controls.Add(this.btnFfmpegLoc, 1, 0);
       this.tableLayoutPanel1.Controls.Add(this.lblRegActCode, 0, 1);
       this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 1);
-      this.tableLayoutPanel1.Controls.Add(this.ckBoxFileAssoc, 1, 6);
-      this.tableLayoutPanel1.Controls.Add(this.lblFileAssoc, 0, 6);
       this.tableLayoutPanel1.Controls.Add(this.lblCustTitleChars, 0, 5);
       this.tableLayoutPanel1.Controls.Add(this.txtBoxCustTitleChars, 1, 5);
       this.tableLayoutPanel1.Controls.Add(this.txtBoxCustPart, 1, 4);
       this.tableLayoutPanel1.Controls.Add(this.lblCustPart, 0, 4);
       this.tableLayoutPanel1.Controls.Add(this.panel3, 1, 3);
       this.tableLayoutPanel1.Controls.Add(this.lblPartName, 0, 3);
-      this.tableLayoutPanel1.Controls.Add(this.comBoxLang, 1, 8);
-      this.tableLayoutPanel1.Controls.Add(this.lblLang, 0, 8);
-      this.tableLayoutPanel1.Controls.Add(this.lblUpdate, 0, 7);
-      this.tableLayoutPanel1.Controls.Add(this.comBoxUpdate, 1, 7);
+      this.tableLayoutPanel1.Controls.Add(this.comBoxLang, 1, 10);
+      this.tableLayoutPanel1.Controls.Add(this.lblLang, 0, 10);
+      this.tableLayoutPanel1.Controls.Add(this.comBoxUpdate, 1, 9);
+      this.tableLayoutPanel1.Controls.Add(this.lblUpdate, 0, 9);
+      this.tableLayoutPanel1.Controls.Add(this.lblFileAssoc, 0, 8);
+      this.tableLayoutPanel1.Controls.Add(this.ckBoxFileAssoc, 1, 8);
+      this.tableLayoutPanel1.Controls.Add(this.panel4, 1, 6);
+      this.tableLayoutPanel1.Controls.Add(this.lblExtraMetaFiles, 0, 7);
+      this.tableLayoutPanel1.Controls.Add(this.lblFlatFolders, 0, 6);
+      this.tableLayoutPanel1.Controls.Add(this.ckBoxExtraMetaFiles, 1, 7);
       this.tableLayoutPanel1.Name = "tableLayoutPanel1";
       // 
       // lblUsrActCode
@@ -154,17 +165,6 @@
       this.btnRegActCode.UseVisualStyleBackColor = true;
       this.btnRegActCode.Click += new System.EventHandler(this.btnRegActCode_Click);
       // 
-      // ckBoxFileAssoc
-      // 
-      resources.ApplyResources(this.ckBoxFileAssoc, "ckBoxFileAssoc");
-      this.ckBoxFileAssoc.Name = "ckBoxFileAssoc";
-      this.ckBoxFileAssoc.UseVisualStyleBackColor = true;
-      // 
-      // lblFileAssoc
-      // 
-      resources.ApplyResources(this.lblFileAssoc, "lblFileAssoc");
-      this.lblFileAssoc.Name = "lblFileAssoc";
-      // 
       // lblCustTitleChars
       // 
       resources.ApplyResources(this.lblCustTitleChars, "lblCustTitleChars");
@@ -176,7 +176,6 @@
       this.txtBoxCustTitleChars.Name = "txtBoxCustTitleChars";
       this.toolTip1.SetToolTip(this.txtBoxCustTitleChars, resources.GetString("txtBoxCustTitleChars.ToolTip"));
       this.txtBoxCustTitleChars.TextChanged += new System.EventHandler(this.txtBoxCustTitleChars_TextChanged);
-      this.txtBoxCustTitleChars.Leave += new System.EventHandler(this.txtBoxCustTitleChars_Leave);
       // 
       // txtBoxCustPart
       // 
@@ -231,11 +230,6 @@
       resources.ApplyResources(this.lblLang, "lblLang");
       this.lblLang.Name = "lblLang";
       // 
-      // lblUpdate
-      // 
-      resources.ApplyResources(this.lblUpdate, "lblUpdate");
-      this.lblUpdate.Name = "lblUpdate";
-      // 
       // comBoxUpdate
       // 
       resources.ApplyResources(this.comBoxUpdate, "comBoxUpdate");
@@ -246,6 +240,61 @@
             resources.GetString("comBoxUpdate.Items1"),
             resources.GetString("comBoxUpdate.Items2")});
       this.comBoxUpdate.Name = "comBoxUpdate";
+      // 
+      // lblUpdate
+      // 
+      resources.ApplyResources(this.lblUpdate, "lblUpdate");
+      this.lblUpdate.Name = "lblUpdate";
+      // 
+      // lblFileAssoc
+      // 
+      resources.ApplyResources(this.lblFileAssoc, "lblFileAssoc");
+      this.lblFileAssoc.Name = "lblFileAssoc";
+      // 
+      // ckBoxFileAssoc
+      // 
+      resources.ApplyResources(this.ckBoxFileAssoc, "ckBoxFileAssoc");
+      this.ckBoxFileAssoc.Name = "ckBoxFileAssoc";
+      this.ckBoxFileAssoc.UseVisualStyleBackColor = true;
+      // 
+      // panel4
+      // 
+      this.panel4.Controls.Add(this.comBoxFlatFolders);
+      this.panel4.Controls.Add(this.ckBoxFlatFolders);
+      resources.ApplyResources(this.panel4, "panel4");
+      this.panel4.Name = "panel4";
+      // 
+      // comBoxFlatFolders
+      // 
+      resources.ApplyResources(this.comBoxFlatFolders, "comBoxFlatFolders");
+      this.comBoxFlatFolders.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.comBoxFlatFolders.FormattingEnabled = true;
+      this.comBoxFlatFolders.Name = "comBoxFlatFolders";
+      this.toolTip1.SetToolTip(this.comBoxFlatFolders, resources.GetString("comBoxFlatFolders.ToolTip"));
+      // 
+      // ckBoxFlatFolders
+      // 
+      resources.ApplyResources(this.ckBoxFlatFolders, "ckBoxFlatFolders");
+      this.ckBoxFlatFolders.Name = "ckBoxFlatFolders";
+      this.toolTip1.SetToolTip(this.ckBoxFlatFolders, resources.GetString("ckBoxFlatFolders.ToolTip"));
+      this.ckBoxFlatFolders.UseVisualStyleBackColor = true;
+      this.ckBoxFlatFolders.CheckedChanged += new System.EventHandler(this.ckBoxFlatFolders_CheckedChanged);
+      // 
+      // lblExtraMetaFiles
+      // 
+      resources.ApplyResources(this.lblExtraMetaFiles, "lblExtraMetaFiles");
+      this.lblExtraMetaFiles.Name = "lblExtraMetaFiles";
+      // 
+      // lblFlatFolders
+      // 
+      resources.ApplyResources(this.lblFlatFolders, "lblFlatFolders");
+      this.lblFlatFolders.Name = "lblFlatFolders";
+      // 
+      // ckBoxExtraMetaFiles
+      // 
+      resources.ApplyResources(this.ckBoxExtraMetaFiles, "ckBoxExtraMetaFiles");
+      this.ckBoxExtraMetaFiles.Name = "ckBoxExtraMetaFiles";
+      this.ckBoxExtraMetaFiles.UseVisualStyleBackColor = true;
       // 
       // SettingsForm
       // 
@@ -266,6 +315,7 @@
       this.panel2.ResumeLayout(false);
       this.panel3.ResumeLayout(false);
       this.panel3.PerformLayout();
+      this.panel4.ResumeLayout(false);
       this.ResumeLayout(false);
 
     }
@@ -299,5 +349,11 @@
     private System.Windows.Forms.Label lblPartName;
     private System.Windows.Forms.Label lblUpdate;
     private System.Windows.Forms.ComboBox comBoxUpdate;
+    private System.Windows.Forms.Panel panel4;
+    private System.Windows.Forms.ComboBox comBoxFlatFolders;
+    private System.Windows.Forms.CheckBox ckBoxFlatFolders;
+    private System.Windows.Forms.CheckBox ckBoxExtraMetaFiles;
+    private System.Windows.Forms.Label lblExtraMetaFiles;
+    private System.Windows.Forms.Label lblFlatFolders;
   }
 }

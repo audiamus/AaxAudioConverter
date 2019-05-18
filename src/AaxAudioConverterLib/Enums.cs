@@ -46,4 +46,10 @@
     standard,
     custom,
   }
+
+  public enum EFlatFolderNaming {
+    author_book,
+    book_author,
+  }
+
 }

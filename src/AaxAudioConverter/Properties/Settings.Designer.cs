@@ -320,6 +320,42 @@ namespace audiamus.aaxconv.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FlatFolders {
+            get {
+                return ((bool)(this["FlatFolders"]));
+            }
+            set {
+                this["FlatFolders"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("author_book")]
+        public global::audiamus.aaxconv.lib.EFlatFolderNaming FlatFolderNaming {
+            get {
+                return ((global::audiamus.aaxconv.lib.EFlatFolderNaming)(this["FlatFolderNaming"]));
+            }
+            set {
+                this["FlatFolderNaming"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ExtraMetaFiles {
+            get {
+                return ((bool)(this["ExtraMetaFiles"]));
+            }
+            set {
+                this["ExtraMetaFiles"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("true")]
         public global::System.Nullable<System.Boolean> OnlineUpdate {
             get {

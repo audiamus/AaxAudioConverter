@@ -77,6 +77,15 @@
     <Setting Name="Genres" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="FlatFolders" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="FlatFolderNaming" Type="audiamus.aaxconv.lib.EFlatFolderNaming" Scope="User">
+      <Value Profile="(Default)">author_book</Value>
+    </Setting>
+    <Setting Name="ExtraMetaFiles" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
     <Setting Name="OnlineUpdate" Type="System.Nullable&lt;System.Boolean&gt;" Scope="User">
       <Value Profile="(Default)">true</Value>
     </Setting>

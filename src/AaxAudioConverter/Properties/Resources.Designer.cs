@@ -154,6 +154,15 @@ namespace audiamus.aaxconv.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bit rate.
+        /// </summary>
+        internal static string HdrBitRate {
+            get {
+                return ResourceManager.GetString("HdrBitRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copyright.
         /// </summary>
         internal static string HdrCopyright {
@@ -199,11 +208,29 @@ namespace audiamus.aaxconv.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sample Rate.
+        /// </summary>
+        internal static string HdrSampleRate {
+            get {
+                return ResourceManager.GetString("HdrSampleRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Size.
         /// </summary>
         internal static string HdrSize {
             get {
                 return ResourceManager.GetString("HdrSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title.
+        /// </summary>
+        internal static string HdrTitle {
+            get {
+                return ResourceManager.GetString("HdrTitle", resourceCulture);
             }
         }
         

@@ -47,6 +47,7 @@
     <Compile Include="AaPictureExtractor.cs" />
     <Compile Include="ActivationCodeApp.cs" />
     <Compile Include="ActivationCodeRegistry.cs" />
+    <Compile Include="ExtraMetaFiles.cs" />
     <Compile Include="OnlineUpdate.cs" />
     <Compile Include="ChainPunctuation.cs" />
     <Compile Include="AudioMeta.cs" />

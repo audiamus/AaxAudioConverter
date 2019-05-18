@@ -30,5 +30,18 @@ namespace audiamus.aaxconv {
     public string MsgOnlineUpdateInstall => R.MsgOnlineUpdateInstall;
     public string MsgOnlineUpdateInstallNow => R.MsgOnlineUpdateInstallNow;
     public string MsgOnlineUpdateInstallLater => R.MsgOnlineUpdateInstallLater;
+
+    public string HdrAuthor => R.HdrAuthor;
+    public string HdrTitle => R.HdrTitle;
+    public string HdrNarrator => R.HdrNarrator;
+    public string HdrDuration => R.HdrDuration;
+    public string HdrYear => R.HdrYear;
+    public string HdrPublisher => R.HdrPublisher;
+    public string HdrCopyright => R.HdrCopyright;
+    public string HdrGenre => R.HdrGenre;
+    public string HdrSampleRate => R.HdrSampleRate;
+    public string HdrBitRate => R.HdrBitRate;
+
+
   }
 }

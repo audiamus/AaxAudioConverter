@@ -128,13 +128,13 @@
     <value>379, 15</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 298</value>
+    <value>0, 405</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>466, 50</value>
   </data>
   <data name="lblUsrActCode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 67</value>
+    <value>18, 77</value>
   </data>
   <data name="lblUsrActCode.Size" type="System.Drawing.Size, System.Drawing">
     <value>206, 30</value>
@@ -144,66 +144,44 @@
 Audible Aktivierungscode</value>
   </data>
   <data name="lblFfmpegLoc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 5</value>
+    <value>37, 7</value>
   </data>
   <data name="lblFfmpegLoc.Text" xml:space="preserve">
     <value>Pfad zu FFmpeg.exe</value>
   </data>
   <data name="btnUsrActCode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>237, 71</value>
+    <value>237, 81</value>
   </data>
   <data name="btnUsrActCode.Text" xml:space="preserve">
     <value>Bearbeiten</value>
   </data>
   <data name="btnFfmpegLoc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>237, 5</value>
+    <value>237, 7</value>
   </data>
   <data name="btnFfmpegLoc.Text" xml:space="preserve">
     <value>Bearbeiten</value>
   </data>
-  <data name="lblRegActCode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 33</value>
-  </data>
   <data name="lblRegActCode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 33</value>
+    <value>221, 37</value>
   </data>
   <data name="lblRegActCode.Text" xml:space="preserve">
     <value>Audible Manager/App Aktivierungscode(s) </value>
   </data>
-  <data name="listBoxActCode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>135, 30</value>
-  </data>
-  <data name="btnRegActCode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 5</value>
-  </data>
-  <data name="btnRegActCode.Text" xml:space="preserve">
-    <value>Einblenden</value>
-  </data>
   <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>227, 33</value>
+    <value>227, 37</value>
   </data>
   <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 33</value>
-  </data>
-  <data name="ckBoxFileAssoc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>237, 207</value>
-  </data>
-  <data name="lblFileAssoc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 199</value>
-  </data>
-  <data name="lblFileAssoc.Text" xml:space="preserve">
-    <value>.aax- und .aa-Dateien mit 
-AaxAudioConverter verknüpfen</value>
+    <value>239, 37</value>
   </data>
   <data name="lblCustTitleChars.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 166</value>
+    <value>34, 188</value>
   </data>
   <data name="lblCustTitleChars.Text" xml:space="preserve">
     <value>Zusätzlich gültige Interpunktions-
 zeichen für gefilterten Buchtitel</value>
   </data>
   <data name="txtBoxCustTitleChars.Location" type="System.Drawing.Point, System.Drawing">
-    <value>237, 171</value>
+    <value>237, 193</value>
   </data>
   <data name="txtBoxCustTitleChars.Size" type="System.Drawing.Size, System.Drawing">
     <value>120, 20</value>
@@ -214,7 +192,7 @@ sollen, wenn die anschließende Meta-Information
 herausgefiltert wird.</value>
   </data>
   <data name="txtBoxCustPart.Location" type="System.Drawing.Point, System.Drawing">
-    <value>237, 138</value>
+    <value>237, 156</value>
   </data>
   <data name="txtBoxCustPart.Size" type="System.Drawing.Size, System.Drawing">
     <value>226, 20</value>
@@ -223,9 +201,6 @@ herausgefiltert wird.</value>
     <value>Mehrere Suchwörter erlaubt. 
 Mit Leerzeichen oder Semikolon trennen.</value>
   </data>
-  <data name="lblCustPart.Location" type="System.Drawing.Point, System.Drawing">
-    <value>21, 133</value>
-  </data>
   <data name="lblCustPart.Size" type="System.Drawing.Size, System.Drawing">
     <value>203, 30</value>
   </data>
@@ -233,47 +208,29 @@ Mit Leerzeichen oder Semikolon trennen.</value>
     <value>Benutzerdefinierte Suchwörter für "Teil"
 im Titel mehrteiliger Bücher</value>
   </data>
-  <data name="txtBoxPartName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>136, 8</value>
-  </data>
-  <data name="txtBoxPartName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
-  </data>
-  <data name="txtBoxPartName.ToolTip" xml:space="preserve">
-    <value>Benutzerdefinierter Präfix für "Teil"-Ordner.</value>
-  </data>
-  <data name="comBoxPartName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 6</value>
-  </data>
   <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>227, 99</value>
+    <value>227, 111</value>
   </data>
   <data name="panel3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 33</value>
+    <value>239, 37</value>
   </data>
   <data name="lblPartName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 100</value>
+    <value>34, 114</value>
   </data>
   <data name="lblPartName.Text" xml:space="preserve">
     <value>Präfix für "Teil"-Ordner.</value>
   </data>
   <data name="comBoxLang.Location" type="System.Drawing.Point, System.Drawing">
-    <value>237, 270</value>
+    <value>237, 378</value>
   </data>
   <data name="comBoxLang.Size" type="System.Drawing.Size, System.Drawing">
     <value>226, 21</value>
   </data>
   <data name="lblLang.Location" type="System.Drawing.Point, System.Drawing">
-    <value>102, 269</value>
+    <value>102, 377</value>
   </data>
   <data name="lblLang.Text" xml:space="preserve">
     <value>Sprache</value>
-  </data>
-  <data name="lblUpdate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>102, 236</value>
-  </data>
-  <data name="lblUpdate.Text" xml:space="preserve">
-    <value>Online-Update</value>
   </data>
   <data name="comBoxUpdate.Items" xml:space="preserve">
     <value>Ausgeschaltet</value>
@@ -285,16 +242,88 @@ im Titel mehrteiliger Bücher</value>
     <value>Aufforderung zur Installation</value>
   </data>
   <data name="comBoxUpdate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>237, 237</value>
+    <value>237, 341</value>
   </data>
   <data name="comBoxUpdate.Size" type="System.Drawing.Size, System.Drawing">
     <value>226, 21</value>
   </data>
+  <data name="lblUpdate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>102, 340</value>
+  </data>
+  <data name="lblUpdate.Text" xml:space="preserve">
+    <value>Online-Update</value>
+  </data>
+  <data name="lblFileAssoc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>42, 299</value>
+  </data>
+  <data name="lblFileAssoc.Text" xml:space="preserve">
+    <value>.aax- und .aa-Dateien mit 
+AaxAudioConverter verknüpfen</value>
+  </data>
+  <data name="ckBoxFileAssoc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>237, 307</value>
+  </data>
+  <data name="panel4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>227, 222</value>
+  </data>
+  <data name="panel4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>239, 37</value>
+  </data>
+  <data name="lblExtraMetaFiles.Location" type="System.Drawing.Point, System.Drawing">
+    <value>16, 261</value>
+  </data>
+  <data name="lblExtraMetaFiles.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 33</value>
+  </data>
+  <data name="lblExtraMetaFiles.Text" xml:space="preserve">
+    <value>Zusätzliche Dateien für
+Buch-Info und Titelbild</value>
+  </data>
+  <data name="lblFlatFolders.Location" type="System.Drawing.Point, System.Drawing">
+    <value>38, 225</value>
+  </data>
+  <data name="lblFlatFolders.Size" type="System.Drawing.Size, System.Drawing">
+    <value>186, 30</value>
+  </data>
+  <data name="lblFlatFolders.Text" xml:space="preserve">
+    <value>Flache Ordnerstruktur
+und Namensgebung</value>
+  </data>
+  <data name="ckBoxExtraMetaFiles.Location" type="System.Drawing.Point, System.Drawing">
+    <value>237, 270</value>
+  </data>
   <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>466, 298</value>
+    <value>466, 405</value>
+  </data>
+  <data name="listBoxActCode.Size" type="System.Drawing.Size, System.Drawing">
+    <value>135, 30</value>
+  </data>
+  <data name="btnRegActCode.Text" xml:space="preserve">
+    <value>Einblenden</value>
+  </data>
+  <data name="txtBoxPartName.Location" type="System.Drawing.Point, System.Drawing">
+    <value>136, 8</value>
+  </data>
+  <data name="txtBoxPartName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 20</value>
+  </data>
+  <data name="txtBoxPartName.ToolTip" xml:space="preserve">
+    <value>Benutzerdefinierter Präfix für "Teil"-Ordner.</value>
+  </data>
+  <data name="comBoxPartName.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 21</value>
+  </data>
+  <data name="comBoxFlatFolders.Location" type="System.Drawing.Point, System.Drawing">
+    <value>36, 9</value>
+  </data>
+  <data name="comBoxFlatFolders.Size" type="System.Drawing.Size, System.Drawing">
+    <value>145, 21</value>
+  </data>
+  <data name="ckBoxFlatFolders.ToolTip" xml:space="preserve">
+    <value>Keine Ordnerhierarchie für Autor und Buchtitel.</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>466, 348</value>
+    <value>466, 455</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Grundeinstellungen</value>

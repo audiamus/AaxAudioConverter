@@ -154,7 +154,7 @@
     <value>Bottom, Right</value>
   </data>
   <data name="btnOK.Location" type="System.Drawing.Point, System.Drawing">
-    <value>352, 15</value>
+    <value>352, 13</value>
   </data>
   <data name="btnOK.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -181,10 +181,10 @@
     <value>Bottom</value>
   </data>
   <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 335</value>
+    <value>0, 407</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>439, 50</value>
+    <value>439, 48</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -307,7 +307,7 @@
     <value>75, 23</value>
   </data>
   <data name="btnFfmpegLoc.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="btnFfmpegLoc.Text" xml:space="preserve">
     <value>Edit</value>
@@ -421,7 +421,7 @@
     <value>225, 37</value>
   </data>
   <data name="panel2.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;panel2.Name" xml:space="preserve">
     <value>panel2</value>
@@ -434,64 +434,6 @@
   </data>
   <data name="&gt;&gt;panel2.ZOrder" xml:space="preserve">
     <value>5</value>
-  </data>
-  <data name="ckBoxFileAssoc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
-  </data>
-  <data name="ckBoxFileAssoc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>224, 233</value>
-  </data>
-  <data name="ckBoxFileAssoc.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 3, 3, 3</value>
-  </data>
-  <data name="ckBoxFileAssoc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>63, 14</value>
-  </data>
-  <data name="ckBoxFileAssoc.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
-  </data>
-  <data name="&gt;&gt;ckBoxFileAssoc.Name" xml:space="preserve">
-    <value>ckBoxFileAssoc</value>
-  </data>
-  <data name="&gt;&gt;ckBoxFileAssoc.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;ckBoxFileAssoc.Parent" xml:space="preserve">
-    <value>tableLayoutPanel1</value>
-  </data>
-  <data name="&gt;&gt;ckBoxFileAssoc.ZOrder" xml:space="preserve">
-    <value>6</value>
-  </data>
-  <data name="lblFileAssoc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Right</value>
-  </data>
-  <data name="lblFileAssoc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>29, 225</value>
-  </data>
-  <data name="lblFileAssoc.Size" type="System.Drawing.Size, System.Drawing">
-    <value>182, 30</value>
-  </data>
-  <data name="lblFileAssoc.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="lblFileAssoc.Text" xml:space="preserve">
-    <value>Associate .aax and .aa files
- with AaxAudioConverter </value>
-  </data>
-  <data name="lblFileAssoc.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
-  <data name="&gt;&gt;lblFileAssoc.Name" xml:space="preserve">
-    <value>lblFileAssoc</value>
-  </data>
-  <data name="&gt;&gt;lblFileAssoc.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblFileAssoc.Parent" xml:space="preserve">
-    <value>tableLayoutPanel1</value>
-  </data>
-  <data name="&gt;&gt;lblFileAssoc.ZOrder" xml:space="preserve">
-    <value>7</value>
   </data>
   <data name="lblCustTitleChars.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -525,7 +467,7 @@ characters for filtered book title</value>
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;lblCustTitleChars.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>6</value>
   </data>
   <data name="txtBoxCustTitleChars.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -559,7 +501,7 @@ when stripping off trailing meta information from the title text. </value>
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;txtBoxCustTitleChars.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>7</value>
   </data>
   <data name="txtBoxCustPart.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -589,7 +531,7 @@ when stripping off trailing meta information from the title text. </value>
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;txtBoxCustPart.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>8</value>
   </data>
   <data name="lblCustPart.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -620,7 +562,7 @@ when stripping off trailing meta information from the title text. </value>
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;lblCustPart.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>9</value>
   </data>
   <data name="txtBoxPartName.Location" type="System.Drawing.Point, System.Drawing">
     <value>101, 8</value>
@@ -701,7 +643,7 @@ when stripping off trailing meta information from the title text. </value>
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;panel3.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>10</value>
   </data>
   <data name="lblPartName.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -734,7 +676,7 @@ when stripping off trailing meta information from the title text. </value>
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;lblPartName.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>11</value>
   </data>
   <data name="comBoxLang.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -743,7 +685,7 @@ when stripping off trailing meta information from the title text. </value>
     <value>&lt;system default&gt;</value>
   </data>
   <data name="comBoxLang.Location" type="System.Drawing.Point, System.Drawing">
-    <value>224, 305</value>
+    <value>224, 378</value>
   </data>
   <data name="comBoxLang.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>10, 3, 3, 3</value>
@@ -752,7 +694,7 @@ when stripping off trailing meta information from the title text. </value>
     <value>203, 21</value>
   </data>
   <data name="comBoxLang.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>10</value>
   </data>
   <data name="&gt;&gt;comBoxLang.Name" xml:space="preserve">
     <value>comBoxLang</value>
@@ -764,13 +706,13 @@ when stripping off trailing meta information from the title text. </value>
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;comBoxLang.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>12</value>
   </data>
   <data name="lblLang.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
   </data>
   <data name="lblLang.Location" type="System.Drawing.Point, System.Drawing">
-    <value>89, 304</value>
+    <value>89, 377</value>
   </data>
   <data name="lblLang.Size" type="System.Drawing.Size, System.Drawing">
     <value>122, 23</value>
@@ -794,7 +736,43 @@ when stripping off trailing meta information from the title text. </value>
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;lblLang.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>13</value>
+  </data>
+  <data name="comBoxUpdate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="comBoxUpdate.Items" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="comBoxUpdate.Items1" xml:space="preserve">
+    <value>Prompt for download</value>
+  </data>
+  <data name="comBoxUpdate.Items2" xml:space="preserve">
+    <value>Auto download, prompt for Installation</value>
+  </data>
+  <data name="comBoxUpdate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>224, 341</value>
+  </data>
+  <data name="comBoxUpdate.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 3, 3</value>
+  </data>
+  <data name="comBoxUpdate.Size" type="System.Drawing.Size, System.Drawing">
+    <value>203, 21</value>
+  </data>
+  <data name="comBoxUpdate.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="&gt;&gt;comBoxUpdate.Name" xml:space="preserve">
+    <value>comBoxUpdate</value>
+  </data>
+  <data name="&gt;&gt;comBoxUpdate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comBoxUpdate.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;comBoxUpdate.ZOrder" xml:space="preserve">
+    <value>14</value>
   </data>
   <data name="lblUpdate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -803,7 +781,7 @@ when stripping off trailing meta information from the title text. </value>
     <value>NoControl</value>
   </data>
   <data name="lblUpdate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>89, 266</value>
+    <value>89, 340</value>
   </data>
   <data name="lblUpdate.Size" type="System.Drawing.Size, System.Drawing">
     <value>122, 23</value>
@@ -827,43 +805,251 @@ when stripping off trailing meta information from the title text. </value>
     <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;lblUpdate.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>15</value>
   </data>
-  <data name="comBoxUpdate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
+  <data name="lblFileAssoc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Right</value>
   </data>
-  <data name="comBoxUpdate.Items" xml:space="preserve">
-    <value>Disabled</value>
+  <data name="lblFileAssoc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>29, 299</value>
   </data>
-  <data name="comBoxUpdate.Items1" xml:space="preserve">
-    <value>Prompt for download</value>
+  <data name="lblFileAssoc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>182, 30</value>
   </data>
-  <data name="comBoxUpdate.Items2" xml:space="preserve">
-    <value>Auto download, prompt for Installation</value>
+  <data name="lblFileAssoc.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="comBoxUpdate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>224, 267</value>
+  <data name="lblFileAssoc.Text" xml:space="preserve">
+    <value>Associate .aax and .aa files
+ with AaxAudioConverter </value>
   </data>
-  <data name="comBoxUpdate.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 3, 3, 3</value>
+  <data name="lblFileAssoc.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
-  <data name="comBoxUpdate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 21</value>
+  <data name="&gt;&gt;lblFileAssoc.Name" xml:space="preserve">
+    <value>lblFileAssoc</value>
   </data>
-  <data name="comBoxUpdate.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+  <data name="&gt;&gt;lblFileAssoc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;comBoxUpdate.Name" xml:space="preserve">
-    <value>comBoxUpdate</value>
-  </data>
-  <data name="&gt;&gt;comBoxUpdate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;comBoxUpdate.Parent" xml:space="preserve">
+  <data name="&gt;&gt;lblFileAssoc.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
   </data>
-  <data name="&gt;&gt;comBoxUpdate.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;lblFileAssoc.ZOrder" xml:space="preserve">
+    <value>16</value>
+  </data>
+  <data name="ckBoxFileAssoc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="ckBoxFileAssoc.Location" type="System.Drawing.Point, System.Drawing">
+    <value>224, 307</value>
+  </data>
+  <data name="ckBoxFileAssoc.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 3, 3</value>
+  </data>
+  <data name="ckBoxFileAssoc.Size" type="System.Drawing.Size, System.Drawing">
+    <value>63, 14</value>
+  </data>
+  <data name="ckBoxFileAssoc.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;ckBoxFileAssoc.Name" xml:space="preserve">
+    <value>ckBoxFileAssoc</value>
+  </data>
+  <data name="&gt;&gt;ckBoxFileAssoc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ckBoxFileAssoc.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;ckBoxFileAssoc.ZOrder" xml:space="preserve">
     <value>17</value>
+  </data>
+  <data name="comBoxFlatFolders.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="comBoxFlatFolders.Location" type="System.Drawing.Point, System.Drawing">
+    <value>36, 8</value>
+  </data>
+  <data name="comBoxFlatFolders.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 21</value>
+  </data>
+  <data name="comBoxFlatFolders.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="comBoxFlatFolders.ToolTip" xml:space="preserve">
+    <value>Source for book part folder name prefix, if needed: 
+&lt;source&gt;: taken from aax source; 
+&lt;standard&gt; sets to 'Part'; 
+&lt;custom&gt; allows custom value.</value>
+  </data>
+  <data name="&gt;&gt;comBoxFlatFolders.Name" xml:space="preserve">
+    <value>comBoxFlatFolders</value>
+  </data>
+  <data name="&gt;&gt;comBoxFlatFolders.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comBoxFlatFolders.Parent" xml:space="preserve">
+    <value>panel4</value>
+  </data>
+  <data name="&gt;&gt;comBoxFlatFolders.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="ckBoxFlatFolders.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="ckBoxFlatFolders.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="ckBoxFlatFolders.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 13</value>
+  </data>
+  <data name="ckBoxFlatFolders.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 3, 3</value>
+  </data>
+  <data name="ckBoxFlatFolders.Size" type="System.Drawing.Size, System.Drawing">
+    <value>20, 14</value>
+  </data>
+  <data name="ckBoxFlatFolders.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="ckBoxFlatFolders.ToolTip" xml:space="preserve">
+    <value>No folder hierarchy for author and book title</value>
+  </data>
+  <data name="&gt;&gt;ckBoxFlatFolders.Name" xml:space="preserve">
+    <value>ckBoxFlatFolders</value>
+  </data>
+  <data name="&gt;&gt;ckBoxFlatFolders.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ckBoxFlatFolders.Parent" xml:space="preserve">
+    <value>panel4</value>
+  </data>
+  <data name="&gt;&gt;ckBoxFlatFolders.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="panel4.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="panel4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>214, 222</value>
+  </data>
+  <data name="panel4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="panel4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>225, 37</value>
+  </data>
+  <data name="panel4.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;panel4.Name" xml:space="preserve">
+    <value>panel4</value>
+  </data>
+  <data name="&gt;&gt;panel4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel4.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;panel4.ZOrder" xml:space="preserve">
+    <value>18</value>
+  </data>
+  <data name="lblExtraMetaFiles.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="lblExtraMetaFiles.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblExtraMetaFiles.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 266</value>
+  </data>
+  <data name="lblExtraMetaFiles.Size" type="System.Drawing.Size, System.Drawing">
+    <value>208, 23</value>
+  </data>
+  <data name="lblExtraMetaFiles.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="lblExtraMetaFiles.Text" xml:space="preserve">
+    <value>Exta files for book info and cover image</value>
+  </data>
+  <data name="lblExtraMetaFiles.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;lblExtraMetaFiles.Name" xml:space="preserve">
+    <value>lblExtraMetaFiles</value>
+  </data>
+  <data name="&gt;&gt;lblExtraMetaFiles.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblExtraMetaFiles.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;lblExtraMetaFiles.ZOrder" xml:space="preserve">
+    <value>19</value>
+  </data>
+  <data name="lblFlatFolders.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Right</value>
+  </data>
+  <data name="lblFlatFolders.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="lblFlatFolders.Location" type="System.Drawing.Point, System.Drawing">
+    <value>25, 229</value>
+  </data>
+  <data name="lblFlatFolders.Size" type="System.Drawing.Size, System.Drawing">
+    <value>186, 23</value>
+  </data>
+  <data name="lblFlatFolders.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="lblFlatFolders.Text" xml:space="preserve">
+    <value>Flat folder structure and naming</value>
+  </data>
+  <data name="lblFlatFolders.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
+  <data name="&gt;&gt;lblFlatFolders.Name" xml:space="preserve">
+    <value>lblFlatFolders</value>
+  </data>
+  <data name="&gt;&gt;lblFlatFolders.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lblFlatFolders.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;lblFlatFolders.ZOrder" xml:space="preserve">
+    <value>20</value>
+  </data>
+  <data name="ckBoxExtraMetaFiles.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
+  </data>
+  <data name="ckBoxExtraMetaFiles.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="ckBoxExtraMetaFiles.Location" type="System.Drawing.Point, System.Drawing">
+    <value>224, 270</value>
+  </data>
+  <data name="ckBoxExtraMetaFiles.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 3, 3</value>
+  </data>
+  <data name="ckBoxExtraMetaFiles.Size" type="System.Drawing.Size, System.Drawing">
+    <value>63, 14</value>
+  </data>
+  <data name="ckBoxExtraMetaFiles.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;ckBoxExtraMetaFiles.Name" xml:space="preserve">
+    <value>ckBoxExtraMetaFiles</value>
+  </data>
+  <data name="&gt;&gt;ckBoxExtraMetaFiles.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ckBoxExtraMetaFiles.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
+  <data name="&gt;&gt;ckBoxExtraMetaFiles.ZOrder" xml:space="preserve">
+    <value>21</value>
   </data>
   <data name="tableLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -872,10 +1058,10 @@ when stripping off trailing meta information from the title text. </value>
     <value>0, 0</value>
   </data>
   <data name="tableLayoutPanel1.RowCount" type="System.Int32, mscorlib">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>439, 335</value>
+    <value>439, 407</value>
   </data>
   <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -893,7 +1079,7 @@ when stripping off trailing meta information from the title text. </value>
     <value>0</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="lblUsrActCode" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lblFfmpegLoc" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="btnUsrActCode" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="btnFfmpegLoc" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblRegActCode" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="panel2" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="ckBoxFileAssoc" Row="6" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblFileAssoc" Row="6" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lblCustTitleChars" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="txtBoxCustTitleChars" Row="5" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="txtBoxCustPart" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblCustPart" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="panel3" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblPartName" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comBoxLang" Row="8" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblLang" Row="8" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lblUpdate" Row="7" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comBoxUpdate" Row="7" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,48,82076,Percent,51,17924" /&gt;&lt;Rows Styles="Percent,11,11069,Percent,11,11069,Percent,11,11069,Percent,11,11069,Percent,11,11069,Percent,11,11069,Percent,11,11069,Percent,11,11403,Percent,11,11111" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="lblUsrActCode" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lblFfmpegLoc" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="btnUsrActCode" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="btnFfmpegLoc" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblRegActCode" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="panel2" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblCustTitleChars" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="txtBoxCustTitleChars" Row="5" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="txtBoxCustPart" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblCustPart" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="panel3" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblPartName" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comBoxLang" Row="10" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblLang" Row="10" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comBoxUpdate" Row="9" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblUpdate" Row="9" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lblFileAssoc" Row="8" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="ckBoxFileAssoc" Row="8" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="panel4" Row="6" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblExtraMetaFiles" Row="7" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lblFlatFolders" Row="6" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="ckBoxExtraMetaFiles" Row="7" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,48,82076,Percent,51,17924" /&gt;&lt;Rows Styles="Absolute,37,Absolute,37,Absolute,37,Absolute,37,Absolute,37,Absolute,37,Absolute,37,Absolute,37,Absolute,37,Absolute,37,Absolute,37" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
@@ -902,7 +1088,7 @@ when stripping off trailing meta information from the title text. </value>
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>439, 385</value>
+    <value>439, 455</value>
   </data>
   <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
     <value>CenterParent</value>

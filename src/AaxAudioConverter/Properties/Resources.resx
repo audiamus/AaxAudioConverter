@@ -307,4 +307,13 @@ Download now?</value>
   <data name="MsgOnlineUpdateInstallNow" xml:space="preserve">
     <value>Install now? (Will close cuirrent AaxAudioConverter window.)</value>
   </data>
+  <data name="HdrBitRate" xml:space="preserve">
+    <value>Bit rate</value>
+  </data>
+  <data name="HdrSampleRate" xml:space="preserve">
+    <value>Sample Rate</value>
+  </data>
+  <data name="HdrTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
 </root>

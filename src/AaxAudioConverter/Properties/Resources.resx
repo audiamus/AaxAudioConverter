@@ -140,6 +140,13 @@ Override content, new folder or skip book?
 [No]: New folder
 [Cancel]: Skip book</value>
   </data>
+  <data name="MsgDirectoryPartCreationCallback" xml:space="preserve">
+    <value>exists and is not empty.
+Override content, new folder or skip book?
+[Yes]: Override content, but keep existing other parts of book
+[No]: New folder
+[Cancel]: Skip book</value>
+  </data>
   <data name="MsgFileAssoc" xml:space="preserve">
     <value>Associate .aax and .aa files with</value>
   </data>

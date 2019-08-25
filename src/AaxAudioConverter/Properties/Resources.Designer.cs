@@ -350,6 +350,19 @@ namespace audiamus.aaxconv.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to exists and is not empty.
+        ///Override content, new folder or skip book?
+        ///[Yes]: Override content, but keep existing other parts of book
+        ///[No]: New folder
+        ///[Cancel]: Skip book.
+        /// </summary>
+        internal static string MsgDirectoryPartCreationCallback {
+            get {
+                return ResourceManager.GetString("MsgDirectoryPartCreationCallback", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to has been tested 
         ///against FFmpeg version.
         /// </summary>

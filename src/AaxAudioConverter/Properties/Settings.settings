@@ -89,5 +89,11 @@
     <Setting Name="OnlineUpdate" Type="System.Nullable&lt;System.Boolean&gt;" Scope="User">
       <Value Profile="(Default)">true</Value>
     </Setting>
+    <Setting Name="ShortChapterSec" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">25</Value>
+    </Setting>
+    <Setting Name="VeryShortChapterSec" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

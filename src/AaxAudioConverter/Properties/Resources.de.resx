@@ -148,6 +148,13 @@ Inhalt überschreiben, neuer Ordner, oder Buch überspringen?
 [Nein]: Neuer Ordner
 [Abbrechen]: Buch überspringen</value>
   </data>
+  <data name="MsgDirectoryPartCreationCallback" xml:space="preserve">
+    <value>existiert und ist nicht leer.
+Inhalt überschreiben, neuer Ordner, oder Buch überspringen?
+[Ja]: Inhalt überschreiben, aber bestehende andere Buchteile erhalten
+[Nein]: Neuer Ordner
+[Abbrechen]: Buch überspringen</value>
+  </data>
   <data name="MsgFileAssoc" xml:space="preserve">
     <value>.aax- und .aa-Dateien verknüpfen mit</value>
   </data>

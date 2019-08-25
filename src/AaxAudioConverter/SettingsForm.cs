@@ -73,10 +73,12 @@ namespace audiamus.aaxconv {
     private void updatePartNaming () {
       var rm = R.ResourceManager; // this.GetDefaultResourceManager ();
       var partNaming = (EGeneralNaming)comBoxPartName.SelectedIndex;
-      if (partNaming == EGeneralNaming.standard)
-        using (new ResourceGuard (x => _flag = x))
-          txtBoxPartName.Text = rm.GetStringEx (PART);
-
+      string standardPrefix = rm.GetStringEx (PART);
+      using (new ResourceGuard (x => _flag = x))
+        if (partNaming != EGeneralNaming.custom)
+          txtBoxPartName.Text = standardPrefix;
+        else
+          txtBoxPartName.Text = string.IsNullOrWhiteSpace (Settings.PartName) ? standardPrefix : Settings.PartName;
     }
 
     private void initFlatFoldersNaming () {
@@ -122,6 +124,9 @@ namespace audiamus.aaxconv {
           comBoxUpdate.SelectedIndex = 2;
           break;
       }
+
+      nudShortChapter.Value = Settings.ShortChapterSec;
+      nudVeryShortChapter.Value = Settings.VeryShortChapterSec;
     }
 
 
@@ -207,6 +212,8 @@ namespace audiamus.aaxconv {
       Settings.FlatFolderNaming = (EFlatFolderNaming)comBoxFlatFolders.SelectedIndex;
       Settings.PartNames = txtBoxCustPart.Text;
       Settings.AddnlValTitlePunct = txtBoxCustTitleChars.Text;
+      Settings.ShortChapterSec = (uint)nudShortChapter.Value;
+      Settings.VeryShortChapterSec = (uint)nudVeryShortChapter.Value;
 
       bool ck = ckBoxFileAssoc.Checked;
       if ((Settings.FileAssoc ?? false) != ck) {

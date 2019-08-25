@@ -14,8 +14,11 @@
                                               //"[Yes]: Override content\r\n" +
                                               //"[No]: New folder\r\n" +
                                               //"[Cancel]: Skip book"
+    string MsgDirectoryPartCreationCallback { get; } //exists and is not empty.\r\n" +
 
     string PartNames { get; }
+    string PartNamePrefixStandard { get; }
+    string ChapterNamePrefixStandard { get; }
 
     string MsgOnlineUpdateNewVersion { get; }
     string MsgOnlineUpdateDownload { get; }

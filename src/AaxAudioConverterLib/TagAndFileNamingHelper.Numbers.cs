@@ -24,9 +24,11 @@ namespace audiamus.aaxconv.lib {
         this.nPrt = part.PartNumber;
         this.nnPrt = book.Parts.Select (p => p.PartNumber).Max ().Digits ();
 
-        var chapterTracks = part.Tracks?.Where (t => !(track.Chapter is null) && object.ReferenceEquals (t.Chapter, track.Chapter)).ToList ();
-        this.nChTrk = (chapterTracks?.IndexOf (track) ?? -1) + 1;
-        this.nnChTrk = chapterTracks?.Count.Digits () ?? 0;
+        if (!(track is null)) { 
+          var chapterTracks = part.Tracks?.Where (t => !(track.Chapter is null) && object.ReferenceEquals (t.Chapter, track.Chapter)).ToList ();
+          this.nChTrk = (chapterTracks?.IndexOf (track) ?? -1) + 1;
+          this.nnChTrk = chapterTracks?.Count.Digits () ?? 0;
+        }
 
         if (book.PartsType == Book.EParts.some) {
           this.nTrk = (part.Tracks?.IndexOf (track) ?? -1) + 1;
@@ -35,7 +37,7 @@ namespace audiamus.aaxconv.lib {
           this.nDsk = part.PartNumber;
           this.nDsks = 0;
 
-          this.nChp = (part.Chapters?.IndexOf (track.Chapter) ?? -1) + 1;
+          this.nChp = (part.Chapters?.IndexOf (track?.Chapter) ?? -1) + 1;
           this.nnChp = part.Chapters?.Count.Digits () ?? 0;
 
         } else {
@@ -64,10 +66,10 @@ namespace audiamus.aaxconv.lib {
               else
                 return 0;
             } else {
-              if (track.Chapter is null)
+              if (track?.Chapter is null)
                 return 0;
               else
-                return (pt.Chapters?.IndexOf (track.Chapter) ?? -1) + 1;
+                return (pt.Chapters?.IndexOf (track?.Chapter) ?? -1) + 1;
             }
           }).Sum ();
 

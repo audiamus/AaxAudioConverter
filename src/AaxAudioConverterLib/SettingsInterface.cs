@@ -46,6 +46,8 @@
     bool FlatFolders { get; set; }
     EFlatFolderNaming FlatFolderNaming { get; set; }
     bool ExtraMetaFiles { get; set; }
+    uint ShortChapterSec { get; set; }
+    uint VeryShortChapterSec { get; set; }
   }
 
 }

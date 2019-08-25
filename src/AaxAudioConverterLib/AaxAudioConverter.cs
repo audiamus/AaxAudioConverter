@@ -470,6 +470,7 @@ namespace audiamus.aaxconv.lib {
       }
     }
 
+
     private void preProcessChapters (Book book) {
 
       foreach (var part in book.Parts) {
@@ -485,8 +486,8 @@ namespace audiamus.aaxconv.lib {
           book.ChapterNameStub = match.Groups[1].Value;
       }
 
-      var shortFirst = TimeSpan.FromSeconds (25);
-      var shortLast = TimeSpan.FromSeconds (25);
+      var shortChapter = TimeSpan.FromSeconds (Settings.ShortChapterSec);
+      var veryShortChapter = TimeSpan.FromSeconds (Settings.VeryShortChapterSec);
 
       for (int i = 0; i < book.Parts.Count; i++) {
         var part = book.Parts[i];
@@ -494,28 +495,40 @@ namespace audiamus.aaxconv.lib {
         if (part.Chapters is null)
           continue;
 
-        // check for short last if i < Count - 1
-        bool lastInMiddlePart = i < book.Parts.Count - 1 && part.Chapters.Count > 0;
-        while (true) {
+        if (veryShortChapter >= TimeSpan.Zero) {
           var chapter = part.Chapters.LastOrDefault ();
-          if (chapter?.Time.Duration <= shortLast)
+          if (chapter?.Time.Duration <= veryShortChapter)
             part.Chapters.Remove (chapter);
-          else
-            break;
-          if (!lastInMiddlePart)
-            break;
+
+          chapter = part.Chapters.FirstOrDefault ();
+          if (chapter?.Time.Duration <= veryShortChapter)
+            part.Chapters.Remove (chapter);
         }
 
-        // check for short first if i > 0
-        bool firstInMiddlePart = i > 0 && part.Chapters.Count > 0;
-        while (true) {
-          var chapter = part.Chapters.FirstOrDefault ();
-          if (chapter?.Time.Duration <= shortFirst)
-            part.Chapters.Remove (chapter);
-          else
-            break;
-          if (!firstInMiddlePart)
-            break;
+        if (book.PartsType == Book.EParts.all && shortChapter >= TimeSpan.Zero) {
+          // check for short last if i < Count - 1
+          bool lastInMiddlePart = i < book.Parts.Count - 1 && part.Chapters.Count > 0;
+          while (true) {
+            var chapter = part.Chapters.LastOrDefault ();
+            if (chapter?.Time.Duration <= shortChapter)
+              part.Chapters.Remove (chapter);
+            else
+              break;
+            if (!lastInMiddlePart)
+              break;
+          }
+
+          // check for short first if i > 0
+          bool firstInMiddlePart = i > 0 && part.Chapters.Count > 0;
+          while (true) {
+            var chapter = part.Chapters.FirstOrDefault ();
+            if (chapter?.Time.Duration <= shortChapter)
+              part.Chapters.Remove (chapter);
+            else
+              break;
+            if (!firstInMiddlePart)
+              break;
+          }
         }
 
         // done with one part, now knowing the number of chapters.
@@ -602,7 +615,7 @@ namespace audiamus.aaxconv.lib {
         part.Tracks.Add (track);
       }
 
-      TagAndFileNamingHelper.SetFileNames (Settings, book);
+      TagAndFileNamingHelper.SetFileNames (Resources, Settings, book);
       return true;
     }
 
@@ -654,7 +667,7 @@ namespace audiamus.aaxconv.lib {
         }
       }
 
-      TagAndFileNamingHelper.SetFileNames (Settings, book);
+      TagAndFileNamingHelper.SetFileNames (Resources, Settings, book);
 
     }
 
@@ -939,7 +952,7 @@ namespace audiamus.aaxconv.lib {
     }
 
 
-    private void nameTrackFilesSplitChapterMode (Book book) => TagAndFileNamingHelper.SetFileNames (Settings, book);
+    private void nameTrackFilesSplitChapterMode (Book book) => TagAndFileNamingHelper.SetFileNames (Resources, Settings, book);
 
     private void transcodeTracks (Book book) {
       if (Callbacks.Cancelled)
@@ -1091,11 +1104,10 @@ namespace audiamus.aaxconv.lib {
 
 
     private bool updateTags (Book book, Track track) => 
-      TagAndFileNamingHelper.WriteMetaData (Settings, book, track);
+      TagAndFileNamingHelper.WriteMetaData (Resources, Settings, book, track);
 
     private void makePlaylist (Book book) {
       const string EXTM3U = "#EXTM3U";
-      const string EXTINF = "#EXTINF";
 
       if (book.Parts is null)
         return;
@@ -1104,30 +1116,26 @@ namespace audiamus.aaxconv.lib {
       if (nTracks < 2)
         return; // no playlist for single file
 
-
-      string filename = flatDir(book) + ".m3u";
-      string path = Path.Combine (book.OutDirectoryLong, filename);
+      string filename = flatDir (book) + ".m3u";
       try {
-        using (var wr = new StreamWriter (new FileStream (path, FileMode.Create, FileAccess.Write))) {
-          wr.WriteLine (EXTM3U);
+        if (book.PartsType != Book.EParts.some) {
+          string path = Path.Combine (book.OutDirectoryLong, filename);
+          using (var wr = new StreamWriter (new FileStream (path, FileMode.Create, FileAccess.Write))) {
+            wr.WriteLine (EXTM3U);
+            foreach (var part in book.Parts)
+              writePlaylistItems (wr, book, part);
+            wr.WriteLine ();
+          }
+        } else {
           foreach (var part in book.Parts) {
-            if (part.Tracks is null)
-              continue;
-
-            foreach (var track in part.Tracks) {
-              bool hasDir = track.FileName.StartsWith (book.OutDirectoryLong);
-              if (!hasDir)
-                continue;
-              string subpath = track.FileName.Substring (book.OutDirectoryLong.Length + 1);
-              string title = track.Title ?? Path.GetFileNameWithoutExtension (subpath);
-              int duration = (int)track.Time.Duration.TotalSeconds;
-
-              wr.WriteLine ($"{EXTINF}:{duration}, {title}");
-              wr.WriteLine (subpath);
-
+            string partDir = TagAndFileNamingHelper.GetPartDirectoryName (Resources, Settings, book, part); 
+            string path = Path.Combine (partDir, filename);
+            using (var wr = new StreamWriter (new FileStream (path, FileMode.Create, FileAccess.Write))) {
+              wr.WriteLine (EXTM3U);
+              writePlaylistItems (wr, book, part);
+              wr.WriteLine ();
             }
           }
-          wr.WriteLine ();
         }
       } catch (Exception exc) {
         exceptionCallback (exc);
@@ -1135,11 +1143,43 @@ namespace audiamus.aaxconv.lib {
       }
     }
 
+    private void writePlaylistItems (TextWriter wr, Book book, Book.BookPart part) {
+      const string EXTINF = "#EXTINF";
+      if (part.Tracks is null)
+        return;
+      string partDir = TagAndFileNamingHelper.GetPartDirectoryName (Resources, Settings, book, part);
+
+      foreach (var track in part.Tracks) {
+        bool hasDir = track.FileName.StartsWith (partDir);
+        if (!hasDir)
+          continue;
+        string subpath = track.FileName.Substring (partDir.Length + 1);
+        string title = track.Title ?? Path.GetFileNameWithoutExtension (subpath);
+        int duration = (int)track.Time.Duration.TotalSeconds;
+
+        wr.WriteLine ($"{EXTINF}:{duration}, {title}");
+        wr.WriteLine (subpath);
+      }
+    }
+
     private void deleteOutDirectory (Book book) {
       try {
         DirectoryInfo dia = Directory.GetParent (book.OutDirectoryLong);
         DirectoryInfo dib = new DirectoryInfo (book.OutDirectoryLong);
-        dib.Delete (true);
+        if (book.PartsType != Book.EParts.some) {
+          dib.Delete (true);
+        } else {
+          foreach (var part in book.Parts) {
+            string dir = TagAndFileNamingHelper.GetPartDirectoryName (Resources, Settings, book, part);
+            if (Directory.Exists (dir)) {
+              DirectoryInfo dic = new DirectoryInfo (dir);
+              dic.Delete (true);
+            }
+          }
+          int n = dib.GetDirectories ().Count ();
+          if (n == 0)
+            dib.Delete (true);
+        }
 
         if (!Settings.FlatFolders && book.IsNewAuthor) {
           int n = dia.GetDirectories ().Count ();
@@ -1207,7 +1247,7 @@ namespace audiamus.aaxconv.lib {
             if (idx == 0)
               outDir = outDir.Substring (UNC.Length); 
 
-            bool? result = directoryCreationCallback (Path.GetFullPath (outDir));
+            bool? result = directoryCreationCallback (Path.GetFullPath (outDir), book.PartsType);
             if (!result.HasValue)
               return null;
             newFolder = !result.Value;
@@ -1233,7 +1273,12 @@ namespace audiamus.aaxconv.lib {
 
         Directory.CreateDirectory (outDirLong);
         DirectoryInfo di = new DirectoryInfo (outDirLong);
-        di.Clear ();
+        if (newFolder || book.PartsType != Book.EParts.some)
+          di.Clear ();
+        else
+          createPartDirectories (book);
+
+
       } catch (Exception exc) {
         exceptionCallback (exc);
         return null;
@@ -1242,6 +1287,30 @@ namespace audiamus.aaxconv.lib {
       return outDirLong;
 
     }
+
+    private void createPartDirectories (Book book) {
+      if (book.PartsType != Book.EParts.some)
+        return;
+
+      foreach (var part in book.Parts) {
+        string dirname = TagAndFileNamingHelper.GetPartDirectoryName (Resources, Settings, book, part);
+        Directory.CreateDirectory (dirname);
+        DirectoryInfo di = new DirectoryInfo (dirname);
+        di.Clear ();
+      }
+
+      DirectoryInfo dib = new DirectoryInfo (book.OutDirectoryLong);
+      var dis = dib.GetDirectories ();
+      var fis = dib.GetFiles ();
+      string ptPrefix = TagAndFileNamingHelper.GetPartPrefix (Resources, Settings, book);
+
+      foreach (var di in dis)
+        if (!di.Name.StartsWith (ptPrefix))
+          di.Delete (true);
+      foreach (var fi in fis)
+        fi.Delete ();
+    }
+
 
     private void initTempDirectory () {
       try {
@@ -1263,8 +1332,9 @@ namespace audiamus.aaxconv.lib {
       return false;
     }
 
-    private bool? directoryCreationCallback (string outDir) {
-      string msg = $"\"{outDir}\"\r\n{Resources.MsgDirectoryCreationCallback}";
+    private bool? directoryCreationCallback (string outDir, Book.EParts partsType) {
+      string r = partsType == Book.EParts.some ? Resources.MsgDirectoryPartCreationCallback : Resources.MsgDirectoryCreationCallback;
+      string msg = $"\"{outDir}\"\r\n{r}";
       return Callbacks.Interact (msg, ECallbackType.question3);
     }
 

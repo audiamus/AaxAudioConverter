@@ -365,5 +365,29 @@ namespace audiamus.aaxconv.Properties {
                 this["OnlineUpdate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("25")]
+        public uint ShortChapterSec {
+            get {
+                return ((uint)(this["ShortChapterSec"]));
+            }
+            set {
+                this["ShortChapterSec"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public uint VeryShortChapterSec {
+            get {
+                return ((uint)(this["VeryShortChapterSec"]));
+            }
+            set {
+                this["VeryShortChapterSec"] = value;
+            }
+        }
     }
 }

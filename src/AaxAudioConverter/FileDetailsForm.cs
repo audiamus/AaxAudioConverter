@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using audiamus.aaxconv.ex;
 using audiamus.aaxconv.lib;
+using audiamus.aux.ex;
 using audiamus.aux.win;
 
 namespace audiamus.aaxconv {
@@ -22,7 +23,7 @@ namespace audiamus.aaxconv {
       rtfbld.AppendItem (R.HdrAuthor, fileItem.Author);
       rtfbld.AppendItem (R.HdrNarrator, fileItem.Narrator);
       rtfbld.AppendItem (R.HdrSize, $"{fileItem.FileSize / (1024 * 1024)} MB");
-      rtfbld.AppendItem (R.HdrDuration, fileItem.Duration.ToString (@"hh\:mm\:ss"));
+      rtfbld.AppendItem (R.HdrDuration, fileItem.Duration.ToStringLongHours ());
       rtfbld.AppendItem (R.HdrYear, fileItem.PublishingDate?.Year.ToString ());
       rtfbld.AppendItem (R.HdrPublisher, fileItem.Publisher);
       rtfbld.AppendItem (R.HdrCopyright, fileItem.Copyright);

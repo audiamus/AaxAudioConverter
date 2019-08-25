@@ -1,4 +1,6 @@
-﻿using audiamus.aaxconv.lib;
+﻿using System.Resources;
+using audiamus.aaxconv.lib;
+using audiamus.aux.ex;
 
 namespace audiamus.aaxconv {
 
@@ -6,15 +8,19 @@ namespace audiamus.aaxconv {
 
   class Resources : IResources {
     private static Resources __resources;
+    private ResourceManager ResourceManager { get; }
 
     public static Resources Default {
       get
       {
-        if (__resources is null)
+        if (__resources is null) {
           __resources = new Resources ();
+        }
         return __resources;
       }
     }
+
+    private Resources () => ResourceManager = this.GetDefaultResourceManager ();
 
     public string MsgFFmpegVersion1 => R.MsgFFmpegVersion1;
     public string MsgFFmpegVersion2 => R.MsgFFmpegVersion2;
@@ -24,6 +30,7 @@ namespace audiamus.aaxconv {
     public string MsgActivationError2 => R.MsgActivationError2;
     public string MsgActivationError3 => R.MsgActivationError3;
     public string MsgDirectoryCreationCallback => R.MsgDirectoryCreationCallback;
+    public string MsgDirectoryPartCreationCallback => R.MsgDirectoryPartCreationCallback;
     public string PartNames => R.PartNames;
     public string MsgOnlineUpdateNewVersion => R.MsgOnlineUpdateNewVersion;
     public string MsgOnlineUpdateDownload => R.MsgOnlineUpdateDownload;
@@ -41,6 +48,9 @@ namespace audiamus.aaxconv {
     public string HdrGenre => R.HdrGenre;
     public string HdrSampleRate => R.HdrSampleRate;
     public string HdrBitRate => R.HdrBitRate;
+
+    public string PartNamePrefixStandard => ResourceManager.GetStringEx ("Part");
+    public string ChapterNamePrefixStandard => ResourceManager.GetStringEx ("Chapter");
 
 
   }

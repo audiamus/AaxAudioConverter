@@ -36,6 +36,7 @@ namespace audiamus.aaxconv.lib {
     readonly string[] _seps = Singleton<ChainPunctuationDot>.Instance.Infix;
 
     readonly INamingSettingsEx _settings;
+    readonly IResources _resources;
     readonly AaxFileItem _aaxFileItem;
     readonly Book _book;
     readonly EConvMode _convMode;
@@ -44,6 +45,7 @@ namespace audiamus.aaxconv.lib {
     Numbers _numbers;
 
     private INamingSettingsEx Settings => _settings;
+    private IResources Resources => _resources;
 
     private string Track => track ();
     private string Title => titleNaming ();
@@ -52,19 +54,48 @@ namespace audiamus.aaxconv.lib {
     private string FullPath => fullPath ();
     private string File => file ();
 
-
-    private TagAndFileNamingHelper (AaxFileItem aaxFileItem) {
-      _aaxFileItem = aaxFileItem;
+    private string PartPrefix {
+      get {
+        string prefix;
+        switch (Settings.PartNaming) {
+          case EGeneralNaming.source:
+            prefix = _book.PartNameStub;
+            break;
+          case EGeneralNaming.custom:
+            prefix = Settings.PartName;
+            break;
+          default:
+            prefix = Resources?.PartNamePrefixStandard;
+            break;
+        }
+        return prefix ?? PART;
+      }
     }
 
-    private TagAndFileNamingHelper (INamingSettingsEx settings, Book book, Track track) {
-      _settings = settings;
-      _book = book;
-      _track = track;
-      if (settings is ISettings s) {
-        _convFormat = s.ConvFormat;
-        _convMode = s.ConvMode;
+    private string ChapterPrefix {
+      get {
+        string prefix;
+        switch (Settings.ChapterNaming) {
+          case EGeneralNaming.source:
+            prefix = _book.ChapterNameStub;
+            break;
+          case EGeneralNaming.custom:
+            prefix = Settings.ChapterName;
+            break;
+          default:
+            prefix = Resources?.ChapterNamePrefixStandard;
+            break;
+        }
+        return prefix ?? CHAPTER;
       }
+    }
+
+    private TagAndFileNamingHelper (AaxFileItem aaxFileItem) => _aaxFileItem = aaxFileItem;
+
+    private TagAndFileNamingHelper (IResources resources, INamingSettingsEx settings, Book book, Track track) :
+      this (resources, settings, book)
+    {
+      _track = track;
 
       var part = book.Parts.Where (p => p.Tracks?.Contains (track) ?? false).SingleOrDefault ();
       if (part is null)
@@ -76,7 +107,15 @@ namespace audiamus.aaxconv.lib {
 
     }
 
-    private TagAndFileNamingHelper (ISettings settings, Book book) {
+    private TagAndFileNamingHelper (IResources resources, INamingSettingsEx settings, Book book, Book.BookPart part) :
+      this (resources, settings, book)
+    {
+      _aaxFileItem = part.AaxFileItem;
+      _numbers = new Numbers (book, null, part);
+    }
+
+    private TagAndFileNamingHelper (IResources resources, INamingSettingsEx settings, Book book) {
+      _resources = resources;
       _settings = settings;
       _book = book;
       if (settings is ISettings s) {
@@ -84,34 +123,46 @@ namespace audiamus.aaxconv.lib {
         _convMode = s.ConvMode;
       }
     }
+
+    public static bool ReadMetaData (AaxFileItem aaxFileItem) => 
+      new TagAndFileNamingHelper (aaxFileItem).readMetaData ();
+
+    public static bool WriteMetaData (IResources resources, INamingSettingsEx settings, Book book, Track track) => 
+      new TagAndFileNamingHelper (resources, settings, book, track).writeMetaData ();
+
+    public static void SetFileName (IResources resources, ISettings settings, Book book, Track track) => 
+      new TagAndFileNamingHelper (resources, settings, book, track).setFileName ();
+
+    public static void SetFileNames (IResources resources, ISettings settings, Book book) => 
+      new TagAndFileNamingHelper (resources, settings, book).setFileNames ();
+
+    public static string GetPartDirectoryName (IResources resources, INamingSettingsEx settings, Book book, Book.BookPart part) =>
+      new TagAndFileNamingHelper (resources, settings, book, part).getPartDirectoryName();
     
-    public static bool ReadMetaData (AaxFileItem aaxFileItem) {
-      return new TagAndFileNamingHelper (aaxFileItem).readMetaData ();
-    }
-
-    public static bool WriteMetaData (INamingSettingsEx settings, Book book, Track track) {
-      return new TagAndFileNamingHelper (settings, book, track).writeMetaData ();
-    }
-
-    public static void SetFileName (ISettings settings, Book book, Track track) {
-      new TagAndFileNamingHelper (settings, book, track).setFileName ();
-    }
-
-    public static void SetFileNames (ISettings settings, Book book) {
-      new TagAndFileNamingHelper (settings, book).setFileNames ();
-    }
-
     public static string GetGenre (INamingSettings settings, AaxFileItem afi) =>
           (settings.GenreNaming == EGeneralNaming.source ? afi.Genre : settings.GenreName) ?? GENRE;
 
-    private void setFileName () {
-      string path = FullPath;
-      _track.FileName = path;
+    public static string GetPartPrefix (IResources resources, INamingSettingsEx settings, Book book) =>
+      new TagAndFileNamingHelper (resources, settings, book).PartPrefix;
+
+    public static string GetChapterPrefix (IResources resources, INamingSettingsEx settings, Book book) {
+      return new TagAndFileNamingHelper (resources, settings, book).ChapterPrefix;
     }
 
-    private void setFileNames () {
-      _book.Parts.SelectMany (p => p.Tracks).ToList ().ForEach (setFileName);
+    private string getPartDirectoryName () {
+      switch (_book.PartsType) {
+        case Book.EParts.some:
+          return Path.Combine (_book.OutDirectoryLong, Part);
+        case Book.EParts.none:
+        case Book.EParts.all:
+        default:
+          return _book.OutDirectoryLong;
+      }
     }
+
+    private void setFileName () => _track.FileName = FullPath;
+
+    private void setFileNames () => _book.Parts.SelectMany (p => p.Tracks).ToList ().ForEach (setFileName);
 
     private void setFileName (Track track) {
       _track = track;
@@ -167,16 +218,18 @@ namespace audiamus.aaxconv.lib {
     private string chapter () {
       var n = _numbers;
       var p = SPACE;
-      string chapter = (Settings.ChapterNaming == EGeneralNaming.source ? _book.ChapterNameStub : Settings.ChapterName) ?? CHAPTER;
+      string chapter = ChapterPrefix;
       return chapter + p + n.nChp.Str (n.nnChp);
     }
 
     private string part () {
       var n = _numbers;
       var p = SPACE;
-      string part = (Settings.PartNaming == EGeneralNaming.source ? _book.PartNameStub : Settings.PartName) ?? PART;
+      string part = PartPrefix;
       return part + p + n.nPrt.Str (n.nnPrt);
     }
+
+
 
     private string fullPath () {
       string ext = _convFormat == EConvFormat.m4a ? EXT_M4A : EXT_MP3;

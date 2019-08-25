@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using audiamus.aaxconv.lib;
 using audiamus.aux;
+using audiamus.aux.ex;
 using audiamus.aux.win;
 using audiamus.aux.win.ex;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -343,7 +344,7 @@ namespace audiamus.aaxconv {
           };
           lvi.SubItems.Add (fi.Author);
           lvi.SubItems.Add ($"{fi.FileSize / (1024 * 1024)} MB");
-          lvi.SubItems.Add (fi.Duration.ToString (@"hh\:mm\:ss"));
+          lvi.SubItems.Add (fi.Duration.ToStringLongHours());
           lvi.SubItems.Add (fi.PublishingDate?.Year.ToString ());
           lvi.SubItems.Add (fi.Narrator);
           lvi.SubItems.Add ($"{fi.SampleRate} Hz");

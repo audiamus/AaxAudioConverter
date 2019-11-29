@@ -49,6 +49,7 @@
     <Compile Include="BooleanYesNoConverter.cs" />
     <Compile Include="ChainPunctuation.cs" />
     <Compile Include="DefaultSettings.cs" />
+    <Compile Include="Encoding.cs" />
     <Compile Include="EnumChainTypeConverter.cs" />
     <Compile Include="EnumUtil.cs" />
     <Compile Include="ExtensionMethods.cs" />

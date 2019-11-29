@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using audiamus.aux;
 using audiamus.aux.ex;
 using static audiamus.aux.ApplEnv;
+using Encoding = audiamus.aux.Encoding;
 
 namespace audiamus.aaxconv.lib {
   public class AaxAudioConverter : IPreviewTitle, IDisposable {
@@ -1116,11 +1117,12 @@ namespace audiamus.aaxconv.lib {
       if (nTracks < 2)
         return; // no playlist for single file
 
+      var encoding = Settings.Latin1EncodingForPlaylist ? Encoding.Latin1 : Encoding.UTF8;
       string filename = flatDir (book) + ".m3u";
       try {
         if (book.PartsType != Book.EParts.some) {
           string path = Path.Combine (book.OutDirectoryLong, filename);
-          using (var wr = new StreamWriter (new FileStream (path, FileMode.Create, FileAccess.Write))) {
+          using (var wr = new StreamWriter (new FileStream (path, FileMode.Create, FileAccess.Write), encoding)) {
             wr.WriteLine (EXTM3U);
             foreach (var part in book.Parts)
               writePlaylistItems (wr, book, part);

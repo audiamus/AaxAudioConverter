@@ -49,13 +49,7 @@
       this.comBoxFlatFolders = new System.Windows.Forms.ComboBox();
       this.ckBoxFlatFolders = new System.Windows.Forms.CheckBox();
       this.lblFlatFolders = new System.Windows.Forms.Label();
-      this.lblLang = new System.Windows.Forms.Label();
-      this.comBoxLang = new System.Windows.Forms.ComboBox();
-      this.comBoxUpdate = new System.Windows.Forms.ComboBox();
-      this.lblUpdate = new System.Windows.Forms.Label();
-      this.ckBoxFileAssoc = new System.Windows.Forms.CheckBox();
       this.ckBoxExtraMetaFiles = new System.Windows.Forms.CheckBox();
-      this.lblFileAssoc = new System.Windows.Forms.Label();
       this.lblExtraMetaFiles = new System.Windows.Forms.Label();
       this.panel5 = new System.Windows.Forms.Panel();
       this.label1 = new System.Windows.Forms.Label();
@@ -65,6 +59,14 @@
       this.nudVeryShortChapter = new System.Windows.Forms.NumericUpDown();
       this.label3 = new System.Windows.Forms.Label();
       this.label4 = new System.Windows.Forms.Label();
+      this.comBoxLang = new System.Windows.Forms.ComboBox();
+      this.lblLang = new System.Windows.Forms.Label();
+      this.comBoxUpdate = new System.Windows.Forms.ComboBox();
+      this.lblUpdate = new System.Windows.Forms.Label();
+      this.lblFileAssoc = new System.Windows.Forms.Label();
+      this.ckBoxFileAssoc = new System.Windows.Forms.CheckBox();
+      this.ckBoxLatin1 = new System.Windows.Forms.CheckBox();
+      this.lblLatin1 = new System.Windows.Forms.Label();
       this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
       this.panel1.SuspendLayout();
       this.tableLayoutPanel1.SuspendLayout();
@@ -119,18 +121,20 @@
       this.tableLayoutPanel1.Controls.Add(this.lblPartName, 0, 3);
       this.tableLayoutPanel1.Controls.Add(this.panel4, 1, 6);
       this.tableLayoutPanel1.Controls.Add(this.lblFlatFolders, 0, 6);
-      this.tableLayoutPanel1.Controls.Add(this.lblLang, 0, 12);
-      this.tableLayoutPanel1.Controls.Add(this.comBoxLang, 1, 12);
-      this.tableLayoutPanel1.Controls.Add(this.comBoxUpdate, 1, 11);
-      this.tableLayoutPanel1.Controls.Add(this.lblUpdate, 0, 11);
-      this.tableLayoutPanel1.Controls.Add(this.ckBoxFileAssoc, 1, 10);
       this.tableLayoutPanel1.Controls.Add(this.ckBoxExtraMetaFiles, 1, 9);
-      this.tableLayoutPanel1.Controls.Add(this.lblFileAssoc, 0, 10);
       this.tableLayoutPanel1.Controls.Add(this.lblExtraMetaFiles, 0, 9);
       this.tableLayoutPanel1.Controls.Add(this.panel5, 1, 7);
       this.tableLayoutPanel1.Controls.Add(this.panel6, 1, 8);
       this.tableLayoutPanel1.Controls.Add(this.label3, 0, 7);
       this.tableLayoutPanel1.Controls.Add(this.label4, 0, 8);
+      this.tableLayoutPanel1.Controls.Add(this.comBoxLang, 1, 13);
+      this.tableLayoutPanel1.Controls.Add(this.lblLang, 0, 13);
+      this.tableLayoutPanel1.Controls.Add(this.comBoxUpdate, 1, 12);
+      this.tableLayoutPanel1.Controls.Add(this.lblUpdate, 0, 12);
+      this.tableLayoutPanel1.Controls.Add(this.lblFileAssoc, 0, 11);
+      this.tableLayoutPanel1.Controls.Add(this.ckBoxFileAssoc, 1, 11);
+      this.tableLayoutPanel1.Controls.Add(this.ckBoxLatin1, 1, 10);
+      this.tableLayoutPanel1.Controls.Add(this.lblLatin1, 0, 10);
       this.tableLayoutPanel1.Name = "tableLayoutPanel1";
       this.toolTip1.SetToolTip(this.tableLayoutPanel1, resources.GetString("tableLayoutPanel1.ToolTip"));
       // 
@@ -277,59 +281,12 @@
       this.lblFlatFolders.Name = "lblFlatFolders";
       this.toolTip1.SetToolTip(this.lblFlatFolders, resources.GetString("lblFlatFolders.ToolTip"));
       // 
-      // lblLang
-      // 
-      resources.ApplyResources(this.lblLang, "lblLang");
-      this.lblLang.Name = "lblLang";
-      this.toolTip1.SetToolTip(this.lblLang, resources.GetString("lblLang.ToolTip"));
-      // 
-      // comBoxLang
-      // 
-      resources.ApplyResources(this.comBoxLang, "comBoxLang");
-      this.comBoxLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-      this.comBoxLang.FormattingEnabled = true;
-      this.comBoxLang.Items.AddRange(new object[] {
-            resources.GetString("comBoxLang.Items")});
-      this.comBoxLang.Name = "comBoxLang";
-      this.toolTip1.SetToolTip(this.comBoxLang, resources.GetString("comBoxLang.ToolTip"));
-      // 
-      // comBoxUpdate
-      // 
-      resources.ApplyResources(this.comBoxUpdate, "comBoxUpdate");
-      this.comBoxUpdate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-      this.comBoxUpdate.FormattingEnabled = true;
-      this.comBoxUpdate.Items.AddRange(new object[] {
-            resources.GetString("comBoxUpdate.Items"),
-            resources.GetString("comBoxUpdate.Items1"),
-            resources.GetString("comBoxUpdate.Items2")});
-      this.comBoxUpdate.Name = "comBoxUpdate";
-      this.toolTip1.SetToolTip(this.comBoxUpdate, resources.GetString("comBoxUpdate.ToolTip"));
-      // 
-      // lblUpdate
-      // 
-      resources.ApplyResources(this.lblUpdate, "lblUpdate");
-      this.lblUpdate.Name = "lblUpdate";
-      this.toolTip1.SetToolTip(this.lblUpdate, resources.GetString("lblUpdate.ToolTip"));
-      // 
-      // ckBoxFileAssoc
-      // 
-      resources.ApplyResources(this.ckBoxFileAssoc, "ckBoxFileAssoc");
-      this.ckBoxFileAssoc.Name = "ckBoxFileAssoc";
-      this.toolTip1.SetToolTip(this.ckBoxFileAssoc, resources.GetString("ckBoxFileAssoc.ToolTip"));
-      this.ckBoxFileAssoc.UseVisualStyleBackColor = true;
-      // 
       // ckBoxExtraMetaFiles
       // 
       resources.ApplyResources(this.ckBoxExtraMetaFiles, "ckBoxExtraMetaFiles");
       this.ckBoxExtraMetaFiles.Name = "ckBoxExtraMetaFiles";
       this.toolTip1.SetToolTip(this.ckBoxExtraMetaFiles, resources.GetString("ckBoxExtraMetaFiles.ToolTip"));
       this.ckBoxExtraMetaFiles.UseVisualStyleBackColor = true;
-      // 
-      // lblFileAssoc
-      // 
-      resources.ApplyResources(this.lblFileAssoc, "lblFileAssoc");
-      this.lblFileAssoc.Name = "lblFileAssoc";
-      this.toolTip1.SetToolTip(this.lblFileAssoc, resources.GetString("lblFileAssoc.ToolTip"));
       // 
       // lblExtraMetaFiles
       // 
@@ -398,6 +355,66 @@
       resources.ApplyResources(this.label4, "label4");
       this.label4.Name = "label4";
       this.toolTip1.SetToolTip(this.label4, resources.GetString("label4.ToolTip"));
+      // 
+      // comBoxLang
+      // 
+      resources.ApplyResources(this.comBoxLang, "comBoxLang");
+      this.comBoxLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.comBoxLang.FormattingEnabled = true;
+      this.comBoxLang.Items.AddRange(new object[] {
+            resources.GetString("comBoxLang.Items")});
+      this.comBoxLang.Name = "comBoxLang";
+      this.toolTip1.SetToolTip(this.comBoxLang, resources.GetString("comBoxLang.ToolTip"));
+      // 
+      // lblLang
+      // 
+      resources.ApplyResources(this.lblLang, "lblLang");
+      this.lblLang.Name = "lblLang";
+      this.toolTip1.SetToolTip(this.lblLang, resources.GetString("lblLang.ToolTip"));
+      // 
+      // comBoxUpdate
+      // 
+      resources.ApplyResources(this.comBoxUpdate, "comBoxUpdate");
+      this.comBoxUpdate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.comBoxUpdate.FormattingEnabled = true;
+      this.comBoxUpdate.Items.AddRange(new object[] {
+            resources.GetString("comBoxUpdate.Items"),
+            resources.GetString("comBoxUpdate.Items1"),
+            resources.GetString("comBoxUpdate.Items2")});
+      this.comBoxUpdate.Name = "comBoxUpdate";
+      this.toolTip1.SetToolTip(this.comBoxUpdate, resources.GetString("comBoxUpdate.ToolTip"));
+      // 
+      // lblUpdate
+      // 
+      resources.ApplyResources(this.lblUpdate, "lblUpdate");
+      this.lblUpdate.Name = "lblUpdate";
+      this.toolTip1.SetToolTip(this.lblUpdate, resources.GetString("lblUpdate.ToolTip"));
+      // 
+      // lblFileAssoc
+      // 
+      resources.ApplyResources(this.lblFileAssoc, "lblFileAssoc");
+      this.lblFileAssoc.Name = "lblFileAssoc";
+      this.toolTip1.SetToolTip(this.lblFileAssoc, resources.GetString("lblFileAssoc.ToolTip"));
+      // 
+      // ckBoxFileAssoc
+      // 
+      resources.ApplyResources(this.ckBoxFileAssoc, "ckBoxFileAssoc");
+      this.ckBoxFileAssoc.Name = "ckBoxFileAssoc";
+      this.toolTip1.SetToolTip(this.ckBoxFileAssoc, resources.GetString("ckBoxFileAssoc.ToolTip"));
+      this.ckBoxFileAssoc.UseVisualStyleBackColor = true;
+      // 
+      // ckBoxLatin1
+      // 
+      resources.ApplyResources(this.ckBoxLatin1, "ckBoxLatin1");
+      this.ckBoxLatin1.Name = "ckBoxLatin1";
+      this.toolTip1.SetToolTip(this.ckBoxLatin1, resources.GetString("ckBoxLatin1.ToolTip"));
+      this.ckBoxLatin1.UseVisualStyleBackColor = true;
+      // 
+      // lblLatin1
+      // 
+      resources.ApplyResources(this.lblLatin1, "lblLatin1");
+      this.lblLatin1.Name = "lblLatin1";
+      this.toolTip1.SetToolTip(this.lblLatin1, resources.GetString("lblLatin1.ToolTip"));
       // 
       // SettingsForm
       // 
@@ -473,5 +490,7 @@
     private System.Windows.Forms.NumericUpDown nudVeryShortChapter;
     private System.Windows.Forms.Label label3;
     private System.Windows.Forms.Label label4;
+    private System.Windows.Forms.CheckBox ckBoxLatin1;
+    private System.Windows.Forms.Label lblLatin1;
   }
 }

@@ -106,6 +106,7 @@ namespace audiamus.aaxconv {
         comBoxFlatFolders.SelectedIndex = (int)Settings.FlatFolderNaming;
 
       ckBoxExtraMetaFiles.Checked = Settings.ExtraMetaFiles;
+      ckBoxLatin1.Checked = Settings.Latin1EncodingForPlaylist;
 
       var codes = _converter.RegistryActivationCodes?.Select (c => c.ToHexDashString ()).ToArray ();
       if (!(codes is null))
@@ -208,6 +209,7 @@ namespace audiamus.aaxconv {
       Settings.PartNaming = (EGeneralNaming)comBoxPartName.SelectedIndex;
       Settings.PartName = txtBoxPartName.Text;
       Settings.ExtraMetaFiles = ckBoxExtraMetaFiles.Checked;
+      Settings.Latin1EncodingForPlaylist = ckBoxLatin1.Checked;
       Settings.FlatFolders = ckBoxFlatFolders.Checked;
       Settings.FlatFolderNaming = (EFlatFolderNaming)comBoxFlatFolders.SelectedIndex;
       Settings.PartNames = txtBoxCustPart.Text;

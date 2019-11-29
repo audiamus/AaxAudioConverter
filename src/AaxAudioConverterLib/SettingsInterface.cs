@@ -48,6 +48,7 @@
     bool ExtraMetaFiles { get; set; }
     uint ShortChapterSec { get; set; }
     uint VeryShortChapterSec { get; set; }
+    bool Latin1EncodingForPlaylist { get; set; }
   }
 
 }

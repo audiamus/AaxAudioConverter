@@ -389,5 +389,17 @@ namespace audiamus.aaxconv.Properties {
                 this["VeryShortChapterSec"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Latin1EncodingForPlaylist {
+            get {
+                return ((bool)(this["Latin1EncodingForPlaylist"]));
+            }
+            set {
+                this["Latin1EncodingForPlaylist"] = value;
+            }
+        }
     }
 }

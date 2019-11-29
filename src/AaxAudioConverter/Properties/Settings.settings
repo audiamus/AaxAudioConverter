@@ -95,5 +95,8 @@
     <Setting Name="VeryShortChapterSec" Type="System.UInt32" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
+    <Setting Name="Latin1EncodingForPlaylist" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

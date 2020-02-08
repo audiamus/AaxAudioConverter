@@ -2,6 +2,7 @@
 Convert Audible aax files to mp3 and m4a
 
 ![](res/Cover.png?raw=true)
+*More [Screenshots](res/Screenshots.md)*
 
 ## Main Features
 - Converts Audible proprietary .aax files to plain .mp3 or .m4a. 

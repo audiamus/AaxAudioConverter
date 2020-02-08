@@ -85,9 +85,10 @@ namespace audiamus.aux.ex {
   }
 
   public static class ExTimeSpan {
-    public static string ToStringLongHours (this TimeSpan value) {
+    public static string ToStringHMS (this TimeSpan value) {
       int hours = value.Days * 24 + value.Hours;
       return $"{hours:D2}:{value.Minutes:D2}:{value.Seconds:D2}";
-    } 
+    }
+    public static string ToStringHMSm (this TimeSpan value) => $"{value.ToStringHMS ()}.{value.Milliseconds:D3}";
   }
 }

@@ -87,7 +87,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="OnlineUpdate" Type="System.Nullable&lt;System.Boolean&gt;" Scope="User">
-      <Value Profile="(Default)">true</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="ShortChapterSec" Type="System.UInt32" Scope="User">
       <Value Profile="(Default)">25</Value>
@@ -97,6 +97,12 @@
     </Setting>
     <Setting Name="Latin1EncodingForPlaylist" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="NamedChaptersAndAlwaysWithNumbers" Type="System.Nullable&lt;System.Boolean&gt;" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="AutoLaunchPlayer" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>

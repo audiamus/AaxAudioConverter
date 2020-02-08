@@ -1,4 +1,5 @@
 ﻿using System;
+using audiamus.aux.ex;
 
 namespace audiamus.aaxconv.lib {
   class TimeInterval {
@@ -54,7 +55,7 @@ namespace audiamus.aaxconv.lib {
     public TimeInterval Shifted (TimeSpan offset) => new TimeInterval (Begin + offset, End + offset);
 
     public override string ToString () {
-      return $"{Begin} -> {End}";
+      return $"{Begin.ToStringHMSm()} -> {End.ToStringHMSm()} ({Duration.ToStringHMSm()})";
     }
   }
 }

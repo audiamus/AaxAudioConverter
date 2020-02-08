@@ -1,5 +1,5 @@
 #define MyAppSetupName 'AAX Audio Converter'
-#define MyAppVersion '1.6'
+#define MyAppVersion '1.7'
 #define MyProgramExe = 'AaxAudioConverter.exe'
 #define MyCompany = 'audiamus'
 
@@ -7,7 +7,7 @@
 AppName={#MyAppSetupName}
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppSetupName} {#MyAppVersion}
-AppCopyright=Copyright © 2019 {#MyCompany}
+AppCopyright=Copyright © 2020 {#MyCompany}
 VersionInfoVersion={#MyAppVersion}
 VersionInfoCompany={#MyCompany}
 AppPublisher={#MyCompany}

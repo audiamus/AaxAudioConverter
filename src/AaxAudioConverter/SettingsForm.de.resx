@@ -123,167 +123,136 @@
   <data name="btnReset.ToolTip" xml:space="preserve">
     <value>Alle Einstellungen zurück auf Standardwerte setzen.</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btnOK.Location" type="System.Drawing.Point, System.Drawing">
-    <value>379, 15</value>
+  <data name="btnOK.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 516</value>
-  </data>
-  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>466, 50</value>
-  </data>
-  <data name="tableLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>466, 516</value>
-  </data>
-  <data name="lblUsrActCode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>18, 77</value>
-  </data>
-  <data name="lblUsrActCode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>206, 30</value>
+  <data name="panel1.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="lblUsrActCode.Text" xml:space="preserve">
     <value>Benutzereingabe für 
 Audible Aktivierungscode</value>
   </data>
-  <data name="lblFfmpegLoc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>37, 7</value>
+  <data name="lblUsrActCode.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="lblFfmpegLoc.Text" xml:space="preserve">
     <value>Pfad zu FFmpeg.exe</value>
   </data>
-  <data name="btnUsrActCode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>237, 81</value>
+  <data name="lblFfmpegLoc.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="btnUsrActCode.Text" xml:space="preserve">
     <value>Bearbeiten</value>
   </data>
-  <data name="btnFfmpegLoc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>237, 7</value>
+  <data name="btnUsrActCode.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="btnFfmpegLoc.Text" xml:space="preserve">
     <value>Bearbeiten</value>
   </data>
-  <data name="lblRegActCode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 37</value>
+  <data name="btnFfmpegLoc.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="lblRegActCode.Text" xml:space="preserve">
-    <value>Audible Manager/App Aktivierungscode(s) </value>
-  </data>
-  <data name="panel2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>227, 37</value>
-  </data>
-  <data name="panel2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 37</value>
-  </data>
-  <data name="listBoxActCode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>135, 30</value>
+  <data name="listBoxActCode.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="btnRegActCode.Text" xml:space="preserve">
     <value>Einblenden</value>
   </data>
-  <data name="lblCustTitleChars.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 188</value>
+  <data name="btnRegActCode.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel2.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="lblCustTitleChars.Text" xml:space="preserve">
     <value>Zusätzlich gültige Interpunktions-
 zeichen für gefilterten Buchtitel</value>
   </data>
-  <data name="txtBoxCustTitleChars.Location" type="System.Drawing.Point, System.Drawing">
-    <value>237, 193</value>
-  </data>
-  <data name="txtBoxCustTitleChars.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 20</value>
+  <data name="lblCustTitleChars.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="txtBoxCustTitleChars.ToolTip" xml:space="preserve">
     <value>Interpunktionszeichen, die im Buchtitel verbleiben 
 sollen, wenn die anschließende Meta-Information 
 herausgefiltert wird.</value>
   </data>
-  <data name="txtBoxCustPart.Location" type="System.Drawing.Point, System.Drawing">
-    <value>237, 156</value>
-  </data>
-  <data name="txtBoxCustPart.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 20</value>
-  </data>
   <data name="txtBoxCustPart.ToolTip" xml:space="preserve">
     <value>Mehrere Suchwörter erlaubt. 
 Mit Leerzeichen oder Semikolon trennen.</value>
-  </data>
-  <data name="lblCustPart.Size" type="System.Drawing.Size, System.Drawing">
-    <value>203, 30</value>
   </data>
   <data name="lblCustPart.Text" xml:space="preserve">
     <value>Benutzerdefinierte Suchwörter für "Teil"
 im Titel mehrteiliger Bücher</value>
   </data>
-  <data name="panel3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>227, 111</value>
-  </data>
-  <data name="panel3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 37</value>
-  </data>
-  <data name="txtBoxPartName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>136, 8</value>
-  </data>
-  <data name="txtBoxPartName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>100, 20</value>
+  <data name="lblCustPart.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="txtBoxPartName.ToolTip" xml:space="preserve">
     <value>Benutzerdefinierter Präfix für "Teil"-Ordner.</value>
   </data>
-  <data name="comBoxPartName.Size" type="System.Drawing.Size, System.Drawing">
-    <value>120, 21</value>
+  <data name="comBoxPartName.ToolTip" xml:space="preserve">
+    <value>Namensquelle für Buchteil-Ordner, falls erforderlich: 
+&lt;Quelle&gt;: aus aax-Datei; 
+&lt;Standard&gt; setzt zu 'Teil''; 
+&lt;Benutzerdefiniert&gt; eigene Angabe.</value>
   </data>
-  <data name="lblPartName.Location" type="System.Drawing.Point, System.Drawing">
-    <value>34, 114</value>
+  <data name="panel3.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="lblPartName.Text" xml:space="preserve">
-    <value>Präfix für "Teil"-Ordner.</value>
+  <data name="lblLatin1.Text" xml:space="preserve">
+    <value>ISO Latin1-Kodierung statt UTF8
+ für .m3u Wiedergabeliste</value>
   </data>
-  <data name="panel4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>227, 222</value>
+  <data name="lblLatin1.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="panel4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>239, 37</value>
-  </data>
-  <data name="comBoxFlatFolders.Location" type="System.Drawing.Point, System.Drawing">
-    <value>36, 9</value>
-  </data>
-  <data name="comBoxFlatFolders.Size" type="System.Drawing.Size, System.Drawing">
-    <value>145, 21</value>
-  </data>
-  <data name="ckBoxFlatFolders.ToolTip" xml:space="preserve">
-    <value>Keine Ordnerhierarchie für Autor und Buchtitel.</value>
-  </data>
-  <data name="lblFlatFolders.Location" type="System.Drawing.Point, System.Drawing">
-    <value>38, 225</value>
-  </data>
-  <data name="lblFlatFolders.Size" type="System.Drawing.Size, System.Drawing">
-    <value>186, 30</value>
-  </data>
-  <data name="lblFlatFolders.Text" xml:space="preserve">
-    <value>Flache Ordnerstruktur
-und Namensgebung</value>
-  </data>
-  <data name="ckBoxExtraMetaFiles.Location" type="System.Drawing.Point, System.Drawing">
-    <value>237, 344</value>
-  </data>
-  <data name="lblExtraMetaFiles.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 335</value>
-  </data>
-  <data name="lblExtraMetaFiles.Size" type="System.Drawing.Size, System.Drawing">
-    <value>208, 33</value>
+  <data name="ckBoxLatin1.ToolTip" xml:space="preserve">
+    <value>Für Audio-Abspiel-Hard- und Software, die Umlaute 
+und andere Nicht-ASCII-Zeichen dann nicht erkennt, 
+wenn diese in Unicode UTF8 geschrieben sind.</value>
   </data>
   <data name="lblExtraMetaFiles.Text" xml:space="preserve">
-    <value>Zusätzliche Dateien für
-Buch-Info und Titelbild</value>
+    <value>Zusätzliche Dateien für Buch-Info und Titelbild</value>
   </data>
-  <data name="panel5.Location" type="System.Drawing.Point, System.Drawing">
-    <value>230, 262</value>
+  <data name="lblExtraMetaFiles.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="panel5.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 31</value>
+  <data name="ckBoxExtraMetaFiles.ToolTip" xml:space="preserve">
+    <value>Die Buchbeschreibung wird in jede erzeugte Audiodatei 
+iimmr mit eingebettet. Diese Option erzeugt eine zusätzliche 
+und separate Text- und Bild-Datei mit der selben Infoirmation. </value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 13</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>sek Dauer</value>
+  </data>
+  <data name="label2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="nudVeryShortChapter.ToolTip" xml:space="preserve">
+    <value>0 um Option auszuschalten</value>
+  </data>
+  <data name="panel6.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>Sehr kurze Kapitel am Anfang und
+ Ende überspringen, wenn vorhanden </value>
+  </data>
+  <data name="label4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>Kurze Kapitel zwischen Buchteilen
+überspringen (Fortsetzung, Titel/Autor)</value>
+  </data>
+  <data name="label3.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>56, 13</value>
@@ -291,49 +260,76 @@ Buch-Info und Titelbild</value>
   <data name="label1.Text" xml:space="preserve">
     <value>sek Dauer</value>
   </data>
+  <data name="label1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="nudShortChapter.ToolTip" xml:space="preserve">
     <value>0 um Option auszuschalten</value>
   </data>
-  <data name="panel6.Location" type="System.Drawing.Point, System.Drawing">
-    <value>230, 299</value>
+  <data name="panel5.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="panel6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>233, 31</value>
+  <data name="lblFlatFolders.Text" xml:space="preserve">
+    <value>Flache Ordnerstruktur und Namensgebung</value>
   </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>56, 13</value>
+  <data name="lblFlatFolders.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>sek Dauer</value>
+  <data name="comBoxFlatFolders.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="nudVeryShortChapter.ToolTip" xml:space="preserve">
-    <value>0 um Option auszuschalten</value>
+  <data name="ckBoxFlatFolders.ToolTip" xml:space="preserve">
+    <value>Keine Ordnerhierarchie für Autor und Buchtitel.</value>
   </data>
-  <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 262</value>
+  <data name="panel4.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Kurze Kapitel zwischen Buchteilen
-überspringen (Fortsetzung, Titel/Autor)</value>
+  <data name="comboBoxNamedChapters.Items" xml:space="preserve">
+    <value>Nein</value>
   </data>
-  <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 299</value>
+  <data name="comboBoxNamedChapters.Items1" xml:space="preserve">
+    <value>Ja</value>
   </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Sehr kurze Kapitel am Anfang und
- Ende überspringen, wenn vorhanden </value>
+  <data name="comboBoxNamedChapters.Items2" xml:space="preserve">
+    <value>Ja, immer mit Ordnungsnummer</value>
   </data>
-  <data name="comBoxLang.Location" type="System.Drawing.Point, System.Drawing">
-    <value>237, 489</value>
+  <data name="comboBoxNamedChapters.ToolTip" xml:space="preserve">
+    <value>Ordnungsnummern werden ggf. hinzugefügt
+ - und dem Kapitelnamen vorangestellt -
+wenn die Namen nicht eindeutig sind. </value>
   </data>
-  <data name="comBoxLang.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 21</value>
+  <data name="lblNamedChapters.Text" xml:space="preserve">
+    <value>Kapitel-Namen nutzen, wenn verfügbar</value>
   </data>
-  <data name="lblLang.Location" type="System.Drawing.Point, System.Drawing">
-    <value>102, 488</value>
+  <data name="lblNamedChapters.ToolTip" xml:space="preserve">
+    <value>Nur möglich, wenn Buch mit der Audble App heruntergeladen wurde</value>
+  </data>
+  <data name="lblRegActCode.Text" xml:space="preserve">
+    <value>Audible Manager/App Aktivierungscode(s) </value>
+  </data>
+  <data name="lblRegActCode.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lblPartName.Text" xml:space="preserve">
+    <value>Präfix für "Teil"-Ordner.</value>
+  </data>
+  <data name="lblPartName.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comBoxLang.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="lblLang.Text" xml:space="preserve">
     <value>Sprache</value>
+  </data>
+  <data name="lblLang.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lblUpdate.Text" xml:space="preserve">
+    <value>Online-Update</value>
+  </data>
+  <data name="lblUpdate.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="comBoxUpdate.Items" xml:space="preserve">
     <value>Ausgeschaltet</value>
@@ -344,42 +340,40 @@ Buch-Info und Titelbild</value>
   <data name="comBoxUpdate.Items2" xml:space="preserve">
     <value>Aufforderung zur Installation</value>
   </data>
-  <data name="comBoxUpdate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>237, 452</value>
-  </data>
-  <data name="comBoxUpdate.Size" type="System.Drawing.Size, System.Drawing">
-    <value>226, 21</value>
-  </data>
-  <data name="lblUpdate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>102, 451</value>
-  </data>
-  <data name="lblUpdate.Text" xml:space="preserve">
-    <value>Online-Update</value>
-  </data>
-  <data name="lblFileAssoc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>42, 410</value>
+  <data name="comBoxUpdate.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="lblFileAssoc.Text" xml:space="preserve">
     <value>.aax- und .aa-Dateien mit 
 AaxAudioConverter verknüpfen</value>
   </data>
-  <data name="ckBoxFileAssoc.Location" type="System.Drawing.Point, System.Drawing">
-    <value>237, 418</value>
+  <data name="lblFileAssoc.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="ckBoxLatin1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>237, 381</value>
+  <data name="ckBoxFileAssoc.ToolTip" xml:space="preserve">
+    <value>Wenn gesetzt, startet AaxAudioConverter bei 
+Doppelklick auf eine .aax- oder .aa-Dateii automatisch.</value>
   </data>
-  <data name="lblLatin1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 372</value>
+  <data name="ckBoxLaunchPlayer.ToolTip" xml:space="preserve">
+    <value>Wenn gesetzt, wird die voreingestellte Medienwiedergabe gestartet.
+Nur für erstes oder einzeln konvertiertes Buch.</value>
   </data>
-  <data name="lblLatin1.Text" xml:space="preserve">
-    <value>ISO Latin1-Kodierung statt UTF8
- für .m3u Wiedergabeliste</value>
+  <data name="lblLaunchPlayer.Text" xml:space="preserve">
+    <value>Automatische Wiedergabe nach Konvertierung</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>466, 566</value>
+  <data name="lblLaunchPlayer.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tableLayoutPanel1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel7.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Grundeinstellungen</value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>

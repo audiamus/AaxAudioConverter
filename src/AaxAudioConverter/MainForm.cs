@@ -106,7 +106,9 @@ namespace audiamus.aaxconv {
 
     protected override void OnLoad (EventArgs e) {
       base.OnLoad (e);
-      
+
+      presetInpuDirectory ();
+
       if (Settings.OutputDirectory != null && Directory.Exists (Settings.OutputDirectory))
         lblSaveTo.SetTextAsPathWithEllipsis (Settings.OutputDirectory);
 
@@ -170,6 +172,17 @@ namespace audiamus.aaxconv {
       if (busy)
         _updateAvailableFlag = true;
       return busy;
+    }
+
+    private void presetInpuDirectory () {
+      if (!string.IsNullOrEmpty(Settings.InputDirectory) && Directory.Exists (Settings.InputDirectory))
+        return;
+
+      string inputDir = _converter.AppContentDirectory;
+      if (inputDir is null)
+        return;
+
+      Settings.InputDirectory = inputDir;
     }
 
     private void reinitControlsFromSettings () {
@@ -344,11 +357,15 @@ namespace audiamus.aaxconv {
           };
           lvi.SubItems.Add (fi.Author);
           lvi.SubItems.Add ($"{fi.FileSize / (1024 * 1024)} MB");
-          lvi.SubItems.Add (fi.Duration.ToStringLongHours());
+          lvi.SubItems.Add (fi.Duration.ToStringHMS());
           lvi.SubItems.Add (fi.PublishingDate?.Year.ToString ());
           lvi.SubItems.Add (fi.Narrator);
           lvi.SubItems.Add ($"{fi.SampleRate} Hz");
           lvi.SubItems.Add ($"{fi.AvgBitRate} kb/s");
+
+          lvi.SubItems[2].Tag = fi.FileSize;
+          lvi.SubItems[6].Tag = fi.SampleRate;
+          lvi.SubItems[7].Tag = fi.AvgBitRate;
 
           pr.ListViewItem = lvi;
         }
@@ -613,6 +630,7 @@ namespace audiamus.aaxconv {
       listViewAaxFiles.Select ();
 
       int cnt = converted.Count ();
+      bool fullSuccess = cnt == fileitems.Count;
       MessageBoxIcon mbIcon;
       string intro;
       if (cnt == 0) {
@@ -631,6 +649,17 @@ namespace audiamus.aaxconv {
 
       _progress.Reset ();
 
+      if (fullSuccess)
+        autoplay ();
+    }
+
+    private void autoplay () {
+      if (!Settings.AutoLaunchPlayer || _converter.AutoLaunchAudioFile is null || !File.Exists(_converter.AutoLaunchAudioFile))
+        return;
+
+      try {
+        Process.Start (_converter.AutoLaunchAudioFile);
+      } catch (Exception) { }
     }
 
     private void btnAbort_Click (object sender, EventArgs e) {

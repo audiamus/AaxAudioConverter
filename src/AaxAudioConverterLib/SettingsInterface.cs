@@ -13,6 +13,8 @@
   public interface INamingSettingsEx : INamingSettings {
     EGeneralNaming PartNaming { get; set; }
     string PartName { get; set; }
+    bool ExtraMetaFiles { get; set; }
+    bool? NamedChaptersAndAlwaysWithNumbers { get; set; }
   }
 
   public interface IActivationSettings {
@@ -45,10 +47,10 @@
     string Genres { get; set; }
     bool FlatFolders { get; set; }
     EFlatFolderNaming FlatFolderNaming { get; set; }
-    bool ExtraMetaFiles { get; set; }
     uint ShortChapterSec { get; set; }
     uint VeryShortChapterSec { get; set; }
     bool Latin1EncodingForPlaylist { get; set; }
+    bool AutoLaunchPlayer { get; set; }
   }
 
 }

@@ -356,7 +356,7 @@ namespace audiamus.aaxconv.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("true")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public global::System.Nullable<System.Boolean> OnlineUpdate {
             get {
                 return ((global::System.Nullable<System.Boolean>)(this["OnlineUpdate"]));
@@ -399,6 +399,30 @@ namespace audiamus.aaxconv.Properties {
             }
             set {
                 this["Latin1EncodingForPlaylist"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public global::System.Nullable<System.Boolean> NamedChaptersAndAlwaysWithNumbers {
+            get {
+                return ((global::System.Nullable<System.Boolean>)(this["NamedChaptersAndAlwaysWithNumbers"]));
+            }
+            set {
+                this["NamedChaptersAndAlwaysWithNumbers"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool AutoLaunchPlayer {
+            get {
+                return ((bool)(this["AutoLaunchPlayer"]));
+            }
+            set {
+                this["AutoLaunchPlayer"] = value;
             }
         }
     }

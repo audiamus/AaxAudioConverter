@@ -538,7 +538,20 @@ namespace audiamus.aaxconv.lib {
     }
 
     private static TimeSpan tryParseTimestamp (Match match, int idx = 1) {
-      bool succ = TimeSpan.TryParse (match.Groups[idx].Value, out TimeSpan timespan);
+      string sDuration = match.Groups[idx].Value;
+      bool succ = TimeSpan.TryParse (sDuration, out TimeSpan timespan);
+      if (!succ) {
+        int n = sDuration.Where (c => c == ':').Count ();
+        if (n == 2) {
+          int p = sDuration.IndexOf (':');
+          string sHours = sDuration.Substring (0, p);
+          string sMinSec = sDuration.Substring (p);
+          int.TryParse (sHours, out int hours);
+          sDuration = "00" + sMinSec;
+          succ = TimeSpan.TryParse (sDuration, out timespan);
+          timespan += TimeSpan.FromHours (hours);
+        }
+      }
       return timespan;
     }
 

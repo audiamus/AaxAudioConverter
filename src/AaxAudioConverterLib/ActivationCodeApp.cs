@@ -21,9 +21,27 @@ namespace audiamus.aaxconv.lib {
 
     public ActivationCodeApp () => _activationCodes = getCodes ();
 
+    public static IEnumerable<string> GetPackageDirectories () {
+      string path = Path.Combine (ApplEnv.LocalDirectoryRoot, PACKAGES);
+      if (!Directory.Exists (path))
+        return null;
+      string[] dirs = Directory.GetDirectories (path, $"{AUDIBLEINC_AUDIBLE}*");
+      List<DirectoryInfo> dirInfos = new List<DirectoryInfo> ();
+      foreach (var dir in dirs) {
+        string dirLocalState = Path.Combine (dir, LOCAL_STATE);
+        if (Directory.Exists (dirLocalState))
+          dirInfos.Add (new DirectoryInfo (dirLocalState));
+      }
+      dirInfos.Sort ((x, y) => 
+        DateTime.Compare (y.LastWriteTimeUtc, x.LastWriteTimeUtc));
+
+      return dirInfos.Select (di => di.FullName);
+    } 
 
     private static IEnumerable<string> getCodes () {
       string path = Path.Combine (ApplEnv.LocalDirectoryRoot, PACKAGES);
+      if (!Directory.Exists (path))
+        return null;
       string[] dirs = Directory.GetDirectories (path, $"{AUDIBLEINC_AUDIBLE}*");
       List<FileInfo> fileInfos = new List<FileInfo>();
       foreach (var dir in dirs) {

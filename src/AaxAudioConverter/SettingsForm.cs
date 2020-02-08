@@ -99,6 +99,17 @@ namespace audiamus.aaxconv {
       txtBoxPartName.Enabled = Settings.PartNaming == EGeneralNaming.custom;
       updatePartNaming ();
 
+      switch (Settings.NamedChaptersAndAlwaysWithNumbers) {
+        case null:
+          comboBoxNamedChapters.SelectedIndex = 0;
+          break;
+        case false:
+          comboBoxNamedChapters.SelectedIndex = 1;
+          break;
+        case true:
+          comboBoxNamedChapters.SelectedIndex = 2;
+          break;
+      }
 
       ckBoxFlatFolders.Checked = Settings.FlatFolders;
       comBoxFlatFolders.Enabled = Settings.FlatFolders;
@@ -107,6 +118,7 @@ namespace audiamus.aaxconv {
 
       ckBoxExtraMetaFiles.Checked = Settings.ExtraMetaFiles;
       ckBoxLatin1.Checked = Settings.Latin1EncodingForPlaylist;
+      ckBoxLaunchPlayer.Checked = Settings.AutoLaunchPlayer;
 
       var codes = _converter.RegistryActivationCodes?.Select (c => c.ToHexDashString ()).ToArray ();
       if (!(codes is null))
@@ -210,12 +222,25 @@ namespace audiamus.aaxconv {
       Settings.PartName = txtBoxPartName.Text;
       Settings.ExtraMetaFiles = ckBoxExtraMetaFiles.Checked;
       Settings.Latin1EncodingForPlaylist = ckBoxLatin1.Checked;
+      Settings.AutoLaunchPlayer = ckBoxLaunchPlayer.Checked;
       Settings.FlatFolders = ckBoxFlatFolders.Checked;
       Settings.FlatFolderNaming = (EFlatFolderNaming)comBoxFlatFolders.SelectedIndex;
       Settings.PartNames = txtBoxCustPart.Text;
       Settings.AddnlValTitlePunct = txtBoxCustTitleChars.Text;
       Settings.ShortChapterSec = (uint)nudShortChapter.Value;
       Settings.VeryShortChapterSec = (uint)nudVeryShortChapter.Value;
+
+      switch (comboBoxNamedChapters.SelectedIndex) {
+        case 0:
+          Settings.NamedChaptersAndAlwaysWithNumbers = null;
+          break;
+        case 1:
+          Settings.NamedChaptersAndAlwaysWithNumbers = false;
+          break;
+        case 2:
+          Settings.NamedChaptersAndAlwaysWithNumbers = true;
+          break;
+      }
 
       bool ck = ckBoxFileAssoc.Checked;
       if ((Settings.FileAssoc ?? false) != ck) {

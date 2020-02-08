@@ -10,6 +10,7 @@ namespace audiamus.aaxconv.lib {
 
       public readonly int nChTrk = -1;    // current track in chapter
       public readonly int nnChTrk = -1;   // chapter track digits
+      public readonly int nChTrks = -1;   // chapter track digits
 
       public readonly int nDsk = -1;      // current disk
       public readonly int nDsks = -1;     // total disks
@@ -27,7 +28,8 @@ namespace audiamus.aaxconv.lib {
         if (!(track is null)) { 
           var chapterTracks = part.Tracks?.Where (t => !(track.Chapter is null) && object.ReferenceEquals (t.Chapter, track.Chapter)).ToList ();
           this.nChTrk = (chapterTracks?.IndexOf (track) ?? -1) + 1;
-          this.nnChTrk = chapterTracks?.Count.Digits () ?? 0;
+          this.nChTrks = chapterTracks?.Count ?? 0;
+          this.nnChTrk = this.nChTrks.Digits ();
         }
 
         if (book.PartsType == Book.EParts.some) {

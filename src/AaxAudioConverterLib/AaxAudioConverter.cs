@@ -119,6 +119,8 @@ namespace audiamus.aaxconv.lib {
     public IEnumerable<uint> RegistryActivationCodes => _activationCode.RegistryCodes;
     public bool HasActivationCode => _activationCode.HasActivationCode;
     public ISettings Settings => _settings;
+    public string AppContentDirectory => getAppContentDirectory ();
+    public string AutoLaunchAudioFile { get; private set; }
 
     #endregion Public Properties
     #region Private Properties
@@ -340,6 +342,9 @@ namespace audiamus.aaxconv.lib {
         part.ActivationCode = activationcode;
       part.IsMp3Stream = ffmpeg.IsMp3Stream;
       part.Chapters = ffmpeg.Chapters;
+
+      getContentMetadata (part);
+
       return succ;
     }
 
@@ -389,6 +394,17 @@ namespace audiamus.aaxconv.lib {
         books.Add (book);
 
       convertBooksParallel (books);
+
+      setAutoLaunchAudioFile (books);
+    }
+
+    private void setAutoLaunchAudioFile (List<Book> books) {
+      AutoLaunchAudioFile = null;
+
+      if (!Settings.AutoLaunchPlayer || books.Count == 0)
+        return;
+
+      AutoLaunchAudioFile = books.First ().DefaultAudioFile;
     }
 
     private (bool match, string sortingTitle, string partNameStub, int part) parseTitleForPart (string bookTitle) {
@@ -453,12 +469,14 @@ namespace audiamus.aaxconv.lib {
           break;
       }
 
-      // On cancel remove book output, otherwise make playlist
-      if (Callbacks?.Cancelled ?? false)
-        deleteOutDirectory (book);
-      else {
-        makePlaylist (book);
-        extraMetaFiles (book);
+      if (!(book.OutDirectoryLong is null)) {
+        // On cancel remove book output, otherwise make playlist
+        if (Callbacks?.Cancelled ?? false)
+          deleteOutDirectory (book);
+        else {
+          makePlaylist (book);
+          extraMetaFiles (book);
+        }
       }
 
       cleanTempDirectory ();
@@ -493,44 +511,9 @@ namespace audiamus.aaxconv.lib {
       for (int i = 0; i < book.Parts.Count; i++) {
         var part = book.Parts[i];
 
-        if (part.Chapters is null)
-          continue;
-
-        if (veryShortChapter >= TimeSpan.Zero) {
-          var chapter = part.Chapters.LastOrDefault ();
-          if (chapter?.Time.Duration <= veryShortChapter)
-            part.Chapters.Remove (chapter);
-
-          chapter = part.Chapters.FirstOrDefault ();
-          if (chapter?.Time.Duration <= veryShortChapter)
-            part.Chapters.Remove (chapter);
-        }
-
-        if (book.PartsType == Book.EParts.all && shortChapter >= TimeSpan.Zero) {
-          // check for short last if i < Count - 1
-          bool lastInMiddlePart = i < book.Parts.Count - 1 && part.Chapters.Count > 0;
-          while (true) {
-            var chapter = part.Chapters.LastOrDefault ();
-            if (chapter?.Time.Duration <= shortChapter)
-              part.Chapters.Remove (chapter);
-            else
-              break;
-            if (!lastInMiddlePart)
-              break;
-          }
-
-          // check for short first if i > 0
-          bool firstInMiddlePart = i > 0 && part.Chapters.Count > 0;
-          while (true) {
-            var chapter = part.Chapters.FirstOrDefault ();
-            if (chapter?.Time.Duration <= shortChapter)
-              part.Chapters.Remove (chapter);
-            else
-              break;
-            if (!firstInMiddlePart)
-              break;
-          }
-        }
+        preprocessEmbeddedChapters (book, part, i, shortChapter, veryShortChapter);
+        if (part.HasNamedChapters)
+          preprocessNamedChapters (book, part);
 
         // done with one part, now knowing the number of chapters.
         // adding chapters to track progress, minus one for the part itself which has already been accounted for.
@@ -540,10 +523,92 @@ namespace audiamus.aaxconv.lib {
           AddTotalTracks = (Settings.ConvMode != EConvMode.single) ? part.Chapters.Count - 1 : (int?)null,
           Info = ProgressInfo.ProgressInfoBookCounters (cnt.title, cnt.chapters, cnt.tracks, cnt.part)
         });
+      }
+    }
 
+
+    private static void preprocessEmbeddedChapters (Book book, Book.BookPart part, int i, TimeSpan shortChapter, TimeSpan veryShortChapter) {
+      if (veryShortChapter >= TimeSpan.Zero && (!part.HasNamedChapters || (book.PartsType == Book.EParts.all && i > 0))) {
+        var chapter = part.Chapters.LastOrDefault ();
+        if (chapter?.Time.Duration <= veryShortChapter)
+          part.Chapters.Remove (chapter);
+
+        chapter = part.Chapters.FirstOrDefault ();
+        if (chapter?.Time.Duration <= veryShortChapter)
+          part.Chapters.Remove (chapter);
       }
 
+      if (book.PartsType == Book.EParts.all && shortChapter >= TimeSpan.Zero) {
+        // check for short last if i < Count - 1
+        bool lastInMiddlePart = i < book.Parts.Count - 1 && part.Chapters.Count > 0;
+        if (lastInMiddlePart) {
+          var chapter = part.Chapters.LastOrDefault ();
+          if (chapter?.Time.Duration <= shortChapter)
+            part.Chapters.Remove (chapter);
+          //else
+          //  break;
+          //if (!lastInMiddlePart)
+          //  break;
+        }
+
+        // check for short first if i > 0
+        bool firstInMiddlePart = i > 0 && part.Chapters.Count > 0;
+        if (firstInMiddlePart) {
+          var chapter = part.Chapters.FirstOrDefault ();
+          if (chapter?.Time.Duration <= shortChapter)
+            part.Chapters.Remove (chapter);
+          //else
+          //  break;
+          //if (!firstInMiddlePart)
+          //  break;
+        }
+      }
     }
+
+    private void preprocessNamedChapters (Book book, Book.BookPart part) {
+      if (Settings.ShortChapterSec > 0) {
+        // we will have the true start and end points now.
+        TimeSpan tBeg = part.Chapters.FirstOrDefault ()?.Time.Begin ?? TimeSpan.Zero;
+        TimeSpan tEnd = part.Chapters.LastOrDefault ()?.Time.End ?? part.Duration;
+        adjustNamedChapters (part, tBeg, tEnd);
+      }
+
+      if (Settings.VeryShortChapterSec > 0) {
+        TimeSpan tBeg = part.BrandIntro;
+        TimeSpan tEnd = part.Duration - part.BrandOutro;
+        adjustNamedChapters (part, tBeg, tEnd);
+      }
+
+      // finally
+      part.SwapChapters ();
+    }
+
+    private static void adjustNamedChapters (Book.BookPart part, TimeSpan tBeg, TimeSpan tEnd) {
+      var toBeRemoved = new List<int> ();
+      for (int i = part.Chapters2.Count - 1; i >= 0; i--) {
+        var ch = part.Chapters2[i];
+        if (ch.Time.Begin > tEnd)
+          toBeRemoved.Add (i);
+        else {
+          if (ch.Time.End > tEnd)
+            ch.Time.End = tEnd;
+        }
+      }
+
+      for (int i = 0; i < part.Chapters2.Count; i++) {
+        var ch = part.Chapters2[i];
+        if (ch.Time.End < tBeg)
+          toBeRemoved.Add (i);
+        else {
+          if (ch.Time.Begin < tBeg)
+            ch.Time.Begin = tBeg;
+        }
+      }
+
+      foreach (int idx in toBeRemoved)
+        part.Chapters2.RemoveAt (idx);
+    }
+
 
     private void convertSingleMode (Book book) {
       // Mode single
@@ -669,8 +734,8 @@ namespace audiamus.aaxconv.lib {
       }
 
       TagAndFileNamingHelper.SetFileNames (Resources, Settings, book);
-
     }
+
 
     private bool silenceAndCueSheet (Book book, Action<Book> callback) {
 
@@ -1103,6 +1168,13 @@ namespace audiamus.aaxconv.lib {
       } catch (OperationCanceledException) { }
     }
 
+    private void getContentMetadata (Book.BookPart part) {
+      if (!Settings.NamedChaptersAndAlwaysWithNumbers.HasValue)
+        return;
+
+      var appMetadadata = new AudibleAppContentMetadata ();
+      appMetadadata.GetContentMetadata (part);
+    }
 
     private bool updateTags (Book book, Track track) => 
       TagAndFileNamingHelper.WriteMetaData (Resources, Settings, book, track);
@@ -1114,8 +1186,14 @@ namespace audiamus.aaxconv.lib {
         return;
 
       int nTracks = book.Parts.Select (p => p.Tracks?.Count () ?? 0).Sum ();
-      if (nTracks < 2)
+      if (nTracks < 2) {
+        if (nTracks == 1)
+          book.DefaultAudioFile = book.Parts.First()?.Tracks?.First()?.FileName;
         return; // no playlist for single file
+      }
+
+      if (book.PartsType == Book.EParts.some && Settings.ConvMode == EConvMode.single)
+        return;
 
       var encoding = Settings.Latin1EncodingForPlaylist ? Encoding.Latin1 : Encoding.UTF8;
       string filename = flatDir (book) + ".m3u";
@@ -1128,6 +1206,7 @@ namespace audiamus.aaxconv.lib {
               writePlaylistItems (wr, book, part);
             wr.WriteLine ();
           }
+          book.DefaultAudioFile = path;
         } else {
           foreach (var part in book.Parts) {
             string partDir = TagAndFileNamingHelper.GetPartDirectoryName (Resources, Settings, book, part); 
@@ -1294,12 +1373,14 @@ namespace audiamus.aaxconv.lib {
       if (book.PartsType != Book.EParts.some)
         return;
 
-      foreach (var part in book.Parts) {
-        string dirname = TagAndFileNamingHelper.GetPartDirectoryName (Resources, Settings, book, part);
-        Directory.CreateDirectory (dirname);
-        DirectoryInfo di = new DirectoryInfo (dirname);
-        di.Clear ();
-      }
+      bool usePartDirs = Settings.ConvMode != EConvMode.single || Settings.ExtraMetaFiles;
+      if (usePartDirs)
+        foreach (var part in book.Parts) {
+          string dirname = TagAndFileNamingHelper.GetPartDirectoryName (Resources, Settings, book, part);
+          Directory.CreateDirectory (dirname);
+          DirectoryInfo di = new DirectoryInfo (dirname);
+          di.Clear ();
+        }
 
       DirectoryInfo dib = new DirectoryInfo (book.OutDirectoryLong);
       var dis = dib.GetDirectories ();
@@ -1307,10 +1388,15 @@ namespace audiamus.aaxconv.lib {
       string ptPrefix = TagAndFileNamingHelper.GetPartPrefix (Resources, Settings, book);
 
       foreach (var di in dis)
-        if (!di.Name.StartsWith (ptPrefix))
+        if (!di.Name.StartsWith (ptPrefix) || !usePartDirs)
           di.Delete (true);
-      foreach (var fi in fis)
-        fi.Delete ();
+
+      string ext = book.Parts?.First().IsMp3Stream ?? false ? MP3 : M4A;
+      foreach (var fi in fis) {
+        string fext = fi.Extension.ToLower (); 
+        if (usePartDirs || ext != fext)
+          fi.Delete ();
+      }
     }
 
 
@@ -1321,7 +1407,18 @@ namespace audiamus.aaxconv.lib {
       } catch (Exception exc) {
         exceptionCallback (exc);
       }
+    }
 
+    private string getAppContentDirectory () {
+      var dirLocalState = ActivationCodeApp.GetPackageDirectories ()?.First ();
+      if (dirLocalState is null)
+        return null;
+
+      string contentDir = Path.Combine (dirLocalState, AudibleAppContentMetadata.CONTENT);
+      if (Directory.Exists (contentDir))
+        return contentDir;
+
+      return null;
     }
 
     private bool activationErrorCallback (Book.BookPart part) {

@@ -73,7 +73,7 @@ namespace audiamus.aaxconv.lib {
       using (var osm = new StreamWriter (path, false)) {
         osm.WriteLine ($"{R.HdrAuthor}: {Book.AuthorTag}");
         osm.WriteLine ($"{R.HdrTitle}: {Book.TitleTag}");
-        osm.WriteLine ($"{R.HdrDuration}: {Duration.ToStringLongHours()}");
+        osm.WriteLine ($"{R.HdrDuration}: {Duration.ToStringHMS()}");
         osm.WriteLine ($"{R.HdrNarrator}: {afi.Narrator}");
         osm.WriteLine ($"{R.HdrGenre}: {Book.CustomNames?.GenreTag ?? TagAndFileNamingHelper.GetGenre(Settings, afi)}");
         osm.WriteLine ($"{R.HdrYear}: {Book.CustomNames?.YearTag?.Year ?? afi.PublishingDate?.Year}");

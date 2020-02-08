@@ -21,23 +21,40 @@ namespace audiamus.aaxconv.lib {
     }
 
     public class BookPart {
+      private bool _namedChaptersNotIn2;
+
       public AaxFileItem AaxFileItem { get; private set; }
       public int PartNumber { get; private set; }
       public List<Chapter> Chapters { get; set; }
+      public List<Chapter> Chapters2 { get; set; }
       public List<Track> Tracks { get; } = new List<Track> ();
       public string ActivationCode { get; set; }
       public bool IsMp3Stream { get; set; }
+      public TimeSpan BrandIntro { get; set; }
+      public TimeSpan BrandOutro { get; set; }
+      public TimeSpan Duration { get; set; }
+
+      public IReadOnlyList<Chapter> NamedChapters => HasNamedChapters ? (_namedChaptersNotIn2 ? Chapters : Chapters2) : Chapters; 
+
+      public bool HasNamedChapters => Chapters?.Count > 0 && Chapters2?.Count > 0;
 
       public BookPart (AaxFileItem fi, int part = 0) {
         AaxFileItem = fi;
         PartNumber = part;
       }
 
+      public void SwapChapters () {
+        var tmp = Chapters;
+        Chapters = Chapters2;
+        Chapters2 = tmp;
+        _namedChaptersNotIn2 = !_namedChaptersNotIn2;
+      }
+
       public override string ToString () {
         string part = string.Empty;
         if (PartNumber != 0)
           part = $" Part {PartNumber}";
-        return $"{AaxFileItem.BookTitle} {part}, {AaxFileItem.Duration}, #Ch={Chapters?.Count}, #Tr={Tracks?.Count}";
+        return $"{AaxFileItem.BookTitle} {part}, {AaxFileItem.Duration.ToStringHMSm()}, #Ch={Chapters?.Count}, #Tr={Tracks?.Count}";
       }
 
     }
@@ -55,6 +72,8 @@ namespace audiamus.aaxconv.lib {
     public string TitleTag => CustomNames?.TitleTag ?? TagCaption.Title;
     public string TitleFile => CustomNames?.TitleFile ?? FileCaption.Title;
 
+    public string DefaultAudioFile { get; internal set; }
+
     internal Caption FileCaption { get; set; }
     internal Caption TagCaption { get; set; }
     internal CustomTagFileNames CustomNames { get; set; }
@@ -71,11 +90,11 @@ namespace audiamus.aaxconv.lib {
     }
 
     public EParts CheckParts () {
-      Parts.Sort ((x, y) => x.AaxFileItem.FileName.CompareTo (y.AaxFileItem.FileName));
+      Parts.Sort ((x, y) => x.AaxFileItem.BookTitle.CompareTo (y.AaxFileItem.BookTitle));
       bool hasParts = Parts.Where (p => p.PartNumber > 0).Any ();
       bool allParts = false;
       if (hasParts) {
-        int highestPart = Parts.Last ().PartNumber;
+        int highestPart = Parts.Select (x => x.PartNumber).Max ();
         int partsSum = Parts.Select (x => x.PartNumber).Sum ();
         int expectedSum = highestPart * (highestPart + 1) / 2;
         allParts = partsSum != 1 && partsSum == expectedSum;
@@ -91,6 +110,22 @@ namespace audiamus.aaxconv.lib {
 
       return PartsType;
     }
+
+    public bool HasUniqueChapterNames (EConvMode convMode) {
+      if (convMode == EConvMode.single || convMode == EConvMode.splitTime)
+        return false;
+
+      if (!hasNamedChaptersAll ())
+        return false;
+
+      var chapterNames = Parts.SelectMany (p => p.NamedChapters).Select (c => c.Name.Prune());
+      var chapterNamesDistinct = chapterNames.Distinct();
+
+      bool unique = chapterNames.Count () == chapterNamesDistinct.Count ();
+      return unique;
+    }
+
+    public bool HasNamedChapters => hasNamedChaptersAll ();
 
     public uint ChapterNumber (Chapter chapter) {
       if (chapter is null)
@@ -166,6 +201,11 @@ namespace audiamus.aaxconv.lib {
       string replaced = title.Replace (':', ';');
       replaced = replaced.Replace ('/', ',');
       return replaced.Prune ();
+    }
+
+    private bool hasNamedChaptersAll () {
+      var partsWithNamedChapters = Parts.Where (p => p.HasNamedChapters);
+      return partsWithNamedChapters.Count () == Parts.Count;
     }
 
     const string RGX_TITLE_1T = @"([\w+\s+";

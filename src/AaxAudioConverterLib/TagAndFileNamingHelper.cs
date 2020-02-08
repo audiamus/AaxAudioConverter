@@ -1,4 +1,6 @@
-﻿using System;
+﻿#pragma warning disable CS0642  
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,6 +12,12 @@ using audiamus.aux.ex;
 
 namespace audiamus.aaxconv.lib {
   partial class TagAndFileNamingHelper {
+    
+    enum ENamedChapters {
+      Number = 0,
+      Name = 1,
+      NumberName = 2
+    }
 
     public const string EXT_JPG = ".jpg";
     public const string EXT_PNG = ".png";
@@ -41,6 +49,10 @@ namespace audiamus.aaxconv.lib {
     readonly Book _book;
     readonly EConvMode _convMode;
     readonly EConvFormat _convFormat;
+    readonly ENamedChapters _namedChapters;
+
+    bool _isFileName;
+
     Track _track;
     Numbers _numbers;
 
@@ -50,6 +62,7 @@ namespace audiamus.aaxconv.lib {
     private string Track => track ();
     private string Title => titleNaming ();
     private string Chapter => chapter ();
+    private string ChapterName => _track?.Chapter.Name;
     private string Part => part ();
     private string FullPath => fullPath ();
     private string File => file ();
@@ -122,6 +135,16 @@ namespace audiamus.aaxconv.lib {
         _convFormat = s.ConvFormat;
         _convMode = s.ConvMode;
       }
+
+      bool useChapterNames = settings.NamedChaptersAndAlwaysWithNumbers.HasValue && book.HasNamedChapters;
+      bool useChapterNumbers = useChapterNames && settings.NamedChaptersAndAlwaysWithNumbers.Value || !book.HasUniqueChapterNames (_convMode);
+      if (useChapterNames) {
+        if (useChapterNumbers)
+          _namedChapters = ENamedChapters.NumberName;
+        else
+          _namedChapters = ENamedChapters.Name;
+      }
+
     }
 
     public static bool ReadMetaData (AaxFileItem aaxFileItem) => 
@@ -165,6 +188,7 @@ namespace audiamus.aaxconv.lib {
     private void setFileNames () => _book.Parts.SelectMany (p => p.Tracks).ToList ().ForEach (setFileName);
 
     private void setFileName (Track track) {
+      _isFileName = true;
       _track = track;
       var part = _book.Parts.Where (p => p.Tracks?.Contains (track) ?? false).SingleOrDefault ();
       if (part is null)
@@ -176,22 +200,78 @@ namespace audiamus.aaxconv.lib {
     private string track () {
       var n = _numbers;
       string[] p = _seps;
-      switch (Settings.TrackNumbering) {
-        case ETrackNumbering.track:
+
+      switch (_convMode) {
         default:
           return n.nTrk.Str (n.nnTrk);
-        case ETrackNumbering.chapter_a_track:
-          if (_convMode == EConvMode.splitChapters && n.nChp > 0)
-            return n.nChp.Str (n.nnChp) + _seps[0] + n.nChTrk.Str (n.nnChTrk);
-          else
-            return n.nTrk.Str (n.nnTrk);
-        case ETrackNumbering.track_b_chapter_c:
-          if (_convMode == EConvMode.splitChapters && n.nChp > 0)
-            return n.nTrk.Str (n.nnTrk) + _seps[1] + n.nChp.Str (n.nnChp) + _seps[2];
-          else
-            return n.nTrk.Str (n.nnTrk);
+        case EConvMode.chapters:
+          return chapterNamedTrackForChapters();
+        case EConvMode.splitChapters:
+          return chapterNamedTrackForSplitChapters();
+      };
+    }
+
+    private string chapterNamedTrackForChapters () {
+      var n = _numbers;
+      string trackName = n.nTrk.Str (n.nnTrk);
+
+      // not dependent on Settings.TrackNumbering
+
+      switch (_namedChapters) {
+        default:
+        case ENamedChapters.Number:
+          return trackName;
+        case ENamedChapters.Name:
+        case ENamedChapters.NumberName: 
+          {
+            string chapterName = ChapterName;
+            if (_isFileName) {
+              chapterName = chapterName.Prune ();
+              if (_namedChapters == ENamedChapters.NumberName)
+                chapterName = $"({trackName}) {chapterName}";
+              else
+               ; // for breakpoint               
+            } else
+              ; // for breakpoint
+
+            return chapterName;
+          }
       }
     }
+
+    private string chapterNamedTrackForSplitChapters () {
+      var n = _numbers;
+      string trackName = n.nTrk.Str (n.nnTrk);
+
+      if (n.nChp == 0)
+        return trackName;
+
+      switch (Settings.TrackNumbering) {
+        default:
+        case ETrackNumbering.track:
+          return trackName;
+
+        case ETrackNumbering.chapter_a_track:
+          string tn;
+          if (_namedChapters != ENamedChapters.Number)
+            tn = ChapterName;
+          else
+            tn = n.nChp.Str (n.nnChp);
+
+          if (n.nChTrks > 1)
+            tn += _seps[0] + n.nChTrk.Str (n.nnChTrk);
+          else
+            ; // for breakpoint
+          return tn;         
+
+        case ETrackNumbering.track_b_chapter_c:
+          if (_namedChapters != ENamedChapters.Number)
+            return trackName + _seps[1] + ChapterName + _seps[2];
+          else
+            return trackName + _seps[1] + n.nChp.Str (n.nnChp) + _seps[2];
+      }
+    }
+
 
     private string titleNaming () {
       var n = _numbers;
@@ -219,7 +299,27 @@ namespace audiamus.aaxconv.lib {
       var n = _numbers;
       var p = SPACE;
       string chapter = ChapterPrefix;
-      return chapter + p + n.nChp.Str (n.nnChp);
+      switch (_namedChapters) {
+        default:
+        case ENamedChapters.Number:
+          return chapter + p + n.nChp.Str (n.nnChp);
+        case ENamedChapters.Name: 
+        case ENamedChapters.NumberName:
+          {
+            string chapterName = ChapterName;
+            bool isNumeric = uint.TryParse (chapterName, out var _);
+            if (isNumeric)
+              chapterName = chapter + p + chapterName;
+            else
+              ;   // for breakpoint     
+
+            if (_namedChapters == ENamedChapters.Name)
+              return chapterName;
+            else 
+              return $"({n.nChp.Str (n.nnChp)}) {chapterName}";
+          }
+      }
+
     }
 
     private string part () {
@@ -236,7 +336,10 @@ namespace audiamus.aaxconv.lib {
       string filename = File + ext;
       switch (_convMode) {
         case EConvMode.single:
-          return Path.Combine (_book.OutDirectoryLong, filename);
+          if (Settings.ExtraMetaFiles && _book.PartsType == Book.EParts.some)
+            return Path.Combine (_book.OutDirectoryLong, Part, filename);
+          else
+            return Path.Combine (_book.OutDirectoryLong, filename);
         case EConvMode.chapters:
         case EConvMode.splitTime:
           switch (_book.PartsType) {
@@ -468,6 +571,8 @@ namespace audiamus.aaxconv.lib {
     }
 
     private bool writeMetaData () {
+      _isFileName = false;
+      
       if (_aaxFileItem is null)
         return false;
       var afi = _aaxFileItem;

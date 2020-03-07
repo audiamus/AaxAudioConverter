@@ -21,7 +21,8 @@ namespace audiamus.aaxconv.lib {
 
     public const string EXT_JPG = ".jpg";
     public const string EXT_PNG = ".png";
-    public const string EXT_M4A = ".m4a";
+    public const string EXT_M4A = ".m4a"; 
+    public const string EXT_M4B = ".m4b"; 
     public const string EXT_MP3 = ".mp3";
 
     const string SPACE = " ";
@@ -66,6 +67,8 @@ namespace audiamus.aaxconv.lib {
     private string Part => part ();
     private string FullPath => fullPath ();
     private string File => file ();
+
+    private string ExtMp4 => Settings.M4B ? EXT_M4B : EXT_M4A;
 
     private string PartPrefix {
       get {
@@ -246,6 +249,10 @@ namespace audiamus.aaxconv.lib {
       if (n.nChp == 0)
         return trackName;
 
+      string chapterName = ChapterName;
+      if (_isFileName)
+        chapterName = chapterName.Prune ();
+      
       switch (Settings.TrackNumbering) {
         default:
         case ETrackNumbering.track:
@@ -254,7 +261,7 @@ namespace audiamus.aaxconv.lib {
         case ETrackNumbering.chapter_a_track:
           string tn;
           if (_namedChapters != ENamedChapters.Number)
-            tn = ChapterName;
+            tn = chapterName;
           else
             tn = n.nChp.Str (n.nnChp);
 
@@ -266,7 +273,7 @@ namespace audiamus.aaxconv.lib {
 
         case ETrackNumbering.track_b_chapter_c:
           if (_namedChapters != ENamedChapters.Number)
-            return trackName + _seps[1] + ChapterName + _seps[2];
+            return trackName + _seps[1] + chapterName + _seps[2];
           else
             return trackName + _seps[1] + n.nChp.Str (n.nnChp) + _seps[2];
       }
@@ -275,23 +282,37 @@ namespace audiamus.aaxconv.lib {
 
     private string titleNaming () {
       var n = _numbers;
+      bool isSingleOutputFile = _convMode == EConvMode.single && n.nTrks == 1;
+
       string p = _sepDash;
       switch (Settings.TitleNaming) {
         case ETitleNaming.track:
         default:
           return Track;
         case ETitleNaming.track_book:
-          return Track + p + _book.TitleTag;
+          if (isSingleOutputFile)
+            return _book.TitleTag;
+          else
+            return Track + p + _book.TitleTag;
         case ETitleNaming.track_book_author:
-          return Track + p + _book.TitleTag + p + _book.AuthorTag;
+          if (isSingleOutputFile)
+            return _book.TitleTag + p + _book.AuthorTag;
+          else
+            return Track + p + _book.TitleTag + p + _book.AuthorTag;
         case ETitleNaming.book_author:
           return _book.TitleTag + p + _book.AuthorTag;
         case ETitleNaming.author_book:
           return _book.AuthorTag + p + _book.TitleTag;
         case ETitleNaming.author_book_track:
-          return _book.AuthorTag + p + _book.TitleTag + p + Track;
+          if (isSingleOutputFile)
+            return _book.AuthorTag + p + _book.TitleTag;
+          else
+            return _book.AuthorTag + p + _book.TitleTag + p + Track;
         case ETitleNaming.book_track:
-          return _book.TitleTag + p + Track;
+          if (isSingleOutputFile)
+            return _book.TitleTag;
+          else
+            return _book.TitleTag + p + Track;
       }
     }
 
@@ -306,7 +327,7 @@ namespace audiamus.aaxconv.lib {
         case ENamedChapters.Name: 
         case ENamedChapters.NumberName:
           {
-            string chapterName = ChapterName;
+            string chapterName = ChapterName.Prune();
             bool isNumeric = uint.TryParse (chapterName, out var _);
             if (isNumeric)
               chapterName = chapter + p + chapterName;
@@ -332,7 +353,7 @@ namespace audiamus.aaxconv.lib {
 
 
     private string fullPath () {
-      string ext = _convFormat == EConvFormat.m4a ? EXT_M4A : EXT_MP3;
+      string ext = _convFormat == EConvFormat.mp4 ? ExtMp4 : EXT_MP3;
       string filename = File + ext;
       switch (_convMode) {
         case EConvMode.single:
@@ -590,23 +611,29 @@ namespace audiamus.aaxconv.lib {
         tags.Album = _book.TitleTag;
 
         // album artist  
-        tags.AlbumArtists = afi.Authors;
+        tags.AlbumArtists = _book.AuthorTag.SplitTrim (); //afi.Authors;
 
         // performer/narrator
         if (Settings.Narrator) {
           var authors = new List<string> ();
-          authors.AddRange (afi.Authors);
+          //authors.AddRange (afi.Authors);
+          authors.AddRange (tags.AlbumArtists);
           authors.AddRange (afi.Narrators);
           tags.Performers = authors.ToArray ();
-          var roles = new string[afi.Authors.Length + afi.Narrators.Length];
-          for (int i = 0; i < afi.Authors.Length; i++)
+          //var roles = new string[afi.Authors.Length + afi.Narrators.Length];
+          //for (int i = 0; i < afi.Authors.Length; i++)
+            //roles[i] = nameof (afi.Author);
+          var roles = new string[tags.AlbumArtists.Length + afi.Narrators.Length];
+          for (int i = 0; i < tags.AlbumArtists.Length; i++)
             roles[i] = nameof (afi.Author);
           for (int i = 0; i < afi.Narrators.Length; i++)
             roles[afi.Authors.Length + i] = nameof (afi.Narrator);
           tags.PerformersRole = roles;
         } else {
-          tags.Performers = afi.Authors;
-          var roles = new string[afi.Authors.Length];
+          //tags.Performers = afi.Authors;
+          //var roles = new string[afi.Authors.Length];
+          tags.Performers = tags.AlbumArtists;
+          var roles = new string[tags.AlbumArtists.Length];
           for (int i = 0; i < roles.Length; i++)
             roles[i] = nameof (afi.Author);
           tags.PerformersRole = roles;

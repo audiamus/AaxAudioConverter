@@ -1,10 +1,21 @@
-English | German
--------- | ------
-Main window | Hauptfenster
-![](Cover.png?raw=true) | ![](Cover.de.png?raw=true)
-Book details (Meta info) | Buchdetails (Metainformationen) 
-![](Details.png?raw=true) | ![](Details.de.png?raw=true)
-Preview | Vorschau
-![](Preview.png?raw=true) | ![](Preview.de.png?raw=true)
-Settings | Einstellungen
-![](Settings.png?raw=true) | ![](Settings.de.png?raw=true)
+|English 
+|---------
+|Main window
+|![](Cover.png?raw=true)
+|Book details (Meta info)
+|![](Details.png?raw=true)
+|Preview
+|![](Preview.png?raw=true)
+|Settings
+|![](Settings.png?raw=true)
+
+|Deutsch
+| ------
+|Hauptfenster
+|![](Cover.de.png?raw=true)
+|Buchdetails (Metainformationen) 
+|![](Details.de.png?raw=true)
+|Vorschau
+|![](Preview.de.png?raw=true)
+|Einstellungen
+|![](Settings.de.png?raw=true)

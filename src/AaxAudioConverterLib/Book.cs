@@ -191,6 +191,12 @@ namespace audiamus.aaxconv.lib {
         title = SortingTitle;
       //Title = title.Prune ();
 
+      if (!settings.AddnlValTitlePunct.Contains ('-')) {
+        int idx = title.IndexOf (" - ");
+        if (idx >= 0)
+          title = title.Substring (0, idx);
+      }
+
       TagCaption = new Caption (fi.Author, title);
       title = PruneTitle (title);
       FileCaption = new Caption (TagCaption.Author.Prune(), title);
@@ -210,7 +216,7 @@ namespace audiamus.aaxconv.lib {
 
     const string RGX_TITLE_1T = @"([\w+\s+";
     const string RGX_TITLE_1 = @"^" + RGX_TITLE_1T;
-    const string RGX_TITLE_2 = @".,'/";
+    const string RGX_TITLE_2 = @".,'/-";
     const string RGX_TITLE_3 = @"]+)\W*";
     const string RGX_TITLE_1L = @"^(?:[\w+\s+" + RGX_TITLE_2 + @"]+:)?" + RGX_TITLE_1T;
     const string ESC_CHARS = @"[\^$.|?*+()";

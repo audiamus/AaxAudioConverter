@@ -160,7 +160,7 @@
     <value>Source for chapter folder name prefix, if needed: &lt;source&gt;: taken from aax source; &lt;standard&gt; sets to 'Chapter'; &lt;custom&gt; allows custom value.</value>
   </data>
   <data name="ChapterName" xml:space="preserve">
-    <value>Custom chapter</value>
+    <value>Custom chapter folder</value>
   </data>
   <data name="ChapterNameDescription" xml:space="preserve">
     <value>Custom name prefix for chapter folders.</value>

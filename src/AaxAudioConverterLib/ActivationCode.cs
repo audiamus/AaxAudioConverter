@@ -12,6 +12,7 @@ namespace audiamus.aaxconv.lib {
 
   class ActivationCode : IActivationCode {
 
+    private readonly IActivationSettings _settings;
     private List<string> _activationCodes = new List<string> ();
 
     public IEnumerable<uint> RegistryCodes => _activationCodes?.Select (s => Convert.ToUInt32 (s, 16)).ToList();
@@ -19,8 +20,15 @@ namespace audiamus.aaxconv.lib {
     public bool HasActivationCode => ActivationCodes?.Count () > 0;
 
     public ActivationCode (IActivationSettings settings) {
-      if (settings.ActivationCode.HasValue)
-        _activationCodes.Add (settings.ActivationCode.Value.ToHexString ());
+      _settings = settings;
+      init ();
+    }
+
+    private void init () {
+      _activationCodes.Clear ();
+
+      if (_settings.ActivationCode.HasValue)
+        _activationCodes.Add (_settings.ActivationCode.Value.ToHexString ());
 
       if (!HasActivationCode) {
         ActivationCodeRegistry registryCodes = new ActivationCodeRegistry ();
@@ -33,7 +41,15 @@ namespace audiamus.aaxconv.lib {
         if (appCodes.HasActivationCode)
           _activationCodes = _activationCodes.Union (appCodes.ActivationCodes).ToList ();
       }
+    }
 
+    public bool GetActivationCode () {
+      if (HasActivationCode)
+        return true;
+
+      init ();
+
+      return HasActivationCode;
     }
   }
 

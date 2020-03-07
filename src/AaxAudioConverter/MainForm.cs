@@ -200,6 +200,8 @@ namespace audiamus.aaxconv {
       dlg.ShowDialog ();
       if (dlg.SettingsReset)
         reinitControlsFromSettings ();
+      else
+        initRadionButtons ();
       ensureFFmpegPath ();
       enableAll (true);
     }
@@ -235,6 +237,7 @@ namespace audiamus.aaxconv {
 
       new ActivationCodeForm () { Owner = this }.ShowDialog ();
 
+      _converter.GetActivationCode ();
     }
 
 
@@ -318,7 +321,10 @@ namespace audiamus.aaxconv {
 
     private void initRadionButtons () {
       using (new ResourceGuard (f => _resetFlag = f)) {
-        radBtnM4a.Checked = Settings.ConvFormat == EConvFormat.m4a;
+
+        radBtnMp4.Text = Settings.M4B ? "M4B" : "M4A";
+
+        radBtnMp4.Checked = Settings.ConvFormat == EConvFormat.mp4;
         radBtnMp3.Checked = Settings.ConvFormat == EConvFormat.mp3;
 
         radBtnSingle.Checked = false;
@@ -557,7 +563,7 @@ namespace audiamus.aaxconv {
     }
 
     private void radBtnM4A_CheckedChanged (object sender, EventArgs e) => 
-      radioButton (sender, v => Settings.ConvFormat = v, EConvFormat.m4a);
+      radioButton (sender, v => Settings.ConvFormat = v, EConvFormat.mp4);
 
     private void radBtnMp3_CheckedChanged (object sender, EventArgs e) => 
       radioButton (sender, v => Settings.ConvFormat = v, EConvFormat.mp3);

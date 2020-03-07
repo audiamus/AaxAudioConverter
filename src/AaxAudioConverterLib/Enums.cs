@@ -1,5 +1,5 @@
 ﻿namespace audiamus.aaxconv.lib {
-  public enum EConvFormat { mp3, m4a}
+  public enum EConvFormat { mp3, mp4 }
   public enum EConvMode { single, chapters, splitChapters, splitTime}
 
   public enum EInteractionCustomCallback { none, noActivationCode }

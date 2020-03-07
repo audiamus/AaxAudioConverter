@@ -72,7 +72,7 @@ namespace audiamus.aaxconv.lib {
               Track = Math.Min (trackParallelism, Environment.ProcessorCount);
 
               var part = partChapters.Part;
-              bool copy = Settings.ConvFormat == EConvFormat.m4a && !part.IsMp3Stream ||
+              bool copy = Settings.ConvFormat == EConvFormat.mp4 && !part.IsMp3Stream ||
                           Settings.ConvFormat == EConvFormat.mp3 && part.IsMp3Stream;
               FFmpeg.ETranscode modifiers = copy ? FFmpeg.ETranscode.copy : FFmpeg.ETranscode.normal;
 
@@ -97,9 +97,8 @@ namespace audiamus.aaxconv.lib {
     #region Private Fields
 
     const string M4A = TagAndFileNamingHelper.EXT_M4A;
+    const string M4B = TagAndFileNamingHelper.EXT_M4B;
     const string MP3 = TagAndFileNamingHelper.EXT_MP3;
-
-    const string UNC = @"\\?\";
 
     private readonly Regex _rgxPart; // = new Regex (@"^(.*)\s+(\w+)\s+(\d+)$", RegexOptions.Compiled);
     private static readonly Regex _rgxChapter = new Regex (@"^(\w+)\s+", RegexOptions.Compiled);
@@ -132,8 +131,11 @@ namespace audiamus.aaxconv.lib {
     private int MaxDegreeOfParallelism => Settings.NonParallel ? 1 : Environment.ProcessorCount;
     private IResources Resources => _resources;
 
+    private string MP4 => Settings.M4B ? M4B : M4A;
+
+
     // support long path names
-    private static string TempDirectoryLong { get; } = UNC + TempDirectory;
+    private static string TempDirectoryLong { get; } = TempDirectory.AsUnc();
 
     #endregion Private Properties
     #region Public Constructors
@@ -159,6 +161,9 @@ namespace audiamus.aaxconv.lib {
     public void Dispose () {
       cleanTempDirectory ();
     }
+
+    public bool GetActivationCode() => _activationCode.GetActivationCode();
+
 
     public async Task<IEnumerable<AaxFileItem>> AddFilesAsync (IEnumerable<string> filenames) {
       DefaultParallelOptions = new ParallelOptions {
@@ -577,31 +582,50 @@ namespace audiamus.aaxconv.lib {
         TimeSpan tBeg = part.BrandIntro;
         TimeSpan tEnd = part.Duration - part.BrandOutro;
         adjustNamedChapters (part, tBeg, tEnd);
+      } else {
+        TimeSpan tBeg = TimeSpan.Zero;
+        TimeSpan tEnd = part.AaxFileItem.Duration;
+        adjustNamedChapters (part, tBeg, tEnd, book);
       }
 
       // finally
       part.SwapChapters ();
     }
 
-    private static void adjustNamedChapters (Book.BookPart part, TimeSpan tBeg, TimeSpan tEnd) {
+    private static void adjustNamedChapters (Book.BookPart part, TimeSpan tBeg, TimeSpan tEnd, Book book = null) {
+      if (!(book is null)) {
+        var lastChapter = part.Chapters2.LastOrDefault ();
+        if (lastChapter is null)
+          return;
+
+        if (book.Parts.LastOrDefault () == part && tEnd > lastChapter.Time.End) {
+          lastChapter.Time.End = tEnd;
+          return;
+        }
+      }
+
       var toBeRemoved = new List<int> ();
       for (int i = part.Chapters2.Count - 1; i >= 0; i--) {
         var ch = part.Chapters2[i];
-        if (ch.Time.Begin > tEnd)
+        if (ch.Time.Begin >= tEnd)
           toBeRemoved.Add (i);
         else {
           if (ch.Time.End > tEnd)
             ch.Time.End = tEnd;
+          else
+            break;
         }
       }
 
       for (int i = 0; i < part.Chapters2.Count; i++) {
         var ch = part.Chapters2[i];
-        if (ch.Time.End < tBeg)
+        if (ch.Time.End <= tBeg)
           toBeRemoved.Add (i);
         else {
           if (ch.Time.Begin < tBeg)
             ch.Time.Begin = tBeg;
+          else
+            break;
         }
       }
 
@@ -797,7 +821,7 @@ namespace audiamus.aaxconv.lib {
     }
 
     private void detectSilenceChapterParallel (Book book, Book.BookPart part, string filestub) {
-      string ext = part.IsMp3Stream ? MP3 : M4A;
+      string ext = part.IsMp3Stream ? MP3 : MP4;
 
       try {
         Parallel.For (0, part.Chapters.Count, DefaultParallelOptions, i =>
@@ -1104,7 +1128,7 @@ namespace audiamus.aaxconv.lib {
 
 
     private void transcodeTracksParallel (Book book, Book.BookPart part, ChapteredTracks.PartChapter partChapter) {
-      bool copy = Settings.ConvFormat == EConvFormat.m4a && !part.IsMp3Stream ||
+      bool copy = Settings.ConvFormat == EConvFormat.mp4 && !part.IsMp3Stream ||
                   Settings.ConvFormat == EConvFormat.mp3 && part.IsMp3Stream;
       FFmpeg.ETranscode modifiers = copy ? FFmpeg.ETranscode.copy : FFmpeg.ETranscode.normal;
 
@@ -1303,7 +1327,9 @@ namespace audiamus.aaxconv.lib {
     }
 
     private string initDirectory (Book book, string author, string title) {
-      string rootDirLong = UNC + Settings.OutputDirectory;
+
+      const string UNC = ExUnc.UNC_LOCAL;
+      string rootDirLong = Settings.OutputDirectory.AsUnc();
 
       string outDirLong;
       string outDirAuthorLong;
@@ -1391,7 +1417,7 @@ namespace audiamus.aaxconv.lib {
         if (!di.Name.StartsWith (ptPrefix) || !usePartDirs)
           di.Delete (true);
 
-      string ext = book.Parts?.First().IsMp3Stream ?? false ? MP3 : M4A;
+      string ext = book.Parts?.First().IsMp3Stream ?? false ? MP3 : MP4;
       foreach (var fi in fis) {
         string fext = fi.Extension.ToLower (); 
         if (usePartDirs || ext != fext)
@@ -1410,7 +1436,7 @@ namespace audiamus.aaxconv.lib {
     }
 
     private string getAppContentDirectory () {
-      var dirLocalState = ActivationCodeApp.GetPackageDirectories ()?.First ();
+      var dirLocalState = ActivationCodeApp.GetPackageDirectories ()?.FirstOrDefault ();
       if (dirLocalState is null)
         return null;
 

@@ -91,4 +91,30 @@ namespace audiamus.aux.ex {
     }
     public static string ToStringHMSm (this TimeSpan value) => $"{value.ToStringHMS ()}.{value.Milliseconds:D3}";
   }
+
+  public static class ExUnc {
+    public const string UNC_LOCAL = @"\\?\";
+
+    public static bool IsUnc (this string path) {
+      string root = Path.GetPathRoot (path);
+
+      // Check if root starts with "\\", clearly an UNC
+      if (root.StartsWith (@"\\"))
+        return true;
+
+      // Check if the drive is a network drive
+      DriveInfo drive = new DriveInfo (root);
+      if (drive.DriveType == DriveType.Network)
+        return true;
+
+      return false;
+    }
+
+    public static string AsUnc (this string path) {
+      if (path.IsUnc ())
+        return path;
+      else
+        return UNC_LOCAL + path;
+    }
+  }
 }

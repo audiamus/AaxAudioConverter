@@ -136,7 +136,7 @@
     <value>Aktivierungsfehler für</value>
   </data>
   <data name="MsgActivationError2" xml:space="preserve">
-    <value>Anderern Aktivierungscode eingeben?</value>
+    <value>Anderen Aktivierungscode eingeben?</value>
   </data>
   <data name="MsgActivationError3" xml:space="preserve">
     <value>Datei wird übersprungen.</value>

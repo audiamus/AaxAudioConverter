@@ -15,6 +15,7 @@
     string PartName { get; set; }
     bool ExtraMetaFiles { get; set; }
     bool? NamedChaptersAndAlwaysWithNumbers { get; set; }
+    bool M4B { get; set; }
   }
 
   public interface IActivationSettings {

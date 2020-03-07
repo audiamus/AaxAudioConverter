@@ -425,5 +425,17 @@ namespace audiamus.aaxconv.Properties {
                 this["AutoLaunchPlayer"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool M4B {
+            get {
+                return ((bool)(this["M4B"]));
+            }
+            set {
+                this["M4B"] = value;
+            }
+        }
     }
 }

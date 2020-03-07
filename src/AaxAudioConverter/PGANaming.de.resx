@@ -154,13 +154,13 @@
     <value>Benutzerdefiniertes Tag für das Genre</value>
   </data>
   <data name="ChapterNaming" xml:space="preserve">
-    <value>Namensgebung Kapitel</value>
+    <value>Namensgebung Kapitelordner</value>
   </data>
   <data name="ChapterNamingDescription" xml:space="preserve">
     <value>Namensquelle für Kapitelordner, falls erforderlich. &lt;Quelle&gt;: aus aax-Datei; &lt;Standard&gt;: setzt zu 'Kapitel'; &lt;Benutzerdefiniert&gt;: eigene Angabe.</value>
   </data>
   <data name="ChapterName" xml:space="preserve">
-    <value>Benutzerdefiniertes Kapitel</value>
+    <value>Benutzerdefinierter Kapitelordner</value>
   </data>
   <data name="ChapterNameDescription" xml:space="preserve">
     <value>Benutzerdefinierter Präfix für "Kapitel"-Ordner.</value>

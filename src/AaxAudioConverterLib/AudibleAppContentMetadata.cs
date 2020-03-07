@@ -42,9 +42,28 @@ namespace audiamus.aaxconv.lib {
       var metaChapters = metadata.content_metadata.chapter_info.chapters;
       if (metaChapters.Count == 0)
         return;
-      bool hasBlanks = metaChapters.Where (c => string.IsNullOrWhiteSpace (c.title) || c.length_ms == 0).Any ();
-      if (hasBlanks)
-        return;
+
+      // handle chapters with no name. Set '.' as a placeholder
+      var whites = metaChapters.Where (c => string.IsNullOrWhiteSpace (c.title)).ToList();
+      whites.ForEach (c => c.title = ".");
+
+      // handle chapters of zero length. Min length must be 1 ms.
+      var zeros = metaChapters.Where (c => c.length_ms == 0).ToList();
+      if (zeros.Count > 0) {
+        zeros.ForEach (c => c.length_ms = 1);
+        for (int i = 1; i < metaChapters.Count; i++) {
+          var ch0 = metaChapters[i - 1];
+          var ch = metaChapters[i];
+          int chOffsNew = ch0.start_offset_ms + ch0.length_ms;
+          if (ch.start_offset_ms >= chOffsNew)
+            continue;
+          int chLenNew = ch.length_ms + ch.start_offset_ms - chOffsNew;
+          if (chLenNew <= 0)
+            chLenNew = 1;
+          ch.start_offset_ms = chOffsNew;
+          ch.length_ms = chLenNew;
+        }
+      }
 
       foreach (var ch in metaChapters) {
         var chapter = new Chapter ();

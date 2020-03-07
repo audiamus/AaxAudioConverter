@@ -140,6 +140,8 @@ namespace audiamus.aaxconv {
 
       nudShortChapter.Value = Settings.ShortChapterSec;
       nudVeryShortChapter.Value = Settings.VeryShortChapterSec;
+
+      comBoxM4B.SelectedIndex = Settings.M4B ? 1 : 0;
     }
 
 
@@ -260,6 +262,7 @@ namespace audiamus.aaxconv {
           break;
       }
 
+      Settings.M4B = comBoxM4B.SelectedIndex == 1;
 
       if (Culture.ChangeLanguage (comBoxLang, Settings)) {
         Settings.Save ();
@@ -289,6 +292,5 @@ namespace audiamus.aaxconv {
       bool flatFolders = ckBoxFlatFolders.Checked;
       comBoxFlatFolders.Enabled = flatFolders;
     }
-
   }
 }

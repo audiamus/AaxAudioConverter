@@ -82,6 +82,17 @@ namespace audiamus.aux.ex {
       return pruned;
     }
 
+    public static string SubstitUser (this string s) {
+      if (s is null)
+        return null;
+      string userdir = ApplEnv.UserDirectoryRoot;
+      if (!s.Contains (userdir))
+        return s;
+      string userdir1 = userdir.Replace (ApplEnv.UserName, "USER");
+      string s1 = s.Replace (userdir, userdir1);
+      return s1;
+    }
+
   }
 
   public static class ExTimeSpan {

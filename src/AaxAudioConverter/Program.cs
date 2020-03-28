@@ -12,11 +12,18 @@ namespace audiamus.aaxconv {
     /// The main entry point for the application.
     /// </summary>
     [STAThread]
-    static void Main () {
+    static void Main (string[] args) {
       using (Mutex mutex = new Mutex (false, ApplEnv.AssemblyGuid)) {
 
         if (!mutex.WaitOne (0, false)) 
           return;
+
+        var ap = new ArgParser (args);
+        uint? loglevel = ap.FindUIntArg ("Log");
+        if (loglevel.HasValue) {
+          Logging.InstantFlush = true;
+          Logging.Level = (int)loglevel;
+        }
 
         Application.EnableVisualStyles ();
         Application.SetCompatibleTextRenderingDefault (false);

@@ -17,6 +17,7 @@ using audiamus.aux.win;
 using audiamus.aux.win.ex;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using static audiamus.aux.ApplEnv;
+using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv {
 
@@ -613,6 +614,8 @@ namespace audiamus.aaxconv {
       _progress.Reset ();
       _cts = new CancellationTokenSource ();
 
+      Log (1, this, () => $"#files={fileitems.Count}");
+      
       try {
         await _converter.ConvertAsync (fileitems, _cts.Token, progress, callback);
       } catch (OperationCanceledException) { }
@@ -637,6 +640,9 @@ namespace audiamus.aaxconv {
 
       int cnt = converted.Count ();
       bool fullSuccess = cnt == fileitems.Count;
+
+      Log (1, this, () => $"#files={fileitems.Count}, #conv={cnt}");
+      
       MessageBoxIcon mbIcon;
       string intro;
       if (cnt == 0) {

@@ -11,7 +11,7 @@ namespace audiamus.aaxconv.lib {
 
     public string FileName { get; private set; }
     public bool AA { get; private set; }
-    public long FileSize { get; private set; }
+    public long FileSize { get; internal set; }
     public string BookTitle { get; internal set; }
     public string [] Authors { get; internal set; }
     public string Author => Authors.Combine (); 

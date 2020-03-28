@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplEnv.cs" />
+    <Compile Include="ArgParser.cs" />
     <Compile Include="BigEndianReader.cs" />
     <Compile Include="BooleanYesNoConverter.cs" />
     <Compile Include="ChainPunctuation.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="InteractionMessage.cs" />
     <Compile Include="LocalFileSettingsProvider.cs" />
+    <Compile Include="Logging.cs" />
     <Compile Include="ProcessHost.cs" />
     <Compile Include="IInteractionCallback.cs" />
     <Compile Include="InteractionCallback.cs" />

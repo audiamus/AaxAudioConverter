@@ -323,4 +323,7 @@ Download now?</value>
   <data name="HdrTitle" xml:space="preserve">
     <value>Title</value>
   </data>
+  <data name="MsgDirectoryCreationCallbackForAll" xml:space="preserve">
+    <value>Do the same for the other books?</value>
+  </data>
 </root>

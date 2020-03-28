@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using audiamus.aux.ex;
 using Newtonsoft.Json;
+using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv.lib {
   class AudibleAppContentMetadata {
@@ -47,8 +47,11 @@ namespace audiamus.aaxconv.lib {
       var whites = metaChapters.Where (c => string.IsNullOrWhiteSpace (c.title)).ToList();
       whites.ForEach (c => c.title = ".");
 
+
+
       // handle chapters of zero length. Min length must be 1 ms.
       var zeros = metaChapters.Where (c => c.length_ms == 0).ToList();
+      Log (3, this, () => $"chapters: #zero={zeros.Count}, #white={whites.Count}");
       if (zeros.Count > 0) {
         zeros.ForEach (c => c.length_ms = 1);
         for (int i = 1; i < metaChapters.Count; i++) {
@@ -70,6 +73,7 @@ namespace audiamus.aaxconv.lib {
         chapter.Name = ch.title.Trim();
         chapter.Time.Begin = TimeSpan.FromMilliseconds (ch.start_offset_ms);
         chapter.Time.End = TimeSpan.FromMilliseconds (ch.start_offset_ms + ch.length_ms);
+        Log (3, this, () => chapter.ToString());
         chapters.Add (chapter);
       }
       part.Chapters2 = chapters;
@@ -82,6 +86,7 @@ namespace audiamus.aaxconv.lib {
 
     private string findContentMetadataFile (string fileName) {
       // try to find content metadata files, either relative or absolute
+      Log (3, this, fileName.SubstitUser ());
 
       // relative
       string cntDir = Path.GetDirectoryName (fileName);
@@ -123,6 +128,8 @@ namespace audiamus.aaxconv.lib {
       // find matching asin in our filename
       var filnam = Path.GetFileNameWithoutExtension (fileName);
       string contentMetafile = asinFiles.Where (k => filnam.Contains (k.ASIN)).Select (k => k.Filename).FirstOrDefault ();
+
+      Log (3, this, contentMetafile.SubstitUser ());
 
       return contentMetafile;
     }

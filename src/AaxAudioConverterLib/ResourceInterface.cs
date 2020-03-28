@@ -15,6 +15,7 @@
                                               //"[No]: New folder\r\n" +
                                               //"[Cancel]: Skip book"
     string MsgDirectoryPartCreationCallback { get; } //exists and is not empty.\r\n" +
+    string MsgDirectoryCreationCallbackForAll { get; } 
 
     string PartNames { get; }
     string PartNamePrefixStandard { get; }

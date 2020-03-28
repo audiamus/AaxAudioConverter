@@ -464,6 +464,7 @@ namespace audiamus.aaxconv.lib {
         return false;
       bool succ = readMetadataTaglib ();
       succ = succ && readMetadataFFmpeg ();
+
       return succ;
     }
 
@@ -611,27 +612,23 @@ namespace audiamus.aaxconv.lib {
         tags.Album = _book.TitleTag;
 
         // album artist  
-        tags.AlbumArtists = _book.AuthorTag.SplitTrim (); //afi.Authors;
+        tags.AlbumArtists = _book.AuthorTag.SplitTrim (); 
 
         // performer/narrator
         if (Settings.Narrator) {
           var authors = new List<string> ();
-          //authors.AddRange (afi.Authors);
           authors.AddRange (tags.AlbumArtists);
           authors.AddRange (afi.Narrators);
           tags.Performers = authors.ToArray ();
-          //var roles = new string[afi.Authors.Length + afi.Narrators.Length];
-          //for (int i = 0; i < afi.Authors.Length; i++)
-            //roles[i] = nameof (afi.Author);
-          var roles = new string[tags.AlbumArtists.Length + afi.Narrators.Length];
-          for (int i = 0; i < tags.AlbumArtists.Length; i++)
-            roles[i] = nameof (afi.Author);
-          for (int i = 0; i < afi.Narrators.Length; i++)
-            roles[afi.Authors.Length + i] = nameof (afi.Narrator);
-          tags.PerformersRole = roles;
+
+          var roles = new List<string> ();
+          foreach (var _ in tags.AlbumArtists)
+            roles.Add (nameof (afi.Author));
+          foreach (var _ in afi.Narrators)
+            roles.Add (nameof (afi.Narrator));
+
+          tags.PerformersRole = roles.ToArray ();
         } else {
-          //tags.Performers = afi.Authors;
-          //var roles = new string[afi.Authors.Length];
           tags.Performers = tags.AlbumArtists;
           var roles = new string[tags.AlbumArtists.Length];
           for (int i = 0; i < roles.Length; i++)
@@ -723,7 +720,27 @@ namespace audiamus.aaxconv.lib {
       return tag;
     }
 
+
+    class SampleBook {
+      public string BookTitle { get; }
+      public string [] Authors { get; }
+      public string [] Narrators { get; }
+      public TimeSpan Duration { get; }
+      public long FileSize { get; }
+      public DateTime PubDate { get; }
+
+      public SampleBook (string bookTitle, string [] authors, string [] narrators, TimeSpan duration, long fileSize, DateTime pubDate) {
+        BookTitle = bookTitle;
+        Authors = authors;
+        Narrators = narrators;
+        Duration = duration;
+        FileSize = fileSize;
+        PubDate = pubDate;
+      }
+    }
+
   }
+
 }
 
 namespace audiamus.aaxconv.lib.ex {

@@ -183,16 +183,19 @@ namespace audiamus.aaxconv.lib {
 
       //Author = fi.Author.Prune ();
 
-      Match match = _rgxTitle.Match (SortingTitle);
-      string title;
+      string title = SortingTitle;
+      if (settings.LongBookTitle) 
+        title = title.Replace (" -:", ":");
+      
+      Match match = _rgxTitle.Match (title);
       if (match.Success)
         title = match.Groups[1].Value.Trim ();
-      else
-        title = SortingTitle;
+      //else
+      //  title = SortingTitle;
       //Title = title.Prune ();
 
       if (!settings.AddnlValTitlePunct.Contains ('-')) {
-        int idx = title.IndexOf (" - ");
+        int idx = title.IndexOf (" -");
         if (idx >= 0)
           title = title.Substring (0, idx);
       }
@@ -216,13 +219,17 @@ namespace audiamus.aaxconv.lib {
 
     const string RGX_TITLE_1T = @"([\w+\s+";
     const string RGX_TITLE_1 = @"^" + RGX_TITLE_1T;
-    const string RGX_TITLE_2 = @".,'/-";
+    const string RGX_TITLE_2 = @".,'/-&";
     const string RGX_TITLE_3 = @"]+)\W*";
-    const string RGX_TITLE_1L = @"^(?:[\w+\s+" + RGX_TITLE_2 + @"]+:)?" + RGX_TITLE_1T;
+    const string RGX_TITLE_1La = @"^(?:[\w+\s+";
+    const string RGX_TITLE_1Lb = @"]+:)?" + RGX_TITLE_1T;
     const string ESC_CHARS = @"[\^$.|?*+()";
+    const string ESC_CHARS_EX = ESC_CHARS + "-";
 
-    private static readonly Regex __rgxTitle0 = new Regex ($@"{RGX_TITLE_1}{RGX_TITLE_2}{RGX_TITLE_3}", RegexOptions.Compiled);
-    private static readonly Regex __rgxTitleL = new Regex ($@"{RGX_TITLE_1L}{RGX_TITLE_2}{RGX_TITLE_3}", RegexOptions.Compiled);
+    static readonly string RGX_TITLE_1L = RGX_TITLE_1La + escape (RGX_TITLE_2) + RGX_TITLE_1Lb;
+
+    private static readonly Regex __rgxTitle0 = new Regex (RGX_TITLE_1 + escape(RGX_TITLE_2) + RGX_TITLE_3, RegexOptions.Compiled);
+    private static readonly Regex __rgxTitleL = new Regex (RGX_TITLE_1L + escape(RGX_TITLE_2) + RGX_TITLE_3, RegexOptions.Compiled);
     private Regex _rgxTitle;
     private static readonly Regex __rgxWord = new Regex (@"([\w\s])", RegexOptions.Compiled);
 
@@ -243,7 +250,7 @@ namespace audiamus.aaxconv.lib {
       }
 
       string rgxTitle1 = RGX_TITLE_1;
-      
+
       char[] chars = RGX_TITLE_2.ToCharArray ();
 
       if (!string.IsNullOrWhiteSpace (settings.AddnlValTitlePunct)) {
@@ -264,15 +271,20 @@ namespace audiamus.aaxconv.lib {
         s = s.Remove (match.Index, 1);
       }
 
+      string addnlValTitlePunct = escape (s);
+
+      _rgxTitle = new Regex ($@"{rgxTitle1}{addnlValTitlePunct}{RGX_TITLE_3}", RegexOptions.Compiled);
+    }
+
+    private static string escape (string s) {
       var sb = new StringBuilder ();
       foreach (char c in s) {
-        if (ESC_CHARS.IndexOf (c) >= 0)
+        if (ESC_CHARS_EX.IndexOf (c) >= 0)
           sb.Append ('\\');
         sb.Append (c);
       }
-      string addnlValTitlePunct = sb.ToString ();
 
-      _rgxTitle = new Regex ($@"{rgxTitle1}{addnlValTitlePunct}{RGX_TITLE_3}", RegexOptions.Compiled);
+      return sb.ToString();
     }
   }
 }

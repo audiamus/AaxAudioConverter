@@ -30,6 +30,9 @@ namespace audiamus.aux {
     public static string LocalCompanyDirectory { get; } = Path.Combine (LocalDirectoryRoot, getCompanyFileName());
     public static string LocalApplDirectory { get; } = Path.Combine (LocalCompanyDirectory, ApplName);
     public static string TempDirectory { get; } = Path.Combine (LocalApplDirectory, "tmp");
+    public static string LogDirectory { get; } = Path.Combine (LocalApplDirectory, "log");
+    public static string UserName { get; } = Environment.UserName;
+    public static string UserDirectoryRoot { get; } = Environment.GetFolderPath (Environment.SpecialFolder.UserProfile);
 
     private static T getAttribute<T> () where T : Attribute {
       object[] attributes = EntryAssembly.GetCustomAttributes (typeof (T), false);

@@ -342,4 +342,7 @@ ist zur Installation bereit.</value>
     <value>Jetzt installieren? 
 (Schließt das aktuelle AaxAudioConverter-Fenster.)</value>
   </data>
+  <data name="MsgDirectoryCreationCallbackForAll" xml:space="preserve">
+    <value>Bei den anderen Büchern genauso verfahren?</value>
+  </data>
 </root>

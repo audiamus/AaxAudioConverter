@@ -6,9 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using audiamus.aaxconv.lib.ex;
 using audiamus.aux;
 using audiamus.aux.ex;
+using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv.lib {
   partial class TagAndFileNamingHelper {
@@ -601,7 +603,8 @@ namespace audiamus.aaxconv.lib {
       TagLib.File tagfile = null;
       try {
         tagfile = TagLib.File.Create (_track.FileName);
-      } catch (Exception) {
+      } catch (Exception exc) {
+        Log (1, this, $"{nameof (TagLib.File.Create)}, {exc.GetType ().Name}: {exc.Message.SubstitUser()}");
         return false;
       }
 
@@ -678,7 +681,8 @@ namespace audiamus.aaxconv.lib {
 
         try {
           tagfile.Save ();
-        } catch (Exception) {
+        } catch (Exception exc) {
+          Log (1, this, $"{nameof(tagfile.Save)}, {exc.GetType ().Name}: {exc.Message.SubstitUser()}");
           return false;
         }
 
@@ -719,26 +723,6 @@ namespace audiamus.aaxconv.lib {
       var tag = mi.Invoke (atags, new object[] { key }) as string;
       return tag;
     }
-
-
-    class SampleBook {
-      public string BookTitle { get; }
-      public string [] Authors { get; }
-      public string [] Narrators { get; }
-      public TimeSpan Duration { get; }
-      public long FileSize { get; }
-      public DateTime PubDate { get; }
-
-      public SampleBook (string bookTitle, string [] authors, string [] narrators, TimeSpan duration, long fileSize, DateTime pubDate) {
-        BookTitle = bookTitle;
-        Authors = authors;
-        Narrators = narrators;
-        Duration = duration;
-        FileSize = fileSize;
-        PubDate = pubDate;
-      }
-    }
-
   }
 
 }

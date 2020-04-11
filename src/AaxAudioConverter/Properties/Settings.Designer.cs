@@ -214,10 +214,10 @@ namespace audiamus.aaxconv.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool LongBookTitle {
+        [global::System.Configuration.DefaultSettingValueAttribute("no")]
+        public global::audiamus.aaxconv.lib.ELongTitle LongBookTitle {
             get {
-                return ((bool)(this["LongBookTitle"]));
+                return ((global::audiamus.aaxconv.lib.ELongTitle)(this["LongBookTitle"]));
             }
             set {
                 this["LongBookTitle"] = value;

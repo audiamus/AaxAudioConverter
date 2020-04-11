@@ -59,6 +59,8 @@ namespace audiamus.aaxconv {
     public MainForm () {
       InitializeComponent ();
 
+      Log (1, this, () => $"{ApplName} {AssemblyVersion}");
+
       _systemMenu = new SystemMenu (this);
       _systemMenu.AddCommand (R.SysMenuItemAbout, onSysMenuAbout, true);
       _systemMenu.AddCommand (R.SysMenuItemSettings, onSysMenuBasicSettings, false);
@@ -203,7 +205,6 @@ namespace audiamus.aaxconv {
         reinitControlsFromSettings ();
       else
         initRadionButtons ();
-      ensureFFmpegPath ();
       enableAll (true);
     }
 
@@ -236,9 +237,9 @@ namespace audiamus.aaxconv {
       if (_converter.HasActivationCode)
         return;
 
-      new ActivationCodeForm () { Owner = this }.ShowDialog ();
-
-      _converter.GetActivationCode ();
+      var result = new ActivationCodeForm () { Owner = this }.ShowDialog ();
+      if (result == DialogResult.OK)
+        _converter.ReinitActivationCode ();
     }
 
 

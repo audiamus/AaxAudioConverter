@@ -120,7 +120,7 @@ namespace audiamus.aaxconv {
       ckBoxLatin1.Checked = Settings.Latin1EncodingForPlaylist;
       ckBoxLaunchPlayer.Checked = Settings.AutoLaunchPlayer;
 
-      var codes = _converter.RegistryActivationCodes?.Select (c => c.ToHexDashString ()).ToArray ();
+      var codes = _converter.NumericActivationCodes?.Select (c => c.ToHexDashString ()).ToArray ();
       if (!(codes is null))
         listBoxActCode.Items.AddRange (codes);
 
@@ -192,7 +192,9 @@ namespace audiamus.aaxconv {
 
 
     private void btnUsrActCode_Click (object sender, EventArgs e) {
-      new ActivationCodeForm () { Owner = this }.ShowDialog ();
+      var result = new ActivationCodeForm () { Owner = this }.ShowDialog ();
+      if (result == DialogResult.OK)
+        _converter.ReinitActivationCode ();
     }
 
     private void btnRegActCode_Click (object sender, EventArgs e) {

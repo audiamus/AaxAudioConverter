@@ -7,6 +7,7 @@ using audiamus.aaxconv.lib;
 using audiamus.aux;
 using audiamus.aux.ex;
 using audiamus.aux.win;
+using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv {
   using R = Properties.Resources;
@@ -97,9 +98,12 @@ namespace audiamus.aaxconv {
         cn.YearTag = customized (numUpDnYearTag);
         cn.GenreTag = customized (comBoxGenreTag);
 
-      } else
-        _fileItem.CustomNames = null;
+        Log (3, this, () => $"custom names:{Environment.NewLine}{cn}");
 
+      } else {
+        _fileItem.CustomNames = null;
+        Log (3, this, "no customization");
+      }
     }
 
     private void setAuthor (bool update) {

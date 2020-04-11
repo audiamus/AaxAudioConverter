@@ -53,6 +53,7 @@
     <Compile Include="AudibleAppContentMetadata.cs" />
     <Compile Include="ContentMetadataJson.cs" />
     <Compile Include="ExtraMetaFiles.cs" />
+    <Compile Include="FFMetaData.cs" />
     <Compile Include="OnlineUpdate.cs" />
     <Compile Include="ChainPunctuation.cs" />
     <Compile Include="AudioMeta.cs" />

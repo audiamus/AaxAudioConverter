@@ -130,6 +130,9 @@
   <data name="btnCancel.Text" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
+  <data name="btnReset.Text" xml:space="preserve">
+    <value>Rücksetzen</value>
+  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Pfad zu FFmpeg</value>
   </data>

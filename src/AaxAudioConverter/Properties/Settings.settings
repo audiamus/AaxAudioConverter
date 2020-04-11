@@ -50,8 +50,8 @@
     <Setting Name="SeriesTitleLeft" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="LongBookTitle" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+    <Setting Name="LongBookTitle" Type="audiamus.aaxconv.lib.ELongTitle" Scope="User">
+      <Value Profile="(Default)">no</Value>
     </Setting>
     <Setting Name="PartNaming" Type="audiamus.aaxconv.lib.EGeneralNaming" Scope="User">
       <Value Profile="(Default)">standard</Value>

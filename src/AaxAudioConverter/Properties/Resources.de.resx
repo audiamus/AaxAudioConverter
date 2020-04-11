@@ -345,4 +345,13 @@ ist zur Installation bereit.</value>
   <data name="MsgDirectoryCreationCallbackForAll" xml:space="preserve">
     <value>Bei den anderen Büchern genauso verfahren?</value>
   </data>
+  <data name="book_series" xml:space="preserve">
+    <value>&lt;Buch&gt;: &lt;Serie&gt;</value>
+  </data>
+  <data name="series_book" xml:space="preserve">
+    <value>&lt;Serie&gt;: &lt;Buch&gt;</value>
+  </data>
+  <data name="as_is" xml:space="preserve">
+    <value>wie vorgefunden</value>
+  </data>
 </root>

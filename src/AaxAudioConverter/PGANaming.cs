@@ -86,8 +86,8 @@ namespace audiamus.aaxconv {
     }
 
     [PropertyOrder (10)]
-    [TypeConverter (typeof (BooleanYesNoConverterRM))]
-    public bool LongBookTitle {
+    [TypeConverter (typeof (LongTitleConverterRM))]
+    public ELongTitle LongBookTitle {
       get => DataSource.LongBookTitle;
       set => DataSource.LongBookTitle = value;
     }

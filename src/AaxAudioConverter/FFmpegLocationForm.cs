@@ -6,10 +6,12 @@ using audiamus.aux;
 using audiamus.aux.win;
 
 namespace audiamus.aaxconv {
+  using System.ComponentModel;
   using R = Properties.Resources;
 
   partial class FFmpegLocationForm : Form {
     readonly ISettings _settings = Properties.Settings.Default;
+    readonly string _origFFMpegDirectory;
 
     readonly AaxAudioConverter _converter;
     readonly Func<InteractionMessage, bool?> _callback;
@@ -21,14 +23,17 @@ namespace audiamus.aaxconv {
       InitializeComponent ();
       _converter = converter;
       _callback = callback;
-
-      textBoxLocation.Text = Settings.FFMpegDirectory;
+      _origFFMpegDirectory = Settings.FFMpegDirectory;
+      textBoxLocation.Text = _origFFMpegDirectory;
     }
 
+    protected override void OnClosing (CancelEventArgs e) {
+      if (DialogResult == DialogResult.Cancel)
+        Settings.FFMpegDirectory = _origFFMpegDirectory;
+    }
 
     private void btnLocate_Click (object sender, EventArgs e) {
-
-
+      
       OpenFileDialog ofd = new OpenFileDialog {
         InitialDirectory = Settings.FFMpegDirectory,
         CheckFileExists = true,
@@ -44,21 +49,45 @@ namespace audiamus.aaxconv {
       textBoxLocation.Text = ffmpegdir;
       string path = Path.Combine (ffmpegdir, FFmpeg.FFMPEG_EXE);
       if (File.Exists (path))
-        FFmpeg.FFmpegDir = ffmpegdir;
+        Settings.FFMpegDirectory = ffmpegdir;
 
       bool succ = _converter.VerifyFFmpegPathVersion(_callback);
 
-      if (succ) {
-        //"Location and verification successful"
-        MsgBox.Show (this, R.MsgLocationVerifSucc, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-        btnOK.Enabled = true;
-        this.AcceptButton = btnOK;
+      if (succ)
+        enableOK ();
+    }
+
+    private void btnReset_Click (object sender, EventArgs e) {
+      string ffmpegdir = ApplEnv.ApplDirectory;
+      string path = Path.Combine (ffmpegdir, FFmpeg.FFMPEG_EXE);
+      if (File.Exists (path)) {
+        Settings.FFMpegDirectory = ffmpegdir;
+        using (new ResourceGuard (() => Settings.FFMpegDirectory = _origFFMpegDirectory)) {
+          bool succ = _converter.VerifyFFmpegPathVersion (_callback);
+          if (succ) {
+            textBoxLocation.Text = null;
+            enableOK ();
+          }
+        }
       }
     }
 
     private void btnOK_Click (object sender, EventArgs e) {
-      Settings.FFMpegDirectory = textBoxLocation.Text;
+      Settings.FFMpegDirectory = string.IsNullOrWhiteSpace(textBoxLocation.Text) ? null : textBoxLocation.Text;
+
+      if (string.Equals (Settings.FFMpegDirectory, ApplEnv.ApplDirectory, StringComparison.InvariantCultureIgnoreCase))
+        Settings.FFMpegDirectory = null;
+
       DialogResult = DialogResult.OK;
     }
+
+    private void enableOK () {
+      //"Location and verification successful"
+      MsgBox.Show (this, R.MsgLocationVerifSucc, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+      btnOK.Enabled = true;
+      this.AcceptButton = btnOK;
+      this.ActiveControl = btnOK;
+    }
+
   }
 }

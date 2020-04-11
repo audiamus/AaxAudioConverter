@@ -60,7 +60,7 @@ namespace audiamus.aux.propgrid {
       MemberInfo [] memberinfos = t.FindMembers 
         (MemberTypes.Property,
          BindingFlags.Public | BindingFlags.Instance, // | BindingFlags.DeclaredOnly,
-         new MemberFilter(DelegateToSearchCriteria),
+         new MemberFilter(delegateToSearchCriteria),
          null);
 
       foreach (MemberInfo mi in memberinfos) {
@@ -77,7 +77,8 @@ namespace audiamus.aux.propgrid {
     }
 
     #endregion ctor
-    static bool DelegateToSearchCriteria (MemberInfo objMemberInfo, Object objSearch) {
+    #region private static methods
+    static bool delegateToSearchCriteria (MemberInfo objMemberInfo, Object objSearch) {
       PropertyInfo pi = objMemberInfo as PropertyInfo;
       if (pi == null)
         return false;
@@ -95,7 +96,7 @@ namespace audiamus.aux.propgrid {
     }
 
 
-    //-----------------------------------------------------
+    #endregion static methods
     #region public virtual methods
 
     public virtual void SetReadonly (EReadonly modifier) {

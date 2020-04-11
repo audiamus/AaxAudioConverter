@@ -175,6 +175,6 @@
     <value>Long book title</value>
   </data>
   <data name="LongBookTitleDescription" xml:space="preserve">
-    <value>Resulting book title shall also include series title, if [yes]. Otherwise, series title will be removed, from/to colon.</value>
+    <value>Resulting book title shall also include series title, if not [no]. Order can be book or series title first. Otherwise, series title will be removed, from/to colon.[as is] will take the complete title, unexamined.</value>
   </data>
 </root>

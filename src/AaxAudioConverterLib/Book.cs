@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using audiamus.aux.ex;
+using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv.lib {
   class Book {
@@ -17,6 +18,10 @@ namespace audiamus.aaxconv.lib {
       public Caption (string author, string title) {
         Author = author;
         Title = title;
+      }
+
+      public override string ToString () {
+        return $"{nameof (Author)}=\"{Author}\", {nameof (Title)}=\"{Title}\"";
       }
     }
 
@@ -184,7 +189,7 @@ namespace audiamus.aaxconv.lib {
       //Author = fi.Author.Prune ();
 
       string title = SortingTitle;
-      if (settings.LongBookTitle) 
+      if (settings.LongBookTitle != ELongTitle.no) 
         title = title.Replace (" -:", ":");
       
       Match match = _rgxTitle.Match (title);
@@ -200,10 +205,36 @@ namespace audiamus.aaxconv.lib {
           title = title.Substring (0, idx);
       }
 
+      title = makeLongBookTitle (title, settings);
+
       TagCaption = new Caption (fi.Author, title);
+      Log (3, this, () => $"{nameof (TagCaption)}: {TagCaption}");
       title = PruneTitle (title);
       FileCaption = new Caption (TagCaption.Author.Prune(), title);
+      Log (3, this, () => $"{nameof (FileCaption)}: {FileCaption}");
 
+    }
+
+    string makeLongBookTitle (string title, ITitleSettingsEx settings) {
+      if (settings.LongBookTitle == ELongTitle.no || settings.LongBookTitle == ELongTitle.as_is)
+        return title;
+
+      if (settings.SeriesTitleLeft && settings.LongBookTitle == ELongTitle.book_series ||
+          !settings.SeriesTitleLeft && settings.LongBookTitle == ELongTitle.series_book) {
+
+        int pos = -1;
+        if (settings.SeriesTitleLeft)
+          pos = title.IndexOf (':');
+        else
+          pos = title.LastIndexOf (':');
+        if (pos > 0) {
+          string title1 = title.Substring (0, pos).Trim ();
+          string title2 = title.Substring (pos + 1).Trim ();
+          title = title2 + ": " + title1;
+        }
+      }
+
+      return title;
     }
 
     public static string PruneTitle (string title) {
@@ -241,7 +272,7 @@ namespace audiamus.aaxconv.lib {
         return;
       }
 
-      if (string.IsNullOrWhiteSpace (settings.AddnlValTitlePunct) && !settings.LongBookTitle) {
+      if (string.IsNullOrWhiteSpace (settings.AddnlValTitlePunct) && settings.LongBookTitle == ELongTitle.no) {
         if (settings.SeriesTitleLeft)
           _rgxTitle = __rgxTitleL;
         else
@@ -257,7 +288,7 @@ namespace audiamus.aaxconv.lib {
         var chars1 = settings.AddnlValTitlePunct.ToCharArray ().Distinct ().ToArray ();
         chars = chars.Union (chars1).ToArray ();
       }
-      if (settings.LongBookTitle) {
+      if (settings.LongBookTitle != ELongTitle.no) {
         var chars2 = new[] { ':' };
         chars = chars.Union (chars2).ToArray ();
       } else if (settings.SeriesTitleLeft)

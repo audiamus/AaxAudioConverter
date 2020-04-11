@@ -5,8 +5,6 @@ Convert Audible aax files to mp3 and m4a/m4b
 
 *More [Screenshots](res/Screenshots.md)*
 
-[![Gitter](https://badges.gitter.im/AaxAudioConverter/community.svg)](https://gitter.im/AaxAudioConverter/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
-
 ## Main Features
 - Converts Audible proprietary .aax files to plain .mp3 or .m4a/.m4b. 
 - Also offers basic support for older .aa files.
@@ -25,6 +23,7 @@ Convert Audible aax files to mp3 and m4a/m4b
 - Delegates all audio processing to powerful [FFmpeg](https://www.ffmpeg.org/), including DRM handling.
 - High performance: Utilizes all available processor cores to run conversion work in parallel.
 - Automatically launches default media player after conversion has completed.
+- Log facility, optional, to record program activity, activated with program argument.
 - Online update function: Will automatically scan the website for a new version, download and install it.
 - *Technical*: 
   - .Net Framework application, written in C# with Windows Forms, the Task Parallel Library and other goodies from language and framework. 
@@ -39,15 +38,15 @@ AAX Audio Converter is configured to support high DPI monitors under Windows 10.
 
 ## Download
 
-Windows setup package version 1.9, English and German, with manuals, plus FFmpeg executable:
+Windows setup package version 1.10, English and German, with manuals, plus FFmpeg executable:
 
-**[AaxAudioConverter-1.9-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.9/AaxAudioConverter-1.9-Setup.exe)**
+**[AaxAudioConverter-1.10-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.10/AaxAudioConverter-1.10-Setup.exe)**
 
 Manuals (also included in the setup package):
 
-**[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.9/AaxAudioConverter.pdf)**
+**[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.10/AaxAudioConverter.pdf)**
 
-**[German](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.9/AaxAudioConverter.de.pdf)**
+**[German](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.10/AaxAudioConverter.de.pdf)**
 
 
 ## Dependencies
@@ -58,6 +57,13 @@ The easiest way to obtain the Audible activation code is to install and activate
 ### FFmpeg
 All audio processing in AAX Audio Converter, including DRM handling, is carried out by [FFmpeg](https://www.ffmpeg.org/). 
 The AAX Audio Converter installation package comes pre-bundled with a suitable FFmpeg.exe. 
+
+## Feedback
+Comments and questions can be posted in the AAX Audio Converter chatroom on Gitter:
+
+[![Gitter](https://badges.gitter.im/AaxAudioConverter/community.svg)](https://gitter.im/AaxAudioConverter/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
+For more serious matters, like bug reports and other unexpected behavior, visit the [issue page](https://github.com/audiamus/AaxAudioConverter/issues) here on GitHub. For exceptions, please provide the call stack as shown by the program. For diagnosis of unexpected behavior you can run AAX Audio Converter with the log option activated. Zip-compress the log file and upload/attach it to the issue, but read the privacy note in the manual first.    
 
 ## Anti-Piracy Notice
 Note that this software does not ‘crack’ the DRM or circumvent it in any other way. The application simply applies the user's own activation code (associated with his/her personal Audible account) to decrypt the audiobook in the same manner as the official audiobook playing software does. 

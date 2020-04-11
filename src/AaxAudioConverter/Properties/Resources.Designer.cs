@@ -71,6 +71,15 @@ namespace audiamus.aaxconv.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to as is.
+        /// </summary>
+        internal static string as_is {
+            get {
+                return ResourceManager.GetString("as_is", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Audio48 {
@@ -87,6 +96,15 @@ namespace audiamus.aaxconv.Properties {
             get {
                 object obj = ResourceManager.GetObject("blank", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;book&gt;: &lt;series&gt;.
+        /// </summary>
+        internal static string book_series {
+            get {
+                return ResourceManager.GetString("book_series", resourceCulture);
             }
         }
         
@@ -478,7 +496,7 @@ namespace audiamus.aaxconv.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Install now? (Will close cuirrent AaxAudioConverter window.).
+        ///   Looks up a localized string similar to Install now? (Will close current AaxAudioConverter window.).
         /// </summary>
         internal static string MsgOnlineUpdateInstallNow {
             get {
@@ -582,11 +600,29 @@ namespace audiamus.aaxconv.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string no {
+            get {
+                return ResourceManager.GetString("no", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Part; Teil.
         /// </summary>
         internal static string PartNames {
             get {
                 return ResourceManager.GetString("PartNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;series&gt;: &lt;book&gt;.
+        /// </summary>
+        internal static string series_book {
+            get {
+                return ResourceManager.GetString("series_book", resourceCulture);
             }
         }
         

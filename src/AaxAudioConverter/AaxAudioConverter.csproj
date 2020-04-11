@@ -96,6 +96,7 @@
     <Compile Include="ActivationCodeForm.Designer.cs">
       <DependentUpon>ActivationCodeForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="LongTitleConverter.cs" />
     <Compile Include="FileAssoc.cs" />
     <Compile Include="FileDetailsForm.cs">
       <SubType>Form</SubType>

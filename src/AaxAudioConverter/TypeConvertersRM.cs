@@ -17,4 +17,10 @@ namespace audiamus.aaxconv {
       ResourceManager = this.GetDefaultResourceManager();
     }
   }
+
+  class LongTitleConverterRM : LongTitleConverter {
+    public LongTitleConverterRM () {
+      ResourceManager = this.GetDefaultResourceManager();
+    }
+  }
 }

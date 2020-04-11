@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using audiamus.aux.ex;
+using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv.lib {
   class ExtraMetaFiles {
@@ -21,6 +22,7 @@ namespace audiamus.aaxconv.lib {
     public void WriteFiles (Func<Book, string> nameFunc) {
       if (Book is null || nameFunc is null)
         return;
+      Log (3, this, () => nameFunc(Book).SubstitUser());
       if (Book.PartsType != Book.EParts.some) {
         setContext ();
         writeImageFile (nameFunc, Book.OutDirectoryLong);
@@ -60,6 +62,7 @@ namespace audiamus.aaxconv.lib {
 
       string filename = $"{nameFunc(Book)}{afi.CoverExt}";
       string path = Path.Combine (dir, filename);
+      Log (3, this, () => $"\"{path.SubstitUser()}\"");
       using (var osm = new FileStream (path, FileMode.Create, FileAccess.Write))
         osm.Write (afi.Cover, 0, afi.Cover.Length);
     }
@@ -70,6 +73,7 @@ namespace audiamus.aaxconv.lib {
       var afi = AaxFileItem;
       string filename = $"{nameFunc(Book)}.txt";
       string path = Path.Combine (dir, filename);
+      Log (3, this, () => $"\"{path.SubstitUser ()}\"");
       using (var osm = new StreamWriter (path, false)) {
         osm.WriteLine ($"{R.HdrAuthor}: {Book.AuthorTag}");
         osm.WriteLine ($"{R.HdrTitle}: {Book.TitleTag}");

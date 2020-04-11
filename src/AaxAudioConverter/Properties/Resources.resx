@@ -312,7 +312,7 @@ Download now?</value>
     <value>Install now?</value>
   </data>
   <data name="MsgOnlineUpdateInstallNow" xml:space="preserve">
-    <value>Install now? (Will close cuirrent AaxAudioConverter window.)</value>
+    <value>Install now? (Will close current AaxAudioConverter window.)</value>
   </data>
   <data name="HdrBitRate" xml:space="preserve">
     <value>Bit rate</value>
@@ -325,5 +325,17 @@ Download now?</value>
   </data>
   <data name="MsgDirectoryCreationCallbackForAll" xml:space="preserve">
     <value>Do the same for the other books?</value>
+  </data>
+  <data name="book_series" xml:space="preserve">
+    <value>&lt;book&gt;: &lt;series&gt;</value>
+  </data>
+  <data name="no" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="series_book" xml:space="preserve">
+    <value>&lt;series&gt;: &lt;book&gt;</value>
+  </data>
+  <data name="as_is" xml:space="preserve">
+    <value>as is</value>
   </data>
 </root>

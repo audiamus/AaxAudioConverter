@@ -8,7 +8,6 @@ namespace audiamus.aux {
 
     protected Process Process { get; private set; }
 
-    //--------------------------------------------------
     /// <summary>
     /// Executes a process and passes its command-line output back after the process has exited
     /// </summary>

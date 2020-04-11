@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using audiamus.aaxconv.lib.ex;
 using audiamus.aux.win;
+using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv {
 
@@ -56,13 +57,18 @@ namespace audiamus.aaxconv {
     }
 
     private void btnOk_Click (object sender, EventArgs e) {
-      if (Settings.ActivationCode != _code && !_suppressMsgBox) {
-        if (_code.HasValue)
-          MsgBox.Show (this, R.MsgNoteActivationCode, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
-        else
-          MsgBox.Show (this, R.MsgActivationCodeRemoved, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+      string msg;
+      if (_code.HasValue) {
+        msg = R.MsgNoteActivationCode;
+        Log (2, this, "custom code set");
+      } else {
+        msg = R.MsgActivationCodeRemoved;
+        Log (2, this, "custom code removed");
       }
 
+      if (Settings.ActivationCode != _code && !_suppressMsgBox) 
+        MsgBox.Show (this, msg, this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+      
       Settings.ActivationCode = _code;
 
       DialogResult = DialogResult.OK;

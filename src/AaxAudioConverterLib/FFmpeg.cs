@@ -5,6 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using audiamus.aux;
+using audiamus.aux.ex;
+using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv.lib {
   public class FFmpeg : ProcessHost {
@@ -16,15 +18,14 @@ namespace audiamus.aaxconv.lib {
       noChapters = 2
     }
 
-    //--------------------------------------------------
     #region const
     public const string FFMPEG_EXE = "ffmpeg.exe";
 
     const string OUTPUT = "<OUTPUT>";
     const string INPUT = "<INPUT>";
+    const string INPUT2 = "<INPUT2>";
 
     const string COPY = "<COPY>";
-    const string NO_CHAPT = "<NO_CHAPT>";
     const string ACTIVATION = "<ACTIVATION>";
     const string ACT_BYTES = "<ACT_BYTES>";
     const string BEGIN = "<BEGIN>";
@@ -33,7 +34,9 @@ namespace audiamus.aaxconv.lib {
     const string TS_TO = "<TS_TO>";
 
     // -activation_bytes 0f01f010 -i myfile.aax -vn -c:a copy myfile.m4a
-    const string FFMPEG_TRANSCODE = @"-hide_banner <ACTIVATION> -y <BEGIN> <END> -i ""<INPUT>"" -map_metadata -1 <NO_CHAPT> <COPY> ""<OUTPUT>""";
+    const string FFMPEG_TRANSCODE = @"-hide_banner <ACTIVATION> -y <BEGIN> <END> -i ""<INPUT>"" -map_metadata -1 -map_chapters -1 <COPY> ""<OUTPUT>""";
+    const string FFMPEG_TRANSCODE2 = @"-hide_banner <ACTIVATION> -y <BEGIN> <END> -i ""<INPUT>"" -i ""<INPUT2>"" -map_metadata 1 -map_chapters 1 <COPY> ""<OUTPUT>""";
+    const string FFMPEG_EXTRACTMETA = @"-hide_banner -y -i ""<INPUT>"" -f ffmetadata ""<OUTPUT>""";
      
     const string FFMPEG_VERSION = @"-version";
 
@@ -42,27 +45,25 @@ namespace audiamus.aaxconv.lib {
     const string FFMPEG_SILENCE = @"-hide_banner -y <ACTIVATION> -i ""<INPUT>"" -af silencedetect=noise=-30dB:d=0.5 -f null -";
 
     
-    const string ACTIVATION_PARAM = @"-activation_bytes <ACT_BYTES>";
+    public const string ACTIVATION_BYTES = @"-activation_bytes";
+    const string ACTIVATION_PARAM = ACTIVATION_BYTES + @" <ACT_BYTES>";
     const string BEGIN_PARAM = @"-ss <TS_FROM>";
     const string END_PARAM = @"-to <TS_TO>";
     const string COPY_PARAM = @"-vn -c:a copy";
-    const string NO_CHAPT_PARAM = @"-map_chapters -1";
 
     #endregion
-    //--------------------------------------------------
     #region private fields
 
-    private readonly string _filename;
+    private readonly string _filenameIn;
+    private readonly string _filenameMeta;
 
     private readonly object _lockable = new object ();
 
     bool _success;
     bool _aborted;
-    //private static string _ffMpegDir;
 
     bool _listComplete;
     #endregion
-    //--------------------------------------------------
     #region props
     private static string FFmpegExePath {
       get
@@ -93,21 +94,21 @@ namespace audiamus.aaxconv.lib {
     internal Version Version { get; private set; }
 
     #endregion
-    //--------------------------------------------------
     #region ctor
 
-    public FFmpeg (string filename) {
-      _filename = filename;
+    public FFmpeg (string filenameIn, string filenameMeta = null) {
+      _filenameIn = filenameIn;
+      _filenameMeta = filenameMeta;
     }
 
     #endregion
-    //--------------------------------------------------
     #region public methods
 
     public bool VerifyFFmpegPath () {
       string param = FFMPEG_VERSION;
       _success = false;
 
+      Log (4, this, () => param.SubstitUser ());
       string result = runProcess (FFmpegExePath, param, false, ffMpegAsyncHandlerVersion);
 
       return _success;
@@ -119,8 +120,9 @@ namespace audiamus.aaxconv.lib {
 
       string param = FFMPEG_PROBE;
       param = param.Replace (ACTIVATION, string.Empty);
-      param = param.Replace (INPUT, _filename);
+      param = param.Replace (INPUT, _filenameIn);
 
+      Log (4, this, () => param.SubstitUser ());
       string result = runProcess (FFmpegExePath, param, true, ffMpegAsyncHandlerAudioMeta);
 
       return _success;
@@ -140,23 +142,25 @@ namespace audiamus.aaxconv.lib {
         param = param.Replace (ACT_BYTES, actBytes);
       }
 
-      param = param.Replace (INPUT, _filename);
+      param = param.Replace (INPUT, _filenameIn);
 
       if (withChapters)
         Chapters = new List<Chapter> ();
 
+      Log (4, this, () => param.SubstitUser ().SubstitActiv ());
       string result = runProcess (FFmpegExePath, param, true, ffMpegAsyncHandlerActivation);
 
       return _success;
     }
 
-    //--------------------------------------------------
     public bool Transcode (string filenameOut, ETranscode modifiers, string actBytes = null, TimeSpan? from = null, TimeSpan? to = null) {
       _success = false;
       _aborted = false;
       AudioMeta.Time.Duration = TimeSpan.Zero;
 
       string param = FFMPEG_TRANSCODE;
+      if (!(_filenameMeta is null))
+        param = FFMPEG_TRANSCODE2;
       if (actBytes is null)
         param = param.Replace (ACTIVATION, string.Empty);
       else {
@@ -180,7 +184,7 @@ namespace audiamus.aaxconv.lib {
       } else
         param = param.Replace (END, string.Empty);
 
-      param = param.Replace (INPUT, _filename);
+      param = param.Replace (INPUT, _filenameIn);
       param = param.Replace (OUTPUT, filenameOut);
 
       if (modifiers.HasFlag(ETranscode.copy))
@@ -188,12 +192,26 @@ namespace audiamus.aaxconv.lib {
       else
         param = param.Replace (COPY, string.Empty);
 
-      if (modifiers.HasFlag(ETranscode.noChapters))
-        param = param.Replace (NO_CHAPT, NO_CHAPT_PARAM);
-      else
-        param = param.Replace (NO_CHAPT, string.Empty);
+      if (!(_filenameMeta is null))
+        param = param.Replace (INPUT2, _filenameMeta);
 
+      Log (4, this, () => param.SubstitUser ().SubstitActiv ());
       string result = runProcess (FFmpegExePath, param, true, ffMpegAsyncHandlerTranscode);
+
+      return _success && !_aborted;
+    }
+
+    public bool ExtractMeta (string filenameOut) {
+      _success = true;
+      _aborted = false;
+      AudioMeta.Time.Duration = TimeSpan.Zero;
+
+      string param = FFMPEG_EXTRACTMETA;
+      param = param.Replace (INPUT, _filenameIn);
+      param = param.Replace (OUTPUT, filenameOut);
+
+      Log (4, this, () => param.SubstitUser ());
+      string result = runProcess (FFmpegExePath, param, true, ffMpegAsyncHandlerMeta);
 
       return _success && !_aborted;
     }
@@ -211,8 +229,9 @@ namespace audiamus.aaxconv.lib {
         param = param.Replace (ACTIVATION, ACTIVATION_PARAM);
         param = param.Replace (ACT_BYTES, actBytes);
       }
-      param = param.Replace (INPUT, _filename);
+      param = param.Replace (INPUT, _filenameIn);
 
+      Log (4, this, () => param.SubstitUser ().SubstitActiv ());
       string result = runProcess (FFmpegExePath, param, true, ffMpegAsyncHandlerSilence);
 
       return _success && !_aborted;
@@ -221,11 +240,8 @@ namespace audiamus.aaxconv.lib {
 
 
     #endregion
-    //--------------------------------------------------
     #region private methods
 
-    //--------------------------------------------------
-    //--------------------------------------------------
     //frame=    5 fps=0.5 q=1.6 size=N/A time=00:05:00.00 bitrate=N/A  
     private static readonly Regex _rgxTimestamp1 = new Regex (@"frame=\s*?\d+.*time=(\d+:\d+:\d+\.\d+)", 
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -270,9 +286,6 @@ namespace audiamus.aaxconv.lib {
     private static readonly Regex _rgxSilenceEnd = new Regex (@"^\[silencedetect.*\]\s+silence_end:\s+(\d+\.?\d*).*silence_duration:\s+(\d+\.?\d*)$", 
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-    //--------------------------------------------------
-
-    //--------------------------------------------------
 
     private void ffMpegAsyncHandlerVersion (object sendingProcess, DataReceivedEventArgs outLine) {
       if (outLine.Data is null)
@@ -281,6 +294,8 @@ namespace audiamus.aaxconv.lib {
 #if TRACE && EXTRA
       Trace.WriteLine (outLine.Data);
 #endif
+      Log (4, this, () => outLine.Data.SubstitUser ());
+
 
       Match match = _rgxVersion.Match (outLine.Data);
       if (!match.Success)
@@ -300,6 +315,7 @@ namespace audiamus.aaxconv.lib {
 #if TRACE && EXTRA
       Trace.WriteLine (outLine.Data);
 #endif
+      Log (4, this, () => outLine.Data.SubstitUser ());
 
       Match match = _rgxDurationEx.Match (outLine.Data);
       if (match.Success) {
@@ -328,6 +344,7 @@ namespace audiamus.aaxconv.lib {
 #if TRACE && EXTRA
       Trace.WriteLine (outLine.Data);
 #endif
+      Log (4, this, () => outLine.Data.SubstitUser ());
 
       Match match = null;
       if (Chapters != null && !_listComplete) {
@@ -390,7 +407,18 @@ namespace audiamus.aaxconv.lib {
       }
     }
 
-    //--------------------------------------------------
+    private void ffMpegAsyncHandlerMeta (object sendingProcess, DataReceivedEventArgs outLine) {
+      onCancel ();
+
+      if (outLine.Data is null)
+        return;
+
+#if TRACE && EXTRA
+      Trace.WriteLine (outLine.Data);
+#endif
+      Log (4, this, () => outLine.Data.SubstitUser ());
+    }
+
     private void ffMpegAsyncHandlerSilence (object sendingProcess, DataReceivedEventArgs outLine) {
       onCancel ();
 
@@ -400,6 +428,7 @@ namespace audiamus.aaxconv.lib {
 #if TRACE && EXTRA
       Trace.WriteLine (outLine.Data);
 #endif
+      Log (4, this, () => outLine.Data.SubstitUser ());
 
       var t = AudioMeta.Time;
 
@@ -480,6 +509,7 @@ namespace audiamus.aaxconv.lib {
 #if TRACE && EXTRA
       Trace.WriteLine (outLine.Data);
 #endif
+      Log (4, this, () => outLine.Data.SubstitUser ());
 
       var t = AudioMeta.Time;
 
@@ -518,6 +548,7 @@ namespace audiamus.aaxconv.lib {
 #if TRACE && EXTRA
       Trace.WriteLine ($"{this.GetType ().Name}.{nameof (ffMpegAsyncHandlerTranscode)} {ts.TotalSeconds:f0}/{t.Duration.TotalSeconds:f0}");
 #endif
+      Log (4, this, () => $"{ts.TotalSeconds:f0}/{t.Duration.TotalSeconds:f0}");
 
       Progress?.Invoke (progress);
 
@@ -561,6 +592,22 @@ namespace audiamus.aaxconv.lib {
     }
 
     #endregion
-    //--------------------------------------------------
+  }
+
+  static class StringEx {
+    public static string SubstitActiv (this string s) {
+      if (s is null)
+        return null;
+      int pos0 = s.IndexOf (FFmpeg.ACTIVATION_BYTES);
+      if (pos0 >= 0) {
+        int pos1 = s.IndexOf (' ', pos0 + 1);
+        int pos2 = s.IndexOf (' ', pos1 + 1);
+        if (pos1 > 0 && pos2 > 0) {
+          s = s.Remove (pos1 + 1, pos2 - pos1 - 1);
+          s = s.Insert (pos1 + 1, "XXXXXXXX");
+        }  
+      }
+      return s;
+    }
   }
 }

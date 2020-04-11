@@ -24,7 +24,7 @@
 
   public interface ITitleNamingSettings {
     bool SeriesTitleLeft { get; set; }
-    bool LongBookTitle { get; set; }
+    ELongTitle LongBookTitle { get; set; }
   }
 
 

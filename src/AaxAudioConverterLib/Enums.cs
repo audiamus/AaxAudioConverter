@@ -41,6 +41,8 @@
     track_b_chapter_c,
   }
 
+  public enum ELongTitle { no, book_series, series_book, as_is }
+
   public enum EGeneralNaming {
     source,
     standard,

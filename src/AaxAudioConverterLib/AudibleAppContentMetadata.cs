@@ -82,11 +82,13 @@ namespace audiamus.aaxconv.lib {
       part.BrandIntro = TimeSpan.FromMilliseconds (metadata.content_metadata.chapter_info.brandIntroDurationMs);
       part.BrandOutro = TimeSpan.FromMilliseconds (metadata.content_metadata.chapter_info.brandOutroDurationMs);
       part.Duration = TimeSpan.FromMilliseconds (metadata.content_metadata.chapter_info.runtime_length_ms);
+
+      Log (3, this, () => $"intro={part.BrandIntro.ToStringHMSm ()}, outro={part.BrandOutro.ToStringHMSm ()}, duration={part.Duration.ToStringHMSm ()}");
     }
 
     private string findContentMetadataFile (string fileName) {
       // try to find content metadata files, either relative or absolute
-      Log (3, this, fileName.SubstitUser ());
+      Log (3, this, () => $"\"{fileName.SubstitUser ()}\"");
 
       // relative
       string cntDir = Path.GetDirectoryName (fileName);
@@ -129,7 +131,7 @@ namespace audiamus.aaxconv.lib {
       var filnam = Path.GetFileNameWithoutExtension (fileName);
       string contentMetafile = asinFiles.Where (k => filnam.Contains (k.ASIN)).Select (k => k.Filename).FirstOrDefault ();
 
-      Log (3, this, contentMetafile.SubstitUser ());
+      Log (3, this, () => $"\"{contentMetafile.SubstitUser ()}\"");
 
       return contentMetafile;
     }

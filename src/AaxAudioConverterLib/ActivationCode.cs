@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using audiamus.aaxconv.lib.ex;
+using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv.lib {
   interface IActivationCode {
@@ -15,7 +16,7 @@ namespace audiamus.aaxconv.lib {
     private readonly IActivationSettings _settings;
     private List<string> _activationCodes = new List<string> ();
 
-    public IEnumerable<uint> RegistryCodes => _activationCodes?.Select (s => Convert.ToUInt32 (s, 16)).ToList();
+    public IEnumerable<uint> NumericCodes => _activationCodes?.Select (s => Convert.ToUInt32 (s, 16)).ToList();
     public IEnumerable<string> ActivationCodes => _activationCodes;
     public bool HasActivationCode => ActivationCodes?.Count () > 0;
 
@@ -27,28 +28,30 @@ namespace audiamus.aaxconv.lib {
     private void init () {
       _activationCodes.Clear ();
 
-      if (_settings.ActivationCode.HasValue)
+      if (_settings.ActivationCode.HasValue) {
+        Log (2, this, "from user settings");
         _activationCodes.Add (_settings.ActivationCode.Value.ToHexString ());
+      }
 
       if (!HasActivationCode) {
         ActivationCodeRegistry registryCodes = new ActivationCodeRegistry ();
-        if (registryCodes.HasActivationCode)
+        if (registryCodes.HasActivationCode) {
+          Log (2, this, "from registry");
           _activationCodes = _activationCodes.Union (registryCodes.ActivationCodes).ToList ();
+        }
       }
 
       if (!HasActivationCode) {
         ActivationCodeApp appCodes = new ActivationCodeApp ();
-        if (appCodes.HasActivationCode)
+        if (appCodes.HasActivationCode) {
+          Log (2, this, "from app");
           _activationCodes = _activationCodes.Union (appCodes.ActivationCodes).ToList ();
+        }
       }
     }
 
-    public bool GetActivationCode () {
-      if (HasActivationCode)
-        return true;
-
+    public bool ReinitActivationCode () {
       init ();
-
       return HasActivationCode;
     }
   }

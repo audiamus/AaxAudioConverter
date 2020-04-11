@@ -29,6 +29,7 @@
       this.labelCaption = new System.Windows.Forms.Label();
       this.btnOK = new System.Windows.Forms.Button();
       this.btnCancel = new System.Windows.Forms.Button();
+      this.btnReset = new System.Windows.Forms.Button();
       this.SuspendLayout();
       // 
       // textBoxLocation
@@ -63,12 +64,20 @@
       this.btnCancel.Name = "btnCancel";
       this.btnCancel.UseVisualStyleBackColor = true;
       // 
+      // btnReset
+      // 
+      resources.ApplyResources(this.btnReset, "btnReset");
+      this.btnReset.Name = "btnReset";
+      this.btnReset.UseVisualStyleBackColor = true;
+      this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+      // 
       // FFmpegLocationForm
       // 
       this.AcceptButton = this.btnLocate;
       resources.ApplyResources(this, "$this");
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.CancelButton = this.btnCancel;
+      this.Controls.Add(this.btnReset);
       this.Controls.Add(this.btnCancel);
       this.Controls.Add(this.btnOK);
       this.Controls.Add(this.labelCaption);
@@ -90,5 +99,6 @@
     private System.Windows.Forms.Label labelCaption;
     private System.Windows.Forms.Button btnOK;
     private System.Windows.Forms.Button btnCancel;
+    private System.Windows.Forms.Button btnReset;
   }
 }

@@ -175,6 +175,6 @@
     <value>Langer Buchtitel</value>
   </data>
   <data name="LongBookTitleDescription" xml:space="preserve">
-    <value>Resultierender Buchtitel soll auch den Serientitel enthalten, wenn[ja]. Sonst wird der Serientitel entfernt, ab/bis Doppelpunkt.</value>
+    <value>Resultierender Buchtitel soll auch den Serientitel enthalten, wenn nicht [nein]. Reihenfolge wählbar, Buch- oder Serientitel zuerst. Sonst wird der Serientitel entfernt, ab/bis Doppelpunkt. [wie vorgefunden] übernimmt den ganzen Titel, ohne Untersuchung.</value>
   </data>
 </root>

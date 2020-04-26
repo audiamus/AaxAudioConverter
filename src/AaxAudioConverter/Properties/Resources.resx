@@ -338,4 +338,38 @@ Download now?</value>
   <data name="as_is" xml:space="preserve">
     <value>as is</value>
   </data>
+  <data name="Audiobook" xml:space="preserve">
+    <value>Audiobook</value>
+  </data>
+  <data name="author__author_book" xml:space="preserve">
+    <value>&lt;author&gt; \ &lt;author&gt; - &lt;book&gt;</value>
+  </data>
+  <data name="author__book" xml:space="preserve">
+    <value>&lt;author&gt; \ &lt;book&gt;</value>
+  </data>
+  <data name="author__book_author" xml:space="preserve">
+    <value>&lt;author&gt; \ &lt;book&gt; - &lt;author&gt;</value>
+  </data>
+  <data name="flat__author_book" xml:space="preserve">
+    <value>(flat) \ &lt;author&gt; - &lt;book&gt;</value>
+  </data>
+  <data name="flat__book_author" xml:space="preserve">
+    <value>(flat) \ &lt;book&gt; - &lt;author&gt;</value>
+  </data>
+  <data name="MsgAaxCopyFolder" xml:space="preserve">
+    <value>Destination folder for Audible file copies</value>
+  </data>
+  <data name="Audible" xml:space="preserve">
+    <value>Audible</value>
+  </data>
+  <data name="MsgAaxCopyNoFolder" xml:space="preserve">
+    <value>No destination folder set.
+Copies will not be made. </value>
+  </data>
+  <data name="MsgAaxCopyNoFolderYet" xml:space="preserve">
+    <value>Destination folder must also be set.</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Add Audible files</value>
+  </data>
 </root>

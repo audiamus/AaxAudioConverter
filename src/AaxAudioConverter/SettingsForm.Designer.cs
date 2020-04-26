@@ -62,17 +62,21 @@
       this.lblNamedChapters = new System.Windows.Forms.Label();
       this.lblRegActCode = new System.Windows.Forms.Label();
       this.lblPartName = new System.Windows.Forms.Label();
+      this.lblLaunchPlayer = new System.Windows.Forms.Label();
+      this.ckBoxLaunchPlayer = new System.Windows.Forms.CheckBox();
+      this.ckBoxLatin1 = new System.Windows.Forms.CheckBox();
+      this.lblLatin1 = new System.Windows.Forms.Label();
+      this.lblM4B = new System.Windows.Forms.Label();
       this.lblLang = new System.Windows.Forms.Label();
       this.comBoxLang = new System.Windows.Forms.ComboBox();
       this.comBoxUpdate = new System.Windows.Forms.ComboBox();
       this.lblUpdate = new System.Windows.Forms.Label();
       this.ckBoxFileAssoc = new System.Windows.Forms.CheckBox();
       this.lblFileAssoc = new System.Windows.Forms.Label();
-      this.lblLaunchPlayer = new System.Windows.Forms.Label();
-      this.ckBoxLaunchPlayer = new System.Windows.Forms.CheckBox();
-      this.ckBoxLatin1 = new System.Windows.Forms.CheckBox();
-      this.lblLatin1 = new System.Windows.Forms.Label();
-      this.lblM4B = new System.Windows.Forms.Label();
+      this.lblAaxCopy = new System.Windows.Forms.Label();
+      this.panel8 = new System.Windows.Forms.Panel();
+      this.comBoxAaxCopy = new System.Windows.Forms.ComboBox();
+      this.btnAaxCopyDir = new System.Windows.Forms.Button();
       this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
       this.panel7 = new System.Windows.Forms.Panel();
       this.panel1.SuspendLayout();
@@ -84,16 +88,16 @@
       this.panel5.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.nudShortChapter)).BeginInit();
       this.panel4.SuspendLayout();
+      this.panel8.SuspendLayout();
       this.panel7.SuspendLayout();
       this.SuspendLayout();
       // 
       // panel1
       // 
-      resources.ApplyResources(this.panel1, "panel1");
       this.panel1.Controls.Add(this.btnReset);
       this.panel1.Controls.Add(this.btnOK);
+      resources.ApplyResources(this.panel1, "panel1");
       this.panel1.Name = "panel1";
-      this.toolTip1.SetToolTip(this.panel1, resources.GetString("panel1.ToolTip"));
       // 
       // btnReset
       // 
@@ -105,10 +109,9 @@
       // 
       // btnOK
       // 
-      resources.ApplyResources(this.btnOK, "btnOK");
       this.btnOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+      resources.ApplyResources(this.btnOK, "btnOK");
       this.btnOK.Name = "btnOK";
-      this.toolTip1.SetToolTip(this.btnOK, resources.GetString("btnOK.ToolTip"));
       this.btnOK.UseVisualStyleBackColor = true;
       this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
       // 
@@ -138,25 +141,25 @@
       this.tableLayoutPanel1.Controls.Add(this.lblNamedChapters, 0, 6);
       this.tableLayoutPanel1.Controls.Add(this.lblRegActCode, 0, 1);
       this.tableLayoutPanel1.Controls.Add(this.lblPartName, 0, 3);
-      this.tableLayoutPanel1.Controls.Add(this.lblLang, 0, 16);
-      this.tableLayoutPanel1.Controls.Add(this.comBoxLang, 1, 16);
-      this.tableLayoutPanel1.Controls.Add(this.comBoxUpdate, 1, 15);
-      this.tableLayoutPanel1.Controls.Add(this.lblUpdate, 0, 15);
-      this.tableLayoutPanel1.Controls.Add(this.ckBoxFileAssoc, 1, 14);
-      this.tableLayoutPanel1.Controls.Add(this.lblFileAssoc, 0, 14);
       this.tableLayoutPanel1.Controls.Add(this.lblLaunchPlayer, 0, 13);
       this.tableLayoutPanel1.Controls.Add(this.ckBoxLaunchPlayer, 1, 13);
       this.tableLayoutPanel1.Controls.Add(this.ckBoxLatin1, 1, 12);
       this.tableLayoutPanel1.Controls.Add(this.lblLatin1, 0, 12);
       this.tableLayoutPanel1.Controls.Add(this.lblM4B, 0, 11);
+      this.tableLayoutPanel1.Controls.Add(this.lblLang, 0, 17);
+      this.tableLayoutPanel1.Controls.Add(this.comBoxLang, 1, 17);
+      this.tableLayoutPanel1.Controls.Add(this.comBoxUpdate, 1, 16);
+      this.tableLayoutPanel1.Controls.Add(this.lblUpdate, 0, 16);
+      this.tableLayoutPanel1.Controls.Add(this.ckBoxFileAssoc, 1, 15);
+      this.tableLayoutPanel1.Controls.Add(this.lblFileAssoc, 0, 15);
+      this.tableLayoutPanel1.Controls.Add(this.lblAaxCopy, 0, 14);
+      this.tableLayoutPanel1.Controls.Add(this.panel8, 1, 14);
       this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-      this.toolTip1.SetToolTip(this.tableLayoutPanel1, resources.GetString("tableLayoutPanel1.ToolTip"));
       // 
       // lblUsrActCode
       // 
       resources.ApplyResources(this.lblUsrActCode, "lblUsrActCode");
       this.lblUsrActCode.Name = "lblUsrActCode";
-      this.toolTip1.SetToolTip(this.lblUsrActCode, resources.GetString("lblUsrActCode.ToolTip"));
       // 
       // comBoxM4B
       // 
@@ -174,13 +177,11 @@
       // 
       resources.ApplyResources(this.lblFfmpegLoc, "lblFfmpegLoc");
       this.lblFfmpegLoc.Name = "lblFfmpegLoc";
-      this.toolTip1.SetToolTip(this.lblFfmpegLoc, resources.GetString("lblFfmpegLoc.ToolTip"));
       // 
       // btnUsrActCode
       // 
       resources.ApplyResources(this.btnUsrActCode, "btnUsrActCode");
       this.btnUsrActCode.Name = "btnUsrActCode";
-      this.toolTip1.SetToolTip(this.btnUsrActCode, resources.GetString("btnUsrActCode.ToolTip"));
       this.btnUsrActCode.UseVisualStyleBackColor = true;
       this.btnUsrActCode.Click += new System.EventHandler(this.btnUsrActCode_Click);
       // 
@@ -188,31 +189,27 @@
       // 
       resources.ApplyResources(this.btnFfmpegLoc, "btnFfmpegLoc");
       this.btnFfmpegLoc.Name = "btnFfmpegLoc";
-      this.toolTip1.SetToolTip(this.btnFfmpegLoc, resources.GetString("btnFfmpegLoc.ToolTip"));
       this.btnFfmpegLoc.UseVisualStyleBackColor = true;
       this.btnFfmpegLoc.Click += new System.EventHandler(this.btnFfmpegLoc_Click);
       // 
       // panel2
       // 
-      resources.ApplyResources(this.panel2, "panel2");
       this.panel2.Controls.Add(this.listBoxActCode);
       this.panel2.Controls.Add(this.btnRegActCode);
+      resources.ApplyResources(this.panel2, "panel2");
       this.panel2.Name = "panel2";
-      this.toolTip1.SetToolTip(this.panel2, resources.GetString("panel2.ToolTip"));
       // 
       // listBoxActCode
       // 
-      resources.ApplyResources(this.listBoxActCode, "listBoxActCode");
       this.listBoxActCode.FormattingEnabled = true;
+      resources.ApplyResources(this.listBoxActCode, "listBoxActCode");
       this.listBoxActCode.Name = "listBoxActCode";
       this.listBoxActCode.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-      this.toolTip1.SetToolTip(this.listBoxActCode, resources.GetString("listBoxActCode.ToolTip"));
       // 
       // btnRegActCode
       // 
       resources.ApplyResources(this.btnRegActCode, "btnRegActCode");
       this.btnRegActCode.Name = "btnRegActCode";
-      this.toolTip1.SetToolTip(this.btnRegActCode, resources.GetString("btnRegActCode.ToolTip"));
       this.btnRegActCode.UseVisualStyleBackColor = true;
       this.btnRegActCode.Click += new System.EventHandler(this.btnRegActCode_Click);
       // 
@@ -220,7 +217,6 @@
       // 
       resources.ApplyResources(this.lblCustTitleChars, "lblCustTitleChars");
       this.lblCustTitleChars.Name = "lblCustTitleChars";
-      this.toolTip1.SetToolTip(this.lblCustTitleChars, resources.GetString("lblCustTitleChars.ToolTip"));
       // 
       // txtBoxCustTitleChars
       // 
@@ -240,15 +236,13 @@
       // 
       resources.ApplyResources(this.lblCustPart, "lblCustPart");
       this.lblCustPart.Name = "lblCustPart";
-      this.toolTip1.SetToolTip(this.lblCustPart, resources.GetString("lblCustPart.ToolTip"));
       // 
       // panel3
       // 
-      resources.ApplyResources(this.panel3, "panel3");
       this.panel3.Controls.Add(this.txtBoxPartName);
       this.panel3.Controls.Add(this.comBoxPartName);
+      resources.ApplyResources(this.panel3, "panel3");
       this.panel3.Name = "panel3";
-      this.toolTip1.SetToolTip(this.panel3, resources.GetString("panel3.ToolTip"));
       // 
       // txtBoxPartName
       // 
@@ -269,7 +263,6 @@
       // 
       resources.ApplyResources(this.lblExtraMetaFiles, "lblExtraMetaFiles");
       this.lblExtraMetaFiles.Name = "lblExtraMetaFiles";
-      this.toolTip1.SetToolTip(this.lblExtraMetaFiles, resources.GetString("lblExtraMetaFiles.ToolTip"));
       // 
       // ckBoxExtraMetaFiles
       // 
@@ -280,17 +273,15 @@
       // 
       // panel6
       // 
-      resources.ApplyResources(this.panel6, "panel6");
       this.panel6.Controls.Add(this.label2);
       this.panel6.Controls.Add(this.nudVeryShortChapter);
+      resources.ApplyResources(this.panel6, "panel6");
       this.panel6.Name = "panel6";
-      this.toolTip1.SetToolTip(this.panel6, resources.GetString("panel6.ToolTip"));
       // 
       // label2
       // 
       resources.ApplyResources(this.label2, "label2");
       this.label2.Name = "label2";
-      this.toolTip1.SetToolTip(this.label2, resources.GetString("label2.ToolTip"));
       // 
       // nudVeryShortChapter
       // 
@@ -307,27 +298,23 @@
       // 
       resources.ApplyResources(this.label4, "label4");
       this.label4.Name = "label4";
-      this.toolTip1.SetToolTip(this.label4, resources.GetString("label4.ToolTip"));
       // 
       // label3
       // 
       resources.ApplyResources(this.label3, "label3");
       this.label3.Name = "label3";
-      this.toolTip1.SetToolTip(this.label3, resources.GetString("label3.ToolTip"));
       // 
       // panel5
       // 
-      resources.ApplyResources(this.panel5, "panel5");
       this.panel5.Controls.Add(this.label1);
       this.panel5.Controls.Add(this.nudShortChapter);
+      resources.ApplyResources(this.panel5, "panel5");
       this.panel5.Name = "panel5";
-      this.toolTip1.SetToolTip(this.panel5, resources.GetString("panel5.ToolTip"));
       // 
       // label1
       // 
       resources.ApplyResources(this.label1, "label1");
       this.label1.Name = "label1";
-      this.toolTip1.SetToolTip(this.label1, resources.GetString("label1.ToolTip"));
       // 
       // nudShortChapter
       // 
@@ -344,23 +331,20 @@
       // 
       resources.ApplyResources(this.lblFlatFolders, "lblFlatFolders");
       this.lblFlatFolders.Name = "lblFlatFolders";
-      this.toolTip1.SetToolTip(this.lblFlatFolders, resources.GetString("lblFlatFolders.ToolTip"));
       // 
       // panel4
       // 
-      resources.ApplyResources(this.panel4, "panel4");
       this.panel4.Controls.Add(this.comBoxFlatFolders);
       this.panel4.Controls.Add(this.ckBoxFlatFolders);
+      resources.ApplyResources(this.panel4, "panel4");
       this.panel4.Name = "panel4";
-      this.toolTip1.SetToolTip(this.panel4, resources.GetString("panel4.ToolTip"));
       // 
       // comBoxFlatFolders
       // 
-      resources.ApplyResources(this.comBoxFlatFolders, "comBoxFlatFolders");
       this.comBoxFlatFolders.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.comBoxFlatFolders.FormattingEnabled = true;
+      resources.ApplyResources(this.comBoxFlatFolders, "comBoxFlatFolders");
       this.comBoxFlatFolders.Name = "comBoxFlatFolders";
-      this.toolTip1.SetToolTip(this.comBoxFlatFolders, resources.GetString("comBoxFlatFolders.ToolTip"));
       // 
       // ckBoxFlatFolders
       // 
@@ -393,66 +377,16 @@
       // 
       resources.ApplyResources(this.lblRegActCode, "lblRegActCode");
       this.lblRegActCode.Name = "lblRegActCode";
-      this.toolTip1.SetToolTip(this.lblRegActCode, resources.GetString("lblRegActCode.ToolTip"));
       // 
       // lblPartName
       // 
       resources.ApplyResources(this.lblPartName, "lblPartName");
       this.lblPartName.Name = "lblPartName";
-      this.toolTip1.SetToolTip(this.lblPartName, resources.GetString("lblPartName.ToolTip"));
-      // 
-      // lblLang
-      // 
-      resources.ApplyResources(this.lblLang, "lblLang");
-      this.lblLang.Name = "lblLang";
-      this.toolTip1.SetToolTip(this.lblLang, resources.GetString("lblLang.ToolTip"));
-      // 
-      // comBoxLang
-      // 
-      resources.ApplyResources(this.comBoxLang, "comBoxLang");
-      this.comBoxLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-      this.comBoxLang.FormattingEnabled = true;
-      this.comBoxLang.Items.AddRange(new object[] {
-            resources.GetString("comBoxLang.Items")});
-      this.comBoxLang.Name = "comBoxLang";
-      this.toolTip1.SetToolTip(this.comBoxLang, resources.GetString("comBoxLang.ToolTip"));
-      // 
-      // comBoxUpdate
-      // 
-      resources.ApplyResources(this.comBoxUpdate, "comBoxUpdate");
-      this.comBoxUpdate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-      this.comBoxUpdate.FormattingEnabled = true;
-      this.comBoxUpdate.Items.AddRange(new object[] {
-            resources.GetString("comBoxUpdate.Items"),
-            resources.GetString("comBoxUpdate.Items1"),
-            resources.GetString("comBoxUpdate.Items2")});
-      this.comBoxUpdate.Name = "comBoxUpdate";
-      this.toolTip1.SetToolTip(this.comBoxUpdate, resources.GetString("comBoxUpdate.ToolTip"));
-      // 
-      // lblUpdate
-      // 
-      resources.ApplyResources(this.lblUpdate, "lblUpdate");
-      this.lblUpdate.Name = "lblUpdate";
-      this.toolTip1.SetToolTip(this.lblUpdate, resources.GetString("lblUpdate.ToolTip"));
-      // 
-      // ckBoxFileAssoc
-      // 
-      resources.ApplyResources(this.ckBoxFileAssoc, "ckBoxFileAssoc");
-      this.ckBoxFileAssoc.Name = "ckBoxFileAssoc";
-      this.toolTip1.SetToolTip(this.ckBoxFileAssoc, resources.GetString("ckBoxFileAssoc.ToolTip"));
-      this.ckBoxFileAssoc.UseVisualStyleBackColor = true;
-      // 
-      // lblFileAssoc
-      // 
-      resources.ApplyResources(this.lblFileAssoc, "lblFileAssoc");
-      this.lblFileAssoc.Name = "lblFileAssoc";
-      this.toolTip1.SetToolTip(this.lblFileAssoc, resources.GetString("lblFileAssoc.ToolTip"));
       // 
       // lblLaunchPlayer
       // 
       resources.ApplyResources(this.lblLaunchPlayer, "lblLaunchPlayer");
       this.lblLaunchPlayer.Name = "lblLaunchPlayer";
-      this.toolTip1.SetToolTip(this.lblLaunchPlayer, resources.GetString("lblLaunchPlayer.ToolTip"));
       // 
       // ckBoxLaunchPlayer
       // 
@@ -472,21 +406,89 @@
       // 
       resources.ApplyResources(this.lblLatin1, "lblLatin1");
       this.lblLatin1.Name = "lblLatin1";
-      this.toolTip1.SetToolTip(this.lblLatin1, resources.GetString("lblLatin1.ToolTip"));
       // 
       // lblM4B
       // 
       resources.ApplyResources(this.lblM4B, "lblM4B");
       this.lblM4B.Name = "lblM4B";
-      this.toolTip1.SetToolTip(this.lblM4B, resources.GetString("lblM4B.ToolTip"));
+      // 
+      // lblLang
+      // 
+      resources.ApplyResources(this.lblLang, "lblLang");
+      this.lblLang.Name = "lblLang";
+      // 
+      // comBoxLang
+      // 
+      resources.ApplyResources(this.comBoxLang, "comBoxLang");
+      this.comBoxLang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.comBoxLang.FormattingEnabled = true;
+      this.comBoxLang.Items.AddRange(new object[] {
+            resources.GetString("comBoxLang.Items")});
+      this.comBoxLang.Name = "comBoxLang";
+      // 
+      // comBoxUpdate
+      // 
+      resources.ApplyResources(this.comBoxUpdate, "comBoxUpdate");
+      this.comBoxUpdate.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.comBoxUpdate.FormattingEnabled = true;
+      this.comBoxUpdate.Items.AddRange(new object[] {
+            resources.GetString("comBoxUpdate.Items"),
+            resources.GetString("comBoxUpdate.Items1"),
+            resources.GetString("comBoxUpdate.Items2")});
+      this.comBoxUpdate.Name = "comBoxUpdate";
+      // 
+      // lblUpdate
+      // 
+      resources.ApplyResources(this.lblUpdate, "lblUpdate");
+      this.lblUpdate.Name = "lblUpdate";
+      // 
+      // ckBoxFileAssoc
+      // 
+      resources.ApplyResources(this.ckBoxFileAssoc, "ckBoxFileAssoc");
+      this.ckBoxFileAssoc.Name = "ckBoxFileAssoc";
+      this.toolTip1.SetToolTip(this.ckBoxFileAssoc, resources.GetString("ckBoxFileAssoc.ToolTip"));
+      this.ckBoxFileAssoc.UseVisualStyleBackColor = true;
+      // 
+      // lblFileAssoc
+      // 
+      resources.ApplyResources(this.lblFileAssoc, "lblFileAssoc");
+      this.lblFileAssoc.Name = "lblFileAssoc";
+      // 
+      // lblAaxCopy
+      // 
+      resources.ApplyResources(this.lblAaxCopy, "lblAaxCopy");
+      this.lblAaxCopy.Name = "lblAaxCopy";
+      // 
+      // panel8
+      // 
+      this.panel8.Controls.Add(this.comBoxAaxCopy);
+      this.panel8.Controls.Add(this.btnAaxCopyDir);
+      resources.ApplyResources(this.panel8, "panel8");
+      this.panel8.Name = "panel8";
+      // 
+      // comBoxAaxCopy
+      // 
+      this.comBoxAaxCopy.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.comBoxAaxCopy.FormattingEnabled = true;
+      resources.ApplyResources(this.comBoxAaxCopy, "comBoxAaxCopy");
+      this.comBoxAaxCopy.Name = "comBoxAaxCopy";
+      this.toolTip1.SetToolTip(this.comBoxAaxCopy, resources.GetString("comBoxAaxCopy.ToolTip"));
+      this.comBoxAaxCopy.SelectedIndexChanged += new System.EventHandler(this.comBoxAaxCopy_SelectedIndexChanged);
+      // 
+      // btnAaxCopyDir
+      // 
+      resources.ApplyResources(this.btnAaxCopyDir, "btnAaxCopyDir");
+      this.btnAaxCopyDir.Name = "btnAaxCopyDir";
+      this.toolTip1.SetToolTip(this.btnAaxCopyDir, resources.GetString("btnAaxCopyDir.ToolTip"));
+      this.btnAaxCopyDir.UseVisualStyleBackColor = true;
+      this.btnAaxCopyDir.Click += new System.EventHandler(this.btnAaxCopyDir_Click);
       // 
       // panel7
       // 
-      resources.ApplyResources(this.panel7, "panel7");
       this.panel7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
       this.panel7.Controls.Add(this.tableLayoutPanel1);
+      resources.ApplyResources(this.panel7, "panel7");
       this.panel7.Name = "panel7";
-      this.toolTip1.SetToolTip(this.panel7, resources.GetString("panel7.ToolTip"));
       // 
       // SettingsForm
       // 
@@ -501,7 +503,6 @@
       this.MaximizeBox = false;
       this.MinimizeBox = false;
       this.Name = "SettingsForm";
-      this.toolTip1.SetToolTip(this, resources.GetString("$this.ToolTip"));
       this.panel1.ResumeLayout(false);
       this.tableLayoutPanel1.ResumeLayout(false);
       this.tableLayoutPanel1.PerformLayout();
@@ -515,6 +516,7 @@
       this.panel5.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.nudShortChapter)).EndInit();
       this.panel4.ResumeLayout(false);
+      this.panel8.ResumeLayout(false);
       this.panel7.ResumeLayout(false);
       this.ResumeLayout(false);
 
@@ -572,5 +574,9 @@
     private System.Windows.Forms.Label lblLaunchPlayer;
     private System.Windows.Forms.ComboBox comBoxM4B;
     private System.Windows.Forms.Label lblM4B;
+    private System.Windows.Forms.Label lblAaxCopy;
+    private System.Windows.Forms.Panel panel8;
+    private System.Windows.Forms.ComboBox comBoxAaxCopy;
+    private System.Windows.Forms.Button btnAaxCopyDir;
   }
 }

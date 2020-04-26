@@ -63,52 +63,60 @@ namespace audiamus.aaxconv.lib {
       string filename = $"{nameFunc(Book)}{afi.CoverExt}";
       string path = Path.Combine (dir, filename);
       Log (3, this, () => $"\"{path.SubstitUser()}\"");
-      using (var osm = new FileStream (path, FileMode.Create, FileAccess.Write))
-        osm.Write (afi.Cover, 0, afi.Cover.Length);
+      try {
+        using (var osm = new FileStream (path, FileMode.Create, FileAccess.Write))
+          osm.Write (afi.Cover, 0, afi.Cover.Length);
+      } catch (Exception exc) {
+        Log (1, this, exc.ToShortString ());
+      }
     }
 
     void writeTextFile (Func<Book, string> nameFunc, string dir) {
       if (AaxFileItem is null)
         return;
       var afi = AaxFileItem;
-      string filename = $"{nameFunc(Book)}.txt";
+      string filename = $"{nameFunc (Book)}.txt";
       string path = Path.Combine (dir, filename);
       Log (3, this, () => $"\"{path.SubstitUser ()}\"");
-      using (var osm = new StreamWriter (path, false)) {
-        osm.WriteLine ($"{R.HdrAuthor}: {Book.AuthorTag}");
-        osm.WriteLine ($"{R.HdrTitle}: {Book.TitleTag}");
-        osm.WriteLine ($"{R.HdrDuration}: {Duration.ToStringHMS()}");
-        osm.WriteLine ($"{R.HdrNarrator}: {afi.Narrator}");
-        osm.WriteLine ($"{R.HdrGenre}: {Book.CustomNames?.GenreTag ?? TagAndFileNamingHelper.GetGenre(Settings, afi)}");
-        osm.WriteLine ($"{R.HdrYear}: {Book.CustomNames?.YearTag?.Year ?? afi.PublishingDate?.Year}");
-        osm.WriteLine ($"{R.HdrPublisher}: {afi.Publisher}");
-        osm.WriteLine ($"{R.HdrCopyright}: {afi.Copyright}");
-        osm.WriteLine ($"{R.HdrSampleRate}: {afi.SampleRate} Hz");
-        osm.WriteLine ($"{R.HdrBitRate}: {afi.AvgBitRate} kb/s");
-        osm.WriteLine ();
+      try {
+        using (var osm = new StreamWriter (path, false)) {
+          osm.WriteLine ($"{R.HdrAuthor}: {Book.AuthorTag}");
+          osm.WriteLine ($"{R.HdrTitle}: {Book.TitleTag}");
+          osm.WriteLine ($"{R.HdrDuration}: {Duration.ToStringHMS ()}");
+          osm.WriteLine ($"{R.HdrNarrator}: {afi.Narrator}");
+          osm.WriteLine ($"{R.HdrGenre}: {Book.CustomNames?.GenreTag ?? TagAndFileNamingHelper.GetGenre (Settings, afi)}");
+          osm.WriteLine ($"{R.HdrYear}: {Book.CustomNames?.YearTag?.Year ?? afi.PublishingDate?.Year}");
+          osm.WriteLine ($"{R.HdrPublisher}: {afi.Publisher}");
+          osm.WriteLine ($"{R.HdrCopyright}: {afi.Copyright}");
+          osm.WriteLine ($"{R.HdrSampleRate}: {afi.SampleRate} Hz");
+          osm.WriteLine ($"{R.HdrBitRate}: {afi.AvgBitRate} kb/s");
+          osm.WriteLine ();
 
-        string[] words = afi.Abstract?.Split ();
-        if (words is null)
-          return;
+          string[] words = afi.Abstract?.Split ();
+          if (words is null)
+            return;
 
-        int n = 0;
-        for (int i = 0; i < words.Length; i ++) {
-          string word = words[i];
-          if (n + 1 + word.Length > 80) {
-            osm.WriteLine ();
-            n = 0;
+          int n = 0;
+          for (int i = 0; i < words.Length; i++) {
+            string word = words[i];
+            if (n + 1 + word.Length > 80) {
+              osm.WriteLine ();
+              n = 0;
+            }
+
+            if (n > 0) {
+              osm.Write (' ');
+              n++;
+            }
+            osm.Write (word);
+            n += word.Length;
           }
-
-          if (n > 0) {
-            osm.Write (' ');
-            n++;
-          }
-          osm.Write (word);
-          n += word.Length;
+          osm.WriteLine ();
         }
-        osm.WriteLine ();
-
+      } catch (Exception exc) {
+        Log (1, this, exc.ToShortString ());
       }
+
     }
   }
 }

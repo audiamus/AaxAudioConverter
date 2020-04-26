@@ -27,31 +27,32 @@ namespace audiamus.aaxconv {
 
     #region Private Fields
 
-    readonly AaxAudioConverter _converter;
-    readonly List<AaxFileItemEx> _fileItems = new List<AaxFileItemEx> ();
-    readonly ListViewColumnSorter _lvwColumnSorter;
-    readonly ISettings _settings = Properties.Settings.Default;
-    readonly PGANaming _pgaNaming;
-    readonly ProgressProcessor _progress;
-    readonly InteractionCallbackHandler<EInteractionCustomCallback> _interactionHandler;
-    readonly SystemMenu _systemMenu;
+    private readonly AaxAudioConverter _converter;
+    private readonly List<AaxFileItemEx> _fileItems = new List<AaxFileItemEx> ();
+    private readonly ListViewColumnSorter _lvwColumnSorter;
+    private readonly ISettings _settings = Properties.Settings.Default;
+    private readonly PGANaming _pgaNaming;
+    private readonly ProgressProcessor _progress;
+    private readonly InteractionCallbackHandler<EInteractionCustomCallback> _interactionHandler;
+    private readonly SystemMenu _systemMenu;
 
-    FileDetailsForm _detailsForm;
-    PreviewForm _previewForm;
+    private FileDetailsForm _detailsForm;
+    private PreviewForm _previewForm;
 
-    CancellationTokenSource _cts;
-    bool _initDone;
-    bool _closing;
-    bool _resetFlag;
-    bool _ffMpegPathVerified;
-    bool _updateAvailableFlag; 
+    private CancellationTokenSource _cts;
+    private bool _initDone;
+    private bool _closing;
+    private bool _resetFlag;
+    private bool _ffMpegPathVerified;
+    private bool _updateAvailableFlag; 
 
-    Point _contextMenuPoint;
+    private Point _contextMenuPoint;
 
     #endregion Private Fields
     #region Private Properties
 
     private ISettings Settings => _settings;
+    private string DefaultInputDirectory => defaultInputDirectory ();
 
     #endregion Private Properties
     #region Public Constructors
@@ -87,6 +88,41 @@ namespace audiamus.aaxconv {
     }
 
     #endregion Public Constructors
+    #region Internal Methods
+
+    internal static string SetDestinationDirectory (
+      IWin32Window owner, string directory, string defsubdir,
+      string windowtitle, string caption, string cancelMessage = null
+    ) {
+      string defdir = Environment.GetFolderPath (Environment.SpecialFolder.MyMusic);
+      defdir = Path.Combine (defdir, defsubdir);
+      string dir = directory;
+      if (string.IsNullOrWhiteSpace (dir) || !Directory.Exists (dir))
+        dir = defdir;
+
+      if (dir == defdir && !Directory.Exists (dir))
+        Directory.CreateDirectory (defdir);
+
+      CommonOpenFileDialog ofd = new CommonOpenFileDialog {
+        Title = $"{windowtitle}: {caption}",
+        InitialDirectory = dir,
+        DefaultDirectory = defdir,
+        IsFolderPicker = true,
+        EnsurePathExists = true,
+      };
+      CommonFileDialogResult result = ofd.ShowDialog ();
+      if (result == CommonFileDialogResult.Cancel) {
+        if (!string.IsNullOrWhiteSpace (cancelMessage) && !Directory.Exists (directory))
+          MsgBox.Show (owner, cancelMessage, caption, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        return null;
+      }
+
+      return ofd.FileName;
+
+    }
+
+    #endregion Internal Methods
+
     #region Protected Methods
 
     protected override void OnActivated (EventArgs e) {
@@ -177,13 +213,22 @@ namespace audiamus.aaxconv {
       return busy;
     }
 
+    private string defaultInputDirectory () {
+      string defdir = Environment.GetFolderPath (Environment.SpecialFolder.MyMusic);
+      string defsubdir = Path.Combine (defdir, R.Audible);
+      if (Directory.Exists (defsubdir))
+        return defsubdir;
+      else
+        return defdir;
+    }
+
     private void presetInpuDirectory () {
       if (!string.IsNullOrEmpty(Settings.InputDirectory) && Directory.Exists (Settings.InputDirectory))
         return;
 
       string inputDir = _converter.AppContentDirectory;
       if (inputDir is null)
-        return;
+        inputDir = DefaultInputDirectory; 
 
       Settings.InputDirectory = inputDir;
     }
@@ -258,13 +303,20 @@ namespace audiamus.aaxconv {
     }
 
     private async void addFile (string file) {
-      if (!File.Exists (file))
+      if (file.StartsWith ("-") && file.Contains ("=")) // a cmd line arg
         return;
+
+      Log (3, this, () => $"\"{file.SubstitUser ()}\"");
+      file = file.AsUncIfLong ();
+      if (!File.Exists (file)) {
+        Log (3, this, $"fail: \"{file.SubstitUser ()}\"");
+        return;
+      }
       await addFilesAsync (new[] { file });
     }
 
 
-    private async Task addFilesAsync (string[] filenames) {
+    private async Task addFilesAsync (IEnumerable<string> filenames) {
       enableAll (false);
       this.UseWaitCursor = true;
 
@@ -450,20 +502,32 @@ namespace audiamus.aaxconv {
     private void previewForm_FormClosed (object sender, FormClosedEventArgs e) => _previewForm = null;
 
     private async void btnAddFile_Click (object sender, EventArgs e) {
-      OpenFileDialog dlg = new OpenFileDialog {
+      CommonOpenFileDialog ofd = new CommonOpenFileDialog {
+        Title = $"{this.Text}: {R.OpenFile}",
+        DefaultDirectory = DefaultInputDirectory,
         InitialDirectory = Settings.InputDirectory,
         Multiselect = true,
-        CheckFileExists = true,
-        Filter = R.FilterAudibleFiles,
+        EnsurePathExists = true,
+        EnsureFileExists = true,
       };
-
-      var result = dlg.ShowDialog ();
-      if (result != DialogResult.OK)
+      string[] filters = R.FilterAudibleFiles?.Split ('|');
+      if (!(filters is null) && filters.Length % 2 == 0) {
+        for (int i = 0; i < filters.Length; i += 2) {
+          string filter = filters[i];
+          int pos = filter.IndexOf ('(');
+          if (pos >= 0)
+            filter = filter.Substring (0, pos);
+          var cfdf = new CommonFileDialogFilter (filter.Trim (), filters[i + 1].Trim ());
+          ofd.Filters.Add (cfdf);
+        }
+      }
+      CommonFileDialogResult result = ofd.ShowDialog ();
+      if (result != CommonFileDialogResult.Ok)
         return;
 
-      var filenames = dlg.FileNames;
-      await addFilesAsync (filenames);
+      var filenames = ofd.FileNames;
 
+      await addFilesAsync (filenames);
     }
 
     private void btnRem_Click (object sender, EventArgs e) {
@@ -589,6 +653,9 @@ namespace audiamus.aaxconv {
       if (!Directory.Exists (Settings.OutputDirectory))
         return;
 
+      if (Settings.AaxCopyMode != default && !Directory.Exists (Settings.AaxCopyDirectory))
+        setAaxCopyDirectory ();
+
       btnAbort.Enabled = true;
       btnConvert.Enabled = false;
       this.AcceptButton = btnAbort;
@@ -671,8 +738,11 @@ namespace audiamus.aaxconv {
         return;
 
       try {
+        Log (3, this, $"\"{_converter.AutoLaunchAudioFile.SubstitUser()}\"");
         Process.Start (_converter.AutoLaunchAudioFile);
-      } catch (Exception) { }
+      } catch (Exception exc) {
+        Log (1, this, $"{exc.ToShortString()}{Environment.NewLine}  \"{_converter.AutoLaunchAudioFile.SubstitUser()}\"");
+      }
     }
 
     private void btnAbort_Click (object sender, EventArgs e) {
@@ -682,28 +752,24 @@ namespace audiamus.aaxconv {
 
 
     private void btnSaveTo_Click (object sender, EventArgs e) {
-      string defdir = Environment.GetFolderPath (Environment.SpecialFolder.MyMusic);
-      string dir = Settings.OutputDirectory;
-      if (string.IsNullOrWhiteSpace (dir) || !Directory.Exists(dir))
-        dir = defdir;
-
-      CommonOpenFileDialog ofd = new CommonOpenFileDialog {
-        Title = $"{this.Text}: {R.MsgCommonRootFolder}",
-        InitialDirectory = dir,
-        DefaultDirectory = defdir,
-        IsFolderPicker = true,
-        EnsurePathExists = true,
-      };
-      CommonFileDialogResult result = ofd.ShowDialog ();
-      if (result == CommonFileDialogResult.Cancel)
+      string dir = SetDestinationDirectory (this, Settings.OutputDirectory, R.Audiobook, this.Text, R.MsgCommonRootFolder);
+      if (dir is null)
         return;
 
-      Settings.OutputDirectory = ofd.FileName;
-      lblSaveTo.SetTextAsPathWithEllipsis (ofd.FileName);
+      Settings.OutputDirectory = dir;
+      lblSaveTo.SetTextAsPathWithEllipsis (dir);
 
       enableButtonConvert ();
-
     }
+
+    private void setAaxCopyDirectory () {
+      string dir = SetDestinationDirectory (this, Settings.AaxCopyDirectory, R.Audible, this.Text, R.MsgAaxCopyFolder, R.MsgAaxCopyNoFolder);
+      if (dir is null)
+        return;
+
+      Settings.AaxCopyDirectory = dir;
+    }
+
 
     private void numUpDnTrkLen_ValueChanged (object sender, EventArgs e) {
       Settings.TrkDurMins = (byte)numUpDnTrkLen.Value;

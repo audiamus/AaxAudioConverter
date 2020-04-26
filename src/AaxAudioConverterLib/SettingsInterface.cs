@@ -36,7 +36,12 @@
     bool? OnlineUpdate { get; set; }
   }
 
-  public interface ISettings : INamingSettingsEx, IActivationSettings, ITitleSettingsEx, IUpdateSetting {
+  public interface IAaxCopySettings {
+    EAaxCopyMode AaxCopyMode{ get; set; }
+    string AaxCopyDirectory{ get; set; }
+  }
+
+  public interface ISettings : INamingSettingsEx, IActivationSettings, ITitleSettingsEx, IUpdateSetting, IAaxCopySettings {
     bool NonParallel { get; }
     string InputDirectory { get; set; }
     string OutputDirectory { get; set; }

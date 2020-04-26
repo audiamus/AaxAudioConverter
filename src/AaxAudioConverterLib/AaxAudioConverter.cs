@@ -309,9 +309,13 @@ namespace audiamus.aaxconv.lib {
       try {
         Parallel.ForEach (filenames, DefaultParallelOptions, path =>
         {
+          Log (3, this, () => $"\"{ path.SubstitUser ()}\"");
+          path = path.AsUncIfLong ();
           bool succ = File.Exists (path);
-          if (!succ)
+          if (!succ) {
+            Log (3, this, $"fail: \"{path.SubstitUser ()}\"");
             return;
+          }
 
           string ext = Path.GetExtension (path).ToLowerInvariant ();
           succ = ext == ".aax" || ext == ".aa";
@@ -324,7 +328,7 @@ namespace audiamus.aaxconv.lib {
       } catch (OperationCanceledException) { }
 
       if (items.Count > 0)
-        Settings.InputDirectory = Path.GetDirectoryName (items.Last ().FileName);
+        Settings.InputDirectory = Path.GetDirectoryName (items.Last ().FileName).StripUnc();
       return items;
     }
 
@@ -369,16 +373,19 @@ namespace audiamus.aaxconv.lib {
     }
 
     private string chapterList (Book.BookPart part, string source) {
-      var sb = new StringBuilder ($"{source} chapters:" + Environment.NewLine);
-      if (!(part.Chapters is null))
+      var sb = new StringBuilder ($"{source} chapters:");
+      sb.AppendLine ();
+      if (!(part.Chapters is null)) {
         foreach (var ch in part.Chapters)
           sb.AppendLine ($"  {ch}");
+      }
       sb.Append ($"  duration={part.AaxFileItem.Duration.ToStringHMSm()}");
       return sb.ToString ();
     }
 
     private void convert (IEnumerable<AaxFileItem> fileitems) {
-      Log (2, this, () => $"#files={fileitems.Count()}, format={Settings.ConvFormat}, mode={Settings.ConvMode}");
+      Log (2, this, () => $"#files={fileitems.Count ()}{(Level <= 2 ? $", format={Settings.ConvFormat}, mode={Settings.ConvMode}" : string.Empty)}");
+      Log (3, this, () => Settings.ToString ());
 
       // make sure all progress is reset;
       Callbacks.Progress (new ProgressMessage { Reset = true });
@@ -448,8 +455,10 @@ namespace audiamus.aaxconv.lib {
 
       //yes, get non-partial title by removing "part #"
       string sortingTitle = bookTitle.Remove (match.Groups[2].Index, match.Groups[2].Length);
-      sortingTitle = sortingTitle.Replace ("  ", " ");
-      sortingTitle = sortingTitle.Replace (" :", ":");
+      sortingTitle = sortingTitle
+        .Replace ("  ", " ")
+        .Replace (" :", ":")
+        .Trim();
 
       return (true, sortingTitle, partNameStub, part);
     }
@@ -469,6 +478,12 @@ namespace audiamus.aaxconv.lib {
         AddTotalTracks = numInitialTracks // number of tracks, initially just as many parts
       });
 
+      if (Settings.AaxCopyMode != default && Directory.Exists(Settings.AaxCopyDirectory))
+        Callbacks.Progress (new ProgressMessage {
+          AddTotalTracks = numInitialTracks // one more for each part
+        });
+
+
       // parallel only in "single" mode
       try {
         Parallel.ForEach (books, parallelOptions (DegreeOfParallelismLimit.Book), b => convertBook (b));
@@ -478,7 +493,7 @@ namespace audiamus.aaxconv.lib {
     }
 
     private void convertBook (Book book) {
-      Log (2, this, () => $"\"{book.SortingTitle}\", #parts={book.Parts.Count()}");
+      Log (2, this, () => $"\"{book.SortingTitle.Shorten()}\", #parts={book.Parts.Count()}");
 
       // Check activation codes
       //   and generally decodable format 
@@ -514,6 +529,7 @@ namespace audiamus.aaxconv.lib {
         else {
           makePlaylist (book);
           extraMetaFiles (book);
+          copyAaxFiles (book);
         }
       }
 
@@ -525,6 +541,26 @@ namespace audiamus.aaxconv.lib {
       if (Settings.ExtraMetaFiles) {
         var emf = new ExtraMetaFiles (book, Settings, Resources);
         emf.WriteFiles (flatDir);
+      }
+    }
+
+    private void copyAaxFiles (Book book) {
+      if (Settings.AaxCopyMode == default)
+        return;
+
+      if (!Directory.Exists (Settings.AaxCopyDirectory)) {
+        Log (2, this, () => $"Dest dir does not exist: \"{Settings.AaxCopyDirectory.SubstitUser ()}\", copy skipped.");
+        return;
+      }
+
+      using (new ResourceGuard (f => Callbacks.Progress (
+        new ProgressMessage {
+          Info = f ?
+            ProgressInfo.ProgressInfoBook (book.TitleTag, EProgressPhase.copying) :
+            ProgressInfo.ProgressInfoBookCancel (book.TitleTag)
+        }))) {
+        var afc = new AaxFileCopier (book, Settings, Resources, Callbacks);
+        afc.Copy ();
       }
     }
 
@@ -593,7 +629,7 @@ namespace audiamus.aaxconv.lib {
       var ffmetadata = new FFMetaData (part.Chapters2);
       string filename = ffmetafilename (part);
       bool succ = ffmetadata.Write (filename);
-      Log (3, this, () => $"ffmetafile=\"{filename.SubstitUser()}\", succ={succ}");
+      Log (3, this, () => $"ffmetafile=\"{filename.SubstitUser()}\", #chapters={ffmetadata.Chapters.Count}, succ={succ}");
     }
 
     private string ffmetafilename (Book.BookPart part) =>
@@ -709,7 +745,7 @@ namespace audiamus.aaxconv.lib {
       // Mode single
       //   Define author and book title folder
       //   Transcode per part, one track per part.
-      Log (2, this, () => $"\"{book.SortingTitle}\"");
+      Log (2, this, () => $"\"{book.SortingTitle.Shorten()}\"");
 
       bool succ = prepareTrackFilesSingleMode (book);
       if (!succ)
@@ -723,7 +759,7 @@ namespace audiamus.aaxconv.lib {
       // Mode chapters
       //   Define author and book title folder
       //   Transcode per part and per chapter, one track per chapter
-      Log (2, this, () => $"\"{book.SortingTitle}\"");
+      Log (2, this, () => $"\"{book.SortingTitle.Shorten()}\"");
 
       bool succ = prepareTrackFilesChapterMode (book);
       if (!succ)
@@ -738,7 +774,7 @@ namespace audiamus.aaxconv.lib {
       //   Split into chapters, detect silence per chapter
       //   Create cue sheet per chapter
       //   Transcode per part, per chapter and per cue sheet item, group by chapter subfolder, several tracks per chapter 
-      Log (2, this, () => $"\"{book.SortingTitle}\"");
+      Log (2, this, () => $"\"{book.SortingTitle.Shorten()}\"");
 
       bool succ = prepareTrackFilesSplitChapterMode (book);
       if (!succ)
@@ -756,7 +792,7 @@ namespace audiamus.aaxconv.lib {
       //   Combine all chapter cue sheets into single chapter
       //   Transcode per part, per chapter and per cue sheet item, no subfolders, tracks per book 
 
-      Log (2, this, () => $"\"{book.SortingTitle}\"");
+      Log (2, this, () => $"\"{book.SortingTitle.Shorten()}\"");
       bool succ = prepareTrackFilesSplitTimeMode (book);
       if (!succ)
         return;
@@ -766,7 +802,7 @@ namespace audiamus.aaxconv.lib {
     }
 
     private bool prepareTrackFilesSingleMode (Book book) {
-      Log (3, this, () => $"\"{book.SortingTitle}\"");
+      Log (3, this, () => $"\"{book.SortingTitle.Shorten()}\"");
 
       string outDir = initDirectory (book);
 
@@ -787,7 +823,7 @@ namespace audiamus.aaxconv.lib {
     }
 
     private bool prepareTrackFilesChapterMode (Book book) {
-      Log (3, this, () => $"\"{book.SortingTitle}\"");
+      Log (3, this, () => $"\"{book.SortingTitle.Shorten()}\"");
       string outDir = initDirectory (book);
       if (outDir is null)
         return false;
@@ -797,7 +833,7 @@ namespace audiamus.aaxconv.lib {
     }
 
     private bool prepareTrackFilesSplitChapterMode (Book book) {
-      Log (3, this, () => $"\"{book.SortingTitle}\"");
+      Log (3, this, () => $"\"{book.SortingTitle.Shorten()}\"");
       string outDir = initDirectory (book);
       if (outDir is null)
         return false;
@@ -811,7 +847,7 @@ namespace audiamus.aaxconv.lib {
     }
 
     private bool prepareTrackFilesSplitTimeMode (Book book) {
-      Log (3, this, () => $"\"{book.SortingTitle}\"");
+      Log (3, this, () => $"\"{book.SortingTitle.Shorten()}\"");
       string outDir = initDirectory (book);
       if (outDir is null)
         return false;
@@ -825,7 +861,7 @@ namespace audiamus.aaxconv.lib {
     }
 
     private void nameTrackFilesChapterMode (Book book) {
-      Log (3, this, () => $"\"{book.SortingTitle}\"");
+      Log (3, this, () => $"\"{book.SortingTitle.Shorten()}\"");
 
       foreach (var part in book.Parts) {
 
@@ -852,9 +888,12 @@ namespace audiamus.aaxconv.lib {
       });
 
       bool succ = detectSilence (book);
-      Log (3, this, () => $"\"{book.SortingTitle}\", succ={succ}");
-      if (!succ)
-        return false;
+      if (!succ) {
+       Log (2, this, () => $"{nameof(detectSilence)} \"{book.SortingTitle.Shorten()}\", succ={succ}");
+       return false;
+      }
+      Log (3, this, () => 
+        $"{nameof (detectSilence)} for \"{book.SortingTitle.Shorten()}\" found {book.Parts.SelectMany (p => p.Chapters.Select(c => c.Silences.Count)).Sum ()} positions total");
 
       callback?.Invoke (book);
 
@@ -868,6 +907,7 @@ namespace audiamus.aaxconv.lib {
           AddTotalTracks = totalNumTracks - totalNumChapters
         });
 
+      Log (3, this, () => $"{nameof (createCueSheet)} for \"{book.SortingTitle.Shorten()}\" determined {totalNumTracks} tracks");
 
       return true;
     }
@@ -886,7 +926,7 @@ namespace audiamus.aaxconv.lib {
 
         // always serial
         foreach (var part in book.Parts) {
-          Log (3, this, () => $"\"{book.SortingTitle}\", part#={part.PartNumber}");
+          Log (3, this, () => $"\"{book.SortingTitle.Shorten()}\", part#={part.PartNumber}");
           
           // Chapter-wise split to temp folder, for shorter files,
           // because of limited precison (6 digit, "g6") of FFmpeg silence detection filter output.
@@ -894,7 +934,7 @@ namespace audiamus.aaxconv.lib {
           detectSilenceChapterParallel (book, part, filestub);
           bool fail = part.Chapters.Where (c => c.Silences is null).Any ();
           if (fail) {
-            Log (3, this, () => $"\"{book.SortingTitle}\", part#={part.PartNumber}, succ={!fail}");
+            Log (3, this, () => $"\"{book.SortingTitle.Shorten()}\", part#={part.PartNumber}, succ={!fail}");
             return false;
           }
           Callbacks.Progress (new ProgressMessage { IncParts = 1 });
@@ -935,12 +975,12 @@ namespace audiamus.aaxconv.lib {
                 Cancel = Callbacks.Cancel,
                 Progress = threadProg.Report
               };
-              Log (3, this, () => $"transcode in=\"{part.AaxFileItem.FileName.SubstitUser()}\", out=\"{chapter.TmpFileName.SubstitUser()}\"");
+              Log (3, this, () => $"{nameof (ffmpeg1.Transcode)} in=\"{part.AaxFileItem.FileName.SubstitUser()}\", out=\"{chapter.TmpFileName.SubstitUser()}\"");
               bool succ = ffmpeg1.Transcode (chapter.TmpFileName,
                 FFmpeg.ETranscode.copy | FFmpeg.ETranscode.noChapters,
                 part.ActivationCode, t.Begin, t.End);
               if (!succ) {
-                Log (3, this, () => $"transcode \"{book.SortingTitle}\", part#={part.PartNumber}, chapter=\"{chapter.Name}\", succ={succ}");
+                Log (3, this, () => $"{nameof (ffmpeg1.Transcode)} \"{book.SortingTitle.Shorten()}\", part#={part.PartNumber}, chapter=\"{chapter.Name}\", succ={succ}");
                 return;
               }
             }
@@ -949,7 +989,6 @@ namespace audiamus.aaxconv.lib {
               return;
 
             // Now, find silences in temp. chapter file
-            Log (3, this, () => $"detectSilence in=\"{chapter.TmpFileName.SubstitUser()}\"");
             using (var threadProg = new ThreadProgress (Callbacks.Progress)) {
               FFmpeg ffmpeg2 = new FFmpeg (chapter.TmpFileName) {
                 Cancel = Callbacks.Cancel,
@@ -957,10 +996,11 @@ namespace audiamus.aaxconv.lib {
               };
               bool succ = ffmpeg2.DetectSilence (part.ActivationCode);
               if (!succ) {
-                Log (3, this, () => $"detectSilence \"{book.SortingTitle}\", part#={part.PartNumber}, chapter=\"{chapter.Name}\", succ={succ}");
+                Log (3, this, () => $"{nameof(ffmpeg2.DetectSilence)} \"{book.SortingTitle.Shorten()}\", part#={part.PartNumber}, chapter=\"{chapter.Name}\", succ={succ}");
                 return;
               }
               chapter.Silences = ffmpeg2.Silences;
+              Log (3, this, () => $"{nameof (ffmpeg2.DetectSilence)} in \"{chapter.TmpFileName.SubstitUser()}\" found {chapter.Silences.Count} positions");
             }
           }
         });
@@ -1136,7 +1176,7 @@ namespace audiamus.aaxconv.lib {
     private void transcodeTracks (Book book) {
       if (Callbacks.Cancelled)
         return;
-      Log (3, this, () => $"\"{book.SortingTitle}\"");
+      Log (3, this, () => $"\"{book.SortingTitle.Shorten()}\"");
 
       using (new ResourceGuard (f => Callbacks.Progress (
         new ProgressMessage {
@@ -1153,7 +1193,7 @@ namespace audiamus.aaxconv.lib {
     }
 
     private void transcodeTracksByPartAndChapterParallel (Book book, ChapteredTracks chapterTracks) {
-      Log (3, this, () => $"\"{book.SortingTitle}\", #parts={chapterTracks.Parts.Count()}");
+      Log (3, this, () => $"\"{book.SortingTitle.Shorten()}\", #parts={chapterTracks.Parts.Count()}");
 
       // parts parallel only in "single" mode
       try {
@@ -1179,7 +1219,7 @@ namespace audiamus.aaxconv.lib {
 
             int nfail = part.Part.Tracks.Where (t => t.State != ETrackState.complete).Count ();
             if (nfail > 0) {
-              Log (1, this, () => $"\"{book.SortingTitle}\", #parts={chapterTracks.Parts.Count ()}, #failed tracks={nfail}");
+              Log (1, this, () => $"\"{book.SortingTitle.Shorten()}\", #parts={chapterTracks.Parts.Count ()}, #failed tracks={nfail}");
               return;
             }
             part.Part.AaxFileItem.Converted = true;
@@ -1190,7 +1230,7 @@ namespace audiamus.aaxconv.lib {
     }
 
     private void transcodeChaptersParallel (Book book, ChapteredTracks.PartChapters part) {
-      Log (3, this, () => $"\"{book.SortingTitle}\", part#={part.Part.PartNumber}, #chaps={part.Chapters.Count()}");
+      Log (3, this, () => $"\"{book.SortingTitle.Shorten()}\", part#={part.Part.PartNumber}, #chaps={part.Chapters.Count()}");
 
       DegreeOfParallelismLimit.SetChapterTrack (part);
 
@@ -1225,7 +1265,7 @@ namespace audiamus.aaxconv.lib {
                   Settings.ConvFormat == EConvFormat.mp3 && part.IsMp3Stream;
       FFmpeg.ETranscode modifiers = copy ? FFmpeg.ETranscode.copy : FFmpeg.ETranscode.normal;
 
-      Log (3, this, () => $"\"{book.SortingTitle}\", part#={part.PartNumber}, chap#={partChapter.ChapterNumber}, #tracks={partChapter.Tracks.Count ()}");
+      Log (3, this, () => $"\"{book.SortingTitle.Shorten()}\", part#={part.PartNumber}, chap#={partChapter.ChapterNumber}, #tracks={partChapter.Tracks.Count ()}");
 
       string inFile = part.AaxFileItem.FileName;
       Log (3, this, () => $"in=\"{inFile.SubstitUser()}\"");
@@ -1435,7 +1475,7 @@ namespace audiamus.aaxconv.lib {
         outDir = initDirectory (book, null, flatDir (book));
       else
         outDir = initDirectory (book, book.AuthorFile, book.TitleFile);
-      Log (3, this, () => $"\"{book.SortingTitle}\", outDir=\"{outDir.SubstitUser ()}\"");
+      Log (3, this, () => $"\"{book.SortingTitle.Shorten()}\", outDir=\"{outDir.SubstitUser ()}\"");
       return outDir;
     }
 
@@ -1516,7 +1556,6 @@ namespace audiamus.aaxconv.lib {
     }
 
     private bool? initDirectoryInteraction (Book book, string outDirLong) {
-      const string UNC = ExUnc.UNC_LOCAL;
 
       lock (_lockable) {
         Log (3, this, () => $"\"{outDirLong}\", dir not empty");
@@ -1525,12 +1564,8 @@ namespace audiamus.aaxconv.lib {
           result = MultiBookInitDirectoryQuestion.Answer;
           Log (3, this, () => $"\"{outDirLong}\", dir not empty, using previous answer={result}");
         } else {
-          string outDir = outDirLong;
-          int idx = outDir.IndexOf (UNC);
-          if (idx == 0)
-            outDir = outDir.Substring (UNC.Length);
-
-          result = directoryCreationCallback (Path.GetFullPath (outDir), book.PartsType);
+          string outDir = outDirLong.StripUnc();
+          result = directoryCreationCallback (outDir, book.PartsType);
           Log (3, this, () => $"\"{outDirLong}\", dir not empty, answer={result}");
 
           if (!(MultiBookInitDirectoryQuestion is null) && MultiBookInitDirectoryQuestion.HasBeenAnswered is null) {
@@ -1622,7 +1657,7 @@ namespace audiamus.aaxconv.lib {
     }
 
     private void exceptionCallback (Exception exc) {
-      string message = $"{exc.GetType ().Name}\r\n\"{exc.Message}\"";
+      string message = exc.ToShortString(true);
       Callbacks.Interact (message, ECallbackType.error);
     }
 

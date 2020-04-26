@@ -57,6 +57,7 @@
     <Compile Include="InteractionMessage.cs" />
     <Compile Include="LocalFileSettingsProvider.cs" />
     <Compile Include="Logging.cs" />
+    <Compile Include="EnumConverter.cs" />
     <Compile Include="ProcessHost.cs" />
     <Compile Include="IInteractionCallback.cs" />
     <Compile Include="InteractionCallback.cs" />

@@ -437,5 +437,29 @@ namespace audiamus.aaxconv.Properties {
                 this["M4B"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("no")]
+        public global::audiamus.aaxconv.lib.EAaxCopyMode AaxCopyMode {
+            get {
+                return ((global::audiamus.aaxconv.lib.EAaxCopyMode)(this["AaxCopyMode"]));
+            }
+            set {
+                this["AaxCopyMode"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string AaxCopyDirectory {
+            get {
+                return ((string)(this["AaxCopyDirectory"]));
+            }
+            set {
+                this["AaxCopyDirectory"] = value;
+            }
+        }
     }
 }

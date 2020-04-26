@@ -7,6 +7,8 @@ using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using audiamus.aux;
+using audiamus.aux.ex;
+using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv.lib {
   public class OnlineUpdate {
@@ -125,27 +127,29 @@ namespace audiamus.aaxconv.lib {
         using (HttpResponseMessage response = await HttpClient.GetAsync (SETUP_REF_URI))
           using (HttpContent content = response.Content)
             result = await content.ReadAsStringAsync ();
-      } catch (Exception) { }
 
-      if (string.IsNullOrWhiteSpace (result))
-        return;
+        if (string.IsNullOrWhiteSpace (result))
+          return;
 
-      using (var textReader = new StringReader (result)) {
-        _downloadUri = textReader.ReadLine ();
+        using (var textReader = new StringReader (result)) {
+          _downloadUri = textReader.ReadLine ();
 
-        Match match = _rgxVersion.Match (_downloadUri);
-        if (match.Success)
-          _version = new Version (match.Groups[1].Value);
+          Match match = _rgxVersion.Match (_downloadUri);
+          if (match.Success)
+            _version = new Version (match.Groups[1].Value);
 
-        string file = Path.GetFileName (_downloadUri);
-        _setupFile = Path.Combine (DownloadDir, file);
+          string file = Path.GetFileName (_downloadUri);
+          _setupFile = Path.Combine (DownloadDir, file);
 
-        string md5 = textReader.ReadLine ();
+          string md5 = textReader.ReadLine ();
 
-        match = _rgxMd5.Match (md5);
-        if (match.Success)
-          _md5 = match.Groups[1].Value;
+          match = _rgxMd5.Match (md5);
+          if (match.Success)
+            _md5 = match.Groups[1].Value;
 
+        }
+      } catch (Exception exc) {
+        Log (1, this, () => $"{exc.ToShortString ()}{Environment.NewLine}  \"{result}\"");
       }
     }
 

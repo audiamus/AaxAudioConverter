@@ -60,14 +60,30 @@ namespace audiamus.aaxconv {
 
       }
 
+      const int SHORTSTRING1 = 60;
+      const int SHORTSTRING2 = 30;
+      const int SHORTSTRING3 = 20;
+
       public void SetInfoLabel () {
-        bool succ = buildAndSetInfoLabel (EVerbosity.all);
-        if (!succ)
-          succ = buildAndSetInfoLabel (EVerbosity.phase_counters);
-        if (!succ)
-          succ = buildAndSetInfoLabel (EVerbosity.counters);
-        if (!succ)
-          buildAndSetInfoLabel (EVerbosity.min);
+        bool succ = buildAndSetInfoLabel (EVerbosity.all, -1);
+        if (succ)
+          return;
+        succ = buildAndSetInfoLabel (EVerbosity.all, SHORTSTRING1);
+        if (succ)
+          return;
+        succ = buildAndSetInfoLabel (EVerbosity.all, SHORTSTRING2);
+        if (succ)
+          return;
+        succ = buildAndSetInfoLabel (EVerbosity.all);
+        if (succ)
+          return;
+        succ = buildAndSetInfoLabel (EVerbosity.phase_counters);
+        if (succ)
+          return;
+        succ = buildAndSetInfoLabel (EVerbosity.counters);
+        if (succ)
+          return;
+        buildAndSetInfoLabel (EVerbosity.min);
       }
 
 
@@ -118,17 +134,17 @@ namespace audiamus.aaxconv {
         items.Sort ();
       }
 
-      private bool buildAndSetInfoLabel (EVerbosity verbosity) {
-        string text = buildInfoLabel (verbosity);
+      private bool buildAndSetInfoLabel (EVerbosity verbosity, int maxStrLen = SHORTSTRING3) {
+        string text = buildInfoLabel (verbosity, maxStrLen);
         return setInfoLabelText (text, verbosity == EVerbosity.min);
       }
 
-      private string buildInfoLabel (EVerbosity verbosity) {
+      private string buildInfoLabel (EVerbosity verbosity, int maxStrLen) {
         var sb = new StringBuilder ();
         sb.Append ($"{R.MsgProgStep} {_progbar.Value}/{_progbar.Maximum}");
         foreach (var kvp in _books) {
           var bi = kvp.Value;
-          sb.Append ($"; \"{bi.Title}\"");
+          sb.Append ($"; \"{bi.Title.Shorten(maxStrLen)}\"");
 
           if (verbosity.HasFlag (EVerbosity.counters)) { 
             if (bi.PartNumber.HasValue)
@@ -169,7 +185,7 @@ namespace audiamus.aaxconv {
               sb2.Append (',');
             sb2.Append (ch);
           }
-          sb2.Append ("...");
+          sb2.Append ('…');
           sb2.Append (items.Last ());
 
         }

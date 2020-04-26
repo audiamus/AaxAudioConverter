@@ -263,7 +263,7 @@ auf ursprüngliche Werte zurücksetzen?</value>
   <data name="MsgSomeDone" xml:space="preserve">
     <value>Teilweise erledigt</value>
   </data>
-  <data name="audiobook" xml:space="preserve">
+  <data name="Audiobook" xml:space="preserve">
     <value>Hörbuch</value>
   </data>
   <data name="automatic" xml:space="preserve">
@@ -283,6 +283,9 @@ auf ursprüngliche Werte zurücksetzen?</value>
   </data>
   <data name="transcoding" xml:space="preserve">
     <value>Transcodieren</value>
+  </data>
+  <data name="copying" xml:space="preserve">
+    <value>Kopieren</value>
   </data>
   <data name="MsgLangRestart" xml:space="preserve">
     <value>muss neu gestartet werden,
@@ -353,5 +356,32 @@ ist zur Installation bereit.</value>
   </data>
   <data name="as_is" xml:space="preserve">
     <value>wie vorgefunden</value>
+  </data>
+  <data name="author__author_book" xml:space="preserve">
+    <value>&lt;Autor&gt; \ &lt;Autor&gt; - &lt;Buch&gt;</value>
+  </data>
+  <data name="author__book" xml:space="preserve">
+    <value>&lt;Autor&gt; \ &lt;Buch&gt;</value>
+  </data>
+  <data name="author__book_author" xml:space="preserve">
+    <value>&lt;Autor&gt; \ &lt;Buch&gt; - &lt;Autor&gt;</value>
+  </data>
+  <data name="flat__author_book" xml:space="preserve">
+    <value>(flach) \ &lt;Autor&gt; - &lt;Buch&gt;</value>
+  </data>
+  <data name="flat__book_author" xml:space="preserve">
+    <value>(flach) \ &lt;Buch&gt; - &lt;Autor&gt;</value>
+  </data>
+  <data name="MsgAaxCopyFolder" xml:space="preserve">
+    <value>Zielordner für Kopien der Audible-Dateien</value>
+  </data>
+  <data name="MsgAaxCopyNoFolder" xml:space="preserve">
+    <value>Kein Zielordner gesetzt. Audible-Dateien werden nicht kopiert.</value>
+  </data>
+  <data name="MsgAaxCopyNoFolderYet" xml:space="preserve">
+    <value>Zielordner muss noch gesetzt werden.</value>
+  </data>
+  <data name="OpenFile" xml:space="preserve">
+    <value>Audible-Dateien hinzufügen</value>
   </data>
 </root>

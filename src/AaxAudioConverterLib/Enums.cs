@@ -1,4 +1,7 @@
-﻿namespace audiamus.aaxconv.lib {
+﻿using System;
+using System.ComponentModel;
+
+namespace audiamus.aaxconv.lib {
   public enum EConvFormat { mp3, mp4 }
   public enum EConvMode { single, chapters, splitChapters, splitTime}
 
@@ -52,6 +55,21 @@
   public enum EFlatFolderNaming {
     author_book,
     book_author,
+  }
+
+  [Flags]
+  [TypeConverter]
+  public enum EAaxCopyMode {
+    no = 0,
+    // book_first = 1,
+    // book_with_author = 2,
+    // folders_by_author = 4,
+    // folders = 8,
+    flat__author_book = 10,
+    flat__book_author = 11,
+    author__book = 12,
+    author__author_book = 14,
+    author__book_author = 15,
   }
 
 }

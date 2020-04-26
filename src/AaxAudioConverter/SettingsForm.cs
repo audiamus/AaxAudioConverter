@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -9,6 +10,7 @@ using audiamus.aaxconv.lib.ex;
 using audiamus.aux;
 using audiamus.aux.ex;
 using audiamus.aux.win;
+using Microsoft.WindowsAPICodePack.Dialogs;
 using static audiamus.aux.ApplEnv;
 
 namespace audiamus.aaxconv {
@@ -21,6 +23,8 @@ namespace audiamus.aaxconv {
     private readonly AaxAudioConverter _converter;
     private readonly Func<InteractionMessage, bool?> _callback;
     private bool _flag;
+
+    private ComboBoxEnumAdapter<EAaxCopyMode> _cbAdapterAaxCopyMode;
 
     public bool SettingsReset { get; private set; }
 
@@ -142,8 +146,13 @@ namespace audiamus.aaxconv {
       nudVeryShortChapter.Value = Settings.VeryShortChapterSec;
 
       comBoxM4B.SelectedIndex = Settings.M4B ? 1 : 0;
-    }
 
+      using (new ResourceGuard (x => _flag = x))
+        _cbAdapterAaxCopyMode = 
+          new ComboBoxEnumAdapter<EAaxCopyMode> (comBoxAaxCopy, this.GetDefaultResourceManager (), Settings.AaxCopyMode);
+
+      btnAaxCopyDir.Enabled = Settings.AaxCopyMode != default;
+    }
 
     private void selectAll () {
       for (int i = 0; i < listBoxActCode.Items.Count; i++)
@@ -266,6 +275,8 @@ namespace audiamus.aaxconv {
 
       Settings.M4B = comBoxM4B.SelectedIndex == 1;
 
+      Settings.AaxCopyMode = _cbAdapterAaxCopyMode.Value;
+
       if (Culture.ChangeLanguage (comBoxLang, Settings)) {
         Settings.Save ();
 
@@ -293,6 +304,25 @@ namespace audiamus.aaxconv {
     private void ckBoxFlatFolders_CheckedChanged (object sender, EventArgs e) {
       bool flatFolders = ckBoxFlatFolders.Checked;
       comBoxFlatFolders.Enabled = flatFolders;
+    }
+
+    private void comBoxAaxCopy_SelectedIndexChanged (object sender, EventArgs e) {
+      if (_flag || _cbAdapterAaxCopyMode is null)
+        return;
+      btnAaxCopyDir.Enabled = _cbAdapterAaxCopyMode.Value != default;
+      if (btnAaxCopyDir.Enabled) {
+        if (string.IsNullOrWhiteSpace (Settings.AaxCopyDirectory) || !Directory.Exists(Settings.AaxCopyDirectory))
+          MsgBox.Show (this, R.MsgAaxCopyNoFolderYet, R.MsgAaxCopyFolder, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        return;
+      }
+    }
+
+    private void btnAaxCopyDir_Click (object sender, EventArgs e) {
+      string dir = MainForm.SetDestinationDirectory (this, Settings.AaxCopyDirectory, R.Audible, this.Text, R.MsgAaxCopyFolder, R.MsgAaxCopyNoFolder);
+      if (dir is null)
+        return;
+
+      Settings.AaxCopyDirectory = dir;
     }
   }
 }

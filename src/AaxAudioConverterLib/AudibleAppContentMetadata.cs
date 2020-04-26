@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using audiamus.aux.ex;
 using Newtonsoft.Json;
@@ -10,7 +11,7 @@ using static audiamus.aux.Logging;
 namespace audiamus.aaxconv.lib {
   class AudibleAppContentMetadata {
 
-    struct ContentMetadataFile {
+    internal class ContentMetadataFile {
       public readonly string Filename;
       public readonly string ASIN;
 
@@ -25,16 +26,31 @@ namespace audiamus.aaxconv.lib {
     const string CONTENT_METADATA = "content_metadata_";
     const string JSON = ".json";
 
-    const string REGEX = CONTENT_METADATA + @"(\w+)"; 
-    static readonly Regex __regexAsin = new Regex (REGEX, RegexOptions.Compiled); 
+    const string RGX_ASIN_AAX = @"_([0-9A-Z]{10})(_|$|\.)";
+    static readonly Regex __regexAsinAax = new Regex (RGX_ASIN_AAX, RegexOptions.Compiled); 
 
-    public void GetContentMetadata (Book.BookPart part) {
+    public void GetContentMetadata (Book.BookPart part, bool fileOnly = false) {
+      var filename = part.AaxFileItem.FileName;
+      Log (3, this, () => $"\"{filename.SubstitUser ()}\", file only={fileOnly}");
 
-      string contentMetadataFile = findContentMetadataFile (part.AaxFileItem.FileName);
-      if (contentMetadataFile is null)
+      var contentMetadataFile = findContentMetadataFile (filename);
+      if (contentMetadataFile is null || contentMetadataFile.Filename is null) {
+        part.AaxFileItem.ContentMetadataFile = new ContentMetadataFile (null, null);
+        return;
+      }
+
+      part.AaxFileItem.ContentMetadataFile = contentMetadataFile;
+      string metafile = contentMetadataFile.Filename;
+      Log (3, this, () => $"\"{metafile.SubstitUser ()}\"");
+
+      if (fileOnly)
         return;
 
-      string json = File.ReadAllText (contentMetadataFile);
+      getContentMetaChapters (part, metafile);
+    }
+
+    private void getContentMetaChapters (Book.BookPart part, string metafile) {
+      string json = File.ReadAllText (metafile);
       var metadata = JsonConvert.DeserializeObject<json.AppContentMetadata> (json);
 
       // set the chapters
@@ -44,13 +60,11 @@ namespace audiamus.aaxconv.lib {
         return;
 
       // handle chapters with no name. Set '.' as a placeholder
-      var whites = metaChapters.Where (c => string.IsNullOrWhiteSpace (c.title)).ToList();
-      whites.ForEach (c => c.title = ".");
-
-
+      var whites = metaChapters.Where (c => string.IsNullOrWhiteSpace (c.title)).ToList ();
+      whites.ForEach (c => c.title = ".");     
 
       // handle chapters of zero length. Min length must be 1 ms.
-      var zeros = metaChapters.Where (c => c.length_ms == 0).ToList();
+      var zeros = metaChapters.Where (c => c.length_ms == 0).ToList ();
       Log (3, this, () => $"chapters: #zero={zeros.Count}, #white={whites.Count}");
       if (zeros.Count > 0) {
         zeros.ForEach (c => c.length_ms = 1);
@@ -60,6 +74,7 @@ namespace audiamus.aaxconv.lib {
           int chOffsNew = ch0.start_offset_ms + ch0.length_ms;
           if (ch.start_offset_ms >= chOffsNew)
             continue;
+          Log (3, this, () => $"duration fix for: {ch}");
           int chLenNew = ch.length_ms + ch.start_offset_ms - chOffsNew;
           if (chLenNew <= 0)
             chLenNew = 1;
@@ -70,10 +85,9 @@ namespace audiamus.aaxconv.lib {
 
       foreach (var ch in metaChapters) {
         var chapter = new Chapter ();
-        chapter.Name = ch.title.Trim();
+        chapter.Name = ch.title.Trim ();
         chapter.Time.Begin = TimeSpan.FromMilliseconds (ch.start_offset_ms);
         chapter.Time.End = TimeSpan.FromMilliseconds (ch.start_offset_ms + ch.length_ms);
-        Log (3, this, () => chapter.ToString());
         chapters.Add (chapter);
       }
       part.Chapters2 = chapters;
@@ -83,57 +97,67 @@ namespace audiamus.aaxconv.lib {
       part.BrandOutro = TimeSpan.FromMilliseconds (metadata.content_metadata.chapter_info.brandOutroDurationMs);
       part.Duration = TimeSpan.FromMilliseconds (metadata.content_metadata.chapter_info.runtime_length_ms);
 
-      Log (3, this, () => $"intro={part.BrandIntro.ToStringHMSm ()}, outro={part.BrandOutro.ToStringHMSm ()}, duration={part.Duration.ToStringHMSm ()}");
+      Log (3, this, () => chapterList(part));
     }
 
-    private string findContentMetadataFile (string fileName) {
-      // try to find content metadata files, either relative or absolute
-      Log (3, this, () => $"\"{fileName.SubstitUser ()}\"");
+    private string chapterList (Book.BookPart part) {
+      var sb = new StringBuilder ($"content meta chapters:");
+      sb.AppendLine();
+      if (!(part.Chapters2 is null))
+        foreach (var ch in part.Chapters2)
+          sb.AppendLine ($"  {ch}");
+      sb.Append ($"  intro={part.BrandIntro.ToStringHMSm ()}, outro={part.BrandOutro.ToStringHMSm ()}, duration={part.Duration.ToStringHMSm ()}");
+      return sb.ToString ();
+    }
 
-      // relative
-      string cntDir = Path.GetDirectoryName (fileName);
-      var diLocalState = Directory.GetParent (cntDir);
-      string localStateDir = diLocalState.FullName;
-      string cacheDir = Path.Combine (localStateDir, FILESCACHE);
-      var dirs = new List<string> ();
-      if (Directory.Exists (cacheDir))
-        dirs.Add (cacheDir);
-      else {
+
+    private ContentMetadataFile findContentMetadataFile (string fileName) {
+      // try to find content metadata file, either locally, relative or absolute
+
+      // find and isolate asin
+      string fn = Path.GetFileNameWithoutExtension (fileName);
+      var match = __regexAsinAax.Match (fn);
+      if (!match.Success) {
+        Log (3, this, () => $"ASIN not found.");
+        return null;
+      }
+      string asin = match.Groups[1].Value;
+      Log (3, this, () => $"ASIN={asin}");
+
+      string contentDir = Path.GetDirectoryName (fileName).StripUnc();
+      string contentmetafile = CONTENT_METADATA + asin + JSON;
+
+      {
+        // local
+        string localPath = Path.Combine (contentDir, contentmetafile).AsUncIfLong();
+        if (File.Exists (localPath))
+          return new ContentMetadataFile (localPath, asin);
+      }
+      {
+        // relative
+        var diLocalState = Directory.GetParent (contentDir);
+        string localStateDir = diLocalState.FullName;
+        string cacheDir = Path.Combine (localStateDir, FILESCACHE);
+
+        string relativePath = Path.Combine (cacheDir, contentmetafile).AsUncIfLong ();
+        if (File.Exists (relativePath))
+          return new ContentMetadataFile (relativePath, asin);
+      }
+      {
         // absolute
         var absDirs = ActivationCodeApp.GetPackageDirectories ();
         if (absDirs is null)
           return null;
-        foreach (var absDir in absDirs) {
-          cacheDir = Path.Combine (absDir, FILESCACHE);
-          if (Directory.Exists (cacheDir))
-            dirs.Add (cacheDir);
+        var cacheDirs = absDirs.Select (d => Path.Combine (d, FILESCACHE));
+        foreach (var cacheDir in cacheDirs) {
+          string absolutePath = Path.Combine (cacheDir, contentmetafile).AsUncIfLong ();
+          if (File.Exists (absolutePath))
+            return new ContentMetadataFile (absolutePath, asin);
         }
       }
 
-      if (dirs.Count == 0)
-        return null;
-
-      // get all content metadata filenames
-      var files = dirs.SelectMany (d => Directory.GetFiles (d, $"{CONTENT_METADATA}*{JSON}")).Distinct ();
-
-      // isolate asin
-      var asinFiles = new List<ContentMetadataFile> ();
-      foreach (string file in files) {
-        var fn = Path.GetFileNameWithoutExtension (file);
-        var match = __regexAsin.Match (fn);
-        if (!match.Success)
-          continue;
-        string asin = match.Groups[1].Value;
-        asinFiles.Add (new ContentMetadataFile (file, asin));
-      }
-
-      // find matching asin in our filename
-      var filnam = Path.GetFileNameWithoutExtension (fileName);
-      string contentMetafile = asinFiles.Where (k => filnam.Contains (k.ASIN)).Select (k => k.Filename).FirstOrDefault ();
-
-      Log (3, this, () => $"\"{contentMetafile.SubstitUser ()}\"");
-
-      return contentMetafile;
+      Log (3, this, () => $"{contentmetafile} not found.");
+      return null;
     }
   }
 }

@@ -53,7 +53,7 @@ namespace audiamus.aux.ex {
       if (string.IsNullOrWhiteSpace (value))
         return new string[0];
       if (separators is null)
-        separators = new [] { ',', ';' };
+        separators = new[] { ',', ';' };
 
       var values = value.Split (separators);
       values = values.Select (v => v.Trim ()).ToArray ();
@@ -93,6 +93,22 @@ namespace audiamus.aux.ex {
       return s1;
     }
 
+    const int MAXLEN_SHORTSTRING = 40;
+
+    public static string Shorten (this string s, int maxlen = 0) {
+      if (maxlen == 0)
+        maxlen = MAXLEN_SHORTSTRING;
+      if (maxlen < 0 || s.Length <= maxlen)
+        return s;
+
+      int partLen1 = maxlen * 2 / 3;
+      int partLen2 = maxlen - partLen1 - 1;
+
+      int p2 = s.Length - partLen2;
+      return s.Substring (0, partLen1).Trim() + '…' + s.Substring (p2).Trim();
+    }
+
+
   }
 
   public static class ExTimeSpan {
@@ -104,28 +120,59 @@ namespace audiamus.aux.ex {
   }
 
   public static class ExUnc {
-    public const string UNC_LOCAL = @"\\?\";
+    private const string UNC = @"UNC\";
+    private const string UNC_PFX = @"\\?\";
+    private const string UNC_NET = UNC_PFX + UNC;
 
     public static bool IsUnc (this string path) {
       string root = Path.GetPathRoot (path);
 
-      // Check if root starts with "\\", clearly an UNC
-      if (root.StartsWith (@"\\"))
-        return true;
-
-      // Check if the drive is a network drive
-      DriveInfo drive = new DriveInfo (root);
-      if (drive.DriveType == DriveType.Network)
+      if (root.StartsWith (UNC_PFX))
         return true;
 
       return false;
     }
 
+    public static string AsUncIfLong (this string path) {
+      if (path.IsUnc ())
+        return path;
+      path = Path.GetFullPath (path);
+      if (path.Length < 250)
+        return path;
+      return path.AsUnc ();
+    }
+
     public static string AsUnc (this string path) {
       if (path.IsUnc ())
         return path;
-      else
-        return UNC_LOCAL + path;
+      else {
+        string root = Path.GetPathRoot (path);
+
+        if (root.StartsWith (@"\\")) {
+          string s = path.Substring (2);
+          return UNC_NET + s;
+        } else
+          return UNC_PFX + path;
+      }
     }
+
+    public static string StripUnc (this string path) {
+      if (!path.IsUnc ())
+        return path;
+      else {
+        string root = Path.GetPathRoot (path);
+
+        if (root.StartsWith (UNC_NET)) {
+          string s = path.Substring (UNC_NET.Length);
+          return @"\\" + s;
+        } else
+          return path.Substring (UNC_PFX.Length);
+      }
+    }
+  }
+
+  public static class ExException {
+    public static string ToShortString (this Exception exc, bool withCRLF = false) =>
+      $"{exc.GetType ().Name}:{(withCRLF ? Environment.NewLine : " ")}\"{exc.Message.SubstitUser()}\"";
   }
 }

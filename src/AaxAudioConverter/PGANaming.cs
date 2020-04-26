@@ -86,7 +86,7 @@ namespace audiamus.aaxconv {
     }
 
     [PropertyOrder (10)]
-    [TypeConverter (typeof (LongTitleConverterRM))]
+    [TypeConverter (typeof (EnumConverterRM<ELongTitle>))]
     public ELongTitle LongBookTitle {
       get => DataSource.LongBookTitle;
       set => DataSource.LongBookTitle = value;

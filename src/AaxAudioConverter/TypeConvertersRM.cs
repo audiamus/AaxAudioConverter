@@ -18,8 +18,10 @@ namespace audiamus.aaxconv {
     }
   }
 
-  class LongTitleConverterRM : LongTitleConverter {
-    public LongTitleConverterRM () {
+  class EnumConverterRM<TEnum> : EnumConverter<TEnum>
+     where TEnum : struct, Enum 
+  {
+    public EnumConverterRM () {
       ResourceManager = this.GetDefaultResourceManager();
     }
   }

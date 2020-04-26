@@ -80,12 +80,57 @@ namespace audiamus.aaxconv.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Audible.
+        /// </summary>
+        internal static string Audible {
+            get {
+                return ResourceManager.GetString("Audible", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap Audio48 {
             get {
                 object obj = ResourceManager.GetObject("Audio48", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Audiobook.
+        /// </summary>
+        internal static string Audiobook {
+            get {
+                return ResourceManager.GetString("Audiobook", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;author&gt; \ &lt;author&gt; - &lt;book&gt;.
+        /// </summary>
+        internal static string author__author_book {
+            get {
+                return ResourceManager.GetString("author__author_book", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;author&gt; \ &lt;book&gt;.
+        /// </summary>
+        internal static string author__book {
+            get {
+                return ResourceManager.GetString("author__book", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;author&gt; \ &lt;book&gt; - &lt;author&gt;.
+        /// </summary>
+        internal static string author__book_author {
+            get {
+                return ResourceManager.GetString("author__book_author", resourceCulture);
             }
         }
         
@@ -159,6 +204,24 @@ namespace audiamus.aaxconv.Properties {
         internal static string FilterExeFiles {
             get {
                 return ResourceManager.GetString("FilterExeFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (flat) \ &lt;author&gt; - &lt;book&gt;.
+        /// </summary>
+        internal static string flat__author_book {
+            get {
+                return ResourceManager.GetString("flat__author_book", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (flat) \ &lt;book&gt; - &lt;author&gt;.
+        /// </summary>
+        internal static string flat__book_author {
+            get {
+                return ResourceManager.GetString("flat__book_author", resourceCulture);
             }
         }
         
@@ -268,6 +331,34 @@ namespace audiamus.aaxconv.Properties {
             get {
                 object obj = ResourceManager.GetObject("Icon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destination folder for Audible file copies.
+        /// </summary>
+        internal static string MsgAaxCopyFolder {
+            get {
+                return ResourceManager.GetString("MsgAaxCopyFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No destination folder set.
+        ///Copies will not be made. .
+        /// </summary>
+        internal static string MsgAaxCopyNoFolder {
+            get {
+                return ResourceManager.GetString("MsgAaxCopyNoFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Destination folder must also be set..
+        /// </summary>
+        internal static string MsgAaxCopyNoFolderYet {
+            get {
+                return ResourceManager.GetString("MsgAaxCopyNoFolderYet", resourceCulture);
             }
         }
         
@@ -605,6 +696,15 @@ namespace audiamus.aaxconv.Properties {
         internal static string no {
             get {
                 return ResourceManager.GetString("no", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add Audible files.
+        /// </summary>
+        internal static string OpenFile {
+            get {
+                return ResourceManager.GetString("OpenFile", resourceCulture);
             }
         }
         

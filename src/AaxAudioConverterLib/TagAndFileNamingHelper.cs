@@ -604,7 +604,7 @@ namespace audiamus.aaxconv.lib {
       try {
         tagfile = TagLib.File.Create (_track.FileName);
       } catch (Exception exc) {
-        Log (1, this, $"{nameof (TagLib.File.Create)}, {exc.GetType ().Name}: {exc.Message.SubstitUser()}");
+        Log (1, this, $"{nameof (TagLib.File.Create)}, {exc.ToShortString()}");
         return false;
       }
 
@@ -682,7 +682,7 @@ namespace audiamus.aaxconv.lib {
         try {
           tagfile.Save ();
         } catch (Exception exc) {
-          Log (1, this, $"{nameof(tagfile.Save)}, {exc.GetType ().Name}: {exc.Message.SubstitUser()}");
+          Log (1, this, $"{nameof(tagfile.Save)}, {exc.ToShortString()}");
           return false;
         }
 

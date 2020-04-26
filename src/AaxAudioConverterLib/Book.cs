@@ -186,8 +186,6 @@ namespace audiamus.aaxconv.lib {
 
       var fi = Parts[0].AaxFileItem;
 
-      //Author = fi.Author.Prune ();
-
       string title = SortingTitle;
       if (settings.LongBookTitle != ELongTitle.no) 
         title = title.Replace (" -:", ":");
@@ -195,9 +193,6 @@ namespace audiamus.aaxconv.lib {
       Match match = _rgxTitle.Match (title);
       if (match.Success)
         title = match.Groups[1].Value.Trim ();
-      //else
-      //  title = SortingTitle;
-      //Title = title.Prune ();
 
       if (!settings.AddnlValTitlePunct.Contains ('-')) {
         int idx = title.IndexOf (" -");
@@ -238,8 +233,10 @@ namespace audiamus.aaxconv.lib {
     }
 
     public static string PruneTitle (string title) {
-      string replaced = title.Replace (':', ';');
-      replaced = replaced.Replace ('/', ',');
+      string replaced = title
+        .Replace (':', ';')
+        .Replace ('/', ';')
+        .Replace (" ;", ";");
       return replaced.Prune ();
     }
 

@@ -2,12 +2,12 @@
 using System.IO;
 using System.Linq;
 using audiamus.aux.ex;
+using AA = audiamus.aaxconv.lib.AudibleAppContentMetadata;
 
 namespace audiamus.aaxconv.lib {
   public class AaxFileItem : IEquatable<AaxFileItem> {
     public const string EXT_JPG = ".jpg";
     public const string EXT_PNG = ".png";
-
 
     public string FileName { get; private set; }
     public bool AA { get; private set; }
@@ -31,7 +31,7 @@ namespace audiamus.aaxconv.lib {
     public uint NumChapters { get; set; }
     public bool Converted { get; set; }
     public CustomTagFileNames CustomNames { get; set; }
-
+    internal AA.ContentMetadataFile ContentMetadataFile { get; set; }
 
     public AaxFileItem (string path) {
       FileName = path;

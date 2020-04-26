@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComboBoxEnumAdapter.cs" />
     <Compile Include="Culture.cs" />
     <Compile Include="RtfBuilder.cs" />
     <Compile Include="SystemMenu.cs" />

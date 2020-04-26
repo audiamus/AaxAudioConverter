@@ -123,9 +123,18 @@
   <data name="btnReset.ToolTip" xml:space="preserve">
     <value>Alle Einstellungen zurück auf Standardwerte setzen.</value>
   </data>
+  <data name="btnOK.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="lblUsrActCode.Text" xml:space="preserve">
     <value>Benutzereingabe für 
 Audible Aktivierungscode</value>
+  </data>
+  <data name="lblUsrActCode.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="comBoxM4B.ToolTip" xml:space="preserve">
     <value>MP4-Audio kann als .m4a- oder .m4b-Datei gespeichert werden.
@@ -134,18 +143,39 @@ Der Unterschied besteht nur im Namen, der Inhalt bleibt derselbe. </value>
   <data name="lblFfmpegLoc.Text" xml:space="preserve">
     <value>Pfad zu FFmpeg.exe</value>
   </data>
+  <data name="lblFfmpegLoc.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="btnUsrActCode.Text" xml:space="preserve">
     <value>Bearbeiten</value>
+  </data>
+  <data name="btnUsrActCode.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="btnFfmpegLoc.Text" xml:space="preserve">
     <value>Bearbeiten</value>
   </data>
+  <data name="btnFfmpegLoc.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="listBoxActCode.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="btnRegActCode.Text" xml:space="preserve">
     <value>Einblenden</value>
+  </data>
+  <data name="btnRegActCode.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel2.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="lblCustTitleChars.Text" xml:space="preserve">
     <value>Zusätzlich gültige Interpunktions-
 zeichen für gefilterten Buchtitel</value>
+  </data>
+  <data name="lblCustTitleChars.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="txtBoxCustTitleChars.ToolTip" xml:space="preserve">
     <value>Interpunktionszeichen, die im Buchtitel verbleiben 
@@ -160,6 +190,9 @@ Mit Leerzeichen oder Semikolon trennen.</value>
     <value>Benutzerdefinierte Suchwörter für "Teil"
 im Titel mehrteiliger Bücher</value>
   </data>
+  <data name="lblCustPart.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="txtBoxPartName.ToolTip" xml:space="preserve">
     <value>Benutzerdefinierter Präfix für "Teil"-Ordner.</value>
   </data>
@@ -169,8 +202,14 @@ im Titel mehrteiliger Bücher</value>
 &lt;Standard&gt; setzt zu 'Teil''; 
 &lt;Benutzerdefiniert&gt; eigene Angabe.</value>
   </data>
+  <data name="panel3.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="lblExtraMetaFiles.Text" xml:space="preserve">
     <value>Zusätzliche Dateien für Buch-Info und Titelbild</value>
+  </data>
+  <data name="lblExtraMetaFiles.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="ckBoxExtraMetaFiles.ToolTip" xml:space="preserve">
     <value>Die Buchbeschreibung wird in jede erzeugte Audiodatei 
@@ -184,16 +223,28 @@ und separate Text- und Bild-Datei mit der selben Infoirmation. </value>
   <data name="label2.Text" xml:space="preserve">
     <value>sek Dauer</value>
   </data>
+  <data name="label2.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="nudVeryShortChapter.ToolTip" xml:space="preserve">
     <value>0 um Option auszuschalten</value>
+  </data>
+  <data name="panel6.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label4.Text" xml:space="preserve">
     <value>Sehr kurze Kapitel am Anfang und
  Ende überspringen, wenn vorhanden </value>
   </data>
+  <data name="label4.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="label3.Text" xml:space="preserve">
     <value>Kurze Kapitel zwischen Buchteilen
 überspringen (Fortsetzung, Titel/Autor)</value>
+  </data>
+  <data name="label3.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
     <value>56, 13</value>
@@ -201,14 +252,29 @@ und separate Text- und Bild-Datei mit der selben Infoirmation. </value>
   <data name="label1.Text" xml:space="preserve">
     <value>sek Dauer</value>
   </data>
+  <data name="label1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="nudShortChapter.ToolTip" xml:space="preserve">
     <value>0 um Option auszuschalten</value>
+  </data>
+  <data name="panel5.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="lblFlatFolders.Text" xml:space="preserve">
     <value>Flache Ordnerstruktur und Namensgebung</value>
   </data>
+  <data name="lblFlatFolders.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comBoxFlatFolders.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="ckBoxFlatFolders.ToolTip" xml:space="preserve">
     <value>Keine Ordnerhierarchie für Autor und Buchtitel.</value>
+  </data>
+  <data name="panel4.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="comboBoxNamedChapters.Items" xml:space="preserve">
     <value>Nein</value>
@@ -233,34 +299,20 @@ wenn die Namen nicht eindeutig sind. </value>
   <data name="lblRegActCode.Text" xml:space="preserve">
     <value>Audible Manager/App Aktivierungscode(s) </value>
   </data>
+  <data name="lblRegActCode.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="lblPartName.Text" xml:space="preserve">
     <value>Präfix für "Teil"-Ordner.</value>
   </data>
-  <data name="lblLang.Text" xml:space="preserve">
-    <value>Sprache</value>
-  </data>
-  <data name="comBoxUpdate.Items" xml:space="preserve">
-    <value>Ausgeschaltet</value>
-  </data>
-  <data name="comBoxUpdate.Items1" xml:space="preserve">
-    <value>Aufforderung zum Herunterladen</value>
-  </data>
-  <data name="comBoxUpdate.Items2" xml:space="preserve">
-    <value>Aufforderung zur Installation</value>
-  </data>
-  <data name="lblUpdate.Text" xml:space="preserve">
-    <value>Online-Update</value>
-  </data>
-  <data name="ckBoxFileAssoc.ToolTip" xml:space="preserve">
-    <value>Wenn gesetzt, startet AaxAudioConverter bei 
-Doppelklick auf eine .aax- oder .aa-Dateii automatisch.</value>
-  </data>
-  <data name="lblFileAssoc.Text" xml:space="preserve">
-    <value>.aax- und .aa-Dateien mit 
-AaxAudioConverter verknüpfen</value>
+  <data name="lblPartName.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="lblLaunchPlayer.Text" xml:space="preserve">
     <value>Automatische Wiedergabe nach Konvertierung</value>
+  </data>
+  <data name="lblLaunchPlayer.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="ckBoxLaunchPlayer.ToolTip" xml:space="preserve">
     <value>Wenn gesetzt, wird die voreingestellte Medienwiedergabe gestartet.
@@ -275,10 +327,79 @@ wenn diese in Unicode UTF8 geschrieben sind.</value>
     <value>ISO Latin1-Kodierung statt UTF8
  für .m3u Wiedergabeliste</value>
   </data>
+  <data name="lblLatin1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="lblM4B.Text" xml:space="preserve">
     <value>Dateityp für MP4-Audio</value>
   </data>
+  <data name="lblM4B.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lblLang.Text" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
+  <data name="lblLang.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comBoxLang.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comBoxUpdate.Items" xml:space="preserve">
+    <value>Ausgeschaltet</value>
+  </data>
+  <data name="comBoxUpdate.Items1" xml:space="preserve">
+    <value>Aufforderung zum Herunterladen</value>
+  </data>
+  <data name="comBoxUpdate.Items2" xml:space="preserve">
+    <value>Aufforderung zur Installation</value>
+  </data>
+  <data name="comBoxUpdate.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lblUpdate.Text" xml:space="preserve">
+    <value>Online-Update</value>
+  </data>
+  <data name="lblUpdate.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ckBoxFileAssoc.ToolTip" xml:space="preserve">
+    <value>Wenn gesetzt, startet AaxAudioConverter bei 
+Doppelklick auf eine .aax- oder .aa-Dateii automatisch.</value>
+  </data>
+  <data name="lblFileAssoc.Text" xml:space="preserve">
+    <value>.aax- und .aa-Dateien mit 
+AaxAudioConverter verknüpfen</value>
+  </data>
+  <data name="lblFileAssoc.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lblAaxCopy.Text" xml:space="preserve">
+    <value>Audible .aax/.aa-Datei(en) in zweiten
+ Ordner kopieren und umbenennen</value>
+  </data>
+  <data name="lblAaxCopy.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comBoxAaxCopy.ToolTip" xml:space="preserve">
+    <value>Ein gemeinsamer Ordner oder Ordner je Autor.</value>
+  </data>
+  <data name="btnAaxCopyDir.Text" xml:space="preserve">
+    <value>Ordner ...</value>
+  </data>
+  <data name="panel8.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="tableLayoutPanel1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel7.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Grundeinstellungen</value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>

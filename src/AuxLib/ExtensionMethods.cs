@@ -31,6 +31,12 @@ namespace audiamus.aux.ex {
           n == 0 ? 1 : 1 + (int)Math.Log10 (Math.Abs (n));
   }
 
+  public static class ExNullable {
+    public static bool IsNullOrWhiteSpace (this string s) => string.IsNullOrWhiteSpace (s); 
+    public static bool IsNullOrEmpty (this string s) => string.IsNullOrEmpty (s); 
+    public static bool IsNullOrEmpty<T> (this IEnumerable<T> e) => e is null || e.Count() == 0; 
+    public static bool IsNull (this object o) => o is null;
+  }
 
   public static class ExString {
     public static string Combine (this IEnumerable<string> values, char separator = ';') {

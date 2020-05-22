@@ -30,7 +30,7 @@ namespace audiamus.aaxconv {
     private readonly AaxAudioConverter _converter;
     private readonly List<AaxFileItemEx> _fileItems = new List<AaxFileItemEx> ();
     private readonly ListViewColumnSorter _lvwColumnSorter;
-    private readonly ISettings _settings = Properties.Settings.Default;
+    private readonly IAppSettings _settings = Properties.Settings.Default;
     private readonly PGANaming _pgaNaming;
     private readonly ProgressProcessor _progress;
     private readonly InteractionCallbackHandler<EInteractionCustomCallback> _interactionHandler;
@@ -51,7 +51,7 @@ namespace audiamus.aaxconv {
     #endregion Private Fields
     #region Private Properties
 
-    private ISettings Settings => _settings;
+    private IAppSettings Settings => _settings;
     private string DefaultInputDirectory => defaultInputDirectory ();
 
     #endregion Private Properties
@@ -60,7 +60,7 @@ namespace audiamus.aaxconv {
     public MainForm () {
       InitializeComponent ();
 
-      Log (1, this, () => $"{ApplName} {AssemblyVersion}");
+      Log (1, this, () => $"{ApplName} {AssemblyVersion} on Windows {OSVersion}");
 
       _systemMenu = new SystemMenu (this);
       _systemMenu.AddCommand (R.SysMenuItemAbout, onSysMenuAbout, true);
@@ -722,9 +722,11 @@ namespace audiamus.aaxconv {
       } else { 
         intro = R.MsgAllDone;
         mbIcon = MessageBoxIcon.Information;
-      } 
+      }
 
-      MsgBox.Show (this, $"{intro}. {converted.Count()} {(cnt == 1 ? R.file : R.files)} {R.MsgConverted}.", this.Text, 
+      string msg = $"{intro}. {converted.Count ()} {(cnt == 1 ? R.file : R.files)} {R.MsgConverted} in {_converter.StopwatchElapsed.ToStringHMS()}";
+
+      MsgBox.Show (this, msg, this.Text, 
         MessageBoxButtons.OK, mbIcon);
 
       _progress.Reset ();
@@ -746,6 +748,7 @@ namespace audiamus.aaxconv {
     }
 
     private void btnAbort_Click (object sender, EventArgs e) {
+      Log0 (3, this);
       _cts?.Cancel ();
       btnAbort.Enabled = false;
     }

@@ -28,11 +28,11 @@ namespace audiamus.aaxconv.lib {
     const string CHAPTER = "[CHAPTER]";
     const string FFMETADATA = ";FFMETADATA1";
 
-    public FFMetaData (List<Chapter> chapters = null) {
+    public FFMetaData (IEnumerable<Chapter> chapters = null) {
       if (chapters is null)
         Chapters = new List<Chapter> ();
       else
-        Chapters = chapters;
+        Chapters = chapters.ToList();
     }
 
     public bool Read (string filename) {

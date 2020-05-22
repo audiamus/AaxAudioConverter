@@ -10,13 +10,13 @@ namespace audiamus.aaxconv {
   using R = Properties.Resources;
 
   partial class FFmpegLocationForm : Form {
-    readonly ISettings _settings = Properties.Settings.Default;
+    readonly IAppSettings _settings = Properties.Settings.Default;
     readonly string _origFFMpegDirectory;
 
     readonly AaxAudioConverter _converter;
     readonly Func<InteractionMessage, bool?> _callback;
 
-    private ISettings Settings => _settings;
+    private IAppSettings Settings => _settings;
 
 
     public FFmpegLocationForm (AaxAudioConverter converter, Func<InteractionMessage, bool?> callback) {

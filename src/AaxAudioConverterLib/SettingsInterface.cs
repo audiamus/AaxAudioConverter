@@ -1,4 +1,6 @@
-﻿namespace audiamus.aaxconv.lib {
+﻿using audiamus.aux.diagn;
+
+namespace audiamus.aaxconv.lib {
   public interface INamingSettings : ITitleNamingSettings {
     EFileNaming FileNaming { get; set; }
     ETitleNaming TitleNaming { get; set; }
@@ -19,6 +21,7 @@
   }
 
   public interface IActivationSettings {
+    [ToString (typeof(ToStringConverterActivationCode))]
     uint? ActivationCode { get; set; }
   }
 
@@ -38,13 +41,17 @@
 
   public interface IAaxCopySettings {
     EAaxCopyMode AaxCopyMode{ get; set; }
+    [ToString (typeof(ToStringConverterPath))]
     string AaxCopyDirectory{ get; set; }
   }
 
-  public interface ISettings : INamingSettingsEx, IActivationSettings, ITitleSettingsEx, IUpdateSetting, IAaxCopySettings {
+  public interface IConvSettings : INamingSettingsEx, IActivationSettings, ITitleSettingsEx, IUpdateSetting, IAaxCopySettings {
     bool NonParallel { get; }
+    [ToString (typeof(ToStringConverterPath))]
     string InputDirectory { get; set; }
+    [ToString (typeof(ToStringConverterPath))]
     string OutputDirectory { get; set; }
+    [ToString (typeof(ToStringConverterPath))]
     string FFMpegDirectory { get; set; }
     EConvFormat ConvFormat { get; set; }
     EConvMode ConvMode { get; set; }

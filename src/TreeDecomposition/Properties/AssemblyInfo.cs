@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("AaxAudioConverterLib")]
+[assembly: AssemblyTitle("TreeDecomposition")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("audiamus")]
-[assembly: AssemblyProduct("AaxAudioConverterLib")]
-[assembly: AssemblyCopyright("Copyright © 2019 - 2020 audiamus")]
+[assembly: AssemblyProduct("TreeDecomposition")]
+[assembly: AssemblyCopyright("Copyright © audiamus 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("724c151f-65e8-4108-8cfb-ae2fd4c63033")]
+[assembly: Guid("bbefb463-1f6c-4d35-af83-b5c3cea9915e")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,5 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion ("1.12.0.0")]
-[assembly: AssemblyFileVersion ("1.12.0.0")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

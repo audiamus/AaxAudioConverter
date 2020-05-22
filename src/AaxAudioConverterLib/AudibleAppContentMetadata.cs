@@ -136,12 +136,14 @@ namespace audiamus.aaxconv.lib {
       {
         // relative
         var diLocalState = Directory.GetParent (contentDir);
-        string localStateDir = diLocalState.FullName;
-        string cacheDir = Path.Combine (localStateDir, FILESCACHE);
+        if (!(diLocalState is null)) {
+          string localStateDir = diLocalState.FullName;
+          string cacheDir = Path.Combine (localStateDir, FILESCACHE);
 
-        string relativePath = Path.Combine (cacheDir, contentmetafile).AsUncIfLong ();
-        if (File.Exists (relativePath))
-          return new ContentMetadataFile (relativePath, asin);
+          string relativePath = Path.Combine (cacheDir, contentmetafile).AsUncIfLong ();
+          if (File.Exists (relativePath))
+            return new ContentMetadataFile (relativePath, asin);
+        }
       }
       {
         // absolute

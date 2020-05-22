@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -26,6 +27,8 @@ namespace audiamus.aaxconv.lib {
     }
 
     public class BookPart {
+      public Book Book { get; }
+
       private bool _namedChaptersNotIn2;
 
       public AaxFileItem AaxFileItem { get; private set; }
@@ -39,11 +42,14 @@ namespace audiamus.aaxconv.lib {
       public TimeSpan BrandOutro { get; set; }
       public TimeSpan Duration { get; set; }
 
-      public IReadOnlyList<Chapter> NamedChapters => HasNamedChapters ? (_namedChaptersNotIn2 ? Chapters : Chapters2) : Chapters; 
+      public string TmpFileName { get; set; }
+
+      public IReadOnlyList<Chapter> NamedChapters => HasNamedChapters ? (_namedChaptersNotIn2 ? Chapters : Chapters2) : Chapters;
 
       public bool HasNamedChapters => Chapters?.Count > 0 && Chapters2?.Count > 0;
 
-      public BookPart (AaxFileItem fi, int part = 0) {
+      public BookPart (Book book, AaxFileItem fi, int part = 0) {
+        Book = book;
         AaxFileItem = fi;
         PartNumber = part;
       }
@@ -59,7 +65,7 @@ namespace audiamus.aaxconv.lib {
         string part = string.Empty;
         if (PartNumber != 0)
           part = $" Part {PartNumber}";
-        return $"{AaxFileItem.BookTitle} {part}, {AaxFileItem.Duration.ToStringHMSm()}, #Ch={Chapters?.Count}, #Tr={Tracks?.Count}";
+        return $"{AaxFileItem.BookTitle} {part}, {AaxFileItem.Duration.ToStringHMSm ()}, #Ch={Chapters?.Count}, #Tr={Tracks?.Count}";
       }
 
     }
@@ -79,6 +85,8 @@ namespace audiamus.aaxconv.lib {
 
     public string DefaultAudioFile { get; internal set; }
 
+    public Stopwatch Stopwatch {get;} = new Stopwatch ();
+
     internal Caption FileCaption { get; set; }
     internal Caption TagCaption { get; set; }
     internal CustomTagFileNames CustomNames { get; set; }
@@ -88,7 +96,7 @@ namespace audiamus.aaxconv.lib {
     public Book (AaxFileItem fi) : this (fi.BookTitle) => AddPart (fi);
 
     public void AddPart (AaxFileItem fi, int part = 0) {
-      Parts.Add (new BookPart (fi, part));
+      Parts.Add (new BookPart (this, fi, part));
       if (CustomNames is null)
         CustomNames = fi.CustomNames;
       CheckParts ();

@@ -44,8 +44,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="taglib-sharp, Version=2.2.0.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0, processorArchitecture=MSIL">
-      <HintPath>..\packages\TagLibSharp-patched.2.2.0-beta.1\lib\net462\taglib-sharp.dll</HintPath>
+    <Reference Include="TagLibSharp, Version=2.2.0.0, Culture=neutral, PublicKeyToken=db62eba44689b5b0, processorArchitecture=MSIL">
+      <HintPath>..\packages\TagLibSharp.2.2.0\lib\net45\TagLibSharp.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -65,6 +65,7 @@
     <Compile Include="Chapter.cs" />
     <Compile Include="Interfaces.cs" />
     <Compile Include="ThreadProgress.cs" />
+    <Compile Include="ToStringConverters.cs" />
     <Compile Include="Track.cs" />
     <Compile Include="ProgressMessage.cs" />
     <Compile Include="ResourceInterface.cs" />
@@ -86,6 +87,10 @@
     <ProjectReference Include="..\AuxLib\AuxLib.csproj">
       <Project>{64C35BCC-BF7A-47BE-89F2-7ABB470BDB0B}</Project>
       <Name>AuxLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TreeDecomposition\TreeDecomposition.csproj">
+      <Project>{BBEFB463-1F6C-4D35-AF83-B5C3CEA9915E}</Project>
+      <Name>TreeDecomposition</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

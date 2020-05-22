@@ -99,7 +99,7 @@ namespace audiamus.aaxconv {
     #endregion Public Properties
     #region Public Constructors
 
-    public PGANaming (ISettings datasource) : base (datasource) 
+    public PGANaming (IAppSettings datasource) : base (datasource) 
     {
       ResourceManager = this.GetDefaultResourceManager ();
       Update ();

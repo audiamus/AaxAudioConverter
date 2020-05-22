@@ -8,11 +8,11 @@ namespace audiamus.aaxconv {
   using R = Properties.Resources;
 
   partial class GenresForm : Form {
-    private readonly lib.ISettings _settings;
+    private readonly lib.IConvSettings _settings;
 
-    private lib.ISettings Settings => _settings;
+    private lib.IConvSettings Settings => _settings;
 
-    public GenresForm (lib.ISettings settings) {
+    public GenresForm (lib.IConvSettings settings) {
       InitializeComponent ();
       _settings = settings;
 

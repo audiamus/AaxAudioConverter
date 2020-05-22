@@ -1,15 +1,16 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 
 namespace audiamus.aux {
   public static class ApplEnv {
 
     static readonly char[] INVALID_CHARS = Path.GetInvalidFileNameChars ();
 
+    public static Version OSVersion { get; } = getOSVersion();
 
     public static Assembly EntryAssembly { get; } = Assembly.GetEntryAssembly ();
     public static Assembly ExecutingAssembly { get; } = Assembly.GetExecutingAssembly ();
@@ -51,6 +52,22 @@ namespace audiamus.aux {
           company.Replace (c, ' ');
       company = company.Replace (' ', '_');
       return company;
+    }
+
+
+    private static Version getOSVersion () {
+      const string REGEX = @"\s([0-9.]+)";
+      string os = RuntimeInformation.OSDescription;
+      var regex = new Regex (REGEX);
+      var match = regex.Match (os);
+      if (!match.Success)
+        return new Version ();
+      string osvers = match.Groups[1].Value;
+      try {
+        return new Version (osvers);
+      } catch (Exception) {
+        return new Version ();
+      }
     }
   }
 }

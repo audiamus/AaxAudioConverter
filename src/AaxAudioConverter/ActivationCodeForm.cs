@@ -12,13 +12,13 @@ namespace audiamus.aaxconv {
   using R = Properties.Resources;
 
   partial class ActivationCodeForm : Form {
-    readonly ISettings _settings = Properties.Settings.Default;
+    readonly IAppSettings _settings = Properties.Settings.Default;
     readonly bool _suppressMsgBox;
     uint? _code;
 
     static readonly Regex _rgx = new Regex (@"^(([a-fA-F0-9]{2})\W?){3}([a-fA-F0-9]{2})$", RegexOptions.Compiled);
 
-    private ISettings Settings => _settings;
+    private IAppSettings Settings => _settings;
 
     public ActivationCodeForm (bool suppressMsgBox = false) {
       InitializeComponent ();

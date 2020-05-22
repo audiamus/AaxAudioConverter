@@ -11,15 +11,15 @@ namespace audiamus.aaxconv {
   using R = Properties.Resources;
 
   class FileAssoc {
-    readonly ISettings _settings;
+    readonly IAppSettings _settings;
     readonly IEnumerable<string> _extensions = new[] { ".aax", ".aa" };
     readonly string _fileDesc;
     readonly Assembly _assembly;
     readonly Control _owner;
 
-    private ISettings Settings => _settings;
+    private IAppSettings Settings => _settings;
 
-    public FileAssoc (ISettings settings, Control owner) {
+    public FileAssoc (IAppSettings settings, Control owner) {
       _settings = settings;
       _assembly = EntryAssembly;
       _owner = owner;

@@ -6,7 +6,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading;
 using audiamus.aaxconv.lib.ex;
 using audiamus.aux;
 using audiamus.aux.ex;
@@ -136,7 +135,7 @@ namespace audiamus.aaxconv.lib {
       _resources = resources;
       _settings = settings;
       _book = book;
-      if (settings is ISettings s) {
+      if (settings is IConvSettings s) {
         _convFormat = s.ConvFormat;
         _convMode = s.ConvMode;
       }
@@ -158,10 +157,10 @@ namespace audiamus.aaxconv.lib {
     public static bool WriteMetaData (IResources resources, INamingSettingsEx settings, Book book, Track track) => 
       new TagAndFileNamingHelper (resources, settings, book, track).writeMetaData ();
 
-    public static void SetFileName (IResources resources, ISettings settings, Book book, Track track) => 
+    public static void SetFileName (IResources resources, IConvSettings settings, Book book, Track track) => 
       new TagAndFileNamingHelper (resources, settings, book, track).setFileName ();
 
-    public static void SetFileNames (IResources resources, ISettings settings, Book book) => 
+    public static void SetFileNames (IResources resources, IConvSettings settings, Book book) => 
       new TagAndFileNamingHelper (resources, settings, book).setFileNames ();
 
     public static string GetPartDirectoryName (IResources resources, INamingSettingsEx settings, Book book, Book.BookPart part) =>
@@ -596,7 +595,8 @@ namespace audiamus.aaxconv.lib {
 
     private bool writeMetaData () {
       _isFileName = false;
-      
+      _track.Title = Title; // save for playlist
+
       if (_aaxFileItem is null)
         return false;
       var afi = _aaxFileItem;
@@ -604,18 +604,28 @@ namespace audiamus.aaxconv.lib {
       try {
         tagfile = TagLib.File.Create (_track.FileName);
       } catch (Exception exc) {
-        Log (1, this, $"{nameof (TagLib.File.Create)}, {exc.ToShortString()}");
+        Log (1, this, $"{nameof (TagLib.File.Create)}, {exc.ToShortString ()}");
         return false;
       }
 
       using (tagfile) {
         var tags = tagfile.Tag;
 
+        if (tags.TagTypes.HasFlag (TagLib.TagTypes.Id3v2) && ApplEnv.OSVersion.Major < 10) {
+          if (tags is TagLib.NonContainer.Tag nct) {
+            var t = nct.Tags.Where (k => k.TagTypes.HasFlag (TagLib.TagTypes.Id3v2)).FirstOrDefault ();
+            if (t is TagLib.Id3v2.Tag id3v2) {
+              id3v2.Version = 3;
+              Log (3, this, $"track=\"{Title}\" \"{Path.GetFileName(_track.FileName)}\": {nameof (TagLib.Id3v2)} downgraded to version {id3v2.Version}");
+            }
+          }
+        }
+
         // album
         tags.Album = _book.TitleTag;
 
         // album artist  
-        tags.AlbumArtists = _book.AuthorTag.SplitTrim (); 
+        tags.AlbumArtists = _book.AuthorTag.SplitTrim ();
 
         // performer/narrator
         if (Settings.Narrator) {
@@ -649,14 +659,6 @@ namespace audiamus.aaxconv.lib {
         string genre = _book.CustomNames?.GenreTag ?? getGenre (afi);
         tags.Genres = new string[] { genre };
 
-        // cover picture
-        if (!(afi.Cover is null)) {
-          var pic = new TagLib.Picture (new TagLib.ByteVector (afi.Cover)) {
-            Type = TagLib.PictureType.FrontCover
-          };
-          tags.Pictures = new TagLib.IPicture[] { pic };
-        }
-
         // copyright
         tags.Copyright = afi.Copyright;
 
@@ -671,7 +673,6 @@ namespace audiamus.aaxconv.lib {
 
         // title 
         tags.Title = Title;
-        _track.Title = Title; // save for playlist
 
         // track
         tags.Track = (uint)_numbers.nTrk;
@@ -679,10 +680,19 @@ namespace audiamus.aaxconv.lib {
         // track count
         tags.TrackCount = (uint)_numbers.nTrks;
 
+
+        // cover picture
+        if (!(afi.Cover is null)) {
+          var pic = new TagLib.Picture (new TagLib.ByteVector (afi.Cover)) {
+            Type = TagLib.PictureType.FrontCover
+          };
+          tags.Pictures = new TagLib.IPicture[] { pic };
+        }
+
         try {
           tagfile.Save ();
         } catch (Exception exc) {
-          Log (1, this, $"{nameof(tagfile.Save)}, {exc.ToShortString()}");
+          Log (1, this, $"{nameof (tagfile.Save)}, {exc.ToShortString ()}");
           return false;
         }
 

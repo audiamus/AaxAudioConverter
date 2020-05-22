@@ -19,7 +19,7 @@ namespace audiamus.aaxconv {
   partial class SettingsForm : Form {
     public const string PART = "Part";
 
-    private readonly ISettings _settings = Properties.Settings.Default;
+    private readonly IAppSettings _settings = Properties.Settings.Default;
     private readonly AaxAudioConverter _converter;
     private readonly Func<InteractionMessage, bool?> _callback;
     private bool _flag;
@@ -28,7 +28,7 @@ namespace audiamus.aaxconv {
 
     public bool SettingsReset { get; private set; }
 
-    private ISettings Settings => _settings;
+    private IAppSettings Settings => _settings;
 
     public SettingsForm (AaxAudioConverter converter, Func<InteractionMessage, bool?> callback) {
       using (new ResourceGuard (x => _flag = x))

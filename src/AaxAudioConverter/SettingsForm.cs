@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -10,7 +9,6 @@ using audiamus.aaxconv.lib.ex;
 using audiamus.aux;
 using audiamus.aux.ex;
 using audiamus.aux.win;
-using Microsoft.WindowsAPICodePack.Dialogs;
 using static audiamus.aux.ApplEnv;
 
 namespace audiamus.aaxconv {
@@ -23,10 +21,24 @@ namespace audiamus.aaxconv {
     private readonly AaxAudioConverter _converter;
     private readonly Func<InteractionMessage, bool?> _callback;
     private bool _flag;
+    private bool _enabled = true;
 
     private ComboBoxEnumAdapter<EAaxCopyMode> _cbAdapterAaxCopyMode;
 
     public bool SettingsReset { get; private set; }
+    public bool Dirty { get; private set; }
+
+    public new bool Enabled {
+      get => _enabled;
+      set
+      {
+        if (value == Enabled)
+          return;
+        _enabled = value;
+        tableLayoutPanel1.Enabled = _enabled;
+        btnReset.Enabled = _enabled;
+      }
+    }
 
     private IAppSettings Settings => _settings;
 
@@ -103,17 +115,7 @@ namespace audiamus.aaxconv {
       txtBoxPartName.Enabled = Settings.PartNaming == EGeneralNaming.custom;
       updatePartNaming ();
 
-      switch (Settings.NamedChaptersAndAlwaysWithNumbers) {
-        case null:
-          comboBoxNamedChapters.SelectedIndex = 0;
-          break;
-        case false:
-          comboBoxNamedChapters.SelectedIndex = 1;
-          break;
-        case true:
-          comboBoxNamedChapters.SelectedIndex = 2;
-          break;
-      }
+      comBoxNamedChapters.SelectedIndex = (int)Settings.NamedChapters;
 
       ckBoxFlatFolders.Checked = Settings.FlatFolders;
       comBoxFlatFolders.Enabled = Settings.FlatFolders;
@@ -130,20 +132,12 @@ namespace audiamus.aaxconv {
 
       comBoxLang.SetCultures (typeof(MainForm), Settings);
 
-      switch (Settings.OnlineUpdate) {
-        case null:
-          comBoxUpdate.SelectedIndex = 0;
-          break;
-        case false:
-          comBoxUpdate.SelectedIndex = 1;
-          break;
-        case true:
-          comBoxUpdate.SelectedIndex = 2;
-          break;
-      }
+      comBoxUpdate.SelectedIndex = (int)Settings.OnlineUpdate;
 
       nudShortChapter.Value = Settings.ShortChapterSec;
       nudVeryShortChapter.Value = Settings.VeryShortChapterSec;
+
+      comBoxVerAdjChapters.SelectedIndex = (int)Settings.VerifyAdjustChapters;
 
       comBoxM4B.SelectedIndex = Settings.M4B ? 1 : 0;
 
@@ -230,52 +224,34 @@ namespace audiamus.aaxconv {
     }
 
     private void btnOK_Click (object sender, EventArgs e) {
-      
-      Settings.PartNaming = (EGeneralNaming)comBoxPartName.SelectedIndex;
-      Settings.PartName = txtBoxPartName.Text;
-      Settings.ExtraMetaFiles = ckBoxExtraMetaFiles.Checked;
-      Settings.Latin1EncodingForPlaylist = ckBoxLatin1.Checked;
-      Settings.AutoLaunchPlayer = ckBoxLaunchPlayer.Checked;
-      Settings.FlatFolders = ckBoxFlatFolders.Checked;
-      Settings.FlatFolderNaming = (EFlatFolderNaming)comBoxFlatFolders.SelectedIndex;
-      Settings.PartNames = txtBoxCustPart.Text;
-      Settings.AddnlValTitlePunct = txtBoxCustTitleChars.Text;
-      Settings.ShortChapterSec = (uint)nudShortChapter.Value;
-      Settings.VeryShortChapterSec = (uint)nudVeryShortChapter.Value;
+     
+      Settings.PartNaming = updateSettings (Settings.PartNaming, (EGeneralNaming)comBoxPartName.SelectedIndex);
+      Settings.PartName = updateSettings (Settings.PartName, txtBoxPartName.Text);
+      Settings.ExtraMetaFiles = updateSettings (Settings.ExtraMetaFiles, ckBoxExtraMetaFiles.Checked);
+      Settings.Latin1EncodingForPlaylist = updateSettings (Settings.Latin1EncodingForPlaylist, ckBoxLatin1.Checked);
 
-      switch (comboBoxNamedChapters.SelectedIndex) {
-        case 0:
-          Settings.NamedChaptersAndAlwaysWithNumbers = null;
-          break;
-        case 1:
-          Settings.NamedChaptersAndAlwaysWithNumbers = false;
-          break;
-        case 2:
-          Settings.NamedChaptersAndAlwaysWithNumbers = true;
-          break;
-      }
+      Settings.FlatFolders = updateSettings (Settings.FlatFolders, ckBoxFlatFolders.Checked);
+      Settings.FlatFolderNaming = updateSettings (Settings.FlatFolderNaming, (EFlatFolderNaming)comBoxFlatFolders.SelectedIndex);
+
+      Settings.PartNames = updateSettings (Settings.PartNames, txtBoxCustPart.Text);
+      Settings.AddnlValTitlePunct = updateSettings (Settings.AddnlValTitlePunct, txtBoxCustTitleChars.Text);
+
+      Settings.ShortChapterSec = updateSettings (Settings.ShortChapterSec, (uint)nudShortChapter.Value);
+      Settings.VeryShortChapterSec = updateSettings (Settings.VeryShortChapterSec, (uint)nudVeryShortChapter.Value);
+      Settings.VerifyAdjustChapters = updateSettings (Settings.VerifyAdjustChapters, (EVerifyAdjustChapters)comBoxVerAdjChapters.SelectedIndex);
+      Settings.NamedChapters = updateSettings (Settings.NamedChapters, (ENamedChapters)comBoxNamedChapters.SelectedIndex);
+
+      Settings.M4B = updateSettings (Settings.M4B, comBoxM4B.SelectedIndex == 1);
+      Settings.AaxCopyMode = updateSettings (Settings.AaxCopyMode, _cbAdapterAaxCopyMode.Value);
+
+      Settings.AutoLaunchPlayer = ckBoxLaunchPlayer.Checked;
+      Settings.OnlineUpdate = (EOnlineUpdate)comBoxUpdate.SelectedIndex;
 
       bool ck = ckBoxFileAssoc.Checked;
       if ((Settings.FileAssoc ?? false) != ck) {
         Settings.FileAssoc = ck;
         new FileAssoc (Settings, this).Update ();
       }
-
-      switch (comBoxUpdate.SelectedIndex) {
-        case 0:
-          Settings.OnlineUpdate = null;
-          break;
-        case 1:
-          Settings.OnlineUpdate = false;
-          break;
-        case 2:
-          Settings.OnlineUpdate = true;
-          break;
-      }
-
-      Settings.M4B = comBoxM4B.SelectedIndex == 1;
-
-      Settings.AaxCopyMode = _cbAdapterAaxCopyMode.Value;
 
       if (Culture.ChangeLanguage (comBoxLang, Settings)) {
         Settings.Save ();
@@ -291,6 +267,12 @@ namespace audiamus.aaxconv {
         Environment.Exit (0);
       }
 
+    }
+
+    private T updateSettings<T> (T oldValue, T newValue) {
+      if (!object.Equals (oldValue, newValue))
+        Dirty = true;
+      return newValue;
     }
 
     private void comBoxPartName_SelectedIndexChanged (object sender, EventArgs e) {

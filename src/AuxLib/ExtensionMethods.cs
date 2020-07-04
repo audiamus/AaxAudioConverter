@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using static System.Math;
 
 namespace audiamus.aux.ex {
   public static class ExtDirInfo {
@@ -119,10 +120,11 @@ namespace audiamus.aux.ex {
 
   public static class ExTimeSpan {
     public static string ToStringHMS (this TimeSpan value) {
-      int hours = value.Days * 24 + value.Hours;
-      return $"{hours:D2}:{value.Minutes:D2}:{value.Seconds:D2}";
+      string sgn = value < TimeSpan.Zero ? "-" : string.Empty;
+      int hours = Abs (value.Days) * 24 + Abs (value.Hours);
+      return $"{sgn}{Abs (hours):D2}:{Abs (value.Minutes):D2}:{Abs (value.Seconds):D2}";
     }
-    public static string ToStringHMSm (this TimeSpan value) => $"{value.ToStringHMS ()}.{value.Milliseconds:D3}";
+    public static string ToStringHMSm (this TimeSpan value) => $"{value.ToStringHMS ()}.{Abs (value.Milliseconds):D3}";
   }
 
   public static class ExUnc {

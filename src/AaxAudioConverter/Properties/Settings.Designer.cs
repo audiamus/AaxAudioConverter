@@ -179,9 +179,9 @@ namespace audiamus.aaxconv.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("standard")]
-        public global::audiamus.aaxconv.lib.EGeneralNaming ChapterNaming {
+        public global::audiamus.aaxconv.lib.EGeneralNamingEx ChapterNaming {
             get {
-                return ((global::audiamus.aaxconv.lib.EGeneralNaming)(this["ChapterNaming"]));
+                return ((global::audiamus.aaxconv.lib.EGeneralNamingEx)(this["ChapterNaming"]));
             }
             set {
                 this["ChapterNaming"] = value;
@@ -356,10 +356,10 @@ namespace audiamus.aaxconv.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public global::System.Nullable<System.Boolean> OnlineUpdate {
+        [global::System.Configuration.DefaultSettingValueAttribute("promptForInstall")]
+        public global::audiamus.aaxconv.lib.EOnlineUpdate OnlineUpdate {
             get {
-                return ((global::System.Nullable<System.Boolean>)(this["OnlineUpdate"]));
+                return ((global::audiamus.aaxconv.lib.EOnlineUpdate)(this["OnlineUpdate"]));
             }
             set {
                 this["OnlineUpdate"] = value;
@@ -392,6 +392,18 @@ namespace audiamus.aaxconv.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("splitChapterMode")]
+        public global::audiamus.aaxconv.lib.EVerifyAdjustChapters VerifyAdjustChapters {
+            get {
+                return ((global::audiamus.aaxconv.lib.EVerifyAdjustChapters)(this["VerifyAdjustChapters"]));
+            }
+            set {
+                this["VerifyAdjustChapters"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool Latin1EncodingForPlaylist {
             get {
@@ -404,13 +416,13 @@ namespace audiamus.aaxconv.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public global::System.Nullable<System.Boolean> NamedChaptersAndAlwaysWithNumbers {
+        [global::System.Configuration.DefaultSettingValueAttribute("yes")]
+        public global::audiamus.aaxconv.lib.ENamedChapters NamedChapters {
             get {
-                return ((global::System.Nullable<System.Boolean>)(this["NamedChaptersAndAlwaysWithNumbers"]));
+                return ((global::audiamus.aaxconv.lib.ENamedChapters)(this["NamedChapters"]));
             }
             set {
-                this["NamedChaptersAndAlwaysWithNumbers"] = value;
+                this["NamedChapters"] = value;
             }
         }
         
@@ -459,6 +471,18 @@ namespace audiamus.aaxconv.Properties {
             }
             set {
                 this["AaxCopyDirectory"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Version {
+            get {
+                return ((string)(this["Version"]));
+            }
+            set {
+                this["Version"] = value;
             }
         }
     }

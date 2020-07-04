@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Media;
 using System.Resources;
 using audiamus.aaxconv.lib;
 using audiamus.aux;
@@ -34,7 +35,15 @@ namespace audiamus.aaxconv {
     [TypeConverter (typeof (EnumChainConverterRM<ETrackNumbering, ChainPunctuationDot>))]
     public ETrackNumbering TrackNumbering {
       get => DataSource.TrackNumbering;
-      set => DataSource.TrackNumbering = value;
+      set
+      {
+        if (ChapterNaming == EGeneralNamingEx._nofolders && value == ETrackNumbering.chapter_a_track) {
+          SystemSounds.Hand.Play ();
+          return;
+        }
+
+        DataSource.TrackNumbering = value;
+      }
     }
 
     [PropertyOrder (4)]
@@ -62,11 +71,15 @@ namespace audiamus.aaxconv {
     }
 
     [PropertyOrder (7)]
-    [TypeConverter (typeof (EnumChainConverterRM<EGeneralNaming, ChainPunctuationBracket>))]
-    public EGeneralNaming ChapterNaming {
+    [TypeConverter (typeof (EnumChainConverterRM<EGeneralNamingEx, ChainPunctuationBracket>))]
+    public EGeneralNamingEx ChapterNaming {
       get => DataSource.ChapterNaming;
       set
       {
+        if (value == EGeneralNamingEx._nofolders && TrackNumbering == ETrackNumbering.chapter_a_track) {
+          SystemSounds.Hand.Play ();
+          return;
+        }
         DataSource.ChapterNaming = value;
         Update ();
       }
@@ -110,7 +123,7 @@ namespace audiamus.aaxconv {
     #region Public Methods
 
     public void Update () {
-      PropertyCommands[nameof (ChapterName)].ReadOnly = ChapterNaming != EGeneralNaming.custom;
+      PropertyCommands[nameof (ChapterName)].ReadOnly = ChapterNaming != EGeneralNamingEx.custom;
       PropertyCommands[nameof (GenreName)].ReadOnly = GenreNaming != EGeneralNaming.custom;
       naming ();
       RefreshDelegate?.Invoke ();
@@ -122,7 +135,7 @@ namespace audiamus.aaxconv {
     private void naming () {
       if (DataSource.GenreNaming == EGeneralNaming.standard)
         DataSource.GenreName = ResourceManager.GetStringEx (AUDIOBOOK);
-      if (DataSource.ChapterNaming == EGeneralNaming.standard)
+      if (DataSource.ChapterNaming == EGeneralNamingEx.standard)
         DataSource.ChapterName = ResourceManager.GetStringEx (CHAPTER);
     }
 

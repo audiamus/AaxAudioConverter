@@ -700,6 +700,15 @@ namespace audiamus.aaxconv.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (no chapter sub-folders).
+        /// </summary>
+        internal static string nofolders {
+            get {
+                return ResourceManager.GetString("nofolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add Audible files.
         /// </summary>
         internal static string OpenFile {

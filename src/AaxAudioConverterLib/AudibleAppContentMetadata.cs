@@ -29,7 +29,7 @@ namespace audiamus.aaxconv.lib {
     const string RGX_ASIN_AAX = @"_([0-9A-Z]{10})(_|$|\.)";
     static readonly Regex __regexAsinAax = new Regex (RGX_ASIN_AAX, RegexOptions.Compiled); 
 
-    public void GetContentMetadata (Book.BookPart part, bool fileOnly = false) {
+    public void GetContentMetadata (Book.Part part, bool fileOnly = false) {
       var filename = part.AaxFileItem.FileName;
       Log (3, this, () => $"\"{filename.SubstitUser ()}\", file only={fileOnly}");
 
@@ -49,7 +49,7 @@ namespace audiamus.aaxconv.lib {
       getContentMetaChapters (part, metafile);
     }
 
-    private void getContentMetaChapters (Book.BookPart part, string metafile) {
+    private void getContentMetaChapters (Book.Part part, string metafile) {
       string json = File.ReadAllText (metafile);
       var metadata = JsonConvert.DeserializeObject<json.AppContentMetadata> (json);
 
@@ -67,7 +67,7 @@ namespace audiamus.aaxconv.lib {
       var zeros = metaChapters.Where (c => c.length_ms == 0).ToList ();
       Log (3, this, () => $"chapters: #zero={zeros.Count}, #white={whites.Count}");
       if (zeros.Count > 0) {
-        zeros.ForEach (c => c.length_ms = 1);
+        zeros.ForEach (c => c.length_ms = Chapter.MS_MIN_CHAPTER_LENGTH);
         for (int i = 1; i < metaChapters.Count; i++) {
           var ch0 = metaChapters[i - 1];
           var ch = metaChapters[i];
@@ -77,7 +77,7 @@ namespace audiamus.aaxconv.lib {
           Log (3, this, () => $"duration fix for: {ch}");
           int chLenNew = ch.length_ms + ch.start_offset_ms - chOffsNew;
           if (chLenNew <= 0)
-            chLenNew = 1;
+            chLenNew = Chapter.MS_MIN_CHAPTER_LENGTH;
           ch.start_offset_ms = chOffsNew;
           ch.length_ms = chLenNew;
         }
@@ -100,7 +100,7 @@ namespace audiamus.aaxconv.lib {
       Log (3, this, () => chapterList(part));
     }
 
-    private string chapterList (Book.BookPart part) {
+    private string chapterList (Book.Part part) {
       var sb = new StringBuilder ($"content meta chapters:");
       sb.AppendLine();
       if (!(part.Chapters2 is null))

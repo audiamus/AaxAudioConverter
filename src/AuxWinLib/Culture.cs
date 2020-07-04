@@ -37,8 +37,12 @@ namespace audiamus.aux.win {
     private static CultureInfo __defaultUICulture = CultureInfo.CurrentUICulture;
 
     public static void Init (ILanguageSetting setting) {
-      if (!string.IsNullOrWhiteSpace (setting.Language))
-        CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo (setting.Language);
+      try {
+        if (!string.IsNullOrWhiteSpace (setting.Language))
+          CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo (setting.Language);
+      } catch (Exception) {
+
+      }
     }
 
     public static void SetCultures (this ComboBox combobox, Type type, ILanguageSetting setting) {

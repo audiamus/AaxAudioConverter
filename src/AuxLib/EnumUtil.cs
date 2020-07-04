@@ -26,9 +26,17 @@ namespace audiamus.aux {
       where TEnum: struct, Enum
       where TPunct : class, IChainPunctuation, new() 
     {
+
+
       var punct = Singleton<TPunct>.Instance;
 
       string sval = value.ToString ();
+
+      //verbatim ?
+      if (sval.StartsWith ("_")) {
+        return rm.GetStringEx (sval.Substring (1));
+      }
+
       string[] parts = sval.Split (USCORE);
 
       bool noSubstitutes = parts.Select (s => s.Length).Min () > 1;

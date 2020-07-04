@@ -30,7 +30,6 @@
       this.btnOK = new System.Windows.Forms.Button();
       this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
       this.lblUsrActCode = new System.Windows.Forms.Label();
-      this.comBoxM4B = new System.Windows.Forms.ComboBox();
       this.lblFfmpegLoc = new System.Windows.Forms.Label();
       this.btnUsrActCode = new System.Windows.Forms.Button();
       this.btnFfmpegLoc = new System.Windows.Forms.Button();
@@ -44,8 +43,6 @@
       this.panel3 = new System.Windows.Forms.Panel();
       this.txtBoxPartName = new System.Windows.Forms.TextBox();
       this.comBoxPartName = new System.Windows.Forms.ComboBox();
-      this.lblExtraMetaFiles = new System.Windows.Forms.Label();
-      this.ckBoxExtraMetaFiles = new System.Windows.Forms.CheckBox();
       this.panel6 = new System.Windows.Forms.Panel();
       this.label2 = new System.Windows.Forms.Label();
       this.nudVeryShortChapter = new System.Windows.Forms.NumericUpDown();
@@ -58,25 +55,30 @@
       this.panel4 = new System.Windows.Forms.Panel();
       this.comBoxFlatFolders = new System.Windows.Forms.ComboBox();
       this.ckBoxFlatFolders = new System.Windows.Forms.CheckBox();
-      this.comboBoxNamedChapters = new System.Windows.Forms.ComboBox();
+      this.comBoxNamedChapters = new System.Windows.Forms.ComboBox();
       this.lblNamedChapters = new System.Windows.Forms.Label();
       this.lblRegActCode = new System.Windows.Forms.Label();
       this.lblPartName = new System.Windows.Forms.Label();
-      this.lblLaunchPlayer = new System.Windows.Forms.Label();
-      this.ckBoxLaunchPlayer = new System.Windows.Forms.CheckBox();
-      this.ckBoxLatin1 = new System.Windows.Forms.CheckBox();
-      this.lblLatin1 = new System.Windows.Forms.Label();
-      this.lblM4B = new System.Windows.Forms.Label();
-      this.lblLang = new System.Windows.Forms.Label();
       this.comBoxLang = new System.Windows.Forms.ComboBox();
       this.comBoxUpdate = new System.Windows.Forms.ComboBox();
-      this.lblUpdate = new System.Windows.Forms.Label();
       this.ckBoxFileAssoc = new System.Windows.Forms.CheckBox();
-      this.lblFileAssoc = new System.Windows.Forms.Label();
-      this.lblAaxCopy = new System.Windows.Forms.Label();
       this.panel8 = new System.Windows.Forms.Panel();
       this.comBoxAaxCopy = new System.Windows.Forms.ComboBox();
       this.btnAaxCopyDir = new System.Windows.Forms.Button();
+      this.ckBoxLaunchPlayer = new System.Windows.Forms.CheckBox();
+      this.ckBoxLatin1 = new System.Windows.Forms.CheckBox();
+      this.comBoxM4B = new System.Windows.Forms.ComboBox();
+      this.ckBoxExtraMetaFiles = new System.Windows.Forms.CheckBox();
+      this.lblLang = new System.Windows.Forms.Label();
+      this.lblUpdate = new System.Windows.Forms.Label();
+      this.lblFileAssoc = new System.Windows.Forms.Label();
+      this.lblAaxCopy = new System.Windows.Forms.Label();
+      this.lblLaunchPlayer = new System.Windows.Forms.Label();
+      this.lblLatin1 = new System.Windows.Forms.Label();
+      this.lblM4B = new System.Windows.Forms.Label();
+      this.lblExtraMetaFiles = new System.Windows.Forms.Label();
+      this.comBoxVerAdjChapters = new System.Windows.Forms.ComboBox();
+      this.lblVerAdjChapters = new System.Windows.Forms.Label();
       this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
       this.panel7 = new System.Windows.Forms.Panel();
       this.panel1.SuspendLayout();
@@ -119,7 +121,6 @@
       // 
       resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
       this.tableLayoutPanel1.Controls.Add(this.lblUsrActCode, 0, 2);
-      this.tableLayoutPanel1.Controls.Add(this.comBoxM4B, 1, 11);
       this.tableLayoutPanel1.Controls.Add(this.lblFfmpegLoc, 0, 0);
       this.tableLayoutPanel1.Controls.Add(this.btnUsrActCode, 1, 2);
       this.tableLayoutPanel1.Controls.Add(this.btnFfmpegLoc, 1, 0);
@@ -129,49 +130,40 @@
       this.tableLayoutPanel1.Controls.Add(this.txtBoxCustPart, 1, 4);
       this.tableLayoutPanel1.Controls.Add(this.lblCustPart, 0, 4);
       this.tableLayoutPanel1.Controls.Add(this.panel3, 1, 3);
-      this.tableLayoutPanel1.Controls.Add(this.lblExtraMetaFiles, 0, 10);
-      this.tableLayoutPanel1.Controls.Add(this.ckBoxExtraMetaFiles, 1, 10);
       this.tableLayoutPanel1.Controls.Add(this.panel6, 1, 9);
       this.tableLayoutPanel1.Controls.Add(this.label4, 0, 9);
       this.tableLayoutPanel1.Controls.Add(this.label3, 0, 8);
       this.tableLayoutPanel1.Controls.Add(this.panel5, 1, 8);
       this.tableLayoutPanel1.Controls.Add(this.lblFlatFolders, 0, 7);
       this.tableLayoutPanel1.Controls.Add(this.panel4, 1, 7);
-      this.tableLayoutPanel1.Controls.Add(this.comboBoxNamedChapters, 1, 6);
+      this.tableLayoutPanel1.Controls.Add(this.comBoxNamedChapters, 1, 6);
       this.tableLayoutPanel1.Controls.Add(this.lblNamedChapters, 0, 6);
       this.tableLayoutPanel1.Controls.Add(this.lblRegActCode, 0, 1);
       this.tableLayoutPanel1.Controls.Add(this.lblPartName, 0, 3);
-      this.tableLayoutPanel1.Controls.Add(this.lblLaunchPlayer, 0, 13);
-      this.tableLayoutPanel1.Controls.Add(this.ckBoxLaunchPlayer, 1, 13);
-      this.tableLayoutPanel1.Controls.Add(this.ckBoxLatin1, 1, 12);
-      this.tableLayoutPanel1.Controls.Add(this.lblLatin1, 0, 12);
-      this.tableLayoutPanel1.Controls.Add(this.lblM4B, 0, 11);
-      this.tableLayoutPanel1.Controls.Add(this.lblLang, 0, 17);
-      this.tableLayoutPanel1.Controls.Add(this.comBoxLang, 1, 17);
-      this.tableLayoutPanel1.Controls.Add(this.comBoxUpdate, 1, 16);
-      this.tableLayoutPanel1.Controls.Add(this.lblUpdate, 0, 16);
-      this.tableLayoutPanel1.Controls.Add(this.ckBoxFileAssoc, 1, 15);
-      this.tableLayoutPanel1.Controls.Add(this.lblFileAssoc, 0, 15);
-      this.tableLayoutPanel1.Controls.Add(this.lblAaxCopy, 0, 14);
-      this.tableLayoutPanel1.Controls.Add(this.panel8, 1, 14);
+      this.tableLayoutPanel1.Controls.Add(this.comBoxLang, 1, 18);
+      this.tableLayoutPanel1.Controls.Add(this.comBoxUpdate, 1, 17);
+      this.tableLayoutPanel1.Controls.Add(this.ckBoxFileAssoc, 1, 16);
+      this.tableLayoutPanel1.Controls.Add(this.panel8, 1, 15);
+      this.tableLayoutPanel1.Controls.Add(this.ckBoxLaunchPlayer, 1, 14);
+      this.tableLayoutPanel1.Controls.Add(this.ckBoxLatin1, 1, 13);
+      this.tableLayoutPanel1.Controls.Add(this.comBoxM4B, 1, 12);
+      this.tableLayoutPanel1.Controls.Add(this.ckBoxExtraMetaFiles, 1, 11);
+      this.tableLayoutPanel1.Controls.Add(this.lblLang, 0, 18);
+      this.tableLayoutPanel1.Controls.Add(this.lblUpdate, 0, 17);
+      this.tableLayoutPanel1.Controls.Add(this.lblFileAssoc, 0, 16);
+      this.tableLayoutPanel1.Controls.Add(this.lblAaxCopy, 0, 15);
+      this.tableLayoutPanel1.Controls.Add(this.lblLaunchPlayer, 0, 14);
+      this.tableLayoutPanel1.Controls.Add(this.lblLatin1, 0, 13);
+      this.tableLayoutPanel1.Controls.Add(this.lblM4B, 0, 12);
+      this.tableLayoutPanel1.Controls.Add(this.lblExtraMetaFiles, 0, 11);
+      this.tableLayoutPanel1.Controls.Add(this.comBoxVerAdjChapters, 1, 10);
+      this.tableLayoutPanel1.Controls.Add(this.lblVerAdjChapters, 0, 10);
       this.tableLayoutPanel1.Name = "tableLayoutPanel1";
       // 
       // lblUsrActCode
       // 
       resources.ApplyResources(this.lblUsrActCode, "lblUsrActCode");
       this.lblUsrActCode.Name = "lblUsrActCode";
-      // 
-      // comBoxM4B
-      // 
-      resources.ApplyResources(this.comBoxM4B, "comBoxM4B");
-      this.comBoxM4B.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-      this.comBoxM4B.FormattingEnabled = true;
-      this.comBoxM4B.Items.AddRange(new object[] {
-            resources.GetString("comBoxM4B.Items"),
-            resources.GetString("comBoxM4B.Items1")});
-      this.comBoxM4B.Name = "comBoxM4B";
-      this.toolTip1.SetToolTip(this.comBoxM4B, resources.GetString("comBoxM4B.ToolTip"));
-      this.comBoxM4B.SelectedIndexChanged += new System.EventHandler(this.comBoxPartName_SelectedIndexChanged);
       // 
       // lblFfmpegLoc
       // 
@@ -259,18 +251,6 @@
       this.toolTip1.SetToolTip(this.comBoxPartName, resources.GetString("comBoxPartName.ToolTip"));
       this.comBoxPartName.SelectedIndexChanged += new System.EventHandler(this.comBoxPartName_SelectedIndexChanged);
       // 
-      // lblExtraMetaFiles
-      // 
-      resources.ApplyResources(this.lblExtraMetaFiles, "lblExtraMetaFiles");
-      this.lblExtraMetaFiles.Name = "lblExtraMetaFiles";
-      // 
-      // ckBoxExtraMetaFiles
-      // 
-      resources.ApplyResources(this.ckBoxExtraMetaFiles, "ckBoxExtraMetaFiles");
-      this.ckBoxExtraMetaFiles.Name = "ckBoxExtraMetaFiles";
-      this.toolTip1.SetToolTip(this.ckBoxExtraMetaFiles, resources.GetString("ckBoxExtraMetaFiles.ToolTip"));
-      this.ckBoxExtraMetaFiles.UseVisualStyleBackColor = true;
-      // 
       // panel6
       // 
       this.panel6.Controls.Add(this.label2);
@@ -354,18 +334,18 @@
       this.ckBoxFlatFolders.UseVisualStyleBackColor = true;
       this.ckBoxFlatFolders.CheckedChanged += new System.EventHandler(this.ckBoxFlatFolders_CheckedChanged);
       // 
-      // comboBoxNamedChapters
+      // comBoxNamedChapters
       // 
-      resources.ApplyResources(this.comboBoxNamedChapters, "comboBoxNamedChapters");
-      this.comboBoxNamedChapters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-      this.comboBoxNamedChapters.FormattingEnabled = true;
-      this.comboBoxNamedChapters.Items.AddRange(new object[] {
-            resources.GetString("comboBoxNamedChapters.Items"),
-            resources.GetString("comboBoxNamedChapters.Items1"),
-            resources.GetString("comboBoxNamedChapters.Items2")});
-      this.comboBoxNamedChapters.Name = "comboBoxNamedChapters";
-      this.toolTip1.SetToolTip(this.comboBoxNamedChapters, resources.GetString("comboBoxNamedChapters.ToolTip"));
-      this.comboBoxNamedChapters.SelectedIndexChanged += new System.EventHandler(this.comBoxPartName_SelectedIndexChanged);
+      resources.ApplyResources(this.comBoxNamedChapters, "comBoxNamedChapters");
+      this.comBoxNamedChapters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.comBoxNamedChapters.FormattingEnabled = true;
+      this.comBoxNamedChapters.Items.AddRange(new object[] {
+            resources.GetString("comBoxNamedChapters.Items"),
+            resources.GetString("comBoxNamedChapters.Items1"),
+            resources.GetString("comBoxNamedChapters.Items2")});
+      this.comBoxNamedChapters.Name = "comBoxNamedChapters";
+      this.toolTip1.SetToolTip(this.comBoxNamedChapters, resources.GetString("comBoxNamedChapters.ToolTip"));
+      this.comBoxNamedChapters.SelectedIndexChanged += new System.EventHandler(this.comBoxPartName_SelectedIndexChanged);
       // 
       // lblNamedChapters
       // 
@@ -382,40 +362,6 @@
       // 
       resources.ApplyResources(this.lblPartName, "lblPartName");
       this.lblPartName.Name = "lblPartName";
-      // 
-      // lblLaunchPlayer
-      // 
-      resources.ApplyResources(this.lblLaunchPlayer, "lblLaunchPlayer");
-      this.lblLaunchPlayer.Name = "lblLaunchPlayer";
-      // 
-      // ckBoxLaunchPlayer
-      // 
-      resources.ApplyResources(this.ckBoxLaunchPlayer, "ckBoxLaunchPlayer");
-      this.ckBoxLaunchPlayer.Name = "ckBoxLaunchPlayer";
-      this.toolTip1.SetToolTip(this.ckBoxLaunchPlayer, resources.GetString("ckBoxLaunchPlayer.ToolTip"));
-      this.ckBoxLaunchPlayer.UseVisualStyleBackColor = true;
-      // 
-      // ckBoxLatin1
-      // 
-      resources.ApplyResources(this.ckBoxLatin1, "ckBoxLatin1");
-      this.ckBoxLatin1.Name = "ckBoxLatin1";
-      this.toolTip1.SetToolTip(this.ckBoxLatin1, resources.GetString("ckBoxLatin1.ToolTip"));
-      this.ckBoxLatin1.UseVisualStyleBackColor = true;
-      // 
-      // lblLatin1
-      // 
-      resources.ApplyResources(this.lblLatin1, "lblLatin1");
-      this.lblLatin1.Name = "lblLatin1";
-      // 
-      // lblM4B
-      // 
-      resources.ApplyResources(this.lblM4B, "lblM4B");
-      this.lblM4B.Name = "lblM4B";
-      // 
-      // lblLang
-      // 
-      resources.ApplyResources(this.lblLang, "lblLang");
-      this.lblLang.Name = "lblLang";
       // 
       // comBoxLang
       // 
@@ -437,27 +383,12 @@
             resources.GetString("comBoxUpdate.Items2")});
       this.comBoxUpdate.Name = "comBoxUpdate";
       // 
-      // lblUpdate
-      // 
-      resources.ApplyResources(this.lblUpdate, "lblUpdate");
-      this.lblUpdate.Name = "lblUpdate";
-      // 
       // ckBoxFileAssoc
       // 
       resources.ApplyResources(this.ckBoxFileAssoc, "ckBoxFileAssoc");
       this.ckBoxFileAssoc.Name = "ckBoxFileAssoc";
       this.toolTip1.SetToolTip(this.ckBoxFileAssoc, resources.GetString("ckBoxFileAssoc.ToolTip"));
       this.ckBoxFileAssoc.UseVisualStyleBackColor = true;
-      // 
-      // lblFileAssoc
-      // 
-      resources.ApplyResources(this.lblFileAssoc, "lblFileAssoc");
-      this.lblFileAssoc.Name = "lblFileAssoc";
-      // 
-      // lblAaxCopy
-      // 
-      resources.ApplyResources(this.lblAaxCopy, "lblAaxCopy");
-      this.lblAaxCopy.Name = "lblAaxCopy";
       // 
       // panel8
       // 
@@ -482,6 +413,96 @@
       this.toolTip1.SetToolTip(this.btnAaxCopyDir, resources.GetString("btnAaxCopyDir.ToolTip"));
       this.btnAaxCopyDir.UseVisualStyleBackColor = true;
       this.btnAaxCopyDir.Click += new System.EventHandler(this.btnAaxCopyDir_Click);
+      // 
+      // ckBoxLaunchPlayer
+      // 
+      resources.ApplyResources(this.ckBoxLaunchPlayer, "ckBoxLaunchPlayer");
+      this.ckBoxLaunchPlayer.Name = "ckBoxLaunchPlayer";
+      this.toolTip1.SetToolTip(this.ckBoxLaunchPlayer, resources.GetString("ckBoxLaunchPlayer.ToolTip"));
+      this.ckBoxLaunchPlayer.UseVisualStyleBackColor = true;
+      // 
+      // ckBoxLatin1
+      // 
+      resources.ApplyResources(this.ckBoxLatin1, "ckBoxLatin1");
+      this.ckBoxLatin1.Name = "ckBoxLatin1";
+      this.toolTip1.SetToolTip(this.ckBoxLatin1, resources.GetString("ckBoxLatin1.ToolTip"));
+      this.ckBoxLatin1.UseVisualStyleBackColor = true;
+      // 
+      // comBoxM4B
+      // 
+      resources.ApplyResources(this.comBoxM4B, "comBoxM4B");
+      this.comBoxM4B.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.comBoxM4B.FormattingEnabled = true;
+      this.comBoxM4B.Items.AddRange(new object[] {
+            resources.GetString("comBoxM4B.Items"),
+            resources.GetString("comBoxM4B.Items1")});
+      this.comBoxM4B.Name = "comBoxM4B";
+      this.toolTip1.SetToolTip(this.comBoxM4B, resources.GetString("comBoxM4B.ToolTip"));
+      this.comBoxM4B.SelectedIndexChanged += new System.EventHandler(this.comBoxPartName_SelectedIndexChanged);
+      // 
+      // ckBoxExtraMetaFiles
+      // 
+      resources.ApplyResources(this.ckBoxExtraMetaFiles, "ckBoxExtraMetaFiles");
+      this.ckBoxExtraMetaFiles.Name = "ckBoxExtraMetaFiles";
+      this.toolTip1.SetToolTip(this.ckBoxExtraMetaFiles, resources.GetString("ckBoxExtraMetaFiles.ToolTip"));
+      this.ckBoxExtraMetaFiles.UseVisualStyleBackColor = true;
+      // 
+      // lblLang
+      // 
+      resources.ApplyResources(this.lblLang, "lblLang");
+      this.lblLang.Name = "lblLang";
+      // 
+      // lblUpdate
+      // 
+      resources.ApplyResources(this.lblUpdate, "lblUpdate");
+      this.lblUpdate.Name = "lblUpdate";
+      // 
+      // lblFileAssoc
+      // 
+      resources.ApplyResources(this.lblFileAssoc, "lblFileAssoc");
+      this.lblFileAssoc.Name = "lblFileAssoc";
+      // 
+      // lblAaxCopy
+      // 
+      resources.ApplyResources(this.lblAaxCopy, "lblAaxCopy");
+      this.lblAaxCopy.Name = "lblAaxCopy";
+      // 
+      // lblLaunchPlayer
+      // 
+      resources.ApplyResources(this.lblLaunchPlayer, "lblLaunchPlayer");
+      this.lblLaunchPlayer.Name = "lblLaunchPlayer";
+      // 
+      // lblLatin1
+      // 
+      resources.ApplyResources(this.lblLatin1, "lblLatin1");
+      this.lblLatin1.Name = "lblLatin1";
+      // 
+      // lblM4B
+      // 
+      resources.ApplyResources(this.lblM4B, "lblM4B");
+      this.lblM4B.Name = "lblM4B";
+      // 
+      // lblExtraMetaFiles
+      // 
+      resources.ApplyResources(this.lblExtraMetaFiles, "lblExtraMetaFiles");
+      this.lblExtraMetaFiles.Name = "lblExtraMetaFiles";
+      // 
+      // comBoxVerAdjChapters
+      // 
+      resources.ApplyResources(this.comBoxVerAdjChapters, "comBoxVerAdjChapters");
+      this.comBoxVerAdjChapters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+      this.comBoxVerAdjChapters.FormattingEnabled = true;
+      this.comBoxVerAdjChapters.Items.AddRange(new object[] {
+            resources.GetString("comBoxVerAdjChapters.Items"),
+            resources.GetString("comBoxVerAdjChapters.Items1"),
+            resources.GetString("comBoxVerAdjChapters.Items2")});
+      this.comBoxVerAdjChapters.Name = "comBoxVerAdjChapters";
+      this.comBoxVerAdjChapters.SelectedIndexChanged += new System.EventHandler(this.comBoxPartName_SelectedIndexChanged);
+      // 
+      // lblVerAdjChapters
+      // 
+      resources.ApplyResources(this.lblVerAdjChapters, "lblVerAdjChapters");
+      this.lblVerAdjChapters.Name = "lblVerAdjChapters";
       // 
       // panel7
       // 
@@ -565,7 +586,7 @@
     private System.Windows.Forms.CheckBox ckBoxLatin1;
     private System.Windows.Forms.Label lblLatin1;
     private System.Windows.Forms.Panel panel7;
-    private System.Windows.Forms.ComboBox comboBoxNamedChapters;
+    private System.Windows.Forms.ComboBox comBoxNamedChapters;
     private System.Windows.Forms.Label lblNamedChapters;
     private System.Windows.Forms.Label lblRegActCode;
     private System.Windows.Forms.Label lblPartName;
@@ -578,5 +599,7 @@
     private System.Windows.Forms.Panel panel8;
     private System.Windows.Forms.ComboBox comBoxAaxCopy;
     private System.Windows.Forms.Button btnAaxCopyDir;
+    private System.Windows.Forms.ComboBox comBoxVerAdjChapters;
+    private System.Windows.Forms.Label lblVerAdjChapters;
   }
 }

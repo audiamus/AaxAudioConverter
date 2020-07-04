@@ -46,7 +46,7 @@ namespace audiamus.aaxconv.lib {
       Action finalCallback,
       Func<bool> busyCallback
     ) {
-      if (!Settings.OnlineUpdate.HasValue)
+      if (Settings.OnlineUpdate == EOnlineUpdate.no)
         return;
 
       await getSetupRefAsync ();
@@ -60,7 +60,7 @@ namespace audiamus.aaxconv.lib {
       bool exists = await checkDownloadAsync ();
 
       if (!exists) {
-        if (!Settings.OnlineUpdate.Value) {
+        if (Settings.OnlineUpdate == EOnlineUpdate.promptForDownload) {
           string msg1 = $"{R.MsgOnlineUpdateNewVersion} {_version} {R.MsgOnlineUpdateDownload}";
           bool? result1 = interactCallback.Interact (new InteractionMessage { Message = msg1, Type = ECallbackType.question });
           if (!(result1.Value))
@@ -83,7 +83,7 @@ namespace audiamus.aaxconv.lib {
     }
 
     public async Task InstallAsync (IInteractionCallback<InteractionMessage, bool?> interactCallback, Action finalCallback) {
-      if (!Settings.OnlineUpdate.HasValue)
+      if (Settings.OnlineUpdate == EOnlineUpdate.no)
         return;
 
       await getSetupRefAsync ();

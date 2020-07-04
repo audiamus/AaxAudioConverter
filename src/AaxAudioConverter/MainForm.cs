@@ -131,6 +131,9 @@ namespace audiamus.aaxconv {
       if (_initDone)
         return;
       _initDone = true;
+
+      showWhatsNew ();
+
       makeFileAssoc ();
 
       checkAudibleActivationCode ();
@@ -174,14 +177,16 @@ namespace audiamus.aaxconv {
 
     protected override void OnKeyDown (KeyEventArgs e) {
       if (e.Modifiers == Keys.Control) {
-        if (e.KeyCode == Keys.A)
+        if (e.KeyCode == Keys.A) {
+          e.SuppressKeyPress = true;
           selectAll ();
-        else
+        } else
           base.OnKeyDown (e);
       } else {
-        if (e.KeyCode == Keys.F1)
+        if (e.KeyCode == Keys.F1) {
+          e.SuppressKeyPress = true;
           onSysMenuHelp ();
-        else
+        } else
           base.OnKeyDown (e);
       }
     }
@@ -244,12 +249,18 @@ namespace audiamus.aaxconv {
     private void onSysMenuAbout () => new AboutForm () { Owner = this }.ShowDialog ();
 
     private void onSysMenuBasicSettings () {
-      var dlg = new SettingsForm (_converter, _interactionHandler.Interact) { Owner = this };
+      var dlg = new SettingsForm (_converter, _interactionHandler.Interact) {
+        Owner = this,
+        Enabled = !btnAbort.Enabled
+      };
       dlg.ShowDialog ();
       if (dlg.SettingsReset)
         reinitControlsFromSettings ();
       else
         initRadionButtons ();
+
+      if (dlg.Dirty)
+        enableButtonConvert ();
       enableAll (true);
     }
 
@@ -293,7 +304,29 @@ namespace audiamus.aaxconv {
         return;
 
       new FileAssoc (Settings, this).AssociateInit ();
+    }
 
+    private void showWhatsNew () {
+      // 1st time users: Settings.FileAssoc is null -and- Settings.Version is null or white space.
+      // prev users: Settings.FileAssoc is not null -or- Settings.Version is not null or white space 
+      bool update = !Settings.FileAssoc.IsNull () || !Settings.Version.IsNullOrWhiteSpace ();
+      if (update) {
+        bool show = false;
+        Version.TryParse (Settings.Version, out var version);
+        if (version is null || version < AssemblyVersion)
+          show = true;
+
+        if (show) {
+          var dlg = new WhatsNewForm { Owner = this };
+          dlg.ShowDialog ();
+
+          Settings.Version = AssemblyVersion.ToString ();
+          Settings.Save ();
+        }
+      } else {
+        Settings.Version = AssemblyVersion.ToString ();
+        Settings.Save ();
+      }
     }
 
 

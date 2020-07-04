@@ -372,4 +372,7 @@ Copies will not be made. </value>
   <data name="OpenFile" xml:space="preserve">
     <value>Add Audible files</value>
   </data>
+  <data name="nofolders" xml:space="preserve">
+    <value>(no chapter sub-folders)</value>
+  </data>
 </root>

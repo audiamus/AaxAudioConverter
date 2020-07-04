@@ -18,10 +18,10 @@ namespace audiamus.aaxconv.lib {
 
     public class PartChapters {
 
-      public Book.BookPart Part { get; private set; }
+      public Book.Part Part { get; private set; }
       public List<PartChapter> Chapters { get; } = new List<PartChapter> ();
 
-      public PartChapters (Book.BookPart part) {
+      public PartChapters (Book.Part part) {
         Part = part;
       }
     }

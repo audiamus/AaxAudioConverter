@@ -1,12 +1,14 @@
 # AAX Audio Converter
 Convert Audible aax files to mp3 and m4a/m4b
 
+![GitHub All Releases](https://img.shields.io/github/downloads/audiamus/AaxAudioConverter/total) ![GitHub](https://img.shields.io/github/license/audiamus/AaxAudioConverter) ![](https://img.shields.io/badge/platform-Windows-blue) ![](https://img.shields.io/badge/language-C%23-blue) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/audiamus/AaxAudioConverter)](https://github.com/audiamus/AaxAudioConverter/releases/latest)
+
 ![](res/Cover.png?raw=true)
 
 *More [Screenshots](res/Screenshots.md)*
 
 ## Main Features
-- **Free** and **Open Source** software.
+- **Free** and **Open Source** software. 
 - Converts Audible proprietary .aax files to plain .mp3 or .m4a/.m4b. 
 - Also offers basic support for older .aa files.
 - Windows application, with all the classic features of the Windows eco-system.
@@ -20,6 +22,7 @@ Convert Audible aax files to mp3 and m4a/m4b
 - Handles books with multiple parts.
 - Manages and preserves all meta-tag information.
 - Supports named chapters, for .aax files downloaded with the Audible App.
+- Can adjust inaccurate chapter marks.
 - Allows customization of output naming: files, folders and tags.
 - Delegates all audio processing to powerful [FFmpeg](https://www.ffmpeg.org/), including DRM handling.
 - High performance: Utilizes all available processor cores to run conversion work in parallel.
@@ -31,7 +34,7 @@ Convert Audible aax files to mp3 and m4a/m4b
   - .Net Framework application, written in C# with Windows Forms, the Task Parallel Library and other goodies from language and framework. 
   - Incorporating a number of snippets from the Open Source community. 
 
-##  System Environment
+## System Environment
 AAX Audio Converter will run on Windows 7 and above.
 
 The application requires .Net Framework 4.7.1 to be installed. On Windows 10 systems this should normally be the case, if the system is kept up to date. On older Windows versions, the Framework may have to be installed separately. AAX Audio Converter will detect the missing Framework and provide a link to the download, automatically opening the relevant Microsoft web page. 
@@ -39,16 +42,15 @@ The application requires .Net Framework 4.7.1 to be installed. On Windows 10 sys
 AAX Audio Converter is configured to support high DPI monitors under Windows 10. It will scale properly when the user changes the DPI or scale factor. 
 
 ## Download
+Windows setup package version 1.13, English and German, with manuals, plus FFmpeg executable:
 
-Windows setup package version 1.12, English and German, with manuals, plus FFmpeg executable:
-
-**[AaxAudioConverter-1.12-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.12/AaxAudioConverter-1.12-Setup.exe)**
+**[AaxAudioConverter-1.13-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.13/AaxAudioConverter-1.13-Setup.exe)**
 
 Manuals (also included in the setup package):
 
-**[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.12/AaxAudioConverter.pdf)**
+**[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.13/AaxAudioConverter.pdf)**
 
-**[German](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.12/AaxAudioConverter.de.pdf)**
+**[German](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.13/AaxAudioConverter.de.pdf)**
 
 
 ## Dependencies
@@ -65,7 +67,11 @@ Comments and questions can be posted in the AAX Audio Converter chatroom on Gitt
 
 [![Gitter](https://badges.gitter.im/AaxAudioConverter/community.svg)](https://gitter.im/AaxAudioConverter/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-For more serious matters, like bug reports and other unexpected behavior, visit the [issue page](https://github.com/audiamus/AaxAudioConverter/issues) here on GitHub. For exceptions, please provide the call stack as shown by the program. For diagnosis of unexpected behavior you can run AAX Audio Converter with the log option activated. Zip-compress the log file and upload/attach it to the issue, but read the privacy note in the manual first.    
+In case of more serious matters, like bug reports and other unexpected behavior, visit the issue page here on GitHub: 
+
+[![GitHub issues](https://img.shields.io/github/issues/audiamus/AaxAudioConverter)](https://github.com/audiamus/AaxAudioConverter/issues)
+
+For exceptions, please provide the call stack as shown by the program. For diagnosis of unexpected behavior you can run AAX Audio Converter with the log option activated. Zip-compress the log file and upload/attach it to the issue, but read the privacy note in the manual first.    
 
 ## Anti-Piracy Notice
 Note that this software does not ‘crack’ the DRM or circumvent it in any other way. The application simply applies the user's own activation code (associated with his/her personal Audible account) to decrypt the audiobook in the same manner as the official audiobook playing software does. 

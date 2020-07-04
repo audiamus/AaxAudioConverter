@@ -30,14 +30,14 @@ namespace audiamus.aaxconv.lib {
       } else {
         foreach (var part in Book.Parts) {
           setContext (part);
-          string dir = TagAndFileNamingHelper.GetPartDirectoryName (R, Settings, Book, part);
+          string dir = TagAndFileNamingHelper.GetPartDirectoryName (R, Settings, part);
           writeImageFile (nameFunc, dir);
           writeTextFile (nameFunc, dir);
         }
       }
     }
 
-    private void setContext (Book.BookPart part = null) {
+    private void setContext (Book.Part part = null) {
       if (part is null && Book.PartsType != Book.EParts.some)
         part = Book?.Parts?.FirstOrDefault ();
       if (part is null || !part.AaxFileItem.Converted)

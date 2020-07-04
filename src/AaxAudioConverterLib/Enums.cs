@@ -52,6 +52,13 @@ namespace audiamus.aaxconv.lib {
     custom,
   }
 
+  public enum EGeneralNamingEx {
+    source,
+    standard,
+    custom,
+    _nofolders
+  }
+
   public enum EFlatFolderNaming {
     author_book,
     book_author,
@@ -70,6 +77,24 @@ namespace audiamus.aaxconv.lib {
     author__book = 12,
     author__author_book = 14,
     author__book_author = 15,
+  }
+
+  public enum ENamedChapters {
+    no,
+    yes,
+    yesAlwaysWithNumbers
+  }
+
+  public enum EOnlineUpdate {
+    no,
+    promptForDownload,
+    promptForInstall
+  }
+
+  public enum EVerifyAdjustChapters {
+    no,
+    splitChapterMode,
+    bothChapterModes,
   }
 
 }

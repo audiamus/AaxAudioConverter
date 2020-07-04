@@ -49,6 +49,7 @@ namespace audiamus.aaxconv.lib {
     readonly IResources _resources;
     readonly AaxFileItem _aaxFileItem;
     readonly Book _book;
+    readonly Book.Part _part;
     readonly EConvMode _convMode;
     readonly EConvFormat _convFormat;
     readonly ENamedChapters _namedChapters;
@@ -93,10 +94,10 @@ namespace audiamus.aaxconv.lib {
       get {
         string prefix;
         switch (Settings.ChapterNaming) {
-          case EGeneralNaming.source:
+          case EGeneralNamingEx.source:
             prefix = _book.ChapterNameStub;
             break;
-          case EGeneralNaming.custom:
+          case EGeneralNamingEx.custom:
             prefix = Settings.ChapterName;
             break;
           default:
@@ -118,17 +119,18 @@ namespace audiamus.aaxconv.lib {
       if (part is null)
         return;
 
+      _part = part;
       _aaxFileItem = part.AaxFileItem;
 
-      _numbers = new Numbers (book, track, part);
+      _numbers = new Numbers (track, part);
 
     }
 
-    private TagAndFileNamingHelper (IResources resources, INamingSettingsEx settings, Book book, Book.BookPart part) :
-      this (resources, settings, book)
+    private TagAndFileNamingHelper (IResources resources, INamingSettingsEx settings, Book.Part part) :
+      this (resources, settings, part.Book)
     {
       _aaxFileItem = part.AaxFileItem;
-      _numbers = new Numbers (book, null, part);
+      _numbers = new Numbers (null, part);
     }
 
     private TagAndFileNamingHelper (IResources resources, INamingSettingsEx settings, Book book) {
@@ -140,8 +142,9 @@ namespace audiamus.aaxconv.lib {
         _convMode = s.ConvMode;
       }
 
-      bool useChapterNames = settings.NamedChaptersAndAlwaysWithNumbers.HasValue && book.HasNamedChapters;
-      bool useChapterNumbers = useChapterNames && settings.NamedChaptersAndAlwaysWithNumbers.Value || !book.HasUniqueChapterNames (_convMode);
+      bool useChapterNames = settings.NamedChapters >= lib.ENamedChapters.yes && book.HasNamedChapters;
+      bool useChapterNumbers = useChapterNames && settings.NamedChapters == lib.ENamedChapters.yesAlwaysWithNumbers || 
+        !book.HasUniqueChapterNames (_convMode);
       if (useChapterNames) {
         if (useChapterNumbers)
           _namedChapters = ENamedChapters.NumberName;
@@ -157,14 +160,20 @@ namespace audiamus.aaxconv.lib {
     public static bool WriteMetaData (IResources resources, INamingSettingsEx settings, Book book, Track track) => 
       new TagAndFileNamingHelper (resources, settings, book, track).writeMetaData ();
 
+    public static bool WriteMetaDataMP3Chapters (IResources resources, INamingSettingsEx settings, Book book, Track track) => 
+      new TagAndFileNamingHelper (resources, settings, book, track).writeMetaDataMP3Chapters ();
+
+    public static void SetTrackTitle (IResources resources, INamingSettingsEx settings, Book book, Track track) => 
+      new TagAndFileNamingHelper (resources, settings, book, track).setTrackTitle ();
+
     public static void SetFileName (IResources resources, IConvSettings settings, Book book, Track track) => 
       new TagAndFileNamingHelper (resources, settings, book, track).setFileName ();
 
     public static void SetFileNames (IResources resources, IConvSettings settings, Book book) => 
       new TagAndFileNamingHelper (resources, settings, book).setFileNames ();
 
-    public static string GetPartDirectoryName (IResources resources, INamingSettingsEx settings, Book book, Book.BookPart part) =>
-      new TagAndFileNamingHelper (resources, settings, book, part).getPartDirectoryName();
+    public static string GetPartDirectoryName (IResources resources, INamingSettingsEx settings, Book.Part part) =>
+      new TagAndFileNamingHelper (resources, settings, part).getPartDirectoryName();
     
     public static string GetGenre (INamingSettings settings, AaxFileItem afi) =>
           (settings.GenreNaming == EGeneralNaming.source ? afi.Genre : settings.GenreName) ?? GENRE;
@@ -197,7 +206,7 @@ namespace audiamus.aaxconv.lib {
       var part = _book.Parts.Where (p => p.Tracks?.Contains (track) ?? false).SingleOrDefault ();
       if (part is null)
         return;
-      _numbers = new Numbers (_book, track, part);
+      _numbers = new Numbers (track, part);
       setFileName ();
     }
 
@@ -376,11 +385,17 @@ namespace audiamus.aaxconv.lib {
         default:
           switch (_book.PartsType) {
             case Book.EParts.some:
-              return Path.Combine (_book.OutDirectoryLong, Part, Chapter, filename);
+              if (Settings.ChapterNaming != EGeneralNamingEx._nofolders )
+                return Path.Combine (_book.OutDirectoryLong, Part, Chapter, filename);
+              else
+                return Path.Combine (_book.OutDirectoryLong, Part, filename);
             case Book.EParts.none:
             case Book.EParts.all:
-            default:
-              return Path.Combine (_book.OutDirectoryLong, Chapter, filename);
+            default: 
+              if (Settings.ChapterNaming != EGeneralNamingEx._nofolders )
+                return Path.Combine (_book.OutDirectoryLong, Chapter, filename);
+              else
+                return Path.Combine (_book.OutDirectoryLong, filename);
           }
       }
     }
@@ -593,6 +608,8 @@ namespace audiamus.aaxconv.lib {
       }
     }
 
+    private void setTrackTitle () => _track.Title = Title; 
+
     private bool writeMetaData () {
       _isFileName = false;
       _track.Title = Title; // save for playlist
@@ -700,6 +717,44 @@ namespace audiamus.aaxconv.lib {
       }
 
     }
+
+
+    private bool writeMetaDataMP3Chapters () {
+      if (_part is null)
+        return false;
+
+      if (_part.Chapters2.IsNullOrEmpty ())
+        return true;
+
+      Log (3, this, $"\"{Path.GetFileName (_track.FileName)}\": #chapters={_part.Chapters2.Count}");
+
+      try {
+
+        ATL.Track tagFile = new ATL.Track (_track.FileName);
+
+        ATL.Settings.ID3v2_tagSubVersion = 3;
+
+        tagFile.Chapters.Clear ();
+
+        foreach (var ch in _part.Chapters2) {
+          var chi = new ATL.ChapterInfo {
+            StartTime = (uint)ch.Time.Begin.TotalMilliseconds,
+            EndTime = (uint)ch.Time.End.TotalMilliseconds,
+            Title = ch.Name
+          };
+          tagFile.Chapters.Add (chi);
+        }
+
+        tagFile.Save ();
+
+        return true;
+      } catch (Exception exc) {
+        Log (1, this, exc.ToShortString ());
+        return false;
+      }
+    }
+
+
 
     private string getGenre (AaxFileItem afi) => GetGenre (Settings, afi);
     

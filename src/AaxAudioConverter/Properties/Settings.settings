@@ -41,7 +41,7 @@
     <Setting Name="GenreName" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="ChapterNaming" Type="audiamus.aaxconv.lib.EGeneralNaming" Scope="User">
+    <Setting Name="ChapterNaming" Type="audiamus.aaxconv.lib.EGeneralNamingEx" Scope="User">
       <Value Profile="(Default)">standard</Value>
     </Setting>
     <Setting Name="ChapterName" Type="System.String" Scope="User">
@@ -86,8 +86,8 @@
     <Setting Name="ExtraMetaFiles" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="OnlineUpdate" Type="System.Nullable&lt;System.Boolean&gt;" Scope="User">
-      <Value Profile="(Default)">True</Value>
+    <Setting Name="OnlineUpdate" Type="audiamus.aaxconv.lib.EOnlineUpdate" Scope="User">
+      <Value Profile="(Default)">promptForInstall</Value>
     </Setting>
     <Setting Name="ShortChapterSec" Type="System.UInt32" Scope="User">
       <Value Profile="(Default)">25</Value>
@@ -95,11 +95,14 @@
     <Setting Name="VeryShortChapterSec" Type="System.UInt32" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
+    <Setting Name="VerifyAdjustChapters" Type="audiamus.aaxconv.lib.EVerifyAdjustChapters" Scope="User">
+      <Value Profile="(Default)">splitChapterMode</Value>
+    </Setting>
     <Setting Name="Latin1EncodingForPlaylist" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="NamedChaptersAndAlwaysWithNumbers" Type="System.Nullable&lt;System.Boolean&gt;" Scope="User">
-      <Value Profile="(Default)">False</Value>
+    <Setting Name="NamedChapters" Type="audiamus.aaxconv.lib.ENamedChapters" Scope="User">
+      <Value Profile="(Default)">yes</Value>
     </Setting>
     <Setting Name="AutoLaunchPlayer" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
@@ -111,6 +114,9 @@
       <Value Profile="(Default)">no</Value>
     </Setting>
     <Setting Name="AaxCopyDirectory" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Version" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
   </Settings>

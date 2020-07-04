@@ -52,10 +52,19 @@ namespace audiamus.aaxconv.lib {
         _duration = end - begin;
     }
 
+    public TimeInterval (TimeInterval other, TimeSpan offset = default) {
+      _begin = other.Begin + offset;
+      _end = other.End + offset;
+      if (_end > _begin)
+        _duration = _end - _begin;
+    }
+
     public TimeInterval Shifted (TimeSpan offset) => new TimeInterval (Begin + offset, End + offset);
 
     public override string ToString () {
       return $"{Begin.ToStringHMSm()} -> {End.ToStringHMSm()} ({Duration.ToStringHMSm()})";
     }
+
+    public string ToStringEx () => ToString() + $" [{Begin.TotalSeconds,10:000000.000} {End.TotalSeconds,10:000000.000}]";
   }
 }

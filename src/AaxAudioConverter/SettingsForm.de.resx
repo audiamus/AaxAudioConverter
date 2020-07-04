@@ -136,10 +136,6 @@ Audible Aktivierungscode</value>
   <data name="lblUsrActCode.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="comBoxM4B.ToolTip" xml:space="preserve">
-    <value>MP4-Audio kann als .m4a- oder .m4b-Datei gespeichert werden.
-Der Unterschied besteht nur im Namen, der Inhalt bleibt derselbe. </value>
-  </data>
   <data name="lblFfmpegLoc.Text" xml:space="preserve">
     <value>Pfad zu FFmpeg.exe</value>
   </data>
@@ -205,17 +201,6 @@ im Titel mehrteiliger Bücher</value>
   <data name="panel3.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="lblExtraMetaFiles.Text" xml:space="preserve">
-    <value>Zusätzliche Dateien für Buch-Info und Titelbild</value>
-  </data>
-  <data name="lblExtraMetaFiles.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ckBoxExtraMetaFiles.ToolTip" xml:space="preserve">
-    <value>Die Buchbeschreibung wird in jede erzeugte Audiodatei 
-iimmr mit eingebettet. Diese Option erzeugt eine zusätzliche 
-und separate Text- und Bild-Datei mit der selben Infoirmation. </value>
-  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>56, 13</value>
@@ -276,16 +261,16 @@ und separate Text- und Bild-Datei mit der selben Infoirmation. </value>
   <data name="panel4.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="comboBoxNamedChapters.Items" xml:space="preserve">
+  <data name="comBoxNamedChapters.Items" xml:space="preserve">
     <value>Nein</value>
   </data>
-  <data name="comboBoxNamedChapters.Items1" xml:space="preserve">
+  <data name="comBoxNamedChapters.Items1" xml:space="preserve">
     <value>Ja</value>
   </data>
-  <data name="comboBoxNamedChapters.Items2" xml:space="preserve">
+  <data name="comBoxNamedChapters.Items2" xml:space="preserve">
     <value>Ja, immer mit Ordnungsnummer</value>
   </data>
-  <data name="comboBoxNamedChapters.ToolTip" xml:space="preserve">
+  <data name="comBoxNamedChapters.ToolTip" xml:space="preserve">
     <value>Ordnungsnummern werden ggf. hinzugefügt
  - und dem Kapitelnamen vorangestellt -
 wenn die Namen nicht eindeutig sind. </value>
@@ -308,40 +293,6 @@ wenn die Namen nicht eindeutig sind. </value>
   <data name="lblPartName.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="lblLaunchPlayer.Text" xml:space="preserve">
-    <value>Automatische Wiedergabe nach Konvertierung</value>
-  </data>
-  <data name="lblLaunchPlayer.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ckBoxLaunchPlayer.ToolTip" xml:space="preserve">
-    <value>Wenn gesetzt, wird die voreingestellte Medienwiedergabe gestartet.
-Nur für erstes oder einzeln konvertiertes Buch.</value>
-  </data>
-  <data name="ckBoxLatin1.ToolTip" xml:space="preserve">
-    <value>Für Audio-Abspiel-Hard- und Software, die Umlaute 
-und andere Nicht-ASCII-Zeichen dann nicht erkennt, 
-wenn diese in Unicode UTF8 geschrieben sind.</value>
-  </data>
-  <data name="lblLatin1.Text" xml:space="preserve">
-    <value>ISO Latin1-Kodierung statt UTF8
- für .m3u Wiedergabeliste</value>
-  </data>
-  <data name="lblLatin1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="lblM4B.Text" xml:space="preserve">
-    <value>Dateityp für MP4-Audio</value>
-  </data>
-  <data name="lblM4B.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="lblLang.Text" xml:space="preserve">
-    <value>Sprache</value>
-  </data>
-  <data name="lblLang.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="comBoxLang.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -357,18 +308,51 @@ wenn diese in Unicode UTF8 geschrieben sind.</value>
   <data name="comBoxUpdate.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="ckBoxFileAssoc.ToolTip" xml:space="preserve">
+    <value>Wenn gesetzt, startet AaxAudioConverter bei 
+Doppelklick auf eine .aax- oder .aa-Dateii automatisch.</value>
+  </data>
+  <data name="comBoxAaxCopy.ToolTip" xml:space="preserve">
+    <value>Ein gemeinsamer Ordner oder Ordner je Autor.</value>
+  </data>
+  <data name="btnAaxCopyDir.Text" xml:space="preserve">
+    <value>Ordner ...</value>
+  </data>
+  <data name="panel8.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="ckBoxLaunchPlayer.ToolTip" xml:space="preserve">
+    <value>Wenn gesetzt, wird die voreingestellte Medienwiedergabe gestartet.
+Nur für erstes oder einzeln konvertiertes Buch.</value>
+  </data>
+  <data name="ckBoxLatin1.ToolTip" xml:space="preserve">
+    <value>Für Audio-Abspiel-Hard- und Software, die Umlaute 
+und andere Nicht-ASCII-Zeichen dann nicht erkennt, 
+wenn diese in Unicode UTF8 geschrieben sind.</value>
+  </data>
+  <data name="comBoxM4B.ToolTip" xml:space="preserve">
+    <value>MP4-Audio kann als .m4a- oder .m4b-Datei gespeichert werden.
+Der Unterschied besteht nur im Namen, der Inhalt bleibt derselbe. </value>
+  </data>
+  <data name="ckBoxExtraMetaFiles.ToolTip" xml:space="preserve">
+    <value>Die Buchbeschreibung wird in jede erzeugte Audiodatei 
+iimmr mit eingebettet. Diese Option erzeugt eine zusätzliche 
+und separate Text- und Bild-Datei mit der selben Infoirmation. </value>
+  </data>
+  <data name="lblLang.Text" xml:space="preserve">
+    <value>Sprache</value>
+  </data>
+  <data name="lblLang.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="lblUpdate.Text" xml:space="preserve">
     <value>Online-Update</value>
   </data>
   <data name="lblUpdate.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="ckBoxFileAssoc.ToolTip" xml:space="preserve">
-    <value>Wenn gesetzt, startet AaxAudioConverter bei 
-Doppelklick auf eine .aax- oder .aa-Dateii automatisch.</value>
-  </data>
   <data name="lblFileAssoc.Text" xml:space="preserve">
-    <value>.aax- und .aa-Dateien mit 
+    <value>.aax- und .aa-Dateien mit
 AaxAudioConverter verknüpfen</value>
   </data>
   <data name="lblFileAssoc.ToolTip" xml:space="preserve">
@@ -381,13 +365,49 @@ AaxAudioConverter verknüpfen</value>
   <data name="lblAaxCopy.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="comBoxAaxCopy.ToolTip" xml:space="preserve">
-    <value>Ein gemeinsamer Ordner oder Ordner je Autor.</value>
+  <data name="lblLaunchPlayer.Text" xml:space="preserve">
+    <value>Automatische Wiedergabe
+ nach Konvertierung</value>
   </data>
-  <data name="btnAaxCopyDir.Text" xml:space="preserve">
-    <value>Ordner ...</value>
+  <data name="lblLaunchPlayer.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="panel8.ToolTip" xml:space="preserve">
+  <data name="lblLatin1.Text" xml:space="preserve">
+    <value>ISO Latin1-Kodierung statt UTF8
+ für .m3u Wiedergabeliste</value>
+  </data>
+  <data name="lblLatin1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lblM4B.Text" xml:space="preserve">
+    <value>Dateityp für MP4-Audio</value>
+  </data>
+  <data name="lblM4B.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lblExtraMetaFiles.Text" xml:space="preserve">
+    <value>Zusätzliche Dateien für
+ Buch-Info und Titelbild</value>
+  </data>
+  <data name="lblExtraMetaFiles.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="comBoxVerAdjChapters.Items" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+  <data name="comBoxVerAdjChapters.Items1" xml:space="preserve">
+    <value>nur im Modus Unterteilte Kapitel</value>
+  </data>
+  <data name="comBoxVerAdjChapters.Items2" xml:space="preserve">
+    <value>in beiden Kapitel-Modi (geteilt und ungeteilt)</value>
+  </data>
+  <data name="comBoxVerAdjChapters.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="lblVerAdjChapters.Text" xml:space="preserve">
+    <value>Kapitelmarken prüfen und justieren</value>
+  </data>
+  <data name="lblVerAdjChapters.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="tableLayoutPanel1.ToolTip" xml:space="preserve">

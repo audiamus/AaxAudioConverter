@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Media;
 using System.Windows.Forms;
 
 namespace audiamus.aux.win {
@@ -31,6 +32,7 @@ namespace audiamus.aux.win {
         case ECallbackType.question:
           return MsgBox.Show (Parent, im.Message, Parent.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
         case ECallbackType.question3: {
+            SystemSounds.Exclamation.Play ();
             var result = MsgBox.Show (Parent, im.Message, Parent.Text, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             switch (result) {
               default:

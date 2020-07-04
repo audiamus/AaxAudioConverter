@@ -33,6 +33,9 @@
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ATL, Version=3.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\z440.atl.core.3.6.0\lib\net45\ATL.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -54,6 +57,7 @@
     <Compile Include="ActivationCodeApp.cs" />
     <Compile Include="ActivationCodeRegistry.cs" />
     <Compile Include="AudibleAppContentMetadata.cs" />
+    <Compile Include="Book.Part.cs" />
     <Compile Include="ContentMetadataJson.cs" />
     <Compile Include="ExtraMetaFiles.cs" />
     <Compile Include="FFMetaData.cs" />

@@ -117,64 +117,139 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="FileNaming" xml:space="preserve">
-    <value>Muster für Dateinamen</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="webBrowser.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>20, 20</value>
   </data>
-  <data name="FileNamingDescription" xml:space="preserve">
-    <value>Dateinamen werden nach gewähltem Muster erzeugt. Platzhalter werden durch aktuelle Werte ersetzt.</value>
+  <data name="btnOK.Text" xml:space="preserve">
+    <value>OK</value>
   </data>
-  <data name="TitleNaming" xml:space="preserve">
-    <value>Muster für Titel-Tag </value>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
   </data>
-  <data name="TitleNamingDescription" xml:space="preserve">
-    <value>Tags für Titel jedes Stücks werden nach gewähltem Muster erzeugt. Platzhalter werden durch aktuelle Werte ersetzt.</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Bottom</value>
   </data>
-  <data name="TrackNumbering" xml:space="preserve">
-    <value>Nummerierung der Stücke</value>
+  <data name="lblPrev.Location" type="System.Drawing.Point, System.Drawing">
+    <value>12, 22</value>
   </data>
-  <data name="TrackNumberingDescription" xml:space="preserve">
-    <value>Nummerierung der einzelnen Stücke im Titel-Tag. Platzhalter werden durch aktuelle Werte ersetzt.</value>
+  <data name="&gt;&gt;panel1.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
-  <data name="Narrator" xml:space="preserve">
-    <value>Sprecher hinzufügen</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lblPrev.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
-  <data name="NarratorDescription" xml:space="preserve">
-    <value>Fügt Namen des Sprechers zum Künstler-Tag hinzu, wenn [ja].</value>
+  <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>544, 53</value>
   </data>
-  <data name="GenreNaming" xml:space="preserve">
-    <value>Namensgebung Genre</value>
+  <data name="&gt;&gt;webBrowser.Type" xml:space="preserve">
+    <value>System.Windows.Forms.WebBrowser, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="GenreNamingDescription" xml:space="preserve">
-    <value>Namensquelle für das Genre-Tag. &lt;Quelle&gt;: aus aax-Datei; &lt;Standard&gt;: setzt zu 'Hörbuch'; &lt;Benutzerdefiniert&gt;: eigene Angabe.</value>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="GenreName" xml:space="preserve">
-    <value>Benutzerdefiniertes Genre</value>
+  <data name="&gt;&gt;lblPrev.Name" xml:space="preserve">
+    <value>lblPrev</value>
   </data>
-  <data name="GenreNameDescription" xml:space="preserve">
-    <value>Benutzerdefiniertes Tag für das Genre</value>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>544, 475</value>
   </data>
-  <data name="ChapterNaming" xml:space="preserve">
-    <value>Namensgebung Kapitelordner</value>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>WhatsNewForm</value>
   </data>
-  <data name="ChapterNamingDescription" xml:space="preserve">
-    <value>Namensquelle für Kapitelordner, falls erforderlich und nicht unterbunden (keine Ordner). &lt;Quelle&gt;: aus aax-Datei; &lt;Standard&gt;: setzt zu 'Kapitel'; &lt;Benutzerdefiniert&gt;: eigene Angabe.</value>
+  <data name="lblPrev.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
   </data>
-  <data name="ChapterName" xml:space="preserve">
-    <value>Benutzerdefinierter Kapitelordner</value>
+  <data name="&gt;&gt;btnOK.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
-  <data name="ChapterNameDescription" xml:space="preserve">
-    <value>Benutzerdefinierter Präfix für "Kapitel"-Ordner.</value>
+  <data name="lblPrev.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left</value>
   </data>
-  <data name="SeriesTitleLeft" xml:space="preserve">
-    <value>Serientitel vor Doppelpunkt</value>
+  <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
+    <value>350, 200</value>
   </data>
-  <data name="SeriesTitleLeftDescription" xml:space="preserve">
-    <value>Für gekürzten Buchtitel, Serientitel wird entfernt: Titel der Serie steht vor Buchtitel, wenn [ja], sonst hinter Buchtitel, immer getrennt durch Doppelpunkt.</value>
+  <data name="lblPrev.Text" xml:space="preserve">
+    <value>For release notes to previous versions see the manual.</value>
   </data>
-  <data name="LongBookTitle" xml:space="preserve">
-    <value>Langer Buchtitel</value>
+  <data name="webBrowser.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
-  <data name="LongBookTitleDescription" xml:space="preserve">
-    <value>Resultierender Buchtitel soll auch den Serientitel enthalten, wenn nicht [nein]. Reihenfolge wählbar, Buch- oder Serientitel zuerst. Sonst wird der Serientitel entfernt, ab/bis Doppelpunkt. [wie vorgefunden] übernimmt den ganzen Titel, ohne Untersuchung.</value>
+  <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
+    <value>$this</value>
   </data>
+  <data name="btnOK.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterParent</value>
+  </data>
+  <data name="btnOK.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Right</value>
+  </data>
+  <data name="&gt;&gt;panel1.Name" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="btnOK.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;webBrowser.Name" xml:space="preserve">
+    <value>webBrowser</value>
+  </data>
+  <data name="&gt;&gt;btnOK.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="lblPrev.Size" type="System.Drawing.Size, System.Drawing">
+    <value>263, 13</value>
+  </data>
+  <data name="btnOK.Location" type="System.Drawing.Point, System.Drawing">
+    <value>457, 17</value>
+  </data>
+  <data name="panel1.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;webBrowser.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lblPrev.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;lblPrev.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;btnOK.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 422</value>
+  </data>
+  <data name="webBrowser.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="&gt;&gt;btnOK.Name" xml:space="preserve">
+    <value>btnOK</value>
+  </data>
+  <data name="&gt;&gt;lblPrev.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;panel1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="webBrowser.Size" type="System.Drawing.Size, System.Drawing">
+    <value>544, 422</value>
+  </data>
+  <data name="webBrowser.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>What's New?</value>
+  </data>
+  <data name="&gt;&gt;webBrowser.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>

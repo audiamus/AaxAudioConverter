@@ -1,5 +1,5 @@
 ﻿namespace audiamus.aaxconv.lib {
-  public enum EProgressPhase { none, silence, transcoding, copying }
+  public enum EProgressPhase { none, silence, adjust, transcoding, copying }
 
   public class ProgressInfo {
     public class ProgressEntry<T> {

@@ -384,4 +384,13 @@ ist zur Installation bereit.</value>
   <data name="OpenFile" xml:space="preserve">
     <value>Audible-Dateien hinzufügen</value>
   </data>
+  <data name="adjust" xml:space="preserve">
+    <value>Justieren</value>
+  </data>
+  <data name="adjusting" xml:space="preserve">
+    <value>Justieren</value>
+  </data>
+  <data name="nofolders" xml:space="preserve">
+    <value>(ohne Kapitel-Unterordner)</value>
+  </data>
 </root>

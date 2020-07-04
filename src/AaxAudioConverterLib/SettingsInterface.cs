@@ -8,7 +8,7 @@ namespace audiamus.aaxconv.lib {
     bool Narrator { get; set; }
     EGeneralNaming GenreNaming { get; set; }
     string GenreName { get; set; }
-    EGeneralNaming ChapterNaming { get; set; }
+    EGeneralNamingEx ChapterNaming { get; set; }
     string ChapterName { get; set; }
   }
 
@@ -16,7 +16,7 @@ namespace audiamus.aaxconv.lib {
     EGeneralNaming PartNaming { get; set; }
     string PartName { get; set; }
     bool ExtraMetaFiles { get; set; }
-    bool? NamedChaptersAndAlwaysWithNumbers { get; set; }
+    ENamedChapters NamedChapters { get; set; }
     bool M4B { get; set; }
   }
 
@@ -36,7 +36,7 @@ namespace audiamus.aaxconv.lib {
   }
 
   public interface IUpdateSetting {
-    bool? OnlineUpdate { get; set; }
+    EOnlineUpdate OnlineUpdate { get; set; }
   }
 
   public interface IAaxCopySettings {
@@ -62,8 +62,10 @@ namespace audiamus.aaxconv.lib {
     EFlatFolderNaming FlatFolderNaming { get; set; }
     uint ShortChapterSec { get; set; }
     uint VeryShortChapterSec { get; set; }
+    EVerifyAdjustChapters VerifyAdjustChapters { get; set; }
     bool Latin1EncodingForPlaylist { get; set; }
     bool AutoLaunchPlayer { get; set; }
+    string Version { get; set; }
   }
 
 }

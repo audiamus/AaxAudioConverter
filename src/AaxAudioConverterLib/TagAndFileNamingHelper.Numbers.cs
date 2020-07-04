@@ -21,7 +21,9 @@ namespace audiamus.aaxconv.lib {
       public readonly int nPrt = -1;      // current part
       public readonly int nnPrt = -1;     // part digits
 
-      public Numbers (Book book, Track track, Book.BookPart part) {
+      public Numbers (Track track, Book.Part part) {
+        Book book = part.Book;
+
         this.nPrt = part.PartNumber;
         this.nnPrt = book.Parts.Select (p => p.PartNumber).Max ().Digits ();
 

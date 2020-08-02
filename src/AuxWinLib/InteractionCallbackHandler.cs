@@ -29,25 +29,32 @@ namespace audiamus.aux.win {
           break;
         case ECallbackType.errorQuestion:
           return MsgBox.Show (Parent, im.Message, Parent.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Error) == DialogResult.Yes;
+        case ECallbackType.errorQuestion3:
+          return threewayQuestion (im, true);
         case ECallbackType.question:
           return MsgBox.Show (Parent, im.Message, Parent.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
         case ECallbackType.question3: {
             SystemSounds.Exclamation.Play ();
-            var result = MsgBox.Show (Parent, im.Message, Parent.Text, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-            switch (result) {
-              default:
-                return null;
-              case DialogResult.Yes:
-                return true;
-              case DialogResult.No:
-                return false;
-            }
+            return threewayQuestion (im);
           }
       }
 
       return null;
     }
 
+    private bool? threewayQuestion (InteractionMessage im, bool errorIcon = false) {
+      var result = MsgBox.Show (
+        Parent, im.Message, Parent.Text, 
+        MessageBoxButtons.YesNoCancel, errorIcon ? MessageBoxIcon.Error : MessageBoxIcon.Question);
+      switch (result) {
+        default:
+          return null;
+        case DialogResult.Yes:
+          return true;
+        case DialogResult.No:
+          return false;
+      }
+    }
   }
 
   public class InteractionCallbackHandler<T> : InteractionCallbackHandler where T : struct, Enum {

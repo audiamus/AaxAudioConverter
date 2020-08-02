@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using audiamus.aux.ex;
+using audiamus.aaxconv.lib.ex;
 using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv.lib {
@@ -98,8 +99,9 @@ namespace audiamus.aaxconv.lib {
 
       public void CreateCueSheet (IConvSettings settings) {
         Log (3, this, () => this.ToString());
-        // do not trust the settings range check. Enforce track length between 3 and 15 min. 
-        int trackDurMins = Math.Max (3, Math.Min (15, (int)settings.TrkDurMins));
+        // Do not trust the settings range check. Enforce track length between 3 and 15/90 min. 
+
+        var (_, _, trackDurMins) = settings.TrkDurMins.TrackDuration (settings.ConvMode);
 
         // expects all chapters in individual files, each starting at time 0
 

@@ -12,7 +12,7 @@ using static audiamus.aux.Logging;
 namespace audiamus.aaxconv {
   using R = Properties.Resources;
 
-  public partial class PreviewForm : FileItemForm {
+  partial class PreviewForm : FileItemForm {
     #region Private Fields
 
     // regex char class substraction, allow several non-word chars

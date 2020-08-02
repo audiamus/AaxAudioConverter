@@ -1,5 +1,5 @@
 #define MyAppSetupName 'AAX Audio Converter'
-#define MyAppVersion '1.13'
+#define MyAppVersion '1.14'
 #define MyProgramExe = 'AaxAudioConverter.exe'
 #define MyCompany = 'audiamus'
 
@@ -50,6 +50,9 @@ Source: "*.exe"; DestDir: "{app}"
 Source: "*.exe.config"; DestDir: "{app}"
 Source: "*.pdf"; DestDir: "{app}"
 Source: "de\*.resources.dll"; DestDir: "{app}\de"
+
+[InstallDelete]
+Type: files; Name: "{app}\*.html"
 
 [Icons]
 Name: "{group}\{#MyAppSetupName}"; Filename: "{app}\{#MyProgramExe}"

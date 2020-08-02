@@ -128,7 +128,11 @@
     <value>Activation error for</value>
   </data>
   <data name="MsgActivationError2" xml:space="preserve">
-    <value>Enter a different activation code?</value>
+    <value>Enter a different activation code?
+
+[Yes]: Prompt for new code
+[No]: Just retry, Audible account has changed
+[Cancel]: Skip book</value>
   </data>
   <data name="MsgActivationError3" xml:space="preserve">
     <value>File will be skipped.</value>
@@ -136,6 +140,7 @@
   <data name="MsgDirectoryCreationCallback" xml:space="preserve">
     <value>exists and is not empty.
 Override content, new folder or skip book?
+
 [Yes]: Override content
 [No]: New folder
 [Cancel]: Skip book</value>
@@ -374,5 +379,8 @@ Copies will not be made. </value>
   </data>
   <data name="nofolders" xml:space="preserve">
     <value>(no chapter sub-folders)</value>
+  </data>
+  <data name="LatestRtf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\AaxAudioConverter.latest.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

@@ -485,5 +485,16 @@ namespace audiamus.aaxconv.Properties {
                 this["Version"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Nullable<System.Boolean> ShowStartupTip {
+            get {
+                return ((global::System.Nullable<System.Boolean>)(this["ShowStartupTip"]));
+            }
+            set {
+                this["ShowStartupTip"] = value;
+            }
+        }
     }
 }

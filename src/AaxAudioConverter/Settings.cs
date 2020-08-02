@@ -3,6 +3,7 @@
   interface IAppSettings : lib.IConvSettings, aux.win.ILanguageSetting {
     void Save ();
     bool? FileAssoc { get; set; }
+    bool? ShowStartupTip { get; set; }
   }
 
 

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Forms;
-using audiamus.aux;
 using audiamus.aux.w32;
 using audiamus.aux.win;
 using static audiamus.aux.ApplEnv;
+using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv {
 
@@ -44,20 +45,28 @@ namespace audiamus.aaxconv {
           return;
       }
 
-      Associate ();
+      Task.Run (() => Associate ());
     }
 
     public void Update () {
-      if (Settings.FileAssoc ?? false)
-        Associate ();
-      else
-        Remove ();
+      Task.Run (() =>
+      {
+        if (Settings.FileAssoc ?? false)
+          Associate ();
+        else
+          Remove ();
+      });
     }
 
-    public void Associate () => FileAssociations.EnsureAssociationsSet (_extensions, _fileDesc, _assembly);
+    public void Associate () {
+      Log0 (3, this);
+      FileAssociations.EnsureAssociationsSet (_extensions, _fileDesc, _assembly);
+    }
 
-    public void Remove () => FileAssociations.RemoveAssociationsSet (_extensions, _assembly);
-
+    public void Remove () {
+      Log0 (3, this);
+      FileAssociations.RemoveAssociationsSet (_extensions, _assembly);
+    }
   }
 }
 

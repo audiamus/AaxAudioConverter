@@ -22,6 +22,7 @@ namespace audiamus.aaxconv {
     private readonly Func<InteractionMessage, bool?> _callback;
     private bool _flag;
     private bool _enabled = true;
+    private readonly string _title; 
 
     private ComboBoxEnumAdapter<EAaxCopyMode> _cbAdapterAaxCopyMode;
 
@@ -46,6 +47,7 @@ namespace audiamus.aaxconv {
       using (new ResourceGuard (x => _flag = x))
         InitializeComponent ();
 
+      _title = this.Text;
       _converter = converter;
       _callback = callback;
 
@@ -57,7 +59,7 @@ namespace audiamus.aaxconv {
 
     protected override void OnLoad (EventArgs e) {
       base.OnLoad (e);
-      this.Text = $"{Owner?.Text}: {this.Text}";
+      this.Text = $"{Owner?.Text}: {_title}";
     }
 
     protected override void OnKeyDown (KeyEventArgs e) {

@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using audiamus.aaxconv.lib;
+using audiamus.aaxconv.lib.ex;
 using audiamus.aux;
 using audiamus.aux.ex;
 using audiamus.aux.win;
@@ -42,7 +43,8 @@ namespace audiamus.aaxconv {
     private CancellationTokenSource _cts;
     private bool _initDone;
     private bool _closing;
-    private bool _resetFlag;
+    private bool _resetFlagRadioButtons;
+    private bool _resetFlagTrackLength;
     private bool _ffMpegPathVerified;
     private bool _updateAvailableFlag; 
 
@@ -95,21 +97,32 @@ namespace audiamus.aaxconv {
       string windowtitle, string caption, string cancelMessage = null
     ) {
       string defdir = Environment.GetFolderPath (Environment.SpecialFolder.MyMusic);
+      if (!Directory.Exists (defdir))
+        defdir = Environment.GetFolderPath (Environment.SpecialFolder.ApplicationData);
+
       defdir = Path.Combine (defdir, defsubdir);
       string dir = directory;
       if (string.IsNullOrWhiteSpace (dir) || !Directory.Exists (dir))
         dir = defdir;
 
-      if (dir == defdir && !Directory.Exists (dir))
-        Directory.CreateDirectory (defdir);
+      bool noDefDir = false;
+      try {
+        if (dir == defdir && !Directory.Exists (dir))
+          Directory.CreateDirectory (defdir);
+      } catch (Exception exc) {
+        noDefDir = true;
+        Log (1, typeof (MainForm), $"\"{defdir.SubstitUser ()}\": {exc.ToShortString ()}");
+      }
 
       CommonOpenFileDialog ofd = new CommonOpenFileDialog {
         Title = $"{windowtitle}: {caption}",
         InitialDirectory = dir,
-        DefaultDirectory = defdir,
         IsFolderPicker = true,
         EnsurePathExists = true,
       };
+      if (!noDefDir)
+        ofd.DefaultDirectory = defdir;
+
       CommonFileDialogResult result = ofd.ShowDialog ();
       if (result == CommonFileDialogResult.Cancel) {
         if (!string.IsNullOrWhiteSpace (cancelMessage) && !Directory.Exists (directory))
@@ -139,8 +152,10 @@ namespace audiamus.aaxconv {
       checkAudibleActivationCode ();
 
       ensureFFmpegPath ();
-      enableAll (true);
 
+      showStartupHint ();
+
+      enableAll (true);
       var args = Environment.GetCommandLineArgs ();
       if (args.Length > 1)
         addFile (args[1]);
@@ -307,26 +322,34 @@ namespace audiamus.aaxconv {
     }
 
     private void showWhatsNew () {
-      // 1st time users: Settings.FileAssoc is null -and- Settings.Version is null or white space.
-      // prev users: Settings.FileAssoc is not null -or- Settings.Version is not null or white space 
-      bool update = !Settings.FileAssoc.IsNull () || !Settings.Version.IsNullOrWhiteSpace ();
+      // Window should only be shown to existing users after update.
+      // Version should be saved to settings for new users as well.
+
+      // new users: Settings.FileAssoc is null -and- Settings.Version is null or white space.
+      bool newuser = Settings.FileAssoc.IsNull () && Settings.Version.IsNullOrWhiteSpace ();
+
+      // update: settings version number is null or lower than assembly  
+      Version.TryParse (Settings.Version, out var version);
+      bool update = version is null || version < AssemblyVersion;
+
+      bool show = update && !newuser;
+      if (show) {
+        var dlg = new WhatsNewForm { Owner = this };
+        dlg.ShowDialog ();
+      }
+      
       if (update) {
-        bool show = false;
-        Version.TryParse (Settings.Version, out var version);
-        if (version is null || version < AssemblyVersion)
-          show = true;
-
-        if (show) {
-          var dlg = new WhatsNewForm { Owner = this };
-          dlg.ShowDialog ();
-
-          Settings.Version = AssemblyVersion.ToString ();
-          Settings.Save ();
-        }
-      } else {
         Settings.Version = AssemblyVersion.ToString ();
         Settings.Save ();
       }
+    }
+
+    private void showStartupHint () {
+      if (Settings.ShowStartupTip.HasValue && !Settings.ShowStartupTip.Value)
+        return;
+
+      var dlg = new StartupTipForm (Settings) { Owner = this };
+      dlg.Show ();
     }
 
 
@@ -407,7 +430,7 @@ namespace audiamus.aaxconv {
 
 
     private void initRadionButtons () {
-      using (new ResourceGuard (f => _resetFlag = f)) {
+      using (new ResourceGuard (f => _resetFlagRadioButtons = f)) {
 
         radBtnMp4.Text = Settings.M4B ? "M4B" : "M4A";
 
@@ -434,7 +457,17 @@ namespace audiamus.aaxconv {
             break;
         }
 
-        numUpDnTrkLen.Value = Settings.TrkDurMins;
+        setTrackLengthControl ();
+
+      }
+    }
+
+    private void setTrackLengthControl () {
+      using (new ResourceGuard (f => _resetFlagTrackLength = f)) {
+        var (min, max, val) = Settings.TrkDurMins.TrackDuration (Settings.ConvMode);
+        numUpDnTrkLen.Minimum = min;
+        numUpDnTrkLen.Maximum = max;
+        numUpDnTrkLen.Value = val;
         panelTrkLen.Enabled = Settings.ConvMode >= EConvMode.splitChapters;
       }
     }
@@ -493,11 +526,11 @@ namespace audiamus.aaxconv {
     }
 
     private void radioButton<T> (object sender, Action<T> action, T value) where T : struct, Enum {
-      if (_resetFlag)
+      if (_resetFlagRadioButtons)
         return;
       if (sender is RadioButton rb && rb.Checked) {
         action (value);
-        panelTrkLen.Enabled = Settings.ConvMode >= EConvMode.splitChapters;
+        setTrackLengthControl ();
         enableButtonConvert ();
       }
     }
@@ -808,6 +841,8 @@ namespace audiamus.aaxconv {
 
 
     private void numUpDnTrkLen_ValueChanged (object sender, EventArgs e) {
+      if (_resetFlagTrackLength)
+        return;
       Settings.TrkDurMins = (byte)numUpDnTrkLen.Value;
       enableButtonConvert ();
     }

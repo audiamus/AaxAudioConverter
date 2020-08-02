@@ -29,25 +29,27 @@ namespace audiamus.aaxconv.lib {
       _activationCodes.Clear ();
 
       if (_settings.ActivationCode.HasValue) {
-        Log (2, this, "from user settings");
+        Log (2, this, "add from user settings");
         _activationCodes.Add (_settings.ActivationCode.Value.ToHexString ());
       }
 
-      if (!HasActivationCode) {
+      { 
         ActivationCodeRegistry registryCodes = new ActivationCodeRegistry ();
         if (registryCodes.HasActivationCode) {
-          Log (2, this, "from registry");
+          Log (2, this, $"add from registry (#={registryCodes.ActivationCodes.Count()})");
           _activationCodes = _activationCodes.Union (registryCodes.ActivationCodes).ToList ();
         }
       }
 
-      if (!HasActivationCode) {
+      {
         ActivationCodeApp appCodes = new ActivationCodeApp ();
         if (appCodes.HasActivationCode) {
-          Log (2, this, "from app");
+          Log (2, this, $"add from app (#={appCodes.ActivationCodes.Count()})");
           _activationCodes = _activationCodes.Union (appCodes.ActivationCodes).ToList ();
         }
       }
+
+      Log (2, this, $"#unique={_activationCodes.Count}");
     }
 
     public bool ReinitActivationCode () {

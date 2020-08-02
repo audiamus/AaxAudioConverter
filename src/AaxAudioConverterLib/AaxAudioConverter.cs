@@ -337,23 +337,27 @@ namespace audiamus.aaxconv.lib {
       return items;
     }
 
-    private void checkActivationAndGetChapters (Book book) {
-      foreach (var part in book.Parts)
-        checkActivationAndGetChapters (part);
+    private bool checkActivationAndGetChapters (Book book) {
+      foreach (var part in book.Parts) {
+        bool succ = checkActivationAndGetChapters (part);
+        if (!succ)
+          return false;
+      }
+      return true;
     }
 
-    private void checkActivationAndGetChapters (Book.Part part) {
+    private bool checkActivationAndGetChapters (Book.Part part) {
       lock (_lockable) {
         while (true) {
           bool succ = false;
           foreach (string code in _activationCode.ActivationCodes) {
             succ = verifyActivationAndGetChapters (part, code);
             if (succ)
-              return;
+              return true;
           }
 
           if (!activationErrorCallback (part))
-            return;
+            return false;
           _activationCode.ReinitActivationCode ();
         }
       }
@@ -368,13 +372,16 @@ namespace audiamus.aaxconv.lib {
         succ = ffmpeg.VerifyActivation (null, withChapters);
       else
         part.ActivationCode = activationcode;
-      part.IsMp3Stream = ffmpeg.IsMp3Stream;
-      part.Chapters = ffmpeg.Chapters;
-      part.ComplementChapterNames ();
 
-      Log (3, this, () => chapterList (part, "aax"));
+      if (succ) {
+        part.IsMp3Stream = ffmpeg.IsMp3Stream;
+        part.Chapters = ffmpeg.Chapters;
+        part.ComplementChapterNames ();
 
-      getContentMetadata (part);
+        Log (3, this, () => chapterList (part, "aax/aa"));
+
+        getContentMetadata (part);
+      }
 
       return succ;
     }
@@ -513,6 +520,10 @@ namespace audiamus.aaxconv.lib {
         AddTotalTracks = numInitialTracks // number of tracks, initially just as many parts
       });
 
+      // TODO: proper part/phase/track progress mgmt
+      foreach (var book in books)
+        book.NumProgressPhases = numProcessingParts / (uint)numInitialTracks * (uint)book.Parts.Count;
+
       if (Settings.AaxCopyMode != default && Directory.Exists(Settings.AaxCopyDirectory))
         Callbacks.Progress (new ProgressMessage {
           AddTotalTracks = numInitialTracks // one more for each part
@@ -534,8 +545,8 @@ namespace audiamus.aaxconv.lib {
           book.Stopwatch.Start ();
         } else {
           book.Stopwatch.Stop ();
-          Log (2, this, () => 
-            $"\"{book.SortingTitle.Shorten ()}\", #parts={book.Parts.Count ()} (format={Settings.ConvFormat}, mode={Settings.ConvMode}): " + 
+          Log (2, this, () =>
+            $"\"{book.SortingTitle.Shorten ()}\", #parts={book.Parts.Count ()} (format={Settings.ConvFormat}, mode={Settings.ConvMode}): " +
             $"Done. Elapsed={book.Stopwatch.Elapsed.ToStringHMSm ()}");
         }
       })) {
@@ -545,43 +556,51 @@ namespace audiamus.aaxconv.lib {
         // Check activation codes
         //   and generally decodable format 
         // Also retrieve chapters on the fly
-        checkActivationAndGetChapters (book);
+        bool succ = checkActivationAndGetChapters (book);
 
-        book.InitAuthorTitle (Settings);
+        if (succ) {
+          book.InitAuthorTitle (Settings);
 
-        preProcessChapters (book);
+          preProcessChapters (book);
 
-        switch (Settings.ConvMode) {
-          case EConvMode.single:
-            convertSingleMode (book);
-            break;
+          switch (Settings.ConvMode) {
+            case EConvMode.single:
+              convertSingleMode (book);
+              break;
 
-          case EConvMode.chapters:
-            convertChapterMode (book);
-            break;
+            case EConvMode.chapters:
+              convertChapterMode (book);
+              break;
 
-          case EConvMode.splitChapters:
-            convertSplitChapterMode (book);
-            break;
+            case EConvMode.splitChapters:
+              convertSplitChapterMode (book);
+              break;
 
-          case EConvMode.splitTime:
-            convertSplitTimeMode (book);
-            break;
-        }
-
-        if (!(book.OutDirectoryLong is null)) {
-          // On cancel remove book output, otherwise make playlist
-          if (Callbacks?.Cancelled ?? false)
-            deleteOutDirectory (book);
-          else {
-            makePlaylist (book);
-            extraMetaFiles (book);
-            copyAaxFiles (book);
+            case EConvMode.splitTime:
+              convertSplitTimeMode (book);
+              break;
           }
-        }
 
-        if (Settings.ConvMode != EConvMode.single)
-          cleanTempDirectory ();
+          if (!(book.OutDirectoryLong is null)) {
+            // On cancel remove book output, otherwise make playlist
+            if (Callbacks?.Cancelled ?? false)
+              deleteOutDirectory (book);
+            else {
+              makePlaylist (book);
+              extraMetaFiles (book);
+              copyAaxFiles (book);
+            }
+          }
+
+          if (Settings.ConvMode != EConvMode.single)
+            cleanTempDirectory ();
+        } else {
+          Callbacks.Progress (new ProgressMessage {
+            IncParts = book.NumProgressPhases,
+            IncTracks = (uint)book.Parts.Count 
+          });
+
+        }
       }
     }
 
@@ -1134,12 +1153,10 @@ namespace audiamus.aaxconv.lib {
       foreach (var part in book.Parts) {
 
         var chapters = part.Chapters.Where (c => !c.TimeAdjustment.IsNull ()).ToList ();
-        if (chapters.Count == 0)
-          return;
+        if (chapters.Count > 0)
+          adjustTimesAndRetranscodeParallel (part, chapters);
 
-        adjustTimesAndRetranscodeParallel (part, chapters);
         Callbacks.Progress (new ProgressMessage { IncParts = 1 });
-
       }
 
     }
@@ -1844,19 +1861,33 @@ namespace audiamus.aaxconv.lib {
         using (new ResourceGuard (f =>
         {
           if (f) {
+            Stopwatch.Stop ();
             part.Book.Stopwatch.Stop ();
           } else {
+            Stopwatch.Start ();
             part.Book.Stopwatch.Start ();
           }
         })) {
           string message = $"{Resources.MsgActivationError1} \r\n\"{part.AaxFileItem.BookTitle}\"\r\n{Resources.MsgActivationError2}";
           Log (3, this, () => message);
-          bool? result = Callbacks.Interact (message, ECallbackType.errorQuestion);
-          if (result ?? false)
-            return Callbacks.Interact (EInteractionCustomCallback.noActivationCode) ?? false;
-          else
-            Callbacks.Interact (Resources.MsgActivationError3, ECallbackType.warning);
-          return false;
+          bool? result = Callbacks.Interact (message, ECallbackType.errorQuestion3);
+          switch (result) {
+            default:
+              // cancelled, skip
+              Callbacks.Interact (Resources.MsgActivationError3, ECallbackType.warning);
+              return false;
+            case true:
+              // ask for new custom code, can be cancelled in dialog
+              {
+                bool succ = Callbacks.Interact (EInteractionCustomCallback.noActivationCode) ?? false;
+                if (!succ)
+                  Callbacks.Interact (Resources.MsgActivationError3, ECallbackType.warning);
+                return succ;
+              }
+            case false:
+              // just retry
+              return true;
+          }
         }
       }
     }

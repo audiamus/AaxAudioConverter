@@ -42,6 +42,7 @@ namespace audiamus.aaxconv.lib {
     public string DefaultAudioFile { get; internal set; }
 
     public Stopwatch Stopwatch {get;} = new Stopwatch ();
+    public uint NumProgressPhases { get; set; }
 
     internal Caption FileCaption { get; set; }
     internal Caption TagCaption { get; set; }

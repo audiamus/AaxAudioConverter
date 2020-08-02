@@ -97,4 +97,9 @@ namespace audiamus.aaxconv.lib {
     bothChapterModes,
   }
 
+  enum ETrackDuration {
+    Min = 3,
+    MaxSplitChapter = 15,
+    MaxTimeSplit = 90
+  }
 }

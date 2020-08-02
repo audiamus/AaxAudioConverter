@@ -8,7 +8,7 @@ using audiamus.aux.win;
 namespace audiamus.aaxconv {
   using R = Properties.Resources;
 
-  public partial class FileDetailsForm : FileItemForm {
+  partial class FileDetailsForm : FileItemForm {
 
     public FileDetailsForm () {
       InitializeComponent ();

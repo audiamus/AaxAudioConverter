@@ -125,6 +125,11 @@
       <DependentUpon>PreviewForm.cs</DependentUpon>
     </Compile>
     <Compile Include="ProgressProcessor.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -154,6 +159,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="StartupTipForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StartupTipForm.Designer.cs">
+      <DependentUpon>StartupTipForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="WhatsNewForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -223,20 +234,22 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <EmbeddedResource Include="SettingsForm.de.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StartupTipForm.de.resx">
+      <DependentUpon>StartupTipForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StartupTipForm.resx">
+      <DependentUpon>StartupTipForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WhatsNewForm.de.resx">
@@ -302,12 +315,10 @@
     <None Include="Resources\blank.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AaxAudioConverter.latest.de.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="AaxAudioConverter.latest.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <None Include="AaxAudioConverter.latest.de.rtf" />
+    <None Include="AaxAudioConverter.latest.rtf" />
+    <Content Include="Resources\hidden features de.png" />
+    <Content Include="Resources\hidden features en.png" />
     <None Include="ffmpeg.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

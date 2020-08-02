@@ -1,7 +1,7 @@
 # AAX Audio Converter
 Convert Audible aax files to mp3 and m4a/m4b
 
-![GitHub All Releases](https://img.shields.io/github/downloads/audiamus/AaxAudioConverter/total) ![GitHub](https://img.shields.io/github/license/audiamus/AaxAudioConverter) ![](https://img.shields.io/badge/platform-Windows-blue) ![](https://img.shields.io/badge/language-C%23-blue) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/audiamus/AaxAudioConverter)](https://github.com/audiamus/AaxAudioConverter/releases/latest)
+[![GitHub All Releases](https://img.shields.io/github/downloads/audiamus/AaxAudioConverter/total)](https://github.com/audiamus/AaxAudioConverter/releases) [![GitHub](https://img.shields.io/github/license/audiamus/AaxAudioConverter)](https://github.com/audiamus/AaxAudioConverter/blob/master/LICENSE) [![](https://img.shields.io/badge/platform-Windows-blue)](http://microsoft.com/windows) [![](https://img.shields.io/badge/language-C%23-blue)](http://csharp.net/) [![GitHub release (latest by date)](https://img.shields.io/github/v/release/audiamus/AaxAudioConverter)](https://github.com/audiamus/AaxAudioConverter/releases/latest)
 
 ![](res/Cover.png?raw=true)
 
@@ -42,15 +42,15 @@ The application requires .Net Framework 4.7.1 to be installed. On Windows 10 sys
 AAX Audio Converter is configured to support high DPI monitors under Windows 10. It will scale properly when the user changes the DPI or scale factor. 
 
 ## Download
-Windows setup package version 1.13, English and German, with manuals, plus FFmpeg executable:
+Windows setup package version 1.14, English and German, with manuals, plus FFmpeg executable:
 
-**[AaxAudioConverter-1.13-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.13/AaxAudioConverter-1.13-Setup.exe)**
+**[AaxAudioConverter-1.14-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.14/AaxAudioConverter-1.14-Setup.exe)**
 
 Manuals (also included in the setup package):
 
-**[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.13/AaxAudioConverter.pdf)**
+**[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.14/AaxAudioConverter.pdf)**
 
-**[German](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.13/AaxAudioConverter.de.pdf)**
+**[German](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.14/AaxAudioConverter.de.pdf)**
 
 
 ## Dependencies

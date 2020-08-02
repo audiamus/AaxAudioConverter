@@ -335,6 +335,16 @@ namespace audiamus.aaxconv.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {\rtf1\ansi\deff3\adeflang1025
+        ///{\fonttbl{\f0\froman\fprq2\fcharset0 Times New Roman;}{\f1\froman\fprq2\fcharset2 Symbol;}{\f2\fswiss\fprq2\fcharset0 Arial;}{\f3\froman\fprq2\fcharset0 Liberation Serif{\*\falt Times New Roman};}{\f4\fswiss\fprq2\fcharset0 Liberation Sans{\*\falt Arial};}{\f5\fswiss\fprq2\fcharset0 Calibri Light;}{\f6\froman\fprq2\fcharset0 Calibri Light;}{\f7\froman\fprq2\fcharset0 Consolas;}{\f8\froman\fprq2\fcharset0 Liberation Mono{\*\falt Courier New};}{\f9\froman\fprq2\fcharset0 Libera [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string LatestRtf {
+            get {
+                return ResourceManager.GetString("LatestRtf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Destination folder for Audible file copies.
         /// </summary>
         internal static string MsgAaxCopyFolder {
@@ -390,7 +400,11 @@ namespace audiamus.aaxconv.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter a different activation code?.
+        ///   Looks up a localized string similar to Enter a different activation code?
+        ///
+        ///[Yes]: Prompt for new code
+        ///[No]: Just retry, Audible account has changed
+        ///[Cancel]: Skip book.
         /// </summary>
         internal static string MsgActivationError2 {
             get {
@@ -448,6 +462,7 @@ namespace audiamus.aaxconv.Properties {
         /// <summary>
         ///   Looks up a localized string similar to exists and is not empty.
         ///Override content, new folder or skip book?
+        ///
         ///[Yes]: Override content
         ///[No]: New folder
         ///[Cancel]: Skip book.

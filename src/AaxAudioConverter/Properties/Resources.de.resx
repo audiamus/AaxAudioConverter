@@ -136,7 +136,11 @@
     <value>Aktivierungsfehler für</value>
   </data>
   <data name="MsgActivationError2" xml:space="preserve">
-    <value>Anderen Aktivierungscode eingeben?</value>
+    <value>Anderen Aktivierungscode eingeben?
+
+[Ja]: Aufforderung für neuen Code
+[Nein]: Erneut versuchen, Audible-Konto geändert
+[Abbrechen]: Buch überspringen</value>
   </data>
   <data name="MsgActivationError3" xml:space="preserve">
     <value>Datei wird übersprungen.</value>
@@ -144,6 +148,7 @@
   <data name="MsgDirectoryCreationCallback" xml:space="preserve">
     <value>existiert und ist nicht leer.
 Inhalt überschreiben, neuer Ordner, oder Buch überspringen?
+
 [Ja]: Inhalt überschreiben
 [Nein]: Neuer Ordner
 [Abbrechen]: Buch überspringen</value>
@@ -392,5 +397,9 @@ ist zur Installation bereit.</value>
   </data>
   <data name="nofolders" xml:space="preserve">
     <value>(ohne Kapitel-Unterordner)</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="LatestRtf" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\AaxAudioConverter.latest.de.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
 </root>

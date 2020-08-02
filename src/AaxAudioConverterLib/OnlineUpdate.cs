@@ -51,13 +51,16 @@ namespace audiamus.aaxconv.lib {
 
       await getSetupRefAsync ();
  
+      Log (3, this, () => $"server={_version}");
+    
       // do we have a new version?
       bool newVersion = _version > ApplEnv.AssemblyVersion;
       if (!newVersion)
         return;
-
+          
       // do we have it downloaded already?
       bool exists = await checkDownloadAsync ();
+      Log (3, this, () => $"download exists={exists}");
 
       if (!exists) {
         if (Settings.OnlineUpdate == EOnlineUpdate.promptForDownload) {
@@ -72,12 +75,16 @@ namespace audiamus.aaxconv.lib {
       }
 
       bool isBusy = busyCallback ();
-      if (isBusy)
+      if (isBusy) {
+        Log (3, this, () => "is already busy, cancel.");
         return;
+      }
 
       bool cont = install (interactCallback, R.MsgOnlineUpdateInstallNow);
-      if (!cont)
+      if (!cont) {
+        Log (3, this, () => "do not install now, cancel.");
         return;
+      }
 
       finalCallback?.Invoke ();
     }
@@ -113,10 +120,11 @@ namespace audiamus.aaxconv.lib {
 
       // launch installer
       try {
+        Log (3, this, () => "launch.");
         Process.Start (_setupFile);
-      } catch (Exception) {
+      } catch (Exception exc) {
+        Log (1, this, () => $"{exc.ToShortString ()}");
       }
-
       return true;
     }
 
@@ -159,6 +167,7 @@ namespace audiamus.aaxconv.lib {
 
       string md5 = await computeMd5ForFileAsync (_setupFile);
       bool succ = string.Equals (_md5, md5, StringComparison.InvariantCultureIgnoreCase);
+      Log (3, this, () => $"succ={succ}, file={md5}, server={_md5}");
       return succ;
     }
 
@@ -177,23 +186,30 @@ namespace audiamus.aaxconv.lib {
 
 
     private async Task<bool> downloadSetupAsync () {
+      Log0 (3, this);
       await downloadAsync (_downloadUri, _setupFile);
       return await checkDownloadAsync ();
     }
 
 
     private async Task downloadAsync (string requestUri, string filename) {
+      Log (3, this, $"\"{requestUri}\"");
       try {
         ServicePointManager.Expect100Continue = true;
         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
         using (var fileStream = File.OpenWrite (filename)) {
           using (var networkStream = await HttpClient.GetStreamAsync (requestUri)) {
+            Log (3, this, $"copy to \"{filename.SubstitUser()}\"");
             await networkStream.CopyToAsync (fileStream);
+            Log (3, this, "flush");
             await fileStream.FlushAsync ();
           }
         }
-      } catch (Exception) { }
+        Log (1, this, () => "complete");
+      } catch (Exception exc) {
+        Log (1, this, () => $"{exc.ToShortString()}");
+      }
     }
 
   }

@@ -7,12 +7,12 @@ namespace audiamus.aaxconv {
   partial class AboutForm : Form {
     public AboutForm () {
       InitializeComponent ();
+      Text += AssemblyTitle;
 
     }
 
     protected override void OnLoad (EventArgs e) {
       base.OnLoad (e);
-      Text += AssemblyTitle;
       lblProduct.Text = AssemblyProduct;
       lblVersion.Text += AssemblyVersion;
       lblCopyright.Text += AssemblyCopyright;

@@ -45,7 +45,15 @@ namespace audiamus.aaxconv.lib {
     string AaxCopyDirectory{ get; set; }
   }
 
-  public interface IConvSettings : INamingSettingsEx, IActivationSettings, ITitleSettingsEx, IUpdateSetting, IAaxCopySettings {
+  public interface IModeSettings {
+    EConvFormat ConvFormat { get; set; }
+    EConvMode ConvMode { get; set; }
+  }
+
+  public interface INamingAndModeSettings : INamingSettingsEx, IModeSettings {
+  }
+
+  public interface IConvSettings : INamingAndModeSettings, IActivationSettings, ITitleSettingsEx, IUpdateSetting, IAaxCopySettings {
     bool NonParallel { get; }
     [ToString (typeof(ToStringConverterPath))]
     string InputDirectory { get; set; }
@@ -53,8 +61,6 @@ namespace audiamus.aaxconv.lib {
     string OutputDirectory { get; set; }
     [ToString (typeof(ToStringConverterPath))]
     string FFMpegDirectory { get; set; }
-    EConvFormat ConvFormat { get; set; }
-    EConvMode ConvMode { get; set; }
     byte TrkDurMins { get; set; }
     string PartNames { get; set; }
     string Genres { get; set; }
@@ -62,8 +68,10 @@ namespace audiamus.aaxconv.lib {
     EFlatFolderNaming FlatFolderNaming { get; set; }
     uint ShortChapterSec { get; set; }
     uint VeryShortChapterSec { get; set; }
-    EVerifyAdjustChapters VerifyAdjustChapters { get; set; }
+    EVerifyAdjustChapterMarks VerifyAdjustChapterMarks { get; set; }
     bool Latin1EncodingForPlaylist { get; set; }
+    bool IntermedCopySingle { get; set; }
+    EFixAACEncoding FixAACEncoding { get; set; }
     bool AutoLaunchPlayer { get; set; }
     string Version { get; set; }
   }

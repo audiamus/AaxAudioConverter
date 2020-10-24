@@ -108,6 +108,8 @@ namespace audiamus.aaxconv {
     }
 
     private void initControlsFromSettings () {
+      tabControl1.SelectedIndex = Settings.SettingsTab;
+      
       txtBoxCustPart.Text = Settings.PartNames;
       txtBoxCustTitleChars.Text = Settings.AddnlValTitlePunct;
       ckBoxFileAssoc.Checked = Settings.FileAssoc ?? false;
@@ -125,6 +127,10 @@ namespace audiamus.aaxconv {
         comBoxFlatFolders.SelectedIndex = (int)Settings.FlatFolderNaming;
 
       ckBoxExtraMetaFiles.Checked = Settings.ExtraMetaFiles;
+      ckBoxIntermedCopySingle.Checked = Settings.IntermedCopySingle;
+      using (new ResourceGuard (x => _flag = x))
+        comBoxFixAacEncoding.SelectedIndex = (int)Settings.FixAACEncoding;
+
       ckBoxLatin1.Checked = Settings.Latin1EncodingForPlaylist;
       ckBoxLaunchPlayer.Checked = Settings.AutoLaunchPlayer;
 
@@ -139,7 +145,7 @@ namespace audiamus.aaxconv {
       nudShortChapter.Value = Settings.ShortChapterSec;
       nudVeryShortChapter.Value = Settings.VeryShortChapterSec;
 
-      comBoxVerAdjChapters.SelectedIndex = (int)Settings.VerifyAdjustChapters;
+      comBoxVerAdjChapters.SelectedIndex = (int)Settings.VerifyAdjustChapterMarks;
 
       comBoxM4B.SelectedIndex = Settings.M4B ? 1 : 0;
 
@@ -226,7 +232,9 @@ namespace audiamus.aaxconv {
     }
 
     private void btnOK_Click (object sender, EventArgs e) {
-     
+
+      Settings.SettingsTab = tabControl1.SelectedIndex;
+
       Settings.PartNaming = updateSettings (Settings.PartNaming, (EGeneralNaming)comBoxPartName.SelectedIndex);
       Settings.PartName = updateSettings (Settings.PartName, txtBoxPartName.Text);
       Settings.ExtraMetaFiles = updateSettings (Settings.ExtraMetaFiles, ckBoxExtraMetaFiles.Checked);
@@ -240,8 +248,11 @@ namespace audiamus.aaxconv {
 
       Settings.ShortChapterSec = updateSettings (Settings.ShortChapterSec, (uint)nudShortChapter.Value);
       Settings.VeryShortChapterSec = updateSettings (Settings.VeryShortChapterSec, (uint)nudVeryShortChapter.Value);
-      Settings.VerifyAdjustChapters = updateSettings (Settings.VerifyAdjustChapters, (EVerifyAdjustChapters)comBoxVerAdjChapters.SelectedIndex);
+      Settings.VerifyAdjustChapterMarks = updateSettings (Settings.VerifyAdjustChapterMarks, (EVerifyAdjustChapterMarks)comBoxVerAdjChapters.SelectedIndex);
       Settings.NamedChapters = updateSettings (Settings.NamedChapters, (ENamedChapters)comBoxNamedChapters.SelectedIndex);
+
+      Settings.IntermedCopySingle = updateSettings (Settings.IntermedCopySingle, ckBoxIntermedCopySingle.Checked);
+      Settings.FixAACEncoding = updateSettings (Settings.FixAACEncoding, (EFixAACEncoding)comBoxFixAacEncoding.SelectedIndex);
 
       Settings.M4B = updateSettings (Settings.M4B, comBoxM4B.SelectedIndex == 1);
       Settings.AaxCopyMode = updateSettings (Settings.AaxCopyMode, _cbAdapterAaxCopyMode.Value);

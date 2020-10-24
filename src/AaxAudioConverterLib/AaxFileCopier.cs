@@ -21,7 +21,7 @@ namespace audiamus.aaxconv.lib {
       Callbacks = callbacks;
     }
 
-    public void Copy () {
+    public void Copy (Action<ProgressMessage> report) {
 
       bool bookFirst = _settings.AaxCopyMode.HasFlag ((EAaxCopyMode)1);
       bool bookWithAuthor = _settings.AaxCopyMode.HasFlag ((EAaxCopyMode)2);
@@ -47,7 +47,7 @@ namespace audiamus.aaxconv.lib {
       foreach (var part in _book.Parts) {
         string indir = Path.GetDirectoryName (part.AaxFileItem.FileName);
 
-        using (new ResourceGuard (() => Callbacks.Progress (new ProgressMessage { IncTracks = 1 }))) {
+        //using (new ResourceGuard (() => Callbacks.Progress (new ProgressMessage { IncSteps = 1 }))) {
 
           if (string.Equals (indir.StripUnc (), outdir.StripUnc (), StringComparison.InvariantCultureIgnoreCase)) {
             Log (3, this, $"same dir, skip: indir=\"{indir.SubstitUser()}\", outdir=\"{outdir.SubstitUser()}\"");
@@ -74,7 +74,7 @@ namespace audiamus.aaxconv.lib {
 
           try {
             Log (3, this, $"copy \"{part.AaxFileItem.FileName.SubstitUser ()}\" to \"{audioOutfile.SubstitUser ()}\"");
-            File.Copy (part.AaxFileItem.FileName, audioOutfile, true);
+            FileEx.Copy (part.AaxFileItem.FileName, audioOutfile, true, report);
           } catch (Exception exc) {
             Log (1, this, exc.ToShortString ());
           }
@@ -88,7 +88,7 @@ namespace audiamus.aaxconv.lib {
             } catch (Exception exc) {
               Log (1, this, exc.ToShortString ());
             }
-          }
+          //}
         }
       }
     }

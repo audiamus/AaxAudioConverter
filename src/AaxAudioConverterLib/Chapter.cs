@@ -17,30 +17,49 @@ namespace audiamus.aaxconv.lib {
     static readonly TimeSpan TS_CATCH_RANGE = TimeSpan.FromSeconds (30);
     static readonly TimeSpan TS_PART_TITLE_LENGTH = TimeSpan.FromSeconds (10);
     static readonly TimeSpan TS_LONGER_SILENCE = TimeSpan.FromMilliseconds (900);
+    static readonly TimeSpan TS_SHORT_SILENCE = TimeSpan.FromMilliseconds (500);
+    static readonly TimeSpan TS_SILENCE_ANTE = TimeSpan.FromMilliseconds (300);
 
     internal class TimeAdjustments {
       public TimeSpan Begin;
       public TimeSpan End;
 
-      public override string ToString () => $"adj beg={Begin.ToStringHMSm()}, end={End.ToStringHMSm()}";
+      public override string ToString () => $"adj beg={Begin.ToStringHMSm ()}, end={End.ToStringHMSm ()}";
+
+      public string ToString (TimeInterval offset) =>
+        $"[abs: {(Begin + offset.Begin).ToStringHMSm ()} -> {(End + offset.End).ToStringHMSm ()}]";
     }
 
     public TimeInterval Time { get; } = new TimeInterval ();
     public string Name { get; set; }
     public List<TimeInterval> Silences { get; set; }
 
+    public bool IsPaddingChapter { get; set; }
+
     public string TmpFileName { get; set; }
 
     public TimeAdjustments TimeAdjustment { get; private set; } 
 
     public Chapter () { }
+
     public Chapter (TimeSpan duration) {
       Time.Duration = duration;
     }
 
+    public Chapter (TimeSpan begin, TimeSpan end) {
+      Time.Begin = begin;
+      Time.End = end;
+    }
+
+    public Chapter (Chapter other, bool withSilences = false) : this (other.Time.Begin, other.Time.End) {
+      Name = other.Name;
+      if (withSilences)
+        Silences = other.Silences.ToList ();
+    }
+
     public void CreateCueSheet (Book.Part part, int trackDurMins, bool splitTimeMode) {
       Log (3, this, () => this.ToString ());
-
+      
       // chapter duration in sec
       double chLenSec = this.Time.Duration.TotalSeconds;
 
@@ -66,9 +85,12 @@ namespace audiamus.aaxconv.lib {
       var tsEnd = tsStart + tsAveTrackLen;
 
       // max end is chapter duration unless in time split mode
-      var tsChEnd = this.Time.Duration;
+      var tsChEnd = this.Time.Duration - TS_EPS_SILENCE;
       if (splitTimeMode)
         tsChEnd = this.Time.End;
+
+      // filter silences
+      var silences = this.Silences.Where (s => s.Duration >= TS_SHORT_SILENCE).ToList ();
 
       // while chapter length has not been reached, will be checked in loop
       while (true) {
@@ -80,8 +102,8 @@ namespace audiamus.aaxconv.lib {
           var tsLower = tsEnd - tsSearchRange;
 
           // take the easy road using LINQ, find nearest silence or none, above and below
-          var silUp = this.Silences.Where (t => t.Begin >= tsEnd && t.Begin < tsUpper).FirstOrDefault ();
-          var silDn = this.Silences.Where (t => t.End > tsLower && t.End <= tsEnd).LastOrDefault ();
+          var silUp = silences.Where (t => t.Begin >= tsEnd && t.Begin < tsUpper).FirstOrDefault ();
+          var silDn = silences.Where (t => t.End > tsLower && t.End <= tsEnd).LastOrDefault ();
 
           // which silence shall it be
           TimeInterval sil = null;
@@ -104,9 +126,9 @@ namespace audiamus.aaxconv.lib {
           // silence has been found
           if (!(sil is null)) {
             // actual track end
-            // add a third of the silence interval, put the majority of the silence into the next track. 
+            // add half of the silence interval, put other half of the silence into the next track. 
             // However, cut in stream will not be precise.
-            var tsActualEnd = sil.Begin + TimeSpan.FromTicks (sil.Duration.Ticks / 3);
+            var tsActualEnd = sil.Begin + TimeSpan.FromTicks (sil.Duration.Ticks / 2);
 
             // check for overshooting
             if (tsActualEnd > tsChEnd)
@@ -214,7 +236,7 @@ namespace audiamus.aaxconv.lib {
       if (TimeAdjustment is null)
         TimeAdjustment = new TimeAdjustments ();
       TimeAdjustment.Begin -= adjust;
-      Log (3, this, () => $"{this}; {TimeAdjustment}");
+      Log (3, this, () => $"{this}; {TimeAdjustment}, {TimeAdjustment.ToString(Time)}");
     }
 
     private void handleChapterMark (Chapter nextChapter) {
@@ -222,13 +244,20 @@ namespace audiamus.aaxconv.lib {
 
       // last silence extends into next chapter?
       if (this.endsWithSilence (lastSilence)) {
+        bool nextChapterStartsWithSilence = nextChapter?.startsWithSilence () ?? false;
+
         // is this a long silence?
         if (lastSilence.Duration > TS_MAX_LAST_SILENCE) {
           // but next chapter already starts with silence?
-          if (nextChapter?.startsWithSilence () ?? false) 
+          if (nextChapterStartsWithSilence)
             return;
-        } else 
+        } else {
+          // If we end with a silence but the next chapter starts without one, then let's split our silence in half
+          if (!nextChapterStartsWithSilence)
+            setAdjustment (nextChapter, lastSilence);
+
           return;
+        }
       }
 
       // the next chapter may start with silence but it might not be the right one. 
@@ -257,7 +286,7 @@ namespace audiamus.aaxconv.lib {
         var silence = closestToChapterMark (silences, true);
         if (!silence.IsNull ()) {
           lastSilence = silence;
-          Log (3, this, () => $"{this}; assumed end #{silences.IndexOf (silence) + 1}/{silences.Count}: {silence}");
+          Log (3, this, () => $"{this}; assumed end #{silences.IndexOf (silence) + 1}/{silences.Count}: {silence}, [abs -> {(Time.Begin + silence.End).ToStringHMSm()}]");
         }
       }
 
@@ -265,6 +294,10 @@ namespace audiamus.aaxconv.lib {
     }
 
     private bool handlePartTitle (Chapter next) {
+      // ignore PreChapter
+      if (IsPaddingChapter)
+        return false;
+
       // chapter must be very short to be analysed here 
       // and must have a longer successor
       if (this.Time.Duration > TS_PART_TITLE_LENGTH ||
@@ -348,16 +381,20 @@ namespace audiamus.aaxconv.lib {
       if (TimeAdjustment is null)
         TimeAdjustment = new TimeAdjustments ();
 
-      TimeSpan newEnd = silence.Begin + new TimeSpan (silence.Duration.Ticks / 2);
+      TimeSpan newSilDuration = silence.Duration - TS_SILENCE_ANTE;
+      if (newSilDuration < TimeSpan.Zero)
+        newSilDuration = new TimeSpan (silence.Duration.Ticks / 3);
+
+      TimeSpan newEnd = silence.Begin + newSilDuration;
       TimeSpan adjust = Time.Duration - newEnd;
       TimeAdjustment.End -= adjust;
 
-      Log (3, this, () => $"{this}; {TimeAdjustment}");
+      Log (3, this, () => $"{this}; {TimeAdjustment}, {TimeAdjustment.ToString(Time)}");
       nextChapter?.forwardAdjustment (adjust);
     }
 
 
-    public override string ToString () => $"{Time}: \"{Name}\"";
+    public override string ToString () => $"{Time}: {(IsPaddingChapter ? "<Padding>" : $"\"{Name}\"")}";
 
     public string ToStringEx () => $"{Time.ToStringEx()}: \"{Name}\"";
   }

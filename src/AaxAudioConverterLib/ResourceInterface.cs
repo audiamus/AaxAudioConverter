@@ -6,9 +6,11 @@
     string MsgFFmpegVersion4 { get; }// It can always be altered in the basic settings (via the system menu). 
 
     string MsgActivationError1 { get; } //Activation Error for
-    string MsgActivationError2 { get; } //Will be skipped.
+    string MsgActivationError2 { get; } //Enter a different code.
     string MsgActivationError3 { get; } //Will be skipped.
 
+    string MsgInvalidInternalFileType { get; } //Not an AAX or AA file internally.
+    
     string MsgDirectoryCreationCallback { get; } //exists and is not empty.\r\n" +
                                               //"Override content, new folder or skip book?\r\n" +
                                               //"[Yes]: Override content\r\n" +

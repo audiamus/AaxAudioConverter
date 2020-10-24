@@ -3,14 +3,18 @@ using System.IO;
 using System.Linq;
 using audiamus.aux.ex;
 using AA = audiamus.aaxconv.lib.AudibleAppContentMetadata;
+using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv.lib {
   public class AaxFileItem : IEquatable<AaxFileItem> {
     public const string EXT_JPG = ".jpg";
     public const string EXT_PNG = ".png";
+    public const string EXT_AAX = ".aax";
+    public const string EXT_AA = ".aa";
 
     public string FileName { get; private set; }
-    public bool AA { get; private set; }
+    public bool HasExtAA { get; private set; }
+    public bool IsAA { get; internal set; }
     public long FileSize { get; internal set; }
     public string BookTitle { get; internal set; }
     public string [] Authors { get; internal set; }
@@ -36,10 +40,14 @@ namespace audiamus.aaxconv.lib {
     public AaxFileItem (string path) {
       FileName = path;
       string ext = Path.GetExtension (path).ToLowerInvariant ();
-      AA = ext == ".aa";
+      HasExtAA = ext == EXT_AA;
       FileSize = new FileInfo (path).Length;
 
-      TagAndFileNamingHelper.ReadMetaData (this);
+      bool succ = TagAndFileNamingHelper.ReadMetaData (this);
+      if (!succ) {
+        Log (1, this, $"{path.SubstitUser ()}, error reading meta data");
+        throw new IOException (path.SubstitUser ());
+      }
     }
 
     public override string ToString () {

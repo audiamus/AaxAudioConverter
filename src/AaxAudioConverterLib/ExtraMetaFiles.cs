@@ -10,10 +10,10 @@ namespace audiamus.aaxconv.lib {
     private Book Book { get; }
     private TimeSpan Duration { get; set; }
     private AaxFileItem AaxFileItem { get; set; }
-    private INamingSettingsEx Settings { get; }
+    private INamingAndModeSettings Settings { get; }
     private IResources R => _resources;
 
-    public ExtraMetaFiles (Book book, INamingSettingsEx settings, IResources resources) {
+    public ExtraMetaFiles (Book book, INamingAndModeSettings settings, IResources resources) {
       Book = book;
       Settings = settings;
       _resources = resources;

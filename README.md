@@ -12,7 +12,7 @@ Convert Audible aax files to mp3 and m4a/m4b
 - Converts Audible proprietary .aax files to plain .mp3 or .m4a/.m4b. 
 - Also offers basic support for older .aa files.
 - Windows application, with all the classic features of the Windows eco-system.
-- Requires activated Audible Manager/App or personal activation code.
+- Requires either activated Audible App, (legacy) Audible Manager, or personal activation code.
 - Processing Modes: 
   - One output file per input file.
   - Multiple output files per input file, divided by chapter.
@@ -20,10 +20,13 @@ Convert Audible aax files to mp3 and m4a/m4b
   - Multiple output files per input file,  split into shorter tracks of roughly equal length, ignoring chapters.
 - Creates additional playlist if more than one output file is created per book.
 - Handles books with multiple parts.
-- Manages and preserves all meta-tag information.
+- Manages and preserves all meta-tag information, including chapter meta data.
 - Supports named chapters, for .aax files downloaded with the Audible App.
 - Can adjust inaccurate chapter marks.
 - Allows customization of output naming: files, folders and tags.
+- Special functions:
+  - Establish iTunes compatibility for very long books in .m4a/.m4b format.
+  - Fix AAC encoding bug in 44.1 kHz .aax files.
 - Delegates all audio processing to powerful [FFmpeg](https://www.ffmpeg.org/), including DRM handling.
 - High performance: Utilizes all available processor cores to run conversion work in parallel.
 - Optionally copies original .aax file to a new location after the conversion, with a customizable name.
@@ -42,21 +45,22 @@ The application requires .Net Framework 4.7.1 to be installed. On Windows 10 sys
 AAX Audio Converter is configured to support high DPI monitors under Windows 10. It will scale properly when the user changes the DPI or scale factor. 
 
 ## Download
-Windows setup package version 1.14, English and German, with manuals, plus FFmpeg executable:
+Windows setup package version 1.15, English and German, with manuals, plus FFmpeg executable:
 
-**[AaxAudioConverter-1.14-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.14/AaxAudioConverter-1.14-Setup.exe)**
+**[AaxAudioConverter-1.15-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.15/AaxAudioConverter-1.15-Setup.exe)**
 
 Manuals (also included in the setup package):
 
-**[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.14/AaxAudioConverter.pdf)**
+**[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.15/AaxAudioConverter.pdf)**
 
-**[German](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.14/AaxAudioConverter.de.pdf)**
+**[German](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.15/AaxAudioConverter.de.pdf)**
 
 
 ## Dependencies
 ### Audible account
 AAX Audio Converter needs the user's personal Audible activation code to be able to process his/her Audible audiobooks.
-The easiest way to obtain the Audible activation code is to install and activate “Audible Manager” or “Audible App”. Audible Manager/App can be downloaded from the Audible website, on the software page. With Audible Manager or App installed and activated, i.e. associated with the Audible account, AAX Audio Converter should be able to find the activation code automatically.
+
+The easiest way to obtain the Audible activation code is to install and activate the “Audible App” for Windows 10 or (legacy) “Audible Manager”. The Audible App can be downloaded from the Audible website, on the software page. With Audible App/Manager installed and activated, i.e. associated with the Audible account, AAX Audio Converter should be able to find the activation code automatically.
 
 ### FFmpeg
 All audio processing in AAX Audio Converter, including DRM handling, is carried out by [FFmpeg](https://www.ffmpeg.org/). 

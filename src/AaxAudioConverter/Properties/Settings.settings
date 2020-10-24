@@ -95,11 +95,17 @@
     <Setting Name="VeryShortChapterSec" Type="System.UInt32" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
-    <Setting Name="VerifyAdjustChapters" Type="audiamus.aaxconv.lib.EVerifyAdjustChapters" Scope="User">
-      <Value Profile="(Default)">splitChapterMode</Value>
+    <Setting Name="VerifyAdjustChapterMarks" Type="audiamus.aaxconv.lib.EVerifyAdjustChapterMarks" Scope="User">
+      <Value Profile="(Default)">splitChapterOrTimeMode</Value>
     </Setting>
     <Setting Name="Latin1EncodingForPlaylist" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="IntermedCopySingle" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="FixAACEncoding" Type="audiamus.aaxconv.lib.EFixAACEncoding" Scope="User">
+      <Value Profile="(Default)">withIntermediateCopy</Value>
     </Setting>
     <Setting Name="NamedChapters" Type="audiamus.aaxconv.lib.ENamedChapters" Scope="User">
       <Value Profile="(Default)">yes</Value>
@@ -121,6 +127,12 @@
     </Setting>
     <Setting Name="ShowStartupTip" Type="System.Nullable&lt;System.Boolean&gt;" Scope="User">
       <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="NoStartupTip" Type="System.String" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SettingsTab" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

@@ -38,6 +38,8 @@ namespace audiamus.aux {
 
     public override bool GetStandardValuesSupported (ITypeDescriptorContext context) => true;
 
+    public override bool GetStandardValuesExclusive (ITypeDescriptorContext context) => true;
+
     public override StandardValuesCollection GetStandardValues (ITypeDescriptorContext context) {
       StandardValuesCollection svc = new StandardValuesCollection (_values);
       return svc;

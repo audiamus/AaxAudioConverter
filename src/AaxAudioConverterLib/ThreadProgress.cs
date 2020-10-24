@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+//using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv.lib {
 
@@ -14,13 +15,14 @@ namespace audiamus.aaxconv.lib {
     }
 
     public void Dispose () {
+      //Log0 (3, this);
       int inc = _1000 - _valuePerMille;
       if (inc > 0) {
 #if TRACE && EXTRA
         Trace.WriteLine ($"{this.GetType ().Name}.{nameof (Dispose)} {inc}");
 #endif
         _report?.Invoke (new ProgressMessage {
-        IncTracksPerMille = (uint)inc
+        IncStepsPerMille = (uint)inc
         });
       }
     }
@@ -35,7 +37,7 @@ namespace audiamus.aaxconv.lib {
         Trace.WriteLine ($"{this.GetType ().Name}.{nameof (Report)} {value:f3}->{inc}");
 #endif
         _report?.Invoke (new ProgressMessage {
-          IncTracksPerMille = (uint)inc
+          IncStepsPerMille = (uint)inc
         });
       }
     }

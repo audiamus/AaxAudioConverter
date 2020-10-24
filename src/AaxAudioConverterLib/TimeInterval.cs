@@ -65,6 +65,10 @@ namespace audiamus.aaxconv.lib {
       return $"{Begin.ToStringHMSm()} -> {End.ToStringHMSm()} ({Duration.ToStringHMSm()})";
     }
 
+    public string ToString (TimeSpan offset) =>
+      $"[abs: {(Begin+offset).ToStringHMSm()} -> {(End+offset).ToStringHMSm()}]";
+    
+
     public string ToStringEx () => ToString() + $" [{Begin.TotalSeconds,10:000000.000} {End.TotalSeconds,10:000000.000}]";
   }
 }

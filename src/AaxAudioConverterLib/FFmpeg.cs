@@ -11,6 +11,11 @@ using static audiamus.aux.Logging;
 namespace audiamus.aaxconv.lib {
   public class FFmpeg : ProcessHost {
 
+    private static int __id = 0;
+    private readonly int _id = ++__id;
+
+    private string ID => $"{{#{_id}}} ";
+
     [Flags]
     public enum ETranscode {
       normal = 0,
@@ -42,7 +47,10 @@ namespace audiamus.aaxconv.lib {
 
     const string FFMPEG_PROBE = @"-hide_banner <ACTIVATION> -i ""<INPUT>""";
 
-    const string FFMPEG_SILENCE = @"-hide_banner -y <ACTIVATION> -i ""<INPUT>"" -af silencedetect=noise=-30dB:d=0.5 -f null -";
+
+    // reduce from 0.5 to 0.25 sec min silence. 
+    const string FFMPEG_SILENCE = @"-hide_banner -y <ACTIVATION> -i ""<INPUT>"" -af silencedetect=noise=-30dB:d=0.25 -f null -";
+    //const string FFMPEG_SILENCE = @"-hide_banner -y <ACTIVATION> -i ""<INPUT>"" -af silencedetect=noise=-30dB:d=0.5 -f null -";
 
     
     public const string ACTIVATION_BYTES = @"-activation_bytes";
@@ -60,6 +68,7 @@ namespace audiamus.aaxconv.lib {
     private readonly object _lockable = new object ();
 
     bool _success;
+    bool _error;
     bool _aborted;
 
     bool _listComplete;
@@ -89,6 +98,8 @@ namespace audiamus.aaxconv.lib {
     internal List<TimeInterval> Silences { get; private set; }
 
     internal bool IsMp3Stream { get; private set; }
+    internal bool IsAaFile { get; private set; }
+    internal bool IsAaxFile { get; private set; }
     internal bool HasNoActivation { get; private set; }
 
     internal Version Version { get; private set; }
@@ -108,21 +119,21 @@ namespace audiamus.aaxconv.lib {
       string param = FFMPEG_VERSION;
       _success = false;
 
-      Log (4, this, () => param.SubstitUser ());
+      Log (4, this, () => ID + param.SubstitUser ());
       string result = runProcess (FFmpegExePath, param, false, ffMpegAsyncHandlerVersion);
 
       return _success;
     }
 
     public bool GetAudioMeta () {
-      _success = true;
+      _success = false;
       _aborted = false;
 
       string param = FFMPEG_PROBE;
       param = param.Replace (ACTIVATION, string.Empty);
       param = param.Replace (INPUT, _filenameIn);
 
-      Log (4, this, () => param.SubstitUser ());
+      Log (4, this, () => ID + param.SubstitUser ());
       string result = runProcess (FFmpegExePath, param, true, ffMpegAsyncHandlerAudioMeta);
 
       return _success;
@@ -147,7 +158,7 @@ namespace audiamus.aaxconv.lib {
       if (withChapters)
         Chapters = new List<Chapter> ();
 
-      Log (4, this, () => param.SubstitUser ().SubstitActiv ());
+      Log (4, this, () => ID + param.SubstitUser ().SubstitActiv ());
       string result = runProcess (FFmpegExePath, param, true, ffMpegAsyncHandlerActivation);
 
       return _success;
@@ -195,10 +206,10 @@ namespace audiamus.aaxconv.lib {
       if (!(_filenameMeta is null))
         param = param.Replace (INPUT2, _filenameMeta);
 
-      Log (4, this, () => param.SubstitUser ().SubstitActiv ());
+      Log (4, this, () => ID + param.SubstitUser ().SubstitActiv ());
       string result = runProcess (FFmpegExePath, param, true, ffMpegAsyncHandlerTranscode);
 
-      return _success && !_aborted;
+      return _success && !_aborted && !_error;
     }
 
     public bool ExtractMeta (string filenameOut) {
@@ -210,7 +221,7 @@ namespace audiamus.aaxconv.lib {
       param = param.Replace (INPUT, _filenameIn);
       param = param.Replace (OUTPUT, filenameOut);
 
-      Log (4, this, () => param.SubstitUser ());
+      Log (4, this, () => ID + param.SubstitUser ());
       string result = runProcess (FFmpegExePath, param, true, ffMpegAsyncHandlerMeta);
 
       return _success && !_aborted;
@@ -231,7 +242,7 @@ namespace audiamus.aaxconv.lib {
       }
       param = param.Replace (INPUT, _filenameIn);
 
-      Log (4, this, () => param.SubstitUser ().SubstitActiv ());
+      Log (4, this, () => ID + param.SubstitUser ().SubstitActiv ());
       string result = runProcess (FFmpegExePath, param, true, ffMpegAsyncHandlerSilence);
 
       return _success && !_aborted;
@@ -272,6 +283,15 @@ namespace audiamus.aaxconv.lib {
     private static readonly Regex _rgxAnyStream = new Regex (@"^\s+Stream\s+", 
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
+    private static readonly Regex _rgxAaFile = new Regex (@"Input #\d, aa, from", 
+      RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private static readonly Regex _rgxAaxFile = new Regex (@"[aax]", 
+      RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private static readonly Regex _rgxErrorDecoding = new Regex (@"Error while decoding", 
+      RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private static readonly Regex _rgxErrorCorruptInputPacket = new Regex (@"corrupt input packet", 
+      RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
     private static readonly Regex _rgxChapter = new Regex (@"^\s+Chapter.*start\s+(\d+\.?\d*).*end\s+(\d+\.?\d*)$", 
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private static readonly Regex _rgxChapterMeta = new Regex (@"^\s+Metadata:", 
@@ -294,7 +314,7 @@ namespace audiamus.aaxconv.lib {
 #if TRACE && EXTRA
       Trace.WriteLine (outLine.Data);
 #endif
-      Log (4, this, () => outLine.Data.SubstitUser ());
+      Log (4, this, () => ID + outLine.Data.SubstitUser ());
 
 
       Match match = _rgxVersion.Match (outLine.Data);
@@ -315,7 +335,7 @@ namespace audiamus.aaxconv.lib {
 #if TRACE && EXTRA
       Trace.WriteLine (outLine.Data);
 #endif
-      Log (4, this, () => outLine.Data.SubstitUser ());
+      Log (4, this, () => ID + outLine.Data.SubstitUser ());
 
       Match match = _rgxDurationEx.Match (outLine.Data);
       if (match.Success) {
@@ -325,12 +345,17 @@ namespace audiamus.aaxconv.lib {
         match = _rgxAudioStreamEx.Match (outLine.Data);
         if (match.Success) {
           AudioMeta.Samplerate = tryParseUInt (match, 2);
-          string sc = match.Groups[3].Value.ToLower();
+          string sc = match.Groups[3].Value.ToLower ();
           if (sc == "mono")
             AudioMeta.Channels = 1;
           else if (sc == "stereo")
             AudioMeta.Channels = 2;
           _success = true;
+        } else {
+          match = _rgxAaFile.Match (outLine.Data);
+          if (match.Success) {
+            IsAaFile = true;
+          }
         }
       }
     }
@@ -344,7 +369,7 @@ namespace audiamus.aaxconv.lib {
 #if TRACE && EXTRA
       Trace.WriteLine (outLine.Data);
 #endif
-      Log (4, this, () => outLine.Data.SubstitUser ());
+      Log (4, this, () => ID + outLine.Data.SubstitUser ());
 
       Match match = null;
       if (Chapters != null && !_listComplete) {
@@ -400,6 +425,15 @@ namespace audiamus.aaxconv.lib {
               if (match.Success) {
                 string format = match.Groups[1].Value;
                 IsMp3Stream = format.ToLowerInvariant () == "mp3";
+              } else {
+                match = _rgxAaFile.Match (outLine.Data);
+                if (match.Success) {
+                  IsAaFile = true;
+                } else {
+                  match = _rgxAaxFile.Match (outLine.Data);
+                  if (match.Success)
+                    IsAaxFile = true;
+                }
               }
             }
           }
@@ -416,7 +450,7 @@ namespace audiamus.aaxconv.lib {
 #if TRACE && EXTRA
       Trace.WriteLine (outLine.Data);
 #endif
-      Log (4, this, () => outLine.Data.SubstitUser ());
+      Log (4, this, () => ID + outLine.Data.SubstitUser ());
     }
 
     private void ffMpegAsyncHandlerSilence (object sendingProcess, DataReceivedEventArgs outLine) {
@@ -428,7 +462,7 @@ namespace audiamus.aaxconv.lib {
 #if TRACE && EXTRA
       Trace.WriteLine (outLine.Data);
 #endif
-      Log (4, this, () => outLine.Data.SubstitUser ());
+      Log (4, this, () => ID + outLine.Data.SubstitUser ());
 
       var t = AudioMeta.Time;
 
@@ -509,7 +543,7 @@ namespace audiamus.aaxconv.lib {
 #if TRACE && EXTRA
       Trace.WriteLine (outLine.Data);
 #endif
-      Log (4, this, () => outLine.Data.SubstitUser ());
+      Log (4, this, () => ID + outLine.Data.SubstitUser ());
 
       var t = AudioMeta.Time;
 
@@ -530,8 +564,23 @@ namespace audiamus.aaxconv.lib {
           }
         } else {
           Match matchFinal = _rgxMuxFinal.Match (outLine.Data);
-          if (matchFinal.Success) 
+          if (matchFinal.Success)
             _success = true;
+          else {
+            Match matchErr = _rgxErrorDecoding.Match (outLine.Data);
+            if (matchErr.Success)
+              _error = true;
+            else {
+              matchErr = _rgxInvalid.Match (outLine.Data);
+              if (matchErr.Success)
+                _error = true;
+              else {
+                matchErr = _rgxErrorCorruptInputPacket.Match (outLine.Data);
+                if (matchErr.Success)
+                  _error = true;
+              }
+            }
+          }
         }
       }
 
@@ -548,7 +597,7 @@ namespace audiamus.aaxconv.lib {
 #if TRACE && EXTRA
       Trace.WriteLine ($"{this.GetType ().Name}.{nameof (ffMpegAsyncHandlerTranscode)} {ts.TotalSeconds:f0}/{t.Duration.TotalSeconds:f0}");
 #endif
-      Log (4, this, () => $"{ts.TotalSeconds:f0}/{t.Duration.TotalSeconds:f0}");
+      Log (4, this, () => ID + $"{ts.TotalSeconds:f0}/{t.Duration.TotalSeconds:f0}");
 
       Progress?.Invoke (progress);
 

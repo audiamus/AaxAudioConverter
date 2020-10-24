@@ -392,13 +392,13 @@ namespace audiamus.aaxconv.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("splitChapterMode")]
-        public global::audiamus.aaxconv.lib.EVerifyAdjustChapters VerifyAdjustChapters {
+        [global::System.Configuration.DefaultSettingValueAttribute("splitChapterOrTimeMode")]
+        public global::audiamus.aaxconv.lib.EVerifyAdjustChapterMarks VerifyAdjustChapterMarks {
             get {
-                return ((global::audiamus.aaxconv.lib.EVerifyAdjustChapters)(this["VerifyAdjustChapters"]));
+                return ((global::audiamus.aaxconv.lib.EVerifyAdjustChapterMarks)(this["VerifyAdjustChapterMarks"]));
             }
             set {
-                this["VerifyAdjustChapters"] = value;
+                this["VerifyAdjustChapterMarks"] = value;
             }
         }
         
@@ -411,6 +411,30 @@ namespace audiamus.aaxconv.Properties {
             }
             set {
                 this["Latin1EncodingForPlaylist"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IntermedCopySingle {
+            get {
+                return ((bool)(this["IntermedCopySingle"]));
+            }
+            set {
+                this["IntermedCopySingle"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("withIntermediateCopy")]
+        public global::audiamus.aaxconv.lib.EFixAACEncoding FixAACEncoding {
+            get {
+                return ((global::audiamus.aaxconv.lib.EFixAACEncoding)(this["FixAACEncoding"]));
+            }
+            set {
+                this["FixAACEncoding"] = value;
             }
         }
         
@@ -494,6 +518,30 @@ namespace audiamus.aaxconv.Properties {
             }
             set {
                 this["ShowStartupTip"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public string NoStartupTip {
+            get {
+                return ((string)(this["NoStartupTip"]));
+            }
+            set {
+                this["NoStartupTip"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SettingsTab {
+            get {
+                return ((int)(this["SettingsTab"]));
+            }
+            set {
+                this["SettingsTab"] = value;
             }
         }
     }

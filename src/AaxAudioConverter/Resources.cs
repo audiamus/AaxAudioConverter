@@ -29,6 +29,7 @@ namespace audiamus.aaxconv {
     public string MsgActivationError1 => R.MsgActivationError1;
     public string MsgActivationError2 => R.MsgActivationError2;
     public string MsgActivationError3 => R.MsgActivationError3;
+    public string MsgInvalidInternalFileType => R.MsgInvalidInternalFileType;
     public string MsgDirectoryCreationCallback => R.MsgDirectoryCreationCallback;
     public string MsgDirectoryPartCreationCallback => R.MsgDirectoryPartCreationCallback;
     public string MsgDirectoryCreationCallbackForAll => R.MsgDirectoryCreationCallbackForAll;

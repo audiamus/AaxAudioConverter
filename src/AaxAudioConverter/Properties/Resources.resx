@@ -383,4 +383,7 @@ Copies will not be made. </value>
   <data name="LatestRtf" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\AaxAudioConverter.latest.rtf;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
+  <data name="MsgInvalidInternalFileType" xml:space="preserve">
+    <value>Actual file format is not AAX or AA.</value>
+  </data>
 </root>

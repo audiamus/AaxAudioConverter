@@ -26,6 +26,7 @@ namespace audiamus.aaxconv.lib {
       }
     }
 
+    public ProgressData Progress { get; private set; }
     public string SortingTitle { get; private set; }
     public string PartNameStub { get; set; }
     public string ChapterNameStub { get; set; }
@@ -42,7 +43,7 @@ namespace audiamus.aaxconv.lib {
     public string DefaultAudioFile { get; internal set; }
 
     public Stopwatch Stopwatch {get;} = new Stopwatch ();
-    public uint NumProgressPhases { get; set; }
+    //public uint NumProgressPhases { get; set; }
 
     internal Caption FileCaption { get; set; }
     internal Caption TagCaption { get; set; }
@@ -81,6 +82,18 @@ namespace audiamus.aaxconv.lib {
       return PartsType;
     }
 
+    public void InitProgress (EConvFormat format) {
+      if (Parts.IsNullOrEmpty ())
+        return;
+
+      bool isAA = Parts.First ().AaxFileItem.IsAA;
+      bool wantMp3 = format == EConvFormat.mp3;
+      bool transcode = isAA != wantMp3;
+
+      Progress = new ProgressData (Parts.Count, transcode);
+    }
+
+
     public bool HasUniqueChapterNames (EConvMode convMode) {
       if (convMode == EConvMode.single || convMode == EConvMode.splitTime)
         return false;
@@ -114,7 +127,7 @@ namespace audiamus.aaxconv.lib {
       return (uint)nChapter;
     }
 
-    public (string title, uint? chapters, uint? tracks, uint? part) Counts (EConvMode mode, Part part = null) {
+    public (string title, uint? chapters, uint? tracks, uint? part) Counts (EConvMode mode, bool allChapters = false, Part part = null) {
       uint numChapters, numTracks;
       uint? partNum = null;
 
@@ -135,7 +148,7 @@ namespace audiamus.aaxconv.lib {
       }
 
       uint? chapters = null;
-      if (mode != EConvMode.single)
+      if (mode != EConvMode.single || allChapters)
         chapters = numChapters > 0 ? numChapters : (uint?)null;
       uint? tracks = numTracks > 0 ? numTracks : (uint?)null;
 
@@ -190,13 +203,19 @@ namespace audiamus.aaxconv.lib {
         part.MergeSilences ();
     }
 
-    public void CreateCueSheet (IConvSettings settings) {
+   public void CreateCueSheet (IConvSettings settings) {
       Log (3, this, () => $"\"{SortingTitle.Shorten ()}\"");
-
       foreach (var part in Parts) 
         part.CreateCueSheet (settings);
-
     }
+
+
+    public void SetMetaChapters (IConvSettings settings) {
+      Log (3, this, () => $"\"{SortingTitle.Shorten ()}\"");
+      foreach (var part in Parts)
+        part.SetMetaChapters (settings);
+    }
+
 
     public int DetermineTimeAdjustments () {
       Log (3, this, () => $"\"{this.SortingTitle.Shorten ()}\"");
@@ -206,6 +225,8 @@ namespace audiamus.aaxconv.lib {
       Log (3, this, () => $"\"{this.SortingTitle.Shorten ()}\", #affected={affected}");
       return affected;
     }
+
+    public void RemovePaddingChapters () => Parts.ForEach (p => p.RemovePaddingChapters ());
 
     private string makeLongBookTitle (string title, ITitleSettingsEx settings) {
       if (settings.LongBookTitle == ELongTitle.no || settings.LongBookTitle == ELongTitle.as_is)

@@ -26,6 +26,9 @@ namespace audiamus.aaxconv.lib {
       public bool ChaptersCurtailed { get; set; }
 
       public string TmpFileName { get; set; }
+      public string TmpFileNameIntermedCopy { get; set; }
+      public string TmpFileNameAACFixed { get; set; }
+      public string ApplicableInFileNameForTranscode => TmpFileName ?? TmpFileNameAACFixed ?? AaxFileItem.FileName;
 
       public IReadOnlyList<Chapter> NamedChapters => HasNamedChapters ? (_namedChaptersNotIn2 ? Chapters : Chapters2) : Chapters;
 
@@ -54,17 +57,104 @@ namespace audiamus.aaxconv.lib {
         _namedChaptersNotIn2 = !_namedChaptersNotIn2;
       }
 
-      public void MergeSilences () {
-        if (this.Chapters?.Count == 0)
+      public void SetMetaChapters (IConvSettings settings) {
+        switch (settings.ConvMode) {
+          case EConvMode.chapters:
+          case EConvMode.splitChapters:
+            setMetaChaptersSingle ();
+            break;
+          case EConvMode.splitTime:
+            setMetaChaptersMulti ();
+            break;
+        }
+      }
+
+      private void setMetaChaptersSingle () {
+        if (Tracks.IsNullOrEmpty ())
+          return;
+        Log (3, this, () => this.ToString ());
+
+        foreach (var track in Tracks) {
+          Chapter ch = new Chapter (track.Time.Duration) {
+            Name = track.Chapter.Name
+          };
+          track.MetaChapters = new List<Chapter> {
+            ch
+          };
+        }
+      }
+
+      private void setMetaChaptersMulti () {
+        if (Chapters2.IsNullOrEmpty () || Tracks.IsNullOrEmpty())
           return;
 
-        var chapter0 = this.Chapters[0];
-        TimeSpan startTimeThisChapter = chapter0.Time.Begin;
+        Log (3, this, () => this.ToString ());
+
+        foreach (var track in Tracks) {
+          var chapters = Chapters2
+            .Where (ch => 
+              (ch.Time.End >= track.Time.Begin && ch.Time.Begin <= track.Time.End) 
+              || ch.Time.Begin <= track.Time.Begin && ch.Time.End >= track.Time.End)
+            .Select (ch => new Chapter(ch))
+            .ToList();
+          if (chapters.Count == 0)
+            continue;
+
+          foreach (var chapter in chapters) {
+            chapter.Time.Begin -= track.Time.Begin;
+            chapter.Time.End -= track.Time.Begin;
+          }
+
+          chapters.First ().Time.Begin = TimeSpan.Zero;
+          chapters.Last ().Time.End = track.Time.Duration;
+
+          track.MetaChapters = chapters;
+
+          Log (3, this, () => $"{track}, #metachapters={track.MetaChapters.Count}");
+        }
+      }
+
+      public int InsertPaddingChapters () {
+        int chCount = Chapters.Count;
+
+        if (chCount == 0)
+          return 0;
+
+        var ch = Chapters.First();
+        if (ch.Time.Begin > TimeSpan.Zero && !ch.IsPaddingChapter) {
+          var preChapter = new Chapter (ch.Time.Begin) { IsPaddingChapter = true };
+          Chapters.Insert (0, preChapter);
+        }
+
+        ch = Chapters.Last();
+        if (ch.Time.End < this.Duration && !ch.IsPaddingChapter) {
+          var postChapter = new Chapter (ch.Time.End, this.Duration) { IsPaddingChapter = true };
+          Chapters.Add (postChapter);
+        }
+
+        return Chapters.Count - chCount;
+      }
+
+      public void RemovePaddingChapters () {
+        if (Chapters.FirstOrDefault()?.IsPaddingChapter ?? false)
+          Chapters.RemoveAt (0);
+        if (Chapters.LastOrDefault()?.IsPaddingChapter ?? false)
+          Chapters.RemoveAt (Chapters.Count - 1);
+       }
+
+      public void MergeSilences () {
+        if (this.Chapters.IsNullOrEmpty())
+          return;
+
+        Log (3, this, () => this.ToString ());
+
+        var aggrChapter = new Chapter (Chapters[0], true);
+        TimeSpan startTimeThisChapter = aggrChapter.Time.Begin;
         if (startTimeThisChapter != TimeSpan.Zero) {
           var shifted = new List<TimeInterval> ();
-          foreach (var ivl in chapter0.Silences)
+          foreach (var ivl in aggrChapter.Silences)
             shifted.Add (ivl.Shifted (startTimeThisChapter));
-          chapter0.Silences = shifted;
+          aggrChapter.Silences = shifted;
         }
 
         for (int i = 1; i < this.Chapters.Count; i++) {
@@ -80,21 +170,23 @@ namespace audiamus.aaxconv.lib {
             ivl = ivl.Shifted (startTimeThisChapter);
 
             if (j == 0) {
-              if (ivl.Begin <= chapter0.Silences.Last ().End) {
-                ivl = new TimeInterval (chapter0.Silences.Last ().Begin, ivl.End);
-                chapter0.Silences.RemoveAt (chapter0.Silences.Count - 1);
+              if (ivl.Begin <= aggrChapter.Silences.Last ().End) {
+                ivl = new TimeInterval (aggrChapter.Silences.Last ().Begin, ivl.End);
+                aggrChapter.Silences.RemoveAt (aggrChapter.Silences.Count - 1);
               }
             }
 
-            chapter0.Silences.Add (ivl);
+            aggrChapter.Silences.Add (ivl);
           }
         }
 
-        chapter0.Time.End = this.Chapters.Last ().Time.End;
-        chapter0.TmpFileName = TmpFileName;
-        chapter0.Name = null;
-        this.Chapters.Clear ();
-        this.Chapters.Add (chapter0);
+        aggrChapter.Time.End = this.Chapters.Last ().Time.End;
+        aggrChapter.TmpFileName = TmpFileName;
+        aggrChapter.Name = null;
+        SwapChapters ();
+        this.Chapters = new List<Chapter> {
+          aggrChapter
+        };
       }
 
       public void CreateCueSheet (IConvSettings settings) {
@@ -122,7 +214,7 @@ namespace audiamus.aaxconv.lib {
             break;
           chapter.DetermineTimeAdjustment (chapterNext);
         }
-        int affected = this.Chapters.Where (c => !c.TimeAdjustment.IsNull ()).Count ();
+        int affected = this.Chapters.Where (c => !c.TimeAdjustment.IsNull () && !c.IsPaddingChapter).Count ();
         Log (3, this, () => $"\"{book.SortingTitle.Shorten ()}\", part {this.PartNumber}, #affected={affected}");
         return affected;
       }

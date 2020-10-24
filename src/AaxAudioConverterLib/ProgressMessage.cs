@@ -94,11 +94,12 @@
 
   public class ProgressMessage {
     public bool Reset;
-    public uint? AddTotalParts;
-    public uint? IncParts;
-    public int? AddTotalTracks; // Note: can be negative
-    public uint? IncTracks;
-    public uint? IncTracksPerMille;
+    public bool ResetSteps;
+    public uint? AddTotalWeightedPhases;
+    public uint? IncWeightedPhases;
+    public int? AddTotalSteps; // Note: can be negative
+    public uint? IncSteps;
+    public uint? IncStepsPerMille;
     public ProgressInfo Info;
   }
 

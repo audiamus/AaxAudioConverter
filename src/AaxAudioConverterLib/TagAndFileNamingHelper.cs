@@ -13,7 +13,7 @@ using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv.lib {
   partial class TagAndFileNamingHelper {
-    
+
     enum ENamedChapters {
       Number = 0,
       Name = 1,
@@ -22,8 +22,8 @@ namespace audiamus.aaxconv.lib {
 
     public const string EXT_JPG = ".jpg";
     public const string EXT_PNG = ".png";
-    public const string EXT_M4A = ".m4a"; 
-    public const string EXT_M4B = ".m4b"; 
+    public const string EXT_M4A = ".m4a";
+    public const string EXT_M4B = ".m4b";
     public const string EXT_MP3 = ".mp3";
 
     const string SPACE = " ";
@@ -34,24 +34,22 @@ namespace audiamus.aaxconv.lib {
     public const string PART = "Part";
 
     // apple
-    const string NRT = "nrt"; 
-    const string DES = "des"; 
+    const string NRT = "nrt";
+    const string DES = "des";
     const string PUB = "pub";
 
     // audible
-    const string PUBDATE = "pubdate"; 
-    const string LONG_DESC = "long_description"; 
+    const string PUBDATE = "pubdate";
+    const string LONG_DESC = "long_description";
 
     readonly string _sepDash = Singleton<ChainPunctuationDash>.Instance.Infix[0];
     readonly string[] _seps = Singleton<ChainPunctuationDot>.Instance.Infix;
 
-    readonly INamingSettingsEx _settings;
+    readonly INamingAndModeSettings _settings;
     readonly IResources _resources;
     readonly AaxFileItem _aaxFileItem;
     readonly Book _book;
     readonly Book.Part _part;
-    readonly EConvMode _convMode;
-    readonly EConvFormat _convFormat;
     readonly ENamedChapters _namedChapters;
 
     bool _isFileName;
@@ -59,7 +57,14 @@ namespace audiamus.aaxconv.lib {
     Track _track;
     Numbers _numbers;
 
-    private INamingSettingsEx Settings => _settings;
+    //private static readonly object __lockableATL = new object (); 
+
+
+    private INamingAndModeSettings Settings => _settings;
+    private EConvMode ConvMode => Settings.ConvMode;
+    private EConvFormat ConvFormat => Settings.ConvFormat;
+
+
     private IResources Resources => _resources;
 
     private string Track => track ();
@@ -110,9 +115,8 @@ namespace audiamus.aaxconv.lib {
 
     private TagAndFileNamingHelper (AaxFileItem aaxFileItem) => _aaxFileItem = aaxFileItem;
 
-    private TagAndFileNamingHelper (IResources resources, INamingSettingsEx settings, Book book, Track track) :
-      this (resources, settings, book)
-    {
+    private TagAndFileNamingHelper (IResources resources, INamingAndModeSettings settings, Book book, Track track) :
+      this (resources, settings, book) {
       _track = track;
 
       var part = book.Parts.Where (p => p.Tracks?.Contains (track) ?? false).SingleOrDefault ();
@@ -126,25 +130,24 @@ namespace audiamus.aaxconv.lib {
 
     }
 
-    private TagAndFileNamingHelper (IResources resources, INamingSettingsEx settings, Book.Part part) :
-      this (resources, settings, part.Book)
-    {
+    private TagAndFileNamingHelper (IResources resources, INamingAndModeSettings settings, Book.Part part) :
+      this (resources, settings, part.Book) {
       _aaxFileItem = part.AaxFileItem;
       _numbers = new Numbers (null, part);
     }
 
-    private TagAndFileNamingHelper (IResources resources, INamingSettingsEx settings, Book book) {
+    private TagAndFileNamingHelper (IResources resources, INamingAndModeSettings settings, Book book) {
       _resources = resources;
       _settings = settings;
       _book = book;
-      if (settings is IConvSettings s) {
-        _convFormat = s.ConvFormat;
-        _convMode = s.ConvMode;
-      }
+      //if (settings is IConvSettings s) {
+      //  _convFormat = s.ConvFormat;
+      //  _convMode = s.ConvMode;
+      //}
 
       bool useChapterNames = settings.NamedChapters >= lib.ENamedChapters.yes && book.HasNamedChapters;
-      bool useChapterNumbers = useChapterNames && settings.NamedChapters == lib.ENamedChapters.yesAlwaysWithNumbers || 
-        !book.HasUniqueChapterNames (_convMode);
+      bool useChapterNumbers = useChapterNames && settings.NamedChapters == lib.ENamedChapters.yesAlwaysWithNumbers ||
+        !book.HasUniqueChapterNames (ConvMode);
       if (useChapterNames) {
         if (useChapterNumbers)
           _namedChapters = ENamedChapters.NumberName;
@@ -154,34 +157,34 @@ namespace audiamus.aaxconv.lib {
 
     }
 
-    public static bool ReadMetaData (AaxFileItem aaxFileItem) => 
+    public static bool ReadMetaData (AaxFileItem aaxFileItem) =>
       new TagAndFileNamingHelper (aaxFileItem).readMetaData ();
 
-    public static bool WriteMetaData (IResources resources, INamingSettingsEx settings, Book book, Track track) => 
+    public static bool WriteMetaData (IResources resources, INamingAndModeSettings settings, Book book, Track track) =>
       new TagAndFileNamingHelper (resources, settings, book, track).writeMetaData ();
 
-    public static bool WriteMetaDataMP3Chapters (IResources resources, INamingSettingsEx settings, Book book, Track track) => 
-      new TagAndFileNamingHelper (resources, settings, book, track).writeMetaDataMP3Chapters ();
+    public static bool WriteMetaDataChapters (IResources resources, INamingAndModeSettings settings, Book book, Track track) =>
+      new TagAndFileNamingHelper (resources, settings, book, track).writeMetaDataChapters ();
 
-    public static void SetTrackTitle (IResources resources, INamingSettingsEx settings, Book book, Track track) => 
+    public static void SetTrackTitle (IResources resources, INamingAndModeSettings settings, Book book, Track track) =>
       new TagAndFileNamingHelper (resources, settings, book, track).setTrackTitle ();
 
-    public static void SetFileName (IResources resources, IConvSettings settings, Book book, Track track) => 
+    public static void SetFileName (IResources resources, INamingAndModeSettings settings, Book book, Track track) =>
       new TagAndFileNamingHelper (resources, settings, book, track).setFileName ();
 
-    public static void SetFileNames (IResources resources, IConvSettings settings, Book book) => 
+    public static void SetFileNames (IResources resources, INamingAndModeSettings settings, Book book) =>
       new TagAndFileNamingHelper (resources, settings, book).setFileNames ();
 
-    public static string GetPartDirectoryName (IResources resources, INamingSettingsEx settings, Book.Part part) =>
-      new TagAndFileNamingHelper (resources, settings, part).getPartDirectoryName();
-    
+    public static string GetPartDirectoryName (IResources resources, INamingAndModeSettings settings, Book.Part part) =>
+      new TagAndFileNamingHelper (resources, settings, part).getPartDirectoryName ();
+
     public static string GetGenre (INamingSettings settings, AaxFileItem afi) =>
           (settings.GenreNaming == EGeneralNaming.source ? afi.Genre : settings.GenreName) ?? GENRE;
 
-    public static string GetPartPrefix (IResources resources, INamingSettingsEx settings, Book book) =>
+    public static string GetPartPrefix (IResources resources, INamingAndModeSettings settings, Book book) =>
       new TagAndFileNamingHelper (resources, settings, book).PartPrefix;
 
-    public static string GetChapterPrefix (IResources resources, INamingSettingsEx settings, Book book) {
+    public static string GetChapterPrefix (IResources resources, INamingAndModeSettings settings, Book book) {
       return new TagAndFileNamingHelper (resources, settings, book).ChapterPrefix;
     }
 
@@ -214,13 +217,13 @@ namespace audiamus.aaxconv.lib {
       var n = _numbers;
       string[] p = _seps;
 
-      switch (_convMode) {
+      switch (ConvMode) {
         default:
           return n.nTrk.Str (n.nnTrk);
         case EConvMode.chapters:
-          return chapterNamedTrackForChapters();
+          return chapterNamedTrackForChapters ();
         case EConvMode.splitChapters:
-          return chapterNamedTrackForSplitChapters();
+          return chapterNamedTrackForSplitChapters ();
       };
     }
 
@@ -235,15 +238,14 @@ namespace audiamus.aaxconv.lib {
         case ENamedChapters.Number:
           return trackName;
         case ENamedChapters.Name:
-        case ENamedChapters.NumberName: 
-          {
+        case ENamedChapters.NumberName: {
             string chapterName = ChapterName;
             if (_isFileName) {
               chapterName = chapterName.Prune ();
               if (_namedChapters == ENamedChapters.NumberName)
                 chapterName = $"({trackName}) {chapterName}";
               else
-               ; // for breakpoint               
+                ; // for breakpoint               
             } else
               ; // for breakpoint
 
@@ -262,7 +264,7 @@ namespace audiamus.aaxconv.lib {
       string chapterName = ChapterName;
       if (_isFileName)
         chapterName = chapterName.Prune ();
-      
+
       switch (Settings.TrackNumbering) {
         default:
         case ETrackNumbering.track:
@@ -279,7 +281,7 @@ namespace audiamus.aaxconv.lib {
             tn += _seps[0] + n.nChTrk.Str (n.nnChTrk);
           else
             ; // for breakpoint
-          return tn;         
+          return tn;
 
         case ETrackNumbering.track_b_chapter_c:
           if (_namedChapters != ENamedChapters.Number)
@@ -292,7 +294,7 @@ namespace audiamus.aaxconv.lib {
 
     private string titleNaming () {
       var n = _numbers;
-      bool isSingleOutputFile = _convMode == EConvMode.single && n.nTrks == 1;
+      bool isSingleOutputFile = ConvMode == EConvMode.single && n.nTrks == 1;
 
       string p = _sepDash;
       switch (Settings.TitleNaming) {
@@ -334,10 +336,9 @@ namespace audiamus.aaxconv.lib {
         default:
         case ENamedChapters.Number:
           return chapter + p + n.nChp.Str (n.nnChp);
-        case ENamedChapters.Name: 
-        case ENamedChapters.NumberName:
-          {
-            string chapterName = ChapterName.Prune();
+        case ENamedChapters.Name:
+        case ENamedChapters.NumberName: {
+            string chapterName = ChapterName.Prune ();
             bool isNumeric = uint.TryParse (chapterName, out var _);
             if (isNumeric)
               chapterName = chapter + p + chapterName;
@@ -346,7 +347,7 @@ namespace audiamus.aaxconv.lib {
 
             if (_namedChapters == ENamedChapters.Name)
               return chapterName;
-            else 
+            else
               return $"({n.nChp.Str (n.nnChp)}) {chapterName}";
           }
       }
@@ -363,9 +364,9 @@ namespace audiamus.aaxconv.lib {
 
 
     private string fullPath () {
-      string ext = _convFormat == EConvFormat.mp4 ? ExtMp4 : EXT_MP3;
+      string ext = ConvFormat == EConvFormat.mp4 ? ExtMp4 : EXT_MP3;
       string filename = File + ext;
-      switch (_convMode) {
+      switch (ConvMode) {
         case EConvMode.single:
           if (Settings.ExtraMetaFiles && _book.PartsType == Book.EParts.some)
             return Path.Combine (_book.OutDirectoryLong, Part, filename);
@@ -385,14 +386,14 @@ namespace audiamus.aaxconv.lib {
         default:
           switch (_book.PartsType) {
             case Book.EParts.some:
-              if (Settings.ChapterNaming != EGeneralNamingEx._nofolders )
+              if (Settings.ChapterNaming != EGeneralNamingEx._nofolders)
                 return Path.Combine (_book.OutDirectoryLong, Part, Chapter, filename);
               else
                 return Path.Combine (_book.OutDirectoryLong, Part, filename);
             case Book.EParts.none:
             case Book.EParts.all:
-            default: 
-              if (Settings.ChapterNaming != EGeneralNamingEx._nofolders )
+            default:
+              if (Settings.ChapterNaming != EGeneralNamingEx._nofolders)
                 return Path.Combine (_book.OutDirectoryLong, Chapter, filename);
               else
                 return Path.Combine (_book.OutDirectoryLong, filename);
@@ -401,7 +402,7 @@ namespace audiamus.aaxconv.lib {
     }
 
     private string file () {
-      switch (_convMode) {
+      switch (ConvMode) {
         case EConvMode.single:
           return fileSingle ();
         case EConvMode.chapters:
@@ -476,17 +477,19 @@ namespace audiamus.aaxconv.lib {
     }
 
     private bool readMetaData () {
+      Log0 (3, this);
       if (_aaxFileItem is null)
         return false;
-      bool succ = readMetadataTaglib ();
-      succ = succ && readMetadataFFmpeg ();
+      bool succ = readMetadataFFmpeg ();
+      succ = succ && readMetadataTaglib ();
 
       return succ;
     }
 
     private bool readMetadataTaglib () {
+      Log0 (3, this);
       var afi = _aaxFileItem;
-      if (afi.AA)
+      if (afi.HasExtAA)
         return readMetadataTaglibAudible ();
       else
         return readMetadataTaglibM4a ();
@@ -494,10 +497,12 @@ namespace audiamus.aaxconv.lib {
 
     private bool readMetadataTaglibM4a () {
       var afi = _aaxFileItem;
+      Log (3, this, $"\"{afi.FileName.SubstitUser ()}\"");
       TagLib.File file = null;
       try {
         file = TagLib.File.Create (afi.FileName, "taglib/m4a", TagLib.ReadStyle.Average);
-      } catch (Exception) {
+      } catch (Exception exc) {
+        Log (1, this, $"{afi.FileName.SubstitUser()}, {exc.ToShortString ()}");
         return readMetadataTaglibAudible ();
       }
 
@@ -521,12 +526,12 @@ namespace audiamus.aaxconv.lib {
           afi.PublishingDate = new DateTime ((int)tags.Year, 1, 1);
         } catch (Exception) { }
         afi.Copyright = tags.Copyright.Decode ();
-        afi.Genre = tags.Genres.FirstOrDefault ()?.Decode();
+        afi.Genre = tags.Genres.FirstOrDefault ()?.Decode ();
 
         var atags = file.GetTag (TagLib.TagTypes.Apple) as TagLib.Mpeg4.AppleTag;
         if (atags is null)
           return true;
-        afi.Narrators = appleCustomTag (atags, NRT).Decode ().SplitTrim();
+        afi.Narrators = appleCustomTag (atags, NRT).Decode ().SplitTrim ();
         afi.Abstract = appleCustomTag (atags, DES).Decode ();
         afi.Publisher = appleCustomTag (atags, PUB).Decode ();
       }
@@ -536,20 +541,23 @@ namespace audiamus.aaxconv.lib {
 
     private bool readMetadataTaglibAudible () {
       var afi = _aaxFileItem;
+      Log (3, this, $"\"{afi.FileName.SubstitUser ()}\"");
       TagLib.File file = null;
       try {
-        file = TagLib.File.Create (afi.FileName, "audio/x-audible",TagLib.ReadStyle.Average);
-      } catch (Exception) {
+        file = TagLib.File.Create (afi.FileName, "audio/x-audible", TagLib.ReadStyle.Average);
+      } catch (Exception exc) {
+        Log (1, this, $"{afi.FileName.SubstitUser ()}, {exc.ToShortString ()}");
         return false;
       }
       using (file) {
         var tags = file.Tag as TagLib.Audible.Tag;
-        if (tags is null)
+        if (tags is null) {
+          Log (1, this, $"{afi.FileName.SubstitUser ()}, error type mismatch: {file.Tag.GetType().FullName}");
           return false;
-
+        }
         afi.BookTitle = tags.Title.Decode ();
-        afi.Authors = tags.Author.Decode ().SplitTrim();
-        afi.Narrators = tags.Narrator.Decode ().SplitTrim();
+        afi.Authors = tags.Author.Decode ().SplitTrim ();
+        afi.Narrators = tags.Narrator.Decode ().SplitTrim ();
         afi.Abstract = tags.Description.Decode ();
         var pic = tags.Pictures.FirstOrDefault ();
         if (pic != null) {
@@ -570,20 +578,21 @@ namespace audiamus.aaxconv.lib {
         if (!(date is null)) {
           bool succ = DateTime.TryParse (date, out var datetime);
           if (succ)
-            afi.PublishingDate = datetime;          
+            afi.PublishingDate = datetime;
         }
 
         string desc = audibleCustomTag (tags, LONG_DESC);
         if (desc?.Length > afi.Abstract?.Length)
-            afi.Abstract = desc;          
+          afi.Abstract = desc;
 
-        
+
       }
       return true;
     }
 
     private bool readMetadataFFmpeg () {
       var afi = _aaxFileItem;
+      Log (3, this, $"\"{afi.FileName.SubstitUser()}\"");
 
       FFmpeg ffmpeg = new FFmpeg (afi.FileName);
       bool succ = ffmpeg.GetAudioMeta ();
@@ -592,6 +601,7 @@ namespace audiamus.aaxconv.lib {
         afi.SampleRate = ffmpeg.AudioMeta.Samplerate;
         afi.Channels = ffmpeg.AudioMeta.Channels;
         afi.AvgBitRate = ffmpeg.AudioMeta.AvgBitRate;
+        afi.IsAA = ffmpeg.IsAaFile;
       }
       return succ;
     }
@@ -608,7 +618,7 @@ namespace audiamus.aaxconv.lib {
       }
     }
 
-    private void setTrackTitle () => _track.Title = Title; 
+    private void setTrackTitle () => _track.Title = Title;
 
     private bool writeMetaData () {
       _isFileName = false;
@@ -633,7 +643,7 @@ namespace audiamus.aaxconv.lib {
             var t = nct.Tags.Where (k => k.TagTypes.HasFlag (TagLib.TagTypes.Id3v2)).FirstOrDefault ();
             if (t is TagLib.Id3v2.Tag id3v2) {
               id3v2.Version = 3;
-              Log (3, this, $"track=\"{Title}\" \"{Path.GetFileName(_track.FileName)}\": {nameof (TagLib.Id3v2)} downgraded to version {id3v2.Version}");
+              Log (3, this, $"track=\"{Title}\" \"{Path.GetFileName (_track.FileName)}\": {nameof (TagLib.Id3v2)} downgraded to version {id3v2.Version}");
             }
           }
         }
@@ -719,39 +729,61 @@ namespace audiamus.aaxconv.lib {
     }
 
 
-    private bool writeMetaDataMP3Chapters () {
+    private bool writeMetaDataChapters () {
       if (_part is null)
         return false;
 
-      if (_part.Chapters2.IsNullOrEmpty ())
-        return true;
-
-      Log (3, this, $"\"{Path.GetFileName (_track.FileName)}\": #chapters={_part.Chapters2.Count}");
-
-      try {
-
-        ATL.Track tagFile = new ATL.Track (_track.FileName);
-
-        ATL.Settings.ID3v2_tagSubVersion = 3;
-
-        tagFile.Chapters.Clear ();
-
-        foreach (var ch in _part.Chapters2) {
-          var chi = new ATL.ChapterInfo {
-            StartTime = (uint)ch.Time.Begin.TotalMilliseconds,
-            EndTime = (uint)ch.Time.End.TotalMilliseconds,
-            Title = ch.Name
-          };
-          tagFile.Chapters.Add (chi);
-        }
-
-        tagFile.Save ();
-
-        return true;
-      } catch (Exception exc) {
-        Log (1, this, exc.ToShortString ());
-        return false;
+      IEnumerable<Chapter> chapters = null;
+      switch (ConvMode) {
+        case EConvMode.single:
+          chapters = _part.Chapters2;
+          break;
+        default:
+          chapters = _track.MetaChapters;
+          break;
       }
+
+      if (chapters.IsNullOrEmpty ())
+        return true;
+
+      Log (3, this, $"\"{Path.GetFileName (_track.FileName.SubstitUser())}\": #chapters={chapters.Count()}");
+
+
+      //lock (__lockableATL) 
+      {
+        ATL.Track tagFile;
+        try {
+
+          tagFile = new ATL.Track (_track.FileName);
+
+          ATL.Settings.ID3v2_tagSubVersion = 3;
+          ATL.Settings.MP4_createNeroChapters = true;
+          ATL.Settings.MP4_createQuicktimeChapters = true;
+          ATL.Settings.FileBufferSize = 2_000_000;
+          ATL.Settings.ForceDiskIO = true;
+
+          tagFile.Chapters.Clear ();
+
+
+          foreach (var ch in chapters) {
+            Log (3, this, ch.ToString ());
+            var chi = new ATL.ChapterInfo {
+              StartTime = (uint)ch.Time.Begin.TotalMilliseconds,
+              EndTime = (uint)ch.Time.End.TotalMilliseconds,
+              Title = ch.Name
+            };
+            tagFile.Chapters.Add (chi);
+          }
+
+          tagFile.Save ();
+
+        } catch (Exception exc) {
+          Log (1, this, exc.ToShortString ());
+          return false;
+        }
+      }
+      return true;
+
     }
 
 

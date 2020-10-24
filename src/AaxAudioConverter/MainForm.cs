@@ -376,7 +376,9 @@ namespace audiamus.aaxconv {
       enableAll (false);
       this.UseWaitCursor = true;
 
-      var addedFileItems = await _converter.AddFilesAsync (filenames);
+      var callback = new InteractionCallback<InteractionMessage, bool?> (_interactionHandler.Interact);
+
+      var addedFileItems = await _converter.AddFilesAsync (filenames, callback);
 
       if (addedFileItems.Count () > 0) {
 

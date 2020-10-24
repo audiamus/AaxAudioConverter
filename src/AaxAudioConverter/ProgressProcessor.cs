@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using audiamus.aaxconv.lib;
 using audiamus.aux.ex;
 using static audiamus.aaxconv.lib.ProgressInfo;
+using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv {
   using R = Properties.Resources;
@@ -40,7 +41,8 @@ namespace audiamus.aaxconv {
       private readonly SortedDictionary<string, BookInfo> _books = new SortedDictionary<string, BookInfo> ();
       private readonly Label _label;
       private readonly IProgBar _progbar;
-     
+
+      private string _logString; 
 
       public BookProgress (Label label, IProgBar progbar) {
         _label = label;
@@ -50,6 +52,7 @@ namespace audiamus.aaxconv {
       public void Reset () {
         _books.Clear ();
         _label.Text = null;
+        _logString = null;
       }
 
       public void Update (ProgressInfo info) {
@@ -57,7 +60,6 @@ namespace audiamus.aaxconv {
           return;
         processInfo (info);
         SetInfoLabel ();
-
       }
 
       const int SHORTSTRING1 = 60;
@@ -109,10 +111,18 @@ namespace audiamus.aaxconv {
 
         if (info.PartNumber.HasValue)
           bi.PartNumber = info.PartNumber;
-        if (info.NumberOfChapters.HasValue)
-          bi.NumberOfChapters = info.NumberOfChapters;
-        if (info.NumberOfTracks.HasValue)
-          bi.NumberOfTracks = info.NumberOfTracks;
+        if (info.NumberOfChapters.HasValue) {
+          if (info.NumberOfChapters.Value > 0)
+            bi.NumberOfChapters = info.NumberOfChapters;
+          else
+            bi.NumberOfChapters = null;
+        }
+        if (info.NumberOfTracks.HasValue) {
+          if (info.NumberOfTracks.Value > 0)
+            bi.NumberOfTracks = info.NumberOfTracks;
+          else
+            bi.NumberOfTracks = null;
+        }
 
         processItems (bi.Parts, info.Part);
         processItems (bi.Chapters, info.Chapter);
@@ -140,32 +150,67 @@ namespace audiamus.aaxconv {
       }
 
       private string buildInfoLabel (EVerbosity verbosity, int maxStrLen) {
-        var sb = new StringBuilder ();
-        sb.Append ($"{R.MsgProgStep} {_progbar.Value}/{_progbar.Maximum}");
+        bool doLog = Level >= 3;
+        var sbLbl = new StringBuilder ();
+        var sbLog = new StringBuilder ();
+
+        sbLbl.Append ($"{R.MsgProgStep} {_progbar.AccuValue}/{_progbar.AccuMaximum}");
+        sbLog.Append ($"{R.MsgProgStep} .../{_progbar.AccuMaximum}");
+
         foreach (var kvp in _books) {
           var bi = kvp.Value;
-          sb.Append ($"; \"{bi.Title.Shorten(maxStrLen)}\"");
 
-          if (verbosity.HasFlag (EVerbosity.counters)) { 
-            if (bi.PartNumber.HasValue)
-              sb.Append ($", {R.MsgProgPt} {bi.PartNumber}");
-            if (bi.NumberOfChapters.HasValue)
-              sb.Append ($", {bi.NumberOfChapters} {R.MsgProgCh}");
-            if (bi.NumberOfTracks.HasValue)
-              sb.Append ($", {bi.NumberOfTracks} {R.MsgProgTr}");
+          string s = $"; \"{bi.Title.Shorten (maxStrLen)}\"";
+          sbLbl.Append (s);
+          if (doLog)
+            sbLog.Append (s);
+
+          if (verbosity.HasFlag (EVerbosity.counters)) {
+            if (bi.PartNumber.HasValue) {
+              s = $", {R.MsgProgPt} {bi.PartNumber}";
+              sbLbl.Append (s);
+              if (doLog)
+                sbLog.Append (s);
+            }
+
+            if (bi.NumberOfChapters.HasValue) {
+              s = $", {bi.NumberOfChapters} {R.MsgProgCh}";
+              sbLbl.Append (s);
+              if (doLog)
+                sbLog.Append (s);
+            }
+
+            if (bi.NumberOfTracks.HasValue) {
+              s = $", {bi.NumberOfTracks} {R.MsgProgTr}";
+              sbLbl.Append (s);
+              if (doLog)
+                sbLog.Append (s);
+            }
           }
 
-          if (bi.Phase != EProgressPhase.none && verbosity.HasFlag (EVerbosity.phase))
-            sb.Append ($", {R.ResourceManager.GetStringEx(bi.Phase.ToString())}");
+          if (bi.Phase != EProgressPhase.none && verbosity.HasFlag (EVerbosity.phase)) {
+            s = $", {R.ResourceManager.GetStringEx (bi.Phase.ToString ())}";
+            sbLbl.Append (s);
+            if (doLog)
+              sbLog.Append (s);
+          }
 
           if (verbosity.HasFlag (EVerbosity.chapters)) {
-            buildInfoLabelSequence (sb, bi.Parts, R.MsgProgPt);
-            buildInfoLabelSequence (sb, bi.Chapters, R.MsgProgCh);
-            buildInfoLabelSequence (sb, bi.Tracks, R.MsgProgTr);
+            buildInfoLabelSequence (sbLbl, bi.Parts, R.MsgProgPt);
+            buildInfoLabelSequence (sbLbl, bi.Chapters, R.MsgProgCh);
+            buildInfoLabelSequence (sbLbl, bi.Tracks, R.MsgProgTr);
           }
         }
 
-        return sb.ToString();
+        if (doLog) {
+          string sLog = sbLog.ToString (); 
+          if (!string.Equals (sLog, _logString)) {
+            _logString = sLog;
+            Log (3, this, sLog);
+          }
+        }
+
+        return sbLbl.ToString();
       }
 
       private static void buildInfoLabelSequence (StringBuilder sb, List<uint> items, string caption) {
@@ -207,21 +252,36 @@ namespace audiamus.aaxconv {
     }
 
     interface IProgBar {
-      uint Maximum { get; }
-      uint Value { get; }
+      uint AccuMaximum { get; }
+      uint AccuValue { get; }
     }
 
-    class ProgBar : IProgBar{
+    class ProgBar : IProgBar {
       const uint _1000 = 1000;
 
       private readonly ProgressBar _progBar;
 
+      private uint _accuMaximum; 
+      private uint _accuValue;
       private uint _maximum; 
       private uint _value;
       private readonly uint M = 1;
 
-      public uint Maximum => _maximum / M;
-      public uint Value => Math.Min (_value / M + 1, Maximum);
+      public uint AccuMaximum => (_maximum + _accuMaximum) / M;
+      public uint AccuValue {
+        get
+        {
+          uint total = _value + _accuValue;
+          uint value = total / M;
+          uint rem = total % M;
+          if (rem > 0)
+            value += 1;
+
+          return Math.Min (value, AccuMaximum);
+        }
+      }
+
+      internal (uint accu, uint cur) Value => (_accuValue, _value);
 
       public Action Callback { private get; set; }
 
@@ -231,15 +291,35 @@ namespace audiamus.aaxconv {
           M = _1000;
       }
 
-      public void Reset () {
+      public void Reset (bool progBarValueOnly = false) {
+        uint value = _value;
+        _accuValue += _value;
         _value = 0;
-        _maximum = 0;
         _progBar.Value = 0;
+
+        if (progBarValueOnly) {
+          reduceMaximumProgBar (value);
+          return;
+        }
+
+        _accuValue = 0;
+        _maximum = 0;
+        _accuMaximum = 0;
         _progBar.Maximum = 1; // not 0
       }
 
+      private void reduceMaximumProgBar (uint value) {
+        uint max = _maximum - value;
+        max = Math.Max (0u, max); 
+        _accuMaximum += _maximum - max;
+        _maximum = max;
+        int val = (int)Math.Max (1u, max);
+        _progBar.Maximum = val;
+        Callback?.Invoke ();
+      } 
+
       public void UpdateMaximum (int incMax) {
-        int max = (int)_maximum + incMax * (int)M;
+        int max = (int)_maximum + incMax *(int)M;
         _maximum = (uint)Math.Max (1, max);
         int val = Math.Max ((int)_maximum, _progBar.Value);
         _progBar.Maximum = val;
@@ -264,21 +344,21 @@ namespace audiamus.aaxconv {
       }
     }
 
-    private readonly ProgBar _progBarPart;
-    private readonly ProgBar _progBarTrack;
+    private readonly ProgBar _progBarPhase;
+    private readonly ProgBar _progBarStep;
     private readonly BookProgress _bookProgress;
 
 
     public ProgressProcessor (ProgressBar progBarPart, ProgressBar progBarTrack, Label labelInfo) {
-      _progBarPart = new ProgBar(progBarPart);
-      _progBarTrack = new ProgBar(progBarTrack, true);
-      _bookProgress = new BookProgress (labelInfo, _progBarTrack);
-      _progBarTrack.Callback = _bookProgress.SetInfoLabel;
+      _progBarPhase = new ProgBar(progBarPart);
+      _progBarStep = new ProgBar(progBarTrack, true);
+      _bookProgress = new BookProgress (labelInfo, _progBarStep);
+      _progBarStep.Callback = _bookProgress.SetInfoLabel;
     }
 
     public void Reset () {
-      _progBarPart.Reset ();
-      _progBarTrack.Reset ();
+      _progBarPhase.Reset ();
+      _progBarStep.Reset ();
       _bookProgress.Reset ();
     }
 
@@ -291,18 +371,34 @@ namespace audiamus.aaxconv {
         return;
       }
 
-      if (msg.AddTotalParts.HasValue)
-        _progBarPart.UpdateMaximum ((int)msg.AddTotalParts.Value);
-      if (msg.IncParts.HasValue)
-        _progBarPart.UpdateValue (msg.IncParts.Value);
+      if (msg.ResetSteps) {
+        Log (3, this, () => $"{nameof(msg.ResetSteps)}, {_progBarStep.AccuValue}/{_progBarStep.AccuMaximum}");
+        _progBarStep.Reset (true);
+      }
 
-      if (msg.AddTotalTracks.HasValue)
-        _progBarTrack.UpdateMaximum (msg.AddTotalTracks.Value);
-      if (msg.IncTracks.HasValue)
-        _progBarTrack.UpdateValue (msg.IncTracks.Value);
-      else if (msg.IncTracksPerMille.HasValue)
-        _progBarTrack.UpdateValuePerMille (msg.IncTracksPerMille.Value);
+      if (msg.AddTotalWeightedPhases.HasValue)
+        _progBarPhase.UpdateMaximum ((int)msg.AddTotalWeightedPhases.Value);
+      if (msg.IncWeightedPhases.HasValue)
+        _progBarPhase.UpdateValue (msg.IncWeightedPhases.Value);
 
+      if (msg.AddTotalSteps.HasValue) {
+        Log (3, this, () => $"{nameof(msg.AddTotalSteps)}={msg.AddTotalSteps.Value} to {_progBarStep.AccuMaximum}");
+        _progBarStep.UpdateMaximum (msg.AddTotalSteps.Value);
+      }
+
+      if (msg.IncSteps.HasValue)
+        _progBarStep.UpdateValue (msg.IncSteps.Value);
+      else if (msg.IncStepsPerMille.HasValue)
+        _progBarStep.UpdateValuePerMille (msg.IncStepsPerMille.Value);
+
+      if (msg.Info is null)
+        return;
+
+      if (msg.Info.Phase != EProgressPhase.none) 
+      {
+        var (accu, cur) = _progBarStep.Value;
+        Log (3, this, () => $"{msg.Info.Phase}: {accu} + {cur} = {accu + cur}");
+      }
       _bookProgress.Update (msg.Info);
 
     }

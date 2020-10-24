@@ -92,9 +92,21 @@ namespace audiamus.aaxconv.lib {
   }
 
   public enum EVerifyAdjustChapters {
-    no,
-    splitChapterMode,
-    bothChapterModes,
+    no = 0,
+    splitChapterMode = 1,
+    bothChapterModes = 2,
+  }
+
+  public enum EVerifyAdjustChapterMarks {
+    no = 0,
+    splitChapterOrTimeMode = 1,
+    allModes = 2,
+  }
+
+  public enum EFixAACEncoding {
+    no = 0,
+    withIntermediateCopy = 1,
+    allModes = 2,
   }
 
   enum ETrackDuration {

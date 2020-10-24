@@ -33,8 +33,8 @@
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ATL, Version=3.6.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\z440.atl.core.3.6.0\lib\net45\ATL.dll</HintPath>
+    <Reference Include="ATL, Version=3.12.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\z440.atl.core.3.12.0\lib\net45\ATL.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -61,6 +61,8 @@
     <Compile Include="ContentMetadataJson.cs" />
     <Compile Include="ExtraMetaFiles.cs" />
     <Compile Include="FFMetaData.cs" />
+    <Compile Include="FileEx.cs" />
+    <Compile Include="FixAtomESDS.cs" />
     <Compile Include="OnlineUpdate.cs" />
     <Compile Include="ChainPunctuation.cs" />
     <Compile Include="AudioMeta.cs" />
@@ -68,6 +70,7 @@
     <Compile Include="Extensions.cs" />
     <Compile Include="Chapter.cs" />
     <Compile Include="Interfaces.cs" />
+    <Compile Include="Book.Progress.cs" />
     <Compile Include="ThreadProgress.cs" />
     <Compile Include="ToStringConverters.cs" />
     <Compile Include="Track.cs" />
@@ -91,6 +94,10 @@
     <ProjectReference Include="..\AuxLib\AuxLib.csproj">
       <Project>{64C35BCC-BF7A-47BE-89F2-7ABB470BDB0B}</Project>
       <Name>AuxLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AuxWin32Lib\AuxWin32Lib.csproj">
+      <Project>{66AF7DB4-AA8E-45F5-BB1B-919C5008E6B0}</Project>
+      <Name>AuxWin32Lib</Name>
     </ProjectReference>
     <ProjectReference Include="..\TreeDecomposition\TreeDecomposition.csproj">
       <Project>{BBEFB463-1F6C-4D35-AF83-B5C3CEA9915E}</Project>

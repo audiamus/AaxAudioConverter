@@ -39,6 +39,13 @@ namespace audiamus.aux.ex {
     public static bool IsNull (this object o) => o is null;
   }
 
+  public static class ExEnumerable {
+    public static void ForEach<T> (this IEnumerable<T> items, Action<T> action) {
+      foreach (T item in items)
+        action (item);
+    }
+  }
+
   public static class ExString {
     public static string Combine (this IEnumerable<string> values, char separator = ';') {
       if (values is null)

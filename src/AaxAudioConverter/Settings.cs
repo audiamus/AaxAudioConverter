@@ -4,6 +4,7 @@
     void Save ();
     bool? FileAssoc { get; set; }
     bool? ShowStartupTip { get; set; }
+    int SettingsTab { get; set; }
   }
 
 

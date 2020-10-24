@@ -543,6 +543,15 @@ namespace audiamus.aaxconv.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Actual file format is not AAX or AA..
+        /// </summary>
+        internal static string MsgInvalidInternalFileType {
+            get {
+                return ResourceManager.GetString("MsgInvalidInternalFileType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to has to be restarted for the 
         ///new language setting to take effect.
         ///

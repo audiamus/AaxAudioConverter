@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace audiamus.aaxconv.lib {
 
@@ -11,6 +12,7 @@ namespace audiamus.aaxconv.lib {
     public string Title { get; set; }
     public ETrackState State { get; set; }
     public Chapter Chapter { get; set; }
+    public List<Chapter> MetaChapters { get; set; }
 
     public Track (TimeSpan duration) {
       Time = new TimeInterval (duration);

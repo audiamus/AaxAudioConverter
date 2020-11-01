@@ -57,6 +57,12 @@ namespace audiamus.aaxconv.lib {
         _namedChaptersNotIn2 = !_namedChaptersNotIn2;
       }
 
+      public string TrackId (Track track) =>
+        $"{PartNumber}.{Tracks?.IndexOf(track)+1}";
+      public string ChapterId (Chapter chapter) =>
+        $"{PartNumber}.{Chapters?.IndexOf(chapter)+1}";
+  
+
       public void SetMetaChapters (IConvSettings settings) {
         switch (settings.ConvMode) {
           case EConvMode.chapters:

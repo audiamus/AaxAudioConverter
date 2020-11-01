@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using audiamus.aux.ex;
+using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv.lib {
 
@@ -62,9 +62,11 @@ namespace audiamus.aaxconv.lib {
     public bool Write (string filename) {
       if (Chapters is null || Chapters.Count == 0)
         return false;
+      Log (3, this, $"\"{filename.SubstitUser ()}\": #chapters={Chapters.Count ()}");
       using (var osm = new StreamWriter (filename)) {
         osm.WriteLine (FFMETADATA);
         foreach (var ch in Chapters) {
+          Log (3, this, ch.ToString ());
           osm.WriteLine (CHAPTER);
           osm.WriteLine ($"{Tags[0]}=1/1000");
           osm.WriteLine ($"{Tags[1]}={(int)ch.Time.Begin.TotalMilliseconds}");

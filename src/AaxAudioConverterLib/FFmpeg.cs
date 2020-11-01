@@ -70,6 +70,7 @@ namespace audiamus.aaxconv.lib {
     bool _success;
     bool _error;
     bool _aborted;
+    bool _matchedDuration;
 
     bool _listComplete;
     #endregion
@@ -167,6 +168,7 @@ namespace audiamus.aaxconv.lib {
     public bool Transcode (string filenameOut, ETranscode modifiers, string actBytes = null, TimeSpan? from = null, TimeSpan? to = null) {
       _success = false;
       _aborted = false;
+      _matchedDuration = false;
       AudioMeta.Time.Duration = TimeSpan.Zero;
 
       string param = FFMPEG_TRANSCODE;
@@ -230,6 +232,7 @@ namespace audiamus.aaxconv.lib {
     public bool DetectSilence (string actBytes = null) {
       _success = false;
       _aborted = false;
+      _matchedDuration = false;
       AudioMeta.Time.Duration = TimeSpan.Zero;
       Silences = new List<TimeInterval> ();
 
@@ -464,15 +467,20 @@ namespace audiamus.aaxconv.lib {
 #endif
       Log (4, this, () => ID + outLine.Data.SubstitUser ());
 
+      if (_success)
+        return;
+
       var t = AudioMeta.Time;
 
       Match match;
-      if (t.Duration == TimeSpan.Zero) {
+      if (!_matchedDuration) {
 
         match = _rgxDuration.Match (outLine.Data);
         if (match.Success) {
           TimeSpan duration = tryParseTimestamp (match);
           t.Duration = duration;
+
+          _matchedDuration = true;
         }
 
       } else {
@@ -509,9 +517,11 @@ namespace audiamus.aaxconv.lib {
             match = _rgxTimestamp1.Match (outLine.Data);
 
             if (!match.Success) {
+
               match = _rgxMuxFinal.Match (outLine.Data);
               if (match.Success)
                 _success = true;
+
               return;
 
             }
@@ -552,9 +562,10 @@ namespace audiamus.aaxconv.lib {
         matchTs = _rgxTimestamp2.Match (outLine.Data);
       if (!matchTs.Success) {
 
-        if (t.Duration == TimeSpan.Zero) {
+        if (!_matchedDuration) {
           Match matchDur = _rgxDuration.Match (outLine.Data);
           if (matchDur.Success) {
+            _matchedDuration = true;
             TimeSpan duration = tryParseTimestamp (matchDur);
             if (t.Begin == TimeSpan.Zero)
               t.Duration = duration;

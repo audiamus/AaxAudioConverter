@@ -760,7 +760,7 @@ namespace audiamus.aaxconv.lib {
           ATL.Settings.MP4_createNeroChapters = true;
           ATL.Settings.MP4_createQuicktimeChapters = true;
           ATL.Settings.FileBufferSize = 2_000_000;
-          ATL.Settings.ForceDiskIO = true;
+          //ATL.Settings.ForceDiskIO = true;
 
           tagFile.Chapters.Clear ();
 

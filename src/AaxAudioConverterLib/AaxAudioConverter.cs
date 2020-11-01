@@ -1483,7 +1483,7 @@ namespace audiamus.aaxconv.lib {
               ProgressInfo.ProgressInfoChapterCancel (book.TitleTag, ch)
             }))) {
 
-            string filename = $"{filestub} - {part.PartNumber}.{i}{ext}";
+            string filename = $"{filestub} - {part.ChapterId(chapter)}{ext}";
             chapter.TmpFileName = Path.Combine (TempDirectoryLong, filename);
 
             // Extract chapter to temp file
@@ -1695,9 +1695,25 @@ namespace audiamus.aaxconv.lib {
       string actcode = null;
       if (withActivationCode)
         actcode = part.ActivationCode;
-
-      return transcodeTrackMulti (part, track, inFile, modifiers, actcode, threadProg);
+      if (Settings.ConvFormat == EConvFormat.mp3)
+        return transcodeTrackMultiWithChapter (part, track, inFile, modifiers, actcode, threadProg);
+      else
+        return transcodeTrackMulti (part, track, inFile, modifiers, actcode, threadProg);
     }
+
+    private bool transcodeTrackMultiWithChapter (Book.Part part, Track track, string inFile, FFmpeg.ETranscode modifiers, string actcode, ThreadProgress threadProg) {
+      string metafile = ffmpegChapters (part, track);
+      if (metafile is null)
+        return false;
+
+      FFmpeg ffmpeg = new FFmpeg (inFile, metafile) {
+        Cancel = Callbacks.Cancel,
+        Progress = threadProg.Report
+      };
+
+      return transcodeTrack (ffmpeg, modifiers, actcode, track.Time, track.FileName);
+    }
+
 
     private bool transcodeTrackMulti (Book.Part part, Track track, string inFile, FFmpeg.ETranscode modifiers, string actcode, ThreadProgress threadProg) {
       FFmpeg ffmpeg = new FFmpeg (inFile) {
@@ -1707,6 +1723,7 @@ namespace audiamus.aaxconv.lib {
 
       return transcodeTrack (ffmpeg, modifiers, actcode, track.Time, track.FileName);
     }
+
 
     private bool transcodeTrackSingle (Book.Part part, string inFile, string outFile, FFmpeg.ETranscode modifiers, ThreadProgress threadProg) {
       if (part.Chapters is null || part.Chapters.Count == 0)
@@ -1724,14 +1741,61 @@ namespace audiamus.aaxconv.lib {
       if (intermediateCopy) {
         return makeIntermediateCopy (part, inFile, outFile, modifiers, tim, threadProg);
       } else {
-        FFmpeg ffmpeg = new FFmpeg (inFile) {
-          Cancel = Callbacks.Cancel,
-          Progress = threadProg.Report
-        };
-        return transcodeTrack (ffmpeg, modifiers, part.ActivationCode, tim, outFile);
+        if (Settings.ConvFormat == EConvFormat.mp3)
+          return transcodeTrackSingleWithChapters (part, inFile, outFile, modifiers, threadProg, tim);
+        else
+          return transcodeTrackSingle (part, inFile, outFile, modifiers, threadProg, tim);
       }
 
     }
+
+    private bool transcodeTrackSingleWithChapters (Book.Part part, string inFile, string outFile, FFmpeg.ETranscode modifiers, ThreadProgress threadProg, TimeInterval tim) {
+      string metafile = ffmpegChapters (part, part.Tracks.FirstOrDefault());
+      if (metafile is null)
+        return false;
+
+      FFmpeg ffmpeg = new FFmpeg (inFile, metafile) {
+        Cancel = Callbacks.Cancel,
+        Progress = threadProg.Report
+      };
+      return transcodeTrack (ffmpeg, modifiers, part.ActivationCode, tim, outFile);
+    }
+
+    private bool transcodeTrackSingle (Book.Part part, string inFile, string outFile, FFmpeg.ETranscode modifiers, ThreadProgress threadProg, TimeInterval tim) {
+      FFmpeg ffmpeg = new FFmpeg (inFile) {
+        Cancel = Callbacks.Cancel,
+        Progress = threadProg.Report
+      };
+      return transcodeTrack (ffmpeg, modifiers, part.ActivationCode, tim, outFile);
+    }
+
+    private string ffmpegChapters (Book.Part part, Track track) {
+      if (track is null)
+        return null;
+
+      IEnumerable<Chapter> chapters = null;
+      switch (Settings.ConvMode) {
+        case EConvMode.single:
+          chapters = part.Chapters2;
+          break;
+        default:
+          chapters = track.MetaChapters;
+          break;
+      }
+
+      // unique filename required
+      string metafile = Path.GetFileNameWithoutExtension (track.FileName) + $" ({part.TrackId(track)}) meta.txt";
+      metafile = Path.Combine (TempDirectoryLong, metafile);
+
+      var ffmetadata = new FFMetaData (chapters);
+      bool succ = ffmetadata.Write (metafile);
+      Log (3, this, () => $"ffmetafile=\"{metafile.SubstitUser ()}\", #chapters={ffmetadata.Chapters.Count}, succ={succ}");
+      if (!succ)
+        return null;
+
+      return metafile;
+    }
+
 
     private bool makeIntermediateCopy (Book.Part part, string inFile, string outFile, FFmpeg.ETranscode modifiers, TimeInterval tim, ThreadProgress threadProg) {
       Log (3, this, () => $"out=\"{outFile.SubstitUser ()}\"");
@@ -1802,7 +1866,9 @@ namespace audiamus.aaxconv.lib {
 
     private bool updateTags (Book book, Track track) {
       bool succ = TagAndFileNamingHelper.WriteMetaData (Resources, Settings, book, track);
-      succ = succ && TagAndFileNamingHelper.WriteMetaDataChapters (Resources, Settings, book, track);
+
+      if (Settings.ConvFormat == EConvFormat.mp4)
+        succ = succ && TagAndFileNamingHelper.WriteMetaDataChapters (Resources, Settings, book, track);
 
       Log (3, this, () => $"track=\"{track.Title}\" \"{Path.GetFileName(track.FileName)}\", succ={succ}"); 
       return succ;

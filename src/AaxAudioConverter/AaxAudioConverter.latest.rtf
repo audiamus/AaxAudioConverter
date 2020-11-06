@@ -205,19 +205,15 @@
 {\s206\sbasedon100\snext206\widctlpar\tldot\tqr\tx7374\hyphpar0\li2264\ri0\lin2264\rin0\fi0\cf0\kerning1\dbch\af11\langfe1033\dbch\af11\afs24\loch\f3\fs24\lang1033 User Index 9;}
 {\s207\sbasedon100\snext207\widctlpar\tldot\tqr\tx7091\hyphpar0\li2547\ri0\lin2547\rin0\fi0\cf0\kerning1\dbch\af11\langfe1033\dbch\af11\afs24\loch\f3\fs24\lang1033 User Index 10;}
 {\s208\sbasedon96\snext208\widctlpar\hyphpar0\sb240\sa120\keepn\cf0\b\kerning1\dbch\af11\langfe1033\dbch\af11\afs24\loch\f9\fs32\lang1033 User Index Heading;}
-}{\*\generator LibreOffice/6.2.5.2$Windows_x86 LibreOffice_project/1ec314fa52f458adc18c4f025c545a4e8b22c159}{\info{\creatim\yr2020\mo7\dy28\hr18\min16}{\revtim\yr2020\mo11\dy1\hr10\min28}{\printim\yr0\mo0\dy0\hr0\min0}}{\*\userprops}\deftab709
+}{\*\generator LibreOffice/6.2.5.2$Windows_x86 LibreOffice_project/1ec314fa52f458adc18c4f025c545a4e8b22c159}{\info{\creatim\yr2020\mo7\dy28\hr18\min16}{\revtim\yr2020\mo11\dy5\hr18\min48}{\printim\yr0\mo0\dy0\hr0\min0}}{\*\userprops}\deftab709
 \hyphauto0\viewscale100
 {\*\pgdsctbl
 {\pgdsc0\pgdscuse451\pgwsxn11906\pghsxn16838\marglsxn1134\margrsxn1134\margtsxn1134\margbsxn1134\pgdscnxt0 Default Style;}}
 \formshade{\*\pgdscno0}\paperh16838\paperw11906\margl1134\margr1134\margt1134\margb1134\sectd\sbknone\sectunlocked1\pgndec\pgwsxn11906\pghsxn16838\marglsxn1134\margrsxn1134\margtsxn1134\margbsxn1134\ftnbj\ftnstart1\ftnrstcont\ftnnar\aenddoc\aftnrstcont\aftnstart1\aftnnrlc
 {\*\ftnsep\chftnsep}\pgndec\pard\plain \s4\widctlpar\hyphpar0\sb238\sa102\keepn\cf0\b0\kerning1\dbch\af11\langfe1033\dbch\af11\afs24\loch\f5\fs28\lang1033\sb238\sa102{\rtlch \ltrch\loch
-Version 1.15.1 (11/2020)}
-\par \pard\plain \s97\sl276\slmult1\widctlpar\hyphpar0\sb0\sa140\cf0\kerning1\dbch\af11\langfe1033\dbch\af11\afs24\loch\f10\fs22\lang1033\sl276\slmult1\li720\ri0\lin720\rin0\fi0{\rtlch \ltrch\loch
-Bugfix: Version 1.15 erroneously no longer set track duration as meta data for MP3}{\rtlch \ltrch\loch
- }{\rtlch \ltrch\loch
-files, which is expected by some players. Brought back by reverting to FFmpeg for adding MP3 chapter meta data.}
-\par \pard\plain \s97\sl276\slmult1\widctlpar\hyphpar0\sb0\sa140\cf0\kerning1\dbch\af11\langfe1033\dbch\af11\afs24\loch\f10\fs22\lang1033\sl276\slmult1\li720\ri0\lin720\rin0\fi0{\rtlch \ltrch\loch
-A new version of ATL.net is used which now adds MP4 chapter meta data in an efficient buffered memory mode, which is faster than working directly with the file on disk as before.}
+Version 1.15.}{\rtlch \ltrch\loch
+2}{\rtlch \ltrch\loch
+ (11/2020)}
 \par \pard\plain \s97\sl276\slmult1\widctlpar\hyphpar0\sb0\sa140\cf0\kerning1\dbch\af11\langfe1033\dbch\af11\afs24\loch\f10\fs22\lang1033\sl276\slmult1\li720\ri0\lin720\rin0\fi0\sb0\sa140{\rtlch \ltrch\loch
-Enhancement: Temporary audio files with a track duration of zero will normally be intercepted. Under certain conditions, they can survive, though. They are now handled properly.}
+Bugfix: In version 1.15 and 1.15.1, conversion of only a subset of a multipart book could erroneously encounter temporary chapters without a name when initializing target directories. This triggered a NullReferenceException. Such chapters will now be ignored at this stage.}
 \par }

@@ -77,6 +77,8 @@ namespace audiamus.aux.ex {
     static readonly char[] InvalidFileNameChars = Path.GetInvalidFileNameChars ();
 
     public static string Prune (this string s, char[] invalid) {
+      if (s is null)
+        return null;
       if (invalid is null)
         invalid = InvalidFileNameChars;
       StringBuilder sb = new StringBuilder ();
@@ -91,6 +93,8 @@ namespace audiamus.aux.ex {
     }
 
     public static string Prune (this string s) {
+      if (s is null)
+        return null;
       string pruned = s.Prune (null);
       pruned = pruned.Trim ('.');
       return pruned;
@@ -110,6 +114,8 @@ namespace audiamus.aux.ex {
     const int MAXLEN_SHORTSTRING = 40;
 
     public static string Shorten (this string s, int maxlen = 0) {
+      if (s is null)
+        return null;
       if (maxlen == 0)
         maxlen = MAXLEN_SHORTSTRING;
       if (maxlen < 0 || s.Length <= maxlen)

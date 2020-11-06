@@ -101,7 +101,10 @@ namespace audiamus.aaxconv.lib {
       if (!hasNamedChaptersAll ())
         return false;
 
-      var chapterNames = Parts.SelectMany (p => p.NamedChapters).Select (c => c.Name.Prune());
+      var chapterNames = Parts
+        .SelectMany (p => p.NamedChapters)
+        .Where(c => !c.Name.IsNullOrWhiteSpace ())
+        .Select (c => c.Name.Prune());
       var chapterNamesDistinct = chapterNames.Distinct();
 
       bool unique = chapterNames.Count () == chapterNamesDistinct.Count ();

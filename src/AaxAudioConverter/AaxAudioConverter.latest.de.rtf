@@ -205,19 +205,15 @@
 {\s206\sbasedon100\snext206\widctlpar\tldot\tqr\tx7374\hyphpar0\li2264\ri0\lin2264\rin0\fi0\cf0\kerning1\dbch\af11\langfe1033\dbch\af11\afs24\loch\f3\fs24\lang1031 User Index 9;}
 {\s207\sbasedon100\snext207\widctlpar\tldot\tqr\tx7091\hyphpar0\li2547\ri0\lin2547\rin0\fi0\cf0\kerning1\dbch\af11\langfe1033\dbch\af11\afs24\loch\f3\fs24\lang1031 User Index 10;}
 {\s208\sbasedon96\snext208\widctlpar\hyphpar0\sb240\sa120\keepn\cf0\b\kerning1\dbch\af11\langfe1033\dbch\af11\afs24\loch\f9\fs32\lang1031 User Index Heading;}
-}{\*\generator LibreOffice/6.2.5.2$Windows_x86 LibreOffice_project/1ec314fa52f458adc18c4f025c545a4e8b22c159}{\info{\creatim\yr2020\mo7\dy28\hr18\min16}{\revtim\yr2020\mo11\dy1\hr10\min24}{\printim\yr0\mo0\dy0\hr0\min0}}{\*\userprops}\deftab709
+}{\*\generator LibreOffice/6.2.5.2$Windows_x86 LibreOffice_project/1ec314fa52f458adc18c4f025c545a4e8b22c159}{\info{\creatim\yr2020\mo7\dy28\hr18\min16}{\revtim\yr2020\mo11\dy5\hr18\min57}{\printim\yr0\mo0\dy0\hr0\min0}}{\*\userprops}\deftab709
 \hyphauto0\viewscale100
 {\*\pgdsctbl
 {\pgdsc0\pgdscuse451\pgwsxn11906\pghsxn16838\marglsxn1134\margrsxn1134\margtsxn1134\margbsxn1134\pgdscnxt0 Default Style;}}
 \formshade{\*\pgdscno0}\paperh16838\paperw11906\margl1134\margr1134\margt1134\margb1134\sectd\sbknone\sectunlocked1\pgndec\pgwsxn11906\pghsxn16838\marglsxn1134\margrsxn1134\margtsxn1134\margbsxn1134\ftnbj\ftnstart1\ftnrstcont\ftnnar\aenddoc\aftnrstcont\aftnstart1\aftnnrlc
 {\*\ftnsep\chftnsep}\pgndec\pard\plain \s4\widctlpar\hyphpar0\sb238\sa102\keepn\cf0\b0\kerning1\dbch\af11\langfe1033\dbch\af11\afs24\loch\f5\fs28\lang1031\sb238\sa102{\rtlch \ltrch\loch
-Version 1.15.1 (11/2020)}
-\par \pard\plain \s97\sl276\slmult1\widctlpar\hyphpar0\sb0\sa140\cf0\kerning1\dbch\af11\langfe1033\dbch\af11\afs24\loch\f10\fs22\lang1031\sl276\slmult1\li720\ri0\lin720\rin0\fi0{\rtlch \ltrch\loch
-Fehlerbehebung: Unbeabsichtigt war in Version 1.15 bei MP3-Dateien die Spieldauer als Metainformation nicht mehr gesetzt worden. Diese wird von einigen Medienspielern erwartet. Ist jetzt dadurch beseitigt, dass die Kapitel-Metadaten f\u252\'fcr MP3 wieder von FFmpeg geschrieben werden.    }
-\par \pard\plain \s97\sl276\slmult1\widctlpar\hyphpar0\sb0\sa140\cf0\kerning1\dbch\af11\langfe1033\dbch\af11\afs24\loch\f10\fs22\lang1031\sl276\slmult1\li720\ri0\lin720\rin0\fi0{\rtlch \ltrch\loch
-Es wird eine neue Version von }{\rtlch \ltrch\loch
-ATL.net}{\rtlch \ltrch\loch
- benutzt, die die Kapitel-Metadaten f\u252\'fcr MP4 in einem effizienten gepufferten Modus im Hauptspeicher setzt, was schneller ist als der bisherige direkte Dateizugriff auf Festplatte. }
+Version 1.15.}{\rtlch \ltrch\loch
+2}{\rtlch \ltrch\loch
+ (11/2020)}
 \par \pard\plain \s97\sl276\slmult1\widctlpar\hyphpar0\sb0\sa140\cf0\kerning1\dbch\af11\langfe1033\dbch\af11\afs24\loch\f10\fs22\lang1031\sl276\slmult1\li720\ri0\lin720\rin0\fi0\sb0\sa140{\rtlch \ltrch\loch
-Verbesserung: Tempor\u228\'e4re Audiodateien mit einer Spieldauer von 0 werden normalerweise abgefangen. Unter bestimmten Umst\u228\'e4nden k\u246\'f6nnen sie jedoch erhalten bleiben. Sie werden  nun geeignet verarbeitet. }
+Fehlerbehebung: Wurden in Version 1.15 und 1.15.1 bei einem mehrteiligen Buch nur einzelne Teile zur Konvertierung ausgew\u228\'e4hlt, so konnte es passieren, dass bei der Initialisierung der Zielverzeichnisse tempor\u228\'e4re Kapitel ohne Namen verarbeitet werden sollten. Dies l\u246\'f6ste eine NullReferenceException aus. Solche Kapitel werden jetzt an dieser Stelle ignoriert.}
 \par }

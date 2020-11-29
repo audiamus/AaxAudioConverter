@@ -333,7 +333,7 @@ namespace audiamus.aaxconv {
 
     private void btnFfmpegLoc_Click (object sender, EventArgs e) {
       string oldSetting = _settings.FFMpegDirectory;
-      var dlg = new FFmpegLocationForm (_converter, _callback) { Owner = this };
+      var dlg = new FFmpegLocationForm (_converter, _callback, ckBoxFfmpegVersCheck.Checked) { Owner = this };
       dlg.ShowDialog ();
       string newSetting = _settings.FFMpegDirectory;
       Dirty |= string.Equals (newSetting, newSetting);

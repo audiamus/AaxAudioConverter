@@ -125,7 +125,7 @@ namespace audiamus.aaxconv.lib {
     internal bool IsAaxFile { get; private set; }
     internal bool HasNoActivation { get; private set; }
 
-    internal Version Version { get; private set; }
+    internal string Version { get; private set; }
 
     #endregion
     #region ctor
@@ -366,7 +366,7 @@ namespace audiamus.aaxconv.lib {
 
     private static readonly Regex _rgxVersion = new Regex (@"^ffmpeg version\s+([\d\.]+)[\s-_].*FFmpeg developers", 
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private static readonly Regex _rgxVersionRelaxed = new Regex (@"^ffmpeg version\s+\D*([\d\.]+).+", 
+    private static readonly Regex _rgxVersionRelaxed = new Regex (@"^ffmpeg version\s+(\S+)[\s-_].*FFmpeg developers", 
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private static readonly Regex _rgxMuxFinal = new Regex (@"video.*audio.*muxing overhead", 
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -428,10 +428,7 @@ namespace audiamus.aaxconv.lib {
         return;
 
       _success = true;
-      bool succ = Version.TryParse (match.Groups[1].Value, out Version version);
-
-      if (succ)
-        Version = version;
+      Version = match.Groups[1].Value;
     }
 
     private void ffMpegAsyncHandlerAudioMeta (object sendingProcess, DataReceivedEventArgs outLine) {

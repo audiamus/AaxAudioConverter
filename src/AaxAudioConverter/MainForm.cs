@@ -459,7 +459,7 @@ namespace audiamus.aaxconv {
 
       if (!succ) {
 
-        FFmpegLocationForm dlg = new FFmpegLocationForm (_converter, _interactionHandler.Interact);
+        FFmpegLocationForm dlg = new FFmpegLocationForm (_converter, _interactionHandler.Interact, Settings.RelaxedFFmpegVersionCheck);
         var result = dlg.ShowDialog ();
         succ = result == DialogResult.OK;
       }

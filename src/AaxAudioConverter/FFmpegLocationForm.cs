@@ -12,6 +12,7 @@ namespace audiamus.aaxconv {
   partial class FFmpegLocationForm : Form {
     readonly IAppSettings _settings = Properties.Settings.Default;
     readonly string _origFFMpegDirectory;
+    readonly bool? _relaxed;
 
     readonly AaxAudioConverter _converter;
     readonly Func<InteractionMessage, bool?> _callback;
@@ -19,10 +20,11 @@ namespace audiamus.aaxconv {
     private IAppSettings Settings => _settings;
 
 
-    public FFmpegLocationForm (AaxAudioConverter converter, Func<InteractionMessage, bool?> callback) {
+    public FFmpegLocationForm (AaxAudioConverter converter, Func<InteractionMessage, bool?> callback, bool? relaxed = null) {
       InitializeComponent ();
       _converter = converter;
       _callback = callback;
+      _relaxed = relaxed;
       _origFFMpegDirectory = Settings.FFMpegDirectory;
       textBoxLocation.Text = _origFFMpegDirectory;
     }
@@ -51,7 +53,7 @@ namespace audiamus.aaxconv {
       if (File.Exists (path))
         Settings.FFMpegDirectory = ffmpegdir;
 
-      bool succ = _converter.VerifyFFmpegPathVersion(_callback);
+      bool succ = _converter.VerifyFFmpegPathVersion(_callback, _relaxed);
 
       if (succ)
         enableOK ();

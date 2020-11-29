@@ -144,7 +144,7 @@ namespace audiamus.aaxconv.lib {
       DefaultParallelOptions = null;
     }
 
-    public Version VerifyFFmpegPath (bool? relaxedFFmpegVersionCheck = null) {
+    public string VerifyFFmpegPath (bool? relaxedFFmpegVersionCheck = null) {
       var ffmpeg = new FFmpeg (null);
       Log (2, this, () => $"dir=\"{getFFmpegPath ().SubstitUser ()}\"");
       bool succ = ffmpeg.VerifyFFmpegPath (relaxedFFmpegVersionCheck ?? Settings.RelaxedFFmpegVersionCheck);
@@ -166,9 +166,10 @@ namespace audiamus.aaxconv.lib {
 
     public bool VerifyFFmpegPathVersion (Func<InteractionMessage, bool?> callback, bool? relaxedFFmpegVersionCheck = null) {
       var version = VerifyFFmpegPath (relaxedFFmpegVersionCheck);
-      bool succ = !version.IsNull();
 
-      if (succ && version < FFMPEG_VERSION) {
+      bool succ = Version.TryParse(version, out Version parsedVersion);
+
+      if ((succ && parsedVersion < FFMPEG_VERSION) || (!succ && relaxedFFmpegVersionCheck == true)) {
         var sb = new StringBuilder ();
         sb.AppendLine ($"{ApplName} {Resources.MsgFFmpegVersion1} {FFMPEG_VERSION}.");
         sb.AppendLine ($"{Resources.MsgFFmpegVersion2} {version}.");

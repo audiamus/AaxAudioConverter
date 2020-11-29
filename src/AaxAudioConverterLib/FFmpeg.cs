@@ -267,7 +267,7 @@ namespace audiamus.aaxconv.lib {
     private static readonly Regex _rgxDurationEx = new Regex (@"Duration:\s*?(\d+:\d+:\d+\.\d+).*bitrate:\s+(\d+)\s+kb/s",
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-    private static readonly Regex _rgxVersion = new Regex (@"^ffmpeg version\s+([\d.]+)\s+", 
+    private static readonly Regex _rgxVersion = new Regex (@"^ffmpeg version\s+([\d.]+).+", 
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private static readonly Regex _rgxMuxFinal = new Regex (@"video.*audio.*muxing overhead", 
       RegexOptions.Compiled | RegexOptions.IgnoreCase);

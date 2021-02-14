@@ -2,7 +2,13 @@
 using audiamus.aux.ex;
 
 namespace audiamus.aaxconv.lib {
-  class TimeInterval {
+  interface ITimeInterval {
+    TimeSpan Begin { get; }
+    TimeSpan End { get; }
+    TimeSpan Duration { get; }
+  }
+
+  class TimeInterval : ITimeInterval {
     private TimeSpan _begin;
     private TimeSpan _end;
     private TimeSpan _duration;

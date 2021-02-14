@@ -1,13 +1,15 @@
 #define MyAppSetupName 'AAX Audio Converter'
-#define MyAppVersion '1.15.3'
+#define MyAppVersion '1.16'
 #define MyProgramExe = 'AaxAudioConverter.exe'
 #define MyCompany = 'audiamus'
+#define MyAppName = 'AaxAudioConverter'
+#define FFmpeg = 'ffmpeg'
 
 [Setup]
 AppName={#MyAppSetupName}
 AppVersion={#MyAppVersion}
 AppVerName={#MyAppSetupName} {#MyAppVersion}
-AppCopyright=Copyright © 2020 {#MyCompany}
+AppCopyright=Copyright © 2021 {#MyCompany}
 VersionInfoVersion={#MyAppVersion}
 VersionInfoCompany={#MyCompany}
 AppPublisher={#MyCompany}
@@ -35,10 +37,10 @@ Name: de; MessagesFile: "compiler:languages\German.isl"
 
 [CustomMessages]
 en.MyDocName=Manual
-en.MyDocFile=AaxAudioConverter.pdf
+en.MyDocFile={#MyAppName}.pdf
 
 de.MyDocName=Anleitung
-de.MyDocFile=AaxAudioConverter.de.pdf
+de.MyDocFile={#MyAppName}.de.pdf
 
 
 [Tasks]
@@ -46,10 +48,12 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "*.exe"; DestDir: "{app}"
-Source: "*.exe.config"; DestDir: "{app}"
-Source: "*.pdf"; DestDir: "{app}"
-Source: "de\*.resources.dll"; DestDir: "{app}\de"
+Source: "{#MyAppName}.exe"; DestDir: "{app}"
+Source: "{#FFmpeg}.exe"; DestDir: "{app}"; DestName: "{#FFmpeg}.exe"; Check: Is64BitInstallMode
+Source: "{#FFmpeg}32.exe"; DestDir: "{app}"; DestName: "{#FFmpeg}.exe"; Check: not Is64BitInstallMode
+Source: "{#MyAppName}.exe.config"; DestDir: "{app}"
+Source: "{#MyAppName}*.pdf"; DestDir: "{app}"
+Source: "de\{#MyAppName}.resources.dll"; DestDir: "{app}\de"
 
 [InstallDelete]
 Type: files; Name: "{app}\*.html"

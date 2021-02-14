@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -36,8 +37,10 @@ namespace audiamus.aaxconv {
         if (value == Enabled)
           return;
         _enabled = value;
-        tableLayoutPanel1.Enabled = _enabled;
+        tabControl1.Enabled = _enabled;
+        tabControl1.DrawMode = _enabled ? TabDrawMode.Normal : TabDrawMode.OwnerDrawFixed;
         btnReset.Enabled = _enabled;
+        btnOK.Enabled = _enabled;
       }
     }
 
@@ -53,6 +56,7 @@ namespace audiamus.aaxconv {
 
       initPartNaming ();
       initFlatFoldersNaming ();
+      initReducedBitrate ();
       initControlsFromSettings ();
     }
 
@@ -88,6 +92,21 @@ namespace audiamus.aaxconv {
       txtBoxPartName.Text = Settings.PartName;
     }
 
+    private void initReducedBitrate () {
+      var bitrates = EnumUtil.GetValues<EReducedBitRate> ();
+      string defval = comBoxRedBitRate.Items[0] as string;
+      comBoxRedBitRate.Items.Clear ();
+      foreach (var ebitrate in bitrates) {
+        uint bitrate = ebitrate.UInt32 ();
+        if (bitrate == 0)
+          comBoxRedBitRate.Items.Add (defval);
+        else {
+          string s = $"{bitrate} kb/s max";
+          comBoxRedBitRate.Items.Add (s);
+        }
+      }
+    }
+
     private void updatePartNaming () {
       var rm = R.ResourceManager; // this.GetDefaultResourceManager ();
       var partNaming = (EGeneralNaming)comBoxPartName.SelectedIndex;
@@ -120,6 +139,7 @@ namespace audiamus.aaxconv {
       updatePartNaming ();
 
       comBoxNamedChapters.SelectedIndex = (int)Settings.NamedChapters;
+      enablePreferEmbeddedChapterTimes ();
 
       ckBoxFlatFolders.Checked = Settings.FlatFolders;
       comBoxFlatFolders.Enabled = Settings.FlatFolders;
@@ -131,8 +151,13 @@ namespace audiamus.aaxconv {
       using (new ResourceGuard (x => _flag = x))
         comBoxFixAacEncoding.SelectedIndex = (int)Settings.FixAACEncoding;
 
+      ckBoxVarBitRate.Checked = Settings.VariableBitRate;
+      using (new ResourceGuard (x => _flag = x))
+        comBoxRedBitRate.SelectedIndex = (int)Settings.ReducedBitRate;
+
       ckBoxLatin1.Checked = Settings.Latin1EncodingForPlaylist;
       ckBoxLaunchPlayer.Checked = Settings.AutoLaunchPlayer;
+      ckBoxFfmpegVersCheck.Checked = Settings.RelaxedFFmpegVersionCheck;
 
       var codes = _converter.NumericActivationCodes?.Select (c => c.ToHexDashString ()).ToArray ();
       if (!(codes is null))
@@ -146,6 +171,12 @@ namespace audiamus.aaxconv {
       nudVeryShortChapter.Value = Settings.VeryShortChapterSec;
 
       comBoxVerAdjChapters.SelectedIndex = (int)Settings.VerifyAdjustChapterMarks;
+      comBoxPrefEmbChapTimes.SelectedIndex = (int)Settings.PreferEmbeddedChapterTimes;
+
+      comBoxArtist.SelectedIndex = (int)Settings.TagArtist;
+      comBoxAlbumArtist.SelectedIndex = (int)Settings.TagAlbumArtist;
+      comBoxComposer.SelectedIndex = (int)Settings.TagComposer;
+      comBoxConductor.SelectedIndex = (int)Settings.TagConductor;
 
       comBoxM4B.SelectedIndex = Settings.M4B ? 1 : 0;
 
@@ -214,7 +245,11 @@ namespace audiamus.aaxconv {
     }
 
     private void btnFfmpegLoc_Click (object sender, EventArgs e) {
-      new FFmpegLocationForm (_converter, _callback) { Owner = this }.ShowDialog ();
+      string oldSetting = _settings.FFMpegDirectory;
+      var dlg = new FFmpegLocationForm (_converter, _callback) { Owner = this };
+      dlg.ShowDialog ();
+      string newSetting = _settings.FFMpegDirectory;
+      Dirty |= string.Equals (newSetting, newSetting);
     }
 
     private void btnReset_Click (object sender, EventArgs e) {
@@ -249,6 +284,7 @@ namespace audiamus.aaxconv {
       Settings.ShortChapterSec = updateSettings (Settings.ShortChapterSec, (uint)nudShortChapter.Value);
       Settings.VeryShortChapterSec = updateSettings (Settings.VeryShortChapterSec, (uint)nudVeryShortChapter.Value);
       Settings.VerifyAdjustChapterMarks = updateSettings (Settings.VerifyAdjustChapterMarks, (EVerifyAdjustChapterMarks)comBoxVerAdjChapters.SelectedIndex);
+      Settings.PreferEmbeddedChapterTimes = updateSettings (Settings.PreferEmbeddedChapterTimes, (EPreferEmbeddedChapterTimes)comBoxPrefEmbChapTimes.SelectedIndex);
       Settings.NamedChapters = updateSettings (Settings.NamedChapters, (ENamedChapters)comBoxNamedChapters.SelectedIndex);
 
       Settings.IntermedCopySingle = updateSettings (Settings.IntermedCopySingle, ckBoxIntermedCopySingle.Checked);
@@ -257,8 +293,18 @@ namespace audiamus.aaxconv {
       Settings.M4B = updateSettings (Settings.M4B, comBoxM4B.SelectedIndex == 1);
       Settings.AaxCopyMode = updateSettings (Settings.AaxCopyMode, _cbAdapterAaxCopyMode.Value);
 
+      Settings.VariableBitRate = updateSettings (Settings.VariableBitRate, ckBoxVarBitRate.Checked);
+      Settings.ReducedBitRate = updateSettings (Settings.ReducedBitRate, (EReducedBitRate)comBoxRedBitRate.SelectedIndex);
+
+      Settings.TagArtist = updateSettings (Settings.TagArtist, (ERoleTagAssignment)comBoxArtist.SelectedIndex);
+      Settings.TagAlbumArtist = updateSettings (Settings.TagAlbumArtist, (ERoleTagAssignment)comBoxAlbumArtist.SelectedIndex);
+      Settings.TagComposer = updateSettings (Settings.TagComposer, (ERoleTagAssignment)comBoxComposer.SelectedIndex);
+      Settings.TagConductor = updateSettings (Settings.TagConductor, (ERoleTagAssignment)comBoxConductor.SelectedIndex);
+
       Settings.AutoLaunchPlayer = ckBoxLaunchPlayer.Checked;
       Settings.OnlineUpdate = (EOnlineUpdate)comBoxUpdate.SelectedIndex;
+
+      Settings.RelaxedFFmpegVersionCheck = updateSettings (Settings.RelaxedFFmpegVersionCheck, ckBoxFfmpegVersCheck.Checked);
 
       bool ck = ckBoxFileAssoc.Checked;
       if ((Settings.FileAssoc ?? false) != ck) {
@@ -318,6 +364,32 @@ namespace audiamus.aaxconv {
         return;
 
       Settings.AaxCopyDirectory = dir;
+    }
+
+    private void comBoxNamedChapters_SelectedIndexChanged (object sender, EventArgs e) => 
+      enablePreferEmbeddedChapterTimes ();
+
+    private void enablePreferEmbeddedChapterTimes () {
+      bool useNamedChapters = comBoxNamedChapters.SelectedIndex > 0;
+      lblPrefEmbChapTimes.Enabled = useNamedChapters;
+      comBoxPrefEmbChapTimes.Enabled = useNamedChapters;
+    }
+
+    private void ckBoxFfmpegVersCheck_CheckedChanged (object sender, EventArgs e) {
+      bool succ = _converter.VerifyFFmpegPathVersion (_callback, ckBoxFfmpegVersCheck.Checked);
+      if (!succ)
+        btnFfmpegLoc_Click (sender, e);
+    }
+
+    private void tabControl1_DrawItem (object sender, DrawItemEventArgs e) {
+      TabPage tp = tabControl1.TabPages[e.Index];
+      using (SolidBrush brush =
+             new SolidBrush (Enabled ? tp.BackColor : SystemColors.ControlLight))
+      using (SolidBrush textBrush =
+             new SolidBrush (Enabled ? tp.ForeColor : SystemColors.ControlDark)) {
+        e.Graphics.FillRectangle (brush, e.Bounds);
+        e.Graphics.DrawString (tp.Text, e.Font, textBrush, e.Bounds.X + 1, e.Bounds.Y + 3);
+      }
     }
   }
 }

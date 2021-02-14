@@ -496,6 +496,33 @@ namespace audiamus.aaxconv.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to FFmpeg transcoding error for.
+        /// </summary>
+        internal static string MsgFFmpegFileError1 {
+            get {
+                return ResourceManager.GetString("MsgFFmpegFileError1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to and.
+        /// </summary>
+        internal static string MsgFFmpegFileError2 {
+            get {
+                return ResourceManager.GetString("MsgFFmpegFileError2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to more files..
+        /// </summary>
+        internal static string MsgFFmpegFileError3 {
+            get {
+                return ResourceManager.GetString("MsgFFmpegFileError3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to has been tested 
         ///against FFmpeg version.
         /// </summary>

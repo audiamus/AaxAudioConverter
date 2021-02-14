@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using audiamus.aaxconv.lib.ex;
+using audiamus.aux;
 using Microsoft.Win32;
 
 namespace audiamus.aaxconv.lib {
@@ -25,18 +26,10 @@ namespace audiamus.aaxconv.lib {
       var activationBytes = new List<String> ();
       var rk = getKey ();
       if (rk is null)
-        return null;
-      if (rk.GetValueNames ().Length == 0) {
-        rk.Dispose ();
         rk = getKey (true);
-      }
       if (rk is null)
         return null;
-      if (rk.GetValueNames ().Length == 0) {
-        rk.Dispose ();
-        return null;
-      }
-
+   
       using (rk) {
         var valNames = rk.GetValueNames ();
 
@@ -70,7 +63,20 @@ namespace audiamus.aaxconv.lib {
         keyPath = $"{SOFTWARE}\\{WOW6432NODE}\\{AUDIBLE}\\{SWGIDMAP}";
       else
         keyPath = $"{SOFTWARE}\\{AUDIBLE}\\{SWGIDMAP}";
-      return hklm.OpenSubKey (keyPath);
+      var key = hklm.OpenSubKey (keyPath);
+
+      //Logging.Log (3, typeof (ActivationCodeRegistry), $"{hklm.Name}\\{keyPath} exists: {!(key is null)}");
+
+      if (key is null)
+        return null;
+
+      if (key.GetValueNames().Length == 0) {
+        //Logging.Log (3, typeof (ActivationCodeRegistry), $"{hklm.Name}\\{keyPath}: exists, but no values");
+        key.Dispose ();
+        return null;
+      }
+
+      return key;
     }
   }
 

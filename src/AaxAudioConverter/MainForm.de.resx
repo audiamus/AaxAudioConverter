@@ -150,18 +150,21 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAACK
-        AgAAAk1TRnQBSQFMAgEBAgEAARABAQEQAQEBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
-        AwABEAMAAQEBAAEgBgABEP8A/wBsAAMDAQQDPAFmAzMBU/AAAx0BKQFaAV0BWgHKAQABYQEIAf8BAAFh
-        AQgB/wMjATTnAAEBA0ABcAFIAWIBSAH2AQABYQEIAf8BAAFhAQgB/wEAAWEBCAH/AVIBVAFSAabkAAEw
-        ATEBMAFNAQABYQEIAf8BAAFhAQgB/wEeAWEBKwH8AVoBXwFaAdsBAAFhAQgB/wEhAV8BJwH7AxYBHuAA
-        Ax8BLQFZAWcBWQHyAV4BYQFeAdoDJwE7ASECIgExAQABYQEIAf8BAAFhAQgB/wNKAYzkAAMFAQcDAgED
-        CAABVgFZAVYBvgEAAWEBCAH/AU4BXQFOAfADCgEO8AADMAFMAQABYQEIAf8BAAFhAQgB/wNAAXHzAAEB
-        AVkBXQFZAdcBAAFhAQgB/wFXAVwBVwHfAwMBBPAAATwBPQE8AWcBAAFhAQgB/wEAAWEBCAH/AzUBVvAA
-        AwcBCQFVAVwBVQHqAQABYQEIAf8DWwHI9AABRgFHAUYBgQEAAWEBCAH/AQABYQEIAf8DJAE28AADEQEX
+        AgAAAk1TRnQBSQFMAgEBAgEAASABAQEgAQEBEAEAARABAAT/ASEBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        AwABEAMAAQEBAAEgBgABEP8A/wBsAAMDAQQDPAFmAzMBU/AAAx0BKQFaAV0BWgHKAQABXwEGAf8BAAFf
+        AQYB/wMjATTnAAEBA0ABcAFIAWIBSAH2AQABXwEGAf8BAAFfAQYB/wEAAV8BBgH/AVIBVAFSAabkAAEw
+        ATEBMAFNAQABXwEGAf8BAAFfAQYB/wEgAV8BKwH8AVoBXwFaAdsBAAFfAQYB/wEhAV8BJwH7AxYBHuAA
+        Ax8BLQFZAWcBWQHyAV4BYQFeAdoDJwE7ASECIgExAQABXwEGAf8BAAFfAQYB/wNKAYzkAAMFAQcDAgED
+        CAABVgFZAVYBvgEAAV8BBgH/AU4BXQFOAfADCgEO8AADMAFMAQABXwEGAf8BAAFfAQYB/wNAAXHzAAEB
+        AVkBXQFZAdcBAAFfAQYB/wFXAVwBVwHfAwMBBPAAATwBPQE8AWcBAAFfAQYB/wEAAV8BBgH/AzUBVvAA
+        AwcBCQFVAVwBVQHqAQABXwEGAf8DWwHI9AABRgFHAUYBgQEAAV8BBgH/AQABXwEGAf8DJAE28AADEQEX
         AU4BXQFOAfABIQFfAScB+wMgAS/0AAMSBBgBIf8AjQABQgFNAT4HAAE+AwABKAMAAUADAAEQAwABAQEA
         AQEFAAGAFwAD/wEABP8EAAT/BAAC/wH8AX8EAAL/AfgBPwQAAv8B4AE/BAAC/wHgAR8EAAL/AeABHwQA
         Av8B8wEPBAAD/wEPBAAD/wEHBAAD/wGHBAAD/wGHBAAD/wHDBAAD/wHDBAAD/wHnBAAE/wQACw==
 </value>
+  </data>
+  <data name="listViewAaxFiles.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="btnRem.Size" type="System.Drawing.Size, System.Drawing">
     <value>85, 23</value>
@@ -190,6 +193,9 @@ und zu Liste hinzufügen.
   <data name="grpBoxAaxFiles.Text" xml:space="preserve">
     <value>AAX-Dateien</value>
   </data>
+  <data name="grpBoxAaxFiles.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="lblDuration.Location" type="System.Drawing.Point, System.Drawing">
     <value>162, 10</value>
   </data>
@@ -199,11 +205,17 @@ und zu Liste hinzufügen.
   <data name="lblDuration.Text" xml:space="preserve">
     <value>Minuten</value>
   </data>
+  <data name="lblDuration.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="lblTraclLen.Size" type="System.Drawing.Size, System.Drawing">
     <value>105, 13</value>
   </data>
   <data name="lblTraclLen.Text" xml:space="preserve">
     <value>Länge je Stück etwa</value>
+  </data>
+  <data name="lblTraclLen.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="numUpDnTrkLen.Location" type="System.Drawing.Point, System.Drawing">
     <value>117, 6</value>
@@ -216,6 +228,9 @@ und verfügbaren Stille-Intervallen.</value>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="panelTrkLen.Enabled" type="System.Boolean, mscorlib">
     <value>False</value>
+  </data>
+  <data name="panelTrkLen.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="radBtnTimeSplit.Size" type="System.Drawing.Size, System.Drawing">
     <value>301, 17</value>
@@ -266,6 +281,15 @@ mit Wiedergabeliste bei mehrteiligen Büchern.</value>
   <data name="grpBoxMode.Text" xml:space="preserve">
     <value>Modus</value>
   </data>
+  <data name="grpBoxMode.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="vprogbarCpu.ToolTip" xml:space="preserve">
+    <value>Relative CPU-Auslastung</value>
+  </data>
+  <data name="vprogbarNumProc.ToolTip" xml:space="preserve">
+    <value>Anzahl der FFmpeg-Prozesse</value>
+  </data>
   <data name="lblProgress.ToolTip" xml:space="preserve">
     <value>Schrittweiser Fortschritt.
 Anzahl Schritte kann sich während der Bearbeitung erhöhen.
@@ -286,9 +310,15 @@ Momentan bearbeitete Kapitel.
   <data name="btnAbort.ToolTip" xml:space="preserve">
     <value>Konvertierung abbrechen.</value>
   </data>
+  <data name="progressBarPart.Size" type="System.Drawing.Size, System.Drawing">
+    <value>513, 12</value>
+  </data>
   <data name="progressBarPart.ToolTip" xml:space="preserve">
     <value>Fortschritt nach Phase und Buchteil (bei mehrteiligen Büchern). 
 </value>
+  </data>
+  <data name="progressBarTrack.Size" type="System.Drawing.Size, System.Drawing">
+    <value>513, 12</value>
   </data>
   <data name="progressBarTrack.ToolTip" xml:space="preserve">
     <value>Fortschritt nach Einzelschritt (FFmpeg-Aufruf).</value>
@@ -305,8 +335,14 @@ Momentan bearbeitete Kapitel.
   <data name="panelExec.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 496</value>
   </data>
+  <data name="panelExec.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="radBtnMp3.ToolTip" xml:space="preserve">
     <value>Zu MP3 umwandeln.</value>
+  </data>
+  <data name="grpBoxFormat.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="btnSaveTo.Size" type="System.Drawing.Size, System.Drawing">
     <value>85, 23</value>
@@ -319,6 +355,9 @@ Momentan bearbeitete Kapitel.
 Bücher werden nach Autor und Titel sortiert. 
 </value>
   </data>
+  <data name="propGridNaming.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="grpBoxNaming.Text" xml:space="preserve">
     <value>Namensgebung</value>
   </data>
@@ -326,14 +365,29 @@ Bücher werden nach Autor und Titel sortiert.
     <value>Verschiedene Einstellungen zur Namensgebung 
 für Tags, Ordner und Dateien.</value>
   </data>
+  <data name="lblSaveTo.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="grpBoxDest.Text" xml:space="preserve">
     <value>Zielordner</value>
+  </data>
+  <data name="grpBoxDest.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panelSettingsLeft.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="tableLayoutSettings.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 248</value>
   </data>
+  <data name="tableLayoutSettings.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="panelTop.Size" type="System.Drawing.Size, System.Drawing">
     <value>782, 496</value>
+  </data>
+  <data name="panelTop.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="tsmiDetails.Size" type="System.Drawing.Size, System.Drawing">
     <value>175, 22</value>
@@ -349,6 +403,9 @@ für Tags, Ordner und Dateien.</value>
   </data>
   <data name="contextMenuStrip1.Size" type="System.Drawing.Size, System.Drawing">
     <value>176, 48</value>
+  </data>
+  <data name="contextMenuStrip1.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>782, 572</value>
@@ -608,5 +665,8 @@ für Tags, Ordner und Dateien.</value>
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAH//rEH//6xBAACsQQAArEEAAKxBAACsQQAArEEAAKxBAACsQQAA
         rEEAAKxBAACsQQAArEHv/6xB//+sQf//rEE=
 </value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>

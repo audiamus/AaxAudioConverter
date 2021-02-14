@@ -405,4 +405,13 @@ ist zur Installation bereit.</value>
   <data name="MsgInvalidInternalFileType" xml:space="preserve">
     <value>Tatsächliches Dateiformat ist nicht AAX oder AA.</value>
   </data>
+  <data name="MsgFFmpegFileError1" xml:space="preserve">
+    <value>FFmpeg Transcodierfehler für</value>
+  </data>
+  <data name="MsgFFmpegFileError2" xml:space="preserve">
+    <value>und</value>
+  </data>
+  <data name="MsgFFmpegFileError3" xml:space="preserve">
+    <value>weitere Dateien</value>
+  </data>
 </root>

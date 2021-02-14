@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using audiamus.aux;
 using audiamus.aux.ex;
+using audiamus.aaxconv.lib.ex;
 using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv.lib {
@@ -14,7 +15,7 @@ namespace audiamus.aaxconv.lib {
     private static int __id = 0;
     private readonly int _id = ++__id;
 
-    private string ID => $"{{#{_id}}} ";
+    private string ID => Logging.Level > 3 ? $"{{#{_id}}} " : string.Empty;
 
     [Flags]
     public enum ETranscode {
@@ -30,6 +31,7 @@ namespace audiamus.aaxconv.lib {
     const string INPUT = "<INPUT>";
     const string INPUT2 = "<INPUT2>";
 
+    const string BITRATE = "<BITRATE>";
     const string COPY = "<COPY>";
     const string ACTIVATION = "<ACTIVATION>";
     const string ACT_BYTES = "<ACT_BYTES>";
@@ -39,8 +41,8 @@ namespace audiamus.aaxconv.lib {
     const string TS_TO = "<TS_TO>";
 
     // -activation_bytes 0f01f010 -i myfile.aax -vn -c:a copy myfile.m4a
-    const string FFMPEG_TRANSCODE = @"-hide_banner <ACTIVATION> -y <BEGIN> <END> -i ""<INPUT>"" -map_metadata -1 -map_chapters -1 <COPY> ""<OUTPUT>""";
-    const string FFMPEG_TRANSCODE2 = @"-hide_banner <ACTIVATION> -y <BEGIN> <END> -i ""<INPUT>"" -i ""<INPUT2>"" -map_metadata 1 -map_chapters 1 <COPY> ""<OUTPUT>""";
+    const string FFMPEG_TRANSCODE = @"-hide_banner <ACTIVATION> -y <BEGIN> <END> -i ""<INPUT>"" -map_metadata -1 -map_chapters -1 <BITRATE> -vn <COPY> ""<OUTPUT>""";
+    const string FFMPEG_TRANSCODE2 = @"-hide_banner <ACTIVATION> -y <BEGIN> <END> -i ""<INPUT>"" -i ""<INPUT2>"" -map_metadata 1 -map_chapters 1 <BITRATE> -vn <COPY> ""<OUTPUT>""";
     const string FFMPEG_EXTRACTMETA = @"-hide_banner -y -i ""<INPUT>"" -f ffmetadata ""<OUTPUT>""";
      
     const string FFMPEG_VERSION = @"-version";
@@ -57,7 +59,12 @@ namespace audiamus.aaxconv.lib {
     const string ACTIVATION_PARAM = ACTIVATION_BYTES + @" <ACT_BYTES>";
     const string BEGIN_PARAM = @"-ss <TS_FROM>";
     const string END_PARAM = @"-to <TS_TO>";
-    const string COPY_PARAM = @"-vn -c:a copy";
+    //const string COPY_PARAM = @"-vn -c:a copy";
+    const string COPY_PARAM = @"-c:a copy";
+
+    private static readonly uint[] VbrMp3 = {
+      320, 250, 210, 195, 185, 150, 130, 120, 105, 85, 0
+    };
 
     #endregion
     #region private fields
@@ -73,6 +80,11 @@ namespace audiamus.aaxconv.lib {
     bool _matchedDuration;
 
     bool _listComplete;
+
+    bool _relaxedVersionParsing;
+
+    string _bitrateParam;
+
     #endregion
     #region props
     private static string FFmpegExePath {
@@ -89,6 +101,8 @@ namespace audiamus.aaxconv.lib {
 
     public static Func<string> GetFFmpegDir { get; set; }
     public static string FFmpegDir { get; set; }
+
+    public bool TranscodingError => _error;
 
     internal Func<bool> Cancel { private get; set; }
     internal Action<double> Progress { private get; set; }
@@ -115,10 +129,76 @@ namespace audiamus.aaxconv.lib {
 
     #endregion
     #region public methods
+    
+    public void SetBitRate (IBitRateSettings settings, IAudioQuality audioQuality, bool anyway) {
+      uint sampleRate = audioQuality.SampleRate;
+      uint sourceBitrate = audioQuality.AvgBitRate;
+      bool reducing = false;
+      var (applicableBitrate, settingsBitrate) = settings.ApplicableBitRate (sourceBitrate);
+      if (applicableBitrate == 0) {
+        if (!anyway)
+          return;
+        else
+          applicableBitrate = sourceBitrate;
+      } else {
+        reducing = true;
+        _bitrateParam = getSampeRate (sampleRate, applicableBitrate);
+      }
 
-    public bool VerifyFFmpegPath () {
+      if (settings.VariableBitRate) {
+        _bitrateParam += getVariableBitrate (applicableBitrate, settings.ConvFormat == EConvFormat.mp3);
+      } else {
+        if (reducing)
+          Log (3, this, () => $"{ID}reduce: {sourceBitrate} -> {settingsBitrate} kb/s");
+        _bitrateParam += $"-b:a {applicableBitrate}k";
+      }
+    }
+
+    private string getSampeRate (uint sampleRate, uint bitrate) {
+      uint applicableSampleRate = 11025;
+      if (bitrate > 64)
+        applicableSampleRate *= 4;
+      else if (bitrate >= 32)
+        applicableSampleRate *= 2;
+      applicableSampleRate = Math.Min (sampleRate, applicableSampleRate);
+      if (applicableSampleRate != sampleRate) {
+        Log (3, this, () => $"{ID}reduce: {sampleRate} -> {applicableSampleRate} Hz");
+        return $"-ar {applicableSampleRate} ";
+      } else {
+        return string.Empty;
+      }
+    }
+
+    private string getVariableBitrate (uint cbr, bool isMp3) {
+      string vbr;
+      if (isMp3)
+        vbr = getVariableBitrateMp3 (cbr);
+      else
+        vbr = getVariableBitrateAac (cbr);
+
+      return $"-q:a {vbr}";
+    }
+
+    private string getVariableBitrateAac (uint cbr) {
+      double vbr = Math.Round (cbr / 100.0, 1);
+      vbr = vbr.MinMax (0.1, 2);
+      Log (3, this, () => $"{ID}cbr {cbr} kb/s -> vbr {vbr}");
+      return vbr.ToString ();
+    }
+
+    private string getVariableBitrateMp3 (uint cbr) {
+      int vbr = 0;
+      while (vbr < VbrMp3.Length - 1 && cbr < VbrMp3[vbr + 1])
+        vbr++;
+      
+      Log (3, this, () => $"{ID}cbr {cbr} kb/s -> vbr {vbr}");
+      return vbr.ToString ();
+    }
+
+    public bool VerifyFFmpegPath (bool relaxedVersionParsing) {
       string param = FFMPEG_VERSION;
       _success = false;
+      _relaxedVersionParsing = relaxedVersionParsing;
 
       Log (4, this, () => ID + param.SubstitUser ());
       string result = runProcess (FFmpegExePath, param, false, ffMpegAsyncHandlerVersion);
@@ -166,6 +246,7 @@ namespace audiamus.aaxconv.lib {
     }
 
     public bool Transcode (string filenameOut, ETranscode modifiers, string actBytes = null, TimeSpan? from = null, TimeSpan? to = null) {
+      _error = false;
       _success = false;
       _aborted = false;
       _matchedDuration = false;
@@ -200,7 +281,12 @@ namespace audiamus.aaxconv.lib {
       param = param.Replace (INPUT, _filenameIn);
       param = param.Replace (OUTPUT, filenameOut);
 
-      if (modifiers.HasFlag(ETranscode.copy))
+      if (!_bitrateParam.IsNullOrWhiteSpace ())
+        param = param.Replace (BITRATE, _bitrateParam);
+      else
+        param = param.Replace (BITRATE, string.Empty);
+
+      if (modifiers.HasFlag(ETranscode.copy) && _bitrateParam.IsNullOrWhiteSpace ())
         param = param.Replace (COPY, COPY_PARAM);
       else
         param = param.Replace (COPY, string.Empty);
@@ -254,7 +340,8 @@ namespace audiamus.aaxconv.lib {
 
 
     #endregion
-    #region private methods
+
+    #region regex
 
     //frame=    5 fps=0.5 q=1.6 size=N/A time=00:05:00.00 bitrate=N/A  
     private static readonly Regex _rgxTimestamp1 = new Regex (@"frame=\s*?\d+.*time=(\d+:\d+:\d+\.\d+)", 
@@ -267,7 +354,11 @@ namespace audiamus.aaxconv.lib {
     private static readonly Regex _rgxDurationEx = new Regex (@"Duration:\s*?(\d+:\d+:\d+\.\d+).*bitrate:\s+(\d+)\s+kb/s",
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
-    private static readonly Regex _rgxVersion = new Regex (@"^ffmpeg version\s+([\d.]+)\s+", 
+    const string RGX_INVALID_DATA = "Invalid data found when processing input$";
+
+    private static readonly Regex _rgxVersion = new Regex (@"^ffmpeg version\s+([\d\.]+)[\s-_].*FFmpeg developers", 
+      RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    private static readonly Regex _rgxVersionRelaxed = new Regex (@"^ffmpeg version\s+\D*([\d\.]+).+", 
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private static readonly Regex _rgxMuxFinal = new Regex (@"video.*audio.*muxing overhead", 
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -275,7 +366,7 @@ namespace audiamus.aaxconv.lib {
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private static readonly Regex _rgxErrorActivationOption = new Regex (@"Error setting option activation_bytes", 
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private static readonly Regex _rgxInvalid = new Regex (@"Invalid data found when processing input$", 
+    private static readonly Regex _rgxInvalid = new Regex (RGX_INVALID_DATA, 
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private static readonly Regex _rgxNoActivatonOpt = new Regex (@"Option activation_bytes not found", 
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -290,9 +381,9 @@ namespace audiamus.aaxconv.lib {
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private static readonly Regex _rgxAaxFile = new Regex (@"[aax]", 
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private static readonly Regex _rgxErrorDecoding = new Regex (@"Error while decoding", 
-      RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private static readonly Regex _rgxErrorCorruptInputPacket = new Regex (@"corrupt input packet", 
+
+    private static readonly Regex _rgxErrorVarious = new Regex (
+      $@"(Error while decoding|corrupt input packet|Conversion failed|aborting|{RGX_INVALID_DATA})", 
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
 
     private static readonly Regex _rgxChapter = new Regex (@"^\s+Chapter.*start\s+(\d+\.?\d*).*end\s+(\d+\.?\d*)$", 
@@ -308,7 +399,10 @@ namespace audiamus.aaxconv.lib {
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private static readonly Regex _rgxSilenceEnd = new Regex (@"^\[silencedetect.*\]\s+silence_end:\s+(\d+\.?\d*).*silence_duration:\s+(\d+\.?\d*)$", 
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    
+    #endregion regex
 
+    #region private methods
 
     private void ffMpegAsyncHandlerVersion (object sendingProcess, DataReceivedEventArgs outLine) {
       if (outLine.Data is null)
@@ -319,8 +413,9 @@ namespace audiamus.aaxconv.lib {
 #endif
       Log (4, this, () => ID + outLine.Data.SubstitUser ());
 
+      var rgx = _relaxedVersionParsing ? _rgxVersionRelaxed : _rgxVersion;
 
-      Match match = _rgxVersion.Match (outLine.Data);
+      Match match = rgx.Match (outLine.Data);
       if (!match.Success)
         return;
 
@@ -375,7 +470,7 @@ namespace audiamus.aaxconv.lib {
       Log (4, this, () => ID + outLine.Data.SubstitUser ());
 
       Match match = null;
-      if (Chapters != null && !_listComplete) {
+      if (!Chapters.IsNull () && !_listComplete) {
         match = _rgxChapter.Match (outLine.Data);
         if (match.Success) {
           var chapter = new Chapter ();
@@ -389,7 +484,7 @@ namespace audiamus.aaxconv.lib {
             _listComplete = true;
           else {
             var chapter = Chapters.LastOrDefault ();
-            if (chapter != null) {
+            if (!chapter.IsNull ()) {
               match = _rgxChapterMeta.Match (outLine.Data);
               if (match.Success) {
                 chapter.Name = string.Empty;
@@ -467,8 +562,9 @@ namespace audiamus.aaxconv.lib {
 #endif
       Log (4, this, () => ID + outLine.Data.SubstitUser ());
 
-      if (_success)
-        return;
+      // continue to the very end
+      //if (_success)
+      //  return;
 
       var t = AudioMeta.Time;
 
@@ -557,6 +653,10 @@ namespace audiamus.aaxconv.lib {
 
       var t = AudioMeta.Time;
 
+      Match matchErr = _rgxErrorVarious.Match (outLine.Data);
+      if (matchErr.Success)
+        _error = true;
+
       Match matchTs = _rgxTimestamp1.Match (outLine.Data);
       if (!matchTs.Success)
         matchTs = _rgxTimestamp2.Match (outLine.Data);
@@ -575,23 +675,11 @@ namespace audiamus.aaxconv.lib {
           }
         } else {
           Match matchFinal = _rgxMuxFinal.Match (outLine.Data);
-          if (matchFinal.Success)
+          if (matchFinal.Success) {
+            // HACK test only
+            //_error = true;
             _success = true;
-          else {
-            Match matchErr = _rgxErrorDecoding.Match (outLine.Data);
-            if (matchErr.Success)
-              _error = true;
-            else {
-              matchErr = _rgxInvalid.Match (outLine.Data);
-              if (matchErr.Success)
-                _error = true;
-              else {
-                matchErr = _rgxErrorCorruptInputPacket.Match (outLine.Data);
-                if (matchErr.Success)
-                  _error = true;
-              }
-            }
-          }
+          } 
         }
       }
 
@@ -616,9 +704,9 @@ namespace audiamus.aaxconv.lib {
     }
 
     private void onCancel () {
-      if (Cancel != null && Cancel ()) {
+      if (!Cancel.IsNull () && Cancel ()) {
         _aborted = true;
-        if (Process != null && !Process.HasExited)
+        if (!Process.IsNull () && !Process.HasExited)
           Process.StandardInput.Write ('q');
       }
     }
@@ -654,7 +742,7 @@ namespace audiamus.aaxconv.lib {
     #endregion
   }
 
-  static class StringEx {
+  static class ExString2 {
     public static string SubstitActiv (this string s) {
       if (s is null)
         return null;

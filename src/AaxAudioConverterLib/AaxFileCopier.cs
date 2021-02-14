@@ -21,7 +21,7 @@ namespace audiamus.aaxconv.lib {
       Callbacks = callbacks;
     }
 
-    public void Copy (Action<ProgressMessage> report) {
+    public bool Copy (Action<ProgressMessage> report) {
 
       bool bookFirst = _settings.AaxCopyMode.HasFlag ((EAaxCopyMode)1);
       bool bookWithAuthor = _settings.AaxCopyMode.HasFlag ((EAaxCopyMode)2);
@@ -49,48 +49,53 @@ namespace audiamus.aaxconv.lib {
 
         //using (new ResourceGuard (() => Callbacks.Progress (new ProgressMessage { IncSteps = 1 }))) {
 
-          if (string.Equals (indir.StripUnc (), outdir.StripUnc (), StringComparison.InvariantCultureIgnoreCase)) {
-            Log (3, this, $"same dir, skip: indir=\"{indir.SubstitUser()}\", outdir=\"{outdir.SubstitUser()}\"");
-            return;
-          }
+        if (string.Equals (indir.StripUnc (), outdir.StripUnc (), StringComparison.InvariantCultureIgnoreCase)) {
+          Log (3, this, $"same dir, skip: indir=\"{indir.SubstitUser ()}\", outdir=\"{outdir.SubstitUser ()}\"");
+          return true;
+        }
 
-          var sb = new StringBuilder (stub);
-          if (withParts)
-            sb.Append ($" ({R.PartNamePrefixStandard} {part.PartNumber})");
+        var sb = new StringBuilder (stub);
+        if (withParts)
+          sb.Append ($" ({R.PartNamePrefixStandard} {part.PartNumber})");
 
-          if (part.AaxFileItem.ContentMetadataFile is null) {
-            var appMetadadata = new AudibleAppContentMetadata ();
-            appMetadadata.GetContentMetadata (part, true);
-          }
+        if (part.AaxFileItem.ContentMetadataFile is null) {
+          var appMetadadata = new AudibleAppContentMetadata ();
+          appMetadadata.GetContentMetadata (part, true);
+        }
 
-          var cmf = part.AaxFileItem.ContentMetadataFile;
-          if (!(cmf?.ASIN is null))
-            sb.Append ($"_{cmf.ASIN}");
+        var cmf = part.AaxFileItem.ContentMetadataFile;
+        if (!(cmf?.ASIN is null))
+          sb.Append ($"_{cmf.ASIN}");
 
-          string ext = Path.GetExtension (part.AaxFileItem.FileName);
-          sb.Append (ext);
-          string filename = sb.ToString ();
-          string audioOutfile = Path.Combine (outdir, filename);
+        string ext = Path.GetExtension (part.AaxFileItem.FileName);
+        sb.Append (ext);
+        string filename = sb.ToString ();
+        string audioOutfile = Path.Combine (outdir, filename);
 
+        bool succ = false;
+        try {
+          Log (3, this, $"copy \"{part.AaxFileItem.FileName.SubstitUser ()}\" to \"{audioOutfile.SubstitUser ()}\"");
+          succ = FileEx.Copy (part.AaxFileItem.FileName, audioOutfile, true, report, Callbacks.Cancel);
+        } catch (Exception exc) {
+          Log (1, this, exc.ToShortString ());
+        }
+
+        if (!succ)
+          return false;
+
+        if (!(cmf?.Filename is null)) {
+          string metafile = Path.GetFileName (cmf.Filename);
+          string metaOutfile = Path.Combine (outdir, metafile);
           try {
-            Log (3, this, $"copy \"{part.AaxFileItem.FileName.SubstitUser ()}\" to \"{audioOutfile.SubstitUser ()}\"");
-            FileEx.Copy (part.AaxFileItem.FileName, audioOutfile, true, report);
+            Log (3, this, $"copy \"{cmf.Filename.SubstitUser ()}\" to \"{metaOutfile.SubstitUser ()}\"");
+            File.Copy (cmf.Filename, metaOutfile, true);
           } catch (Exception exc) {
             Log (1, this, exc.ToShortString ());
           }
-
-          if (!(cmf?.Filename is null)) {
-            string metafile = Path.GetFileName (cmf.Filename);
-            string metaOutfile = Path.Combine (outdir, metafile);
-            try {
-              Log (3, this, $"copy \"{cmf.Filename.SubstitUser ()}\" to \"{metaOutfile.SubstitUser ()}\"");
-              File.Copy (cmf.Filename, metaOutfile, true);
-            } catch (Exception exc) {
-              Log (1, this, exc.ToShortString ());
-            }
           //}
         }
       }
+      return true;
     }
   }
 }

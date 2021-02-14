@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "InnoSetup", "InnoSetup", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TreeDecomposition", "TreeDecomposition\TreeDecomposition.csproj", "{BBEFB463-1F6C-4D35-AF83-B5C3CEA9915E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PerfLib", "PerfLib\PerfLib.csproj", "{AB642D01-29BF-4FBC-A001-E1795AC38108}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -66,6 +68,10 @@ Global
 		{BBEFB463-1F6C-4D35-AF83-B5C3CEA9915E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBEFB463-1F6C-4D35-AF83-B5C3CEA9915E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBEFB463-1F6C-4D35-AF83-B5C3CEA9915E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB642D01-29BF-4FBC-A001-E1795AC38108}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB642D01-29BF-4FBC-A001-E1795AC38108}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB642D01-29BF-4FBC-A001-E1795AC38108}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB642D01-29BF-4FBC-A001-E1795AC38108}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

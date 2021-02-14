@@ -56,6 +56,7 @@
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Indent.cs" />
     <Compile Include="InteractionMessage.cs" />
+    <Compile Include="Interfaces.cs" />
     <Compile Include="LocalFileSettingsProvider.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="EnumConverter.cs" />

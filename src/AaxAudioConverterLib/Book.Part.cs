@@ -11,7 +11,8 @@ namespace audiamus.aaxconv.lib {
     public class Part {
       public Book Book { get; }
 
-      private bool _namedChaptersNotIn2;
+      private bool _namedChaptersIn1;
+      private bool? _isMp3Stream;
 
       public AaxFileItem AaxFileItem { get; private set; }
       public int PartNumber { get; private set; }
@@ -19,7 +20,6 @@ namespace audiamus.aaxconv.lib {
       public List<Chapter> Chapters2 { get; set; }
       public List<Track> Tracks { get; } = new List<Track> ();
       public string ActivationCode { get; set; }
-      public bool IsMp3Stream { get; set; }
       public TimeSpan BrandIntro { get; set; }
       public TimeSpan BrandOutro { get; set; }
       public TimeSpan Duration { get; set; }
@@ -30,7 +30,19 @@ namespace audiamus.aaxconv.lib {
       public string TmpFileNameAACFixed { get; set; }
       public string ApplicableInFileNameForTranscode => TmpFileName ?? TmpFileNameAACFixed ?? AaxFileItem.FileName;
 
-      public IReadOnlyList<Chapter> NamedChapters => HasNamedChapters ? (_namedChaptersNotIn2 ? Chapters : Chapters2) : Chapters;
+      public bool IsMp3Stream {
+        get
+        {
+          if (_isMp3Stream.HasValue)
+            return _isMp3Stream.Value;
+          else
+            return AaxFileItem.IsAA;          
+        }
+        set => _isMp3Stream = value;
+      }
+
+      public IReadOnlyList<Chapter> NamedChapters => HasNamedChapters ? (_namedChaptersIn1 ? Chapters : Chapters2) : Chapters;
+      private IReadOnlyList<Chapter> EmbeddedChapters => HasNamedChapters ? (_namedChaptersIn1 ? Chapters2 : Chapters) : Chapters;
 
       public bool HasNamedChapters => Chapters?.Count > 0 && Chapters2?.Count > 0;
 
@@ -54,7 +66,153 @@ namespace audiamus.aaxconv.lib {
         var tmp = Chapters;
         Chapters = Chapters2;
         Chapters2 = tmp;
-        _namedChaptersNotIn2 = !_namedChaptersNotIn2;
+        _namedChaptersIn1 = !_namedChaptersIn1;
+      }
+
+      public IEnumerable<Chapter> AdjustTimesWithPreference (EPreferEmbeddedChapterTimes preference) {
+        Log (3, this, () => $"\"{Book.SortingTitle.Shorten ()}\", preference={preference}");
+
+        // from adjustment by silence
+        adjustTimes ();
+
+        if (HasNamedChapters && preference != EPreferEmbeddedChapterTimes.no)
+          return PreferEmbeddedChapterTimes (preference == EPreferEmbeddedChapterTimes.always);
+        else
+          return null;
+      }
+
+      public bool IsTrancodeConversion (IConvSettings settings) {
+        bool isMp3 = IsMp3Stream;
+        bool wantMp3 = settings.ConvFormat == EConvFormat.mp3;
+        bool isTranscode = isMp3 != wantMp3;
+
+        var (abr, _) = settings.ApplicableBitRate (AaxFileItem.AvgBitRate);
+        bool changeBitRate = abr != 0;
+
+        isTranscode |= changeBitRate;
+        return isTranscode;
+      }
+
+      
+      private void adjustTimes () {
+
+        Log (3, this, () => $"\"{Book.SortingTitle.Shorten ()}\"");
+
+        //string infile = ApplicableInFileNameForTranscode;
+        for (int i = 0; i < Chapters.Count; i++) {
+          Chapter chapter = Chapters[i];
+          Chapter nextChapter = null;
+          if (i < Chapters.Count - 1)
+            nextChapter = Chapters[i + 1];
+          chapter.AdjustTime (nextChapter);
+        }
+      }
+
+
+      internal IReadOnlyList<Chapter> PreferEmbeddedChapterTimes (bool always) {
+        if (!HasNamedChapters)
+          return null;
+
+        Log (3, this, () => $"\"{Book.SortingTitle.Shorten ()}\", always={always}");
+
+        var matchingChaptersNamedToEmbedded = new Dictionary<Chapter, Chapter> ();
+        findMatchingChapters (matchingChaptersNamedToEmbedded);
+
+        var chapters = new List<Chapter> ();
+        foreach (var kvp in matchingChaptersNamedToEmbedded) {
+          Chapter nmCh = kvp.Key;
+          int idx = NamedChapters
+            .Select ((elem, index) => new { elem, index })
+            .First (p => p.elem == nmCh)
+            .index;
+          Chapter nmChNxt = null;
+          if (idx >= 0 && idx < NamedChapters.Count - 1)
+            nmChNxt = NamedChapters[idx + 1];
+
+          Chapter ebCh = kvp.Value;
+
+          Log (3, this, () => $"named: {nmCh}, using embedded: {ebCh}");
+
+          // HACK test only
+          //TimeSpan end = ebCh.Time.End + TimeSpan.FromSeconds (1);
+          //nmCh.SetNewEnd (end, nmChNxt, always);
+
+          var result = nmCh.SetNewEnd (ebCh.Time.End, nmChNxt, always);
+          if (!result.IsNullOrEmpty ())
+            chapters.AddRange (result);
+        }
+
+        adjustTimes ();
+
+        chapters = chapters.Distinct ().ToList ();
+        return chapters;
+      }
+
+      private void findMatchingChapters (Dictionary<Chapter, Chapter> matchingChaptersNamedToEmbedded) {
+        var embeddedExcludes = new HashSet<Chapter> ();
+
+        var namedChapters = NamedChapters.ToList ();
+        namedChapters.Remove (namedChapters.Last ());
+        while (true) {
+          var matchingChaptersEmbeddedToNamed = new Dictionary<Chapter, List<Chapter>> ();
+
+          // for each named chapter end time find closest embedded chapter end time
+          foreach (Chapter nmCh in namedChapters) {
+            double minDelta = double.MaxValue;
+            Chapter ebMatchCh = null;
+            for (int j = 0; j < EmbeddedChapters.Count - 1; j++) {
+              Chapter ebCh = EmbeddedChapters[j];
+              if (embeddedExcludes.Contains (ebCh))
+                continue;
+              double delta = Math.Abs ((nmCh.Time.End - ebCh.Time.End).TotalSeconds);
+              if (delta < minDelta) {
+                minDelta = delta;
+                ebMatchCh = ebCh;
+              }
+            }
+            // if nearer than threshold then replace times
+            const double THRSH = 10; // sec
+            if (minDelta > THRSH) {
+              matchingChaptersNamedToEmbedded.Remove (nmCh);
+              continue;
+            }
+
+            matchingChaptersNamedToEmbedded[nmCh] = ebMatchCh;
+            bool found = matchingChaptersEmbeddedToNamed.TryGetValue (ebMatchCh, out var list);
+            if (!found) {
+              list = new List<Chapter> ();
+              matchingChaptersEmbeddedToNamed[ebMatchCh] = list;
+            }
+            list.Add (nmCh);
+          }
+
+          namedChapters.Clear ();
+          var multipleReplacements = matchingChaptersEmbeddedToNamed.Where (kvp => kvp.Value.Count > 1).ToList ();
+
+          if (!multipleReplacements.Any ())
+            break;
+
+          foreach (var kvp in multipleReplacements) {
+            // key is embedded ch
+            Chapter ebCh = kvp.Key;
+
+            double minDurDelta = double.MaxValue;
+            Chapter nmMatchCh = null;
+
+            // val are named ch
+            foreach (Chapter nmCh in kvp.Value) {
+              double delta = Math.Abs ((nmCh.Time.Duration - ebCh.Time.Duration).TotalSeconds);
+              if (delta < minDurDelta) {
+                minDurDelta = delta;
+                nmMatchCh = nmCh;
+              }
+            }
+
+            embeddedExcludes.Add (ebCh);
+            namedChapters.AddRange (kvp.Value.Where (ch => ch != nmMatchCh));
+          }
+
+        }
       }
 
       public string TrackId (Track track) =>

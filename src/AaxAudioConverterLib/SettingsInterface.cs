@@ -53,7 +53,25 @@ namespace audiamus.aaxconv.lib {
   public interface INamingAndModeSettings : INamingSettingsEx, IModeSettings {
   }
 
-  public interface IConvSettings : INamingAndModeSettings, IActivationSettings, ITitleSettingsEx, IUpdateSetting, IAaxCopySettings {
+  public interface IBitRateSettings : IModeSettings {
+    bool VariableBitRate { get; set; }
+    EReducedBitRate ReducedBitRate { get; set; }
+  }
+
+  public interface IRoleTagAssigmentSettings {
+    bool Narrator { get; set; }
+
+    ERoleTagAssignment TagArtist { get; set; }
+    ERoleTagAssignment TagAlbumArtist { get; set; }
+    ERoleTagAssignment TagComposer { get; set; }
+    ERoleTagAssignment TagConductor { get; set; }
+  }
+
+  public interface IConvSettings : 
+    INamingAndModeSettings, IActivationSettings, ITitleSettingsEx, 
+    IUpdateSetting, IAaxCopySettings, IBitRateSettings,
+    IRoleTagAssigmentSettings
+  {
     bool NonParallel { get; }
     [ToString (typeof(ToStringConverterPath))]
     string InputDirectory { get; set; }
@@ -61,6 +79,7 @@ namespace audiamus.aaxconv.lib {
     string OutputDirectory { get; set; }
     [ToString (typeof(ToStringConverterPath))]
     string FFMpegDirectory { get; set; }
+    bool RelaxedFFmpegVersionCheck { get; set; }
     byte TrkDurMins { get; set; }
     string PartNames { get; set; }
     string Genres { get; set; }
@@ -69,6 +88,7 @@ namespace audiamus.aaxconv.lib {
     uint ShortChapterSec { get; set; }
     uint VeryShortChapterSec { get; set; }
     EVerifyAdjustChapterMarks VerifyAdjustChapterMarks { get; set; }
+    EPreferEmbeddedChapterTimes PreferEmbeddedChapterTimes { get; set; }
     bool Latin1EncodingForPlaylist { get; set; }
     bool IntermedCopySingle { get; set; }
     EFixAACEncoding FixAACEncoding { get; set; }

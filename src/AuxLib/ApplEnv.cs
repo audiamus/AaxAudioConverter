@@ -11,6 +11,9 @@ namespace audiamus.aux {
     static readonly char[] INVALID_CHARS = Path.GetInvalidFileNameChars ();
 
     public static Version OSVersion { get; } = getOSVersion();
+    public static bool Is64BitOperatingSystem => Environment.Is64BitOperatingSystem;
+    public static bool Is64BitProcess => Environment.Is64BitProcess;
+    public static int ProcessorCount => Environment.ProcessorCount;
 
     public static Assembly EntryAssembly { get; } = Assembly.GetEntryAssembly ();
     public static Assembly ExecutingAssembly { get; } = Assembly.GetExecutingAssembly ();

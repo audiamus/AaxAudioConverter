@@ -5,4 +5,9 @@
     string PruneTitle (string title);
     string GetGenre (AaxFileItem fileItem);
   }
+
+  public interface IAudioQuality {
+    uint SampleRate { get; }
+    uint AvgBitRate { get; }
+  }
 }

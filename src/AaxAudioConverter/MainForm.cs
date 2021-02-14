@@ -16,6 +16,7 @@ using audiamus.aux;
 using audiamus.aux.ex;
 using audiamus.aux.win;
 using audiamus.aux.win.ex;
+using audiamus.perf;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using static audiamus.aux.ApplEnv;
 using static audiamus.aux.Logging;
@@ -36,6 +37,10 @@ namespace audiamus.aaxconv {
     private readonly ProgressProcessor _progress;
     private readonly InteractionCallbackHandler<EInteractionCustomCallback> _interactionHandler;
     private readonly SystemMenu _systemMenu;
+
+    private readonly PerformanceMonitor _perfMonitor;
+    private readonly PerformanceHandler _perfHandler;
+    private readonly IProgress<IPerfCallback> _perfProgress; 
 
     private FileDetailsForm _detailsForm;
     private PreviewForm _previewForm;
@@ -62,7 +67,7 @@ namespace audiamus.aaxconv {
     public MainForm () {
       InitializeComponent ();
 
-      Log (1, this, () => $"{ApplName} {AssemblyVersion} on Windows {OSVersion}");
+      Log (1, this, () => $"{ApplName} {AssemblyVersion} as {(Is64BitProcess ? "64" : "32")}bit process on Windows {OSVersion} {(Is64BitOperatingSystem ? "64" : "32")}bit");
 
       _systemMenu = new SystemMenu (this);
       _systemMenu.AddCommand (R.SysMenuItemAbout, onSysMenuAbout, true);
@@ -71,9 +76,11 @@ namespace audiamus.aaxconv {
       
       _progress = new ProgressProcessor (progressBarPart, progressBarTrack, lblProgress);
 
-      _pgaNaming = new PGANaming (Settings) { RefreshDelegate = propGridNaming.Refresh };
-
-
+      _pgaNaming = new PGANaming (Settings) {
+        RefreshDelegate = propGridNaming.Refresh,
+        IsInSplitChapterMode = () => Settings.ConvMode == EConvMode.splitChapters
+      };
+  
       _converter = new AaxAudioConverter (Settings, Resources.Default);
 
       initRadionButtons ();
@@ -84,8 +91,13 @@ namespace audiamus.aaxconv {
 
       listViewAaxFiles.ListViewItemSorter = _lvwColumnSorter;
       listViewAaxFiles.Sorting = SortOrder.Ascending;
+      _lvwColumnSorter.Order = SortOrder.Ascending;
 
       _interactionHandler = new InteractionCallbackHandler<EInteractionCustomCallback> (this, customInteractionHandler);
+
+      _perfHandler = new PerformanceHandler (vprogbarNumProc, vprogbarCpu, toolTip1);
+      _perfProgress = new Progress<IPerfCallback> (_perfHandler.Update);
+      _perfMonitor = new PerformanceMonitor { Callback = _perfProgress.Report };
 
     }
 
@@ -144,6 +156,8 @@ namespace audiamus.aaxconv {
       if (_initDone)
         return;
       _initDone = true;
+
+      _pgaNaming.Update ();
 
       showWhatsNew ();
 
@@ -274,8 +288,10 @@ namespace audiamus.aaxconv {
       else
         initRadionButtons ();
 
-      if (dlg.Dirty)
+      if (dlg.Dirty) {
         enableButtonConvert ();
+        _ffMpegPathVerified = _converter.VerifiedFFmpegPath;
+      }
       enableAll (true);
     }
 
@@ -481,7 +497,7 @@ namespace audiamus.aaxconv {
         var lvi = pr.ListViewItem;
         if (lvi is null) {
           lvi = new ListViewItem {
-            Text = fi.BookTitle
+            Text = fi.BookTitle,
           };
           lvi.SubItems.Add (fi.Author);
           lvi.SubItems.Add ($"{fi.FileSize / (1024 * 1024)} MB");
@@ -491,6 +507,7 @@ namespace audiamus.aaxconv {
           lvi.SubItems.Add ($"{fi.SampleRate} Hz");
           lvi.SubItems.Add ($"{fi.AvgBitRate} kb/s");
 
+          lvi.SubItems[0].Tag = _converter.SortingTitleWithPart (fi);
           lvi.SubItems[2].Tag = fi.FileSize;
           lvi.SubItems[6].Tag = fi.SampleRate;
           lvi.SubItems[7].Tag = fi.AvgBitRate;
@@ -533,6 +550,7 @@ namespace audiamus.aaxconv {
       if (sender is RadioButton rb && rb.Checked) {
         action (value);
         setTrackLengthControl ();
+        _pgaNaming.Update ();
         enableButtonConvert ();
       }
     }
@@ -730,6 +748,7 @@ namespace audiamus.aaxconv {
 
       panelTop.Enabled = false;
 
+      _perfMonitor.Start ();
 
       var progress = new Progress<ProgressMessage> (_progress.Update);
       var callback = new InteractionCallback<InteractionMessage, bool?> (_interactionHandler.Interact);
@@ -751,7 +770,7 @@ namespace audiamus.aaxconv {
       _cts = new CancellationTokenSource ();
 
       Log (1, this, () => $"#files={fileitems.Count}");
-      
+
       try {
         await _converter.ConvertAsync (fileitems, _cts.Token, progress, callback);
       } catch (OperationCanceledException) { }
@@ -761,6 +780,9 @@ namespace audiamus.aaxconv {
 
       _cts.Dispose ();
       _cts = null;
+
+      _perfMonitor.Stop ();
+      _perfHandler.Reset ();
 
       this.Cursor = cursor;
 
@@ -778,7 +800,7 @@ namespace audiamus.aaxconv {
       bool fullSuccess = cnt == fileitems.Count;
 
       Log (1, this, () => $"#files={fileitems.Count}, #conv={cnt}");
-      
+
       MessageBoxIcon mbIcon;
       string intro;
       if (cnt == 0) {
@@ -787,20 +809,52 @@ namespace audiamus.aaxconv {
       } else if (cnt != fileitems.Count) {
         intro = R.MsgSomeDone;
         mbIcon = MessageBoxIcon.Warning;
-      } else { 
+      } else {
         intro = R.MsgAllDone;
         mbIcon = MessageBoxIcon.Information;
       }
 
-      string msg = $"{intro}. {converted.Count ()} {(cnt == 1 ? R.file : R.files)} {R.MsgConverted} in {_converter.StopwatchElapsed.ToStringHMS()}";
+      string msg = $"{intro}. {converted.Count ()} {(cnt == 1 ? R.file : R.files)} {R.MsgConverted} in {_converter.StopwatchElapsed.ToStringHMS ()}";
 
-      MsgBox.Show (this, msg, this.Text, 
+      msg = addFileErrors (msg);
+
+      MsgBox.Show (this, msg, this.Text,
         MessageBoxButtons.OK, mbIcon);
 
       _progress.Reset ();
+      _perfHandler.Reset ();
 
       if (fullSuccess)
         autoplay ();
+    }
+
+    private string addFileErrors (string msg) {
+      IEnumerable<string> fileerrors = _converter.FileErrors;
+      int nErr = fileerrors.Count ();
+      if (nErr > 0) {
+        var sb = new StringBuilder (msg);
+        int nMsg = 8;
+        if (nErr == nMsg + 1)
+          nMsg++;
+        sb.AppendLine ();
+        sb.AppendLine ();
+        sb.AppendLine (R.MsgFFmpegFileError1);
+
+        int i = 0;
+        foreach (string fn in fileerrors) {
+          sb.AppendLine ($"\"{fn}\"");
+          i++;
+          if (i >= nMsg)
+            break;
+        }
+        if (nMsg < nErr) {
+          int d = nErr - nMsg;
+          sb.AppendLine ($"{R.MsgFFmpegFileError2} {d} {R.MsgFFmpegFileError3}");
+        }
+        msg = sb.ToString ();
+      }
+
+      return msg;
     }
 
     private void autoplay () {

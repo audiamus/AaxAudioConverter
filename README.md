@@ -27,8 +27,12 @@ Convert Audible aax files to mp3 and m4a/m4b
 - Special functions:
   - Establish iTunes compatibility for very long books in .m4a/.m4b format.
   - Fix AAC encoding bug in 44.1 kHz .aax files.
+- Other noteworthy features:
+  - Supports more than 255 chapters in a book.
+  - Supports very long books.
 - Delegates all audio processing to powerful [FFmpeg](https://www.ffmpeg.org/), including DRM handling.
 - High performance: Utilizes all available processor cores to run conversion work in parallel.
+  - With detailed progress status and performance monitoring.
 - Optionally copies original .aax file to a new location after the conversion, with a customizable name.
 - Automatically launches default media player after conversion has completed.
 - Log facility, optional, to record program activity, activated with program argument.
@@ -45,15 +49,15 @@ The application requires .Net Framework 4.7.1 to be installed. On Windows 10 sys
 AAX Audio Converter is configured to support high DPI monitors under Windows 10. It will scale properly when the user changes the DPI or scale factor. 
 
 ## Download
-Windows setup package version 1.15.3, English and German, with manuals, plus FFmpeg executable:
+Windows setup package version 1.16, English and German, with manuals, plus FFmpeg executable:
 
-**[AaxAudioConverter-1.15.3-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.15.3/AaxAudioConverter-1.15.3-Setup.exe)**
+**[AaxAudioConverter-1.16-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.16/AaxAudioConverter-1.16-Setup.exe)**
 
 Manuals (also included in the setup package):
 
-**[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.15.3/AaxAudioConverter.pdf)**
+**[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.16/AaxAudioConverter.pdf)**
 
-**[German](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.15.3/AaxAudioConverter.de.pdf)**
+**[German](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.16/AaxAudioConverter.de.pdf)**
 
 
 ## Dependencies
@@ -67,11 +71,12 @@ All audio processing in AAX Audio Converter, including DRM handling, is carried 
 The AAX Audio Converter installation package comes pre-bundled with a suitable FFmpeg.exe. 
 
 ## Feedback
-Comments and questions can be posted in the AAX Audio Converter chatroom on Gitter:
+Comments and questions can be posted in the discussions section here on GitHub or in the AAX Audio Converter chatroom on Gitter:
 
+[![Discussions](https://img.shields.io/badge/discussions-on%20GitHub-green)](https://github.com/audiamus/AaxAudioConverter/discussions)
 [![Gitter](https://badges.gitter.im/AaxAudioConverter/community.svg)](https://gitter.im/AaxAudioConverter/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-In case of more serious matters, like bug reports and other unexpected behavior, visit the issue page here on GitHub: 
+In case of more serious matters, like bug reports and other unexpected behavior, visit the issue section here on GitHub: 
 
 [![GitHub issues](https://img.shields.io/github/issues/audiamus/AaxAudioConverter)](https://github.com/audiamus/AaxAudioConverter/issues)
 

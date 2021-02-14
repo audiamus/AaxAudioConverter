@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace audiamus.aux {
-  public class ProcessList : IDisposable {
+  public class ProcessList : IDisposable, IProcessList {
 
     private readonly object _lockable = new object ();
     private bool _disposed = false;
 
     HashSet<Process> _processes = new HashSet<Process> ();
 
-    public bool AddProcess (Process process) {
+    public IProcessList Notify { private get; set; }
+
+    public bool Add (Process process) {
+      Notify?.Add (process);
       lock (_lockable)
         return _processes.Add (process);
     }
 
-    public bool RemoveProcess (Process process) {
+    public bool Remove (Process process) {
+      Notify?.Remove (process);
       lock (_lockable)
         return _processes.Remove (process);
     }

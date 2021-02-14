@@ -126,64 +126,35 @@
   <data name="btnCancel.Text" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
-  <data name="btnCancel.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="btnOK.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panelRight.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="lblFfmpegLoc.Text" xml:space="preserve">
     <value>Pfad zu FFmpeg.exe</value>
-  </data>
-  <data name="lblFfmpegLoc.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="btnFfmpegLoc.Text" xml:space="preserve">
     <value>Bearbeiten</value>
   </data>
-  <data name="btnFfmpegLoc.ToolTip" xml:space="preserve">
-    <value />
+  <data name="lblFfmpegVersCheck.Text" xml:space="preserve">
+    <value>Weniger strikte FFmpeg-Versionsprüfung</value>
+  </data>
+  <data name="lblFfmpegVersCheck.ToolTip" xml:space="preserve">
+    <value>Nicht offizielle Ausgaben zulassen,
+sofern die minimale Versionsnummer eingehalten wird.</value>
   </data>
   <data name="lblRegActCode.Text" xml:space="preserve">
     <value>Audible App/Manager Aktivierungscode(s) </value>
   </data>
-  <data name="lblRegActCode.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="listBoxActCode.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="btnRegActCode.Text" xml:space="preserve">
     <value>Einblenden</value>
-  </data>
-  <data name="btnRegActCode.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="panelActCode.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="lblUsrActCode.Text" xml:space="preserve">
     <value>Benutzereingabe für 
 Audible Aktivierungscode</value>
   </data>
-  <data name="lblUsrActCode.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="btnUsrActCode.Text" xml:space="preserve">
     <value>Bearbeiten</value>
-  </data>
-  <data name="btnUsrActCode.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="lblFileAssoc.Text" xml:space="preserve">
     <value>.aax- und .aa-Dateien mit
 AaxAudioConverter verknüpfen</value>
-  </data>
-  <data name="lblFileAssoc.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="ckBoxFileAssoc.ToolTip" xml:space="preserve">
     <value>Wenn gesetzt, startet AaxAudioConverter bei 
@@ -192,9 +163,6 @@ Doppelklick auf eine .aax- oder .aa-Dateii automatisch.</value>
   <data name="lblAaxCopy.Text" xml:space="preserve">
     <value>Audible .aax/.aa-Datei(en) in zweiten
  Ordner kopieren und umbenennen</value>
-  </data>
-  <data name="lblAaxCopy.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="comBoxAaxCopy.ToolTip" xml:space="preserve">
     <value>Ein gemeinsamer Ordner oder Ordner je Autor.</value>
@@ -205,15 +173,9 @@ Doppelklick auf eine .aax- oder .aa-Dateii automatisch.</value>
   <data name="btnAaxCopyDir.ToolTip" xml:space="preserve">
     <value>Stammverzeichnis für die Kopie.</value>
   </data>
-  <data name="panelAaxCopy.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="lblLaunchPlayer.Text" xml:space="preserve">
     <value>Automatische Wiedergabe
  nach Konvertierung</value>
-  </data>
-  <data name="lblLaunchPlayer.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="ckBoxLaunchPlayer.ToolTip" xml:space="preserve">
     <value>Wenn gesetzt, wird die voreingestellte Medienwiedergabe gestartet.
@@ -221,9 +183,6 @@ Nur für erstes oder einzeln konvertiertes Buch.</value>
   </data>
   <data name="lblUpdate.Text" xml:space="preserve">
     <value>Online-Update</value>
-  </data>
-  <data name="lblUpdate.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="comBoxUpdate.Items" xml:space="preserve">
     <value>Ausgeschaltet</value>
@@ -234,26 +193,11 @@ Nur für erstes oder einzeln konvertiertes Buch.</value>
   <data name="comBoxUpdate.Items2" xml:space="preserve">
     <value>Aufforderung zur Installation</value>
   </data>
-  <data name="comBoxUpdate.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="lblLang.Text" xml:space="preserve">
     <value>Sprache</value>
   </data>
-  <data name="lblLang.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="comBoxLang.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tableLayoutPanel1.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="lblPartName.Text" xml:space="preserve">
     <value>Präfix für "Teil"-Ordner.</value>
-  </data>
-  <data name="lblPartName.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="txtBoxPartName.ToolTip" xml:space="preserve">
     <value>Benutzerdefinierter Präfix für "Teil"-Ordner.</value>
@@ -264,15 +208,9 @@ Nur für erstes oder einzeln konvertiertes Buch.</value>
 &lt;Standard&gt; setzt zu 'Teil''; 
 &lt;Benutzerdefiniert&gt; eigene Angabe.</value>
   </data>
-  <data name="panelPartName.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="lblCustPart.Text" xml:space="preserve">
     <value>Benutzerdefinierte Suchwörter für "Teil"
 im Titel mehrteiliger Bücher</value>
-  </data>
-  <data name="lblCustPart.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="txtBoxCustPart.ToolTip" xml:space="preserve">
     <value>Mehrere Suchwörter erlaubt. 
@@ -281,9 +219,6 @@ Mit Leerzeichen oder Semikolon trennen.</value>
   <data name="lblCustTitleChars.Text" xml:space="preserve">
     <value>Zusätzlich gültige Interpunktions-
 zeichen für gefilterten Buchtitel</value>
-  </data>
-  <data name="lblCustTitleChars.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="txtBoxCustTitleChars.ToolTip" xml:space="preserve">
     <value>Interpunktionszeichen, die im Buchtitel verbleiben 
@@ -313,24 +248,12 @@ wenn die Namen nicht eindeutig sind. </value>
   <data name="lblFlatFolders.Text" xml:space="preserve">
     <value>Flache Ordnerstruktur und Namensgebung</value>
   </data>
-  <data name="lblFlatFolders.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="comBoxFlatFolders.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="ckBoxFlatFolders.ToolTip" xml:space="preserve">
     <value>Keine Ordnerhierarchie für Autor und Buchtitel.</value>
-  </data>
-  <data name="panelFlatFolders.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="lblShipShort.Text" xml:space="preserve">
     <value>Kurze Kapitel zwischen Buchteilen
 überspringen (Fortsetzung, Titel/Autor)</value>
-  </data>
-  <data name="lblShipShort.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="lblShSecDur.Size" type="System.Drawing.Size, System.Drawing">
@@ -339,21 +262,12 @@ wenn die Namen nicht eindeutig sind. </value>
   <data name="lblShSecDur.Text" xml:space="preserve">
     <value>sek Dauer</value>
   </data>
-  <data name="lblShSecDur.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="nudShortChapter.ToolTip" xml:space="preserve">
     <value>0 um Option auszuschalten</value>
-  </data>
-  <data name="panelSkipShort.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="lblSkipVeryShort.Text" xml:space="preserve">
     <value>Sehr kurze Kapitel am Anfang und
  Ende überspringen, wenn vorhanden</value>
-  </data>
-  <data name="lblSkipVeryShort.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="lblVyShSecDur.Size" type="System.Drawing.Size, System.Drawing">
     <value>56, 13</value>
@@ -361,20 +275,11 @@ wenn die Namen nicht eindeutig sind. </value>
   <data name="lblVyShSecDur.Text" xml:space="preserve">
     <value>sek Dauer</value>
   </data>
-  <data name="lblVyShSecDur.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="nudVeryShortChapter.ToolTip" xml:space="preserve">
     <value>0 um Option auszuschalten</value>
   </data>
-  <data name="panelSkipVeryShort.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="lblVerAdjChapters.Text" xml:space="preserve">
     <value>Kapitelmarken prüfen und justieren</value>
-  </data>
-  <data name="lblVerAdjChapters.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="comBoxVerAdjChapters.Items" xml:space="preserve">
     <value>Nein</value>
@@ -385,15 +290,9 @@ wenn die Namen nicht eindeutig sind. </value>
   <data name="comBoxVerAdjChapters.Items2" xml:space="preserve">
     <value>In allen Konvertier-Modi</value>
   </data>
-  <data name="comBoxVerAdjChapters.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="lblExtraMetaFiles.Text" xml:space="preserve">
     <value>Zusätzliche Dateien für
  Buch-Info und Titelbild</value>
-  </data>
-  <data name="lblExtraMetaFiles.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="ckBoxExtraMetaFiles.ToolTip" xml:space="preserve">
     <value>Die Buchbeschreibung wird in jede erzeugte Audiodatei 
@@ -403,9 +302,6 @@ und separate Text- und Bild-Datei mit der selben Infoirmation. </value>
   <data name="lblM4B.Text" xml:space="preserve">
     <value>Dateityp für MP4-Audio</value>
   </data>
-  <data name="lblM4B.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="comBoxM4B.ToolTip" xml:space="preserve">
     <value>MP4-Audio kann als .m4a- oder .m4b-Datei gespeichert werden.
 Der Unterschied besteht nur im Namen, der Inhalt bleibt derselbe. </value>
@@ -413,9 +309,6 @@ Der Unterschied besteht nur im Namen, der Inhalt bleibt derselbe. </value>
   <data name="lblLatin1.Text" xml:space="preserve">
     <value>ISO Latin1-Kodierung statt UTF8
  für .m3u Wiedergabeliste</value>
-  </data>
-  <data name="lblLatin1.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="ckBoxLatin1.ToolTip" xml:space="preserve">
     <value>Für Audio-Abspiel-Hard- und Software, die Umlaute 
@@ -437,40 +330,153 @@ wenn diese in Unicode UTF8 geschrieben sind.</value>
   <data name="comBoxFixAacEncoding.ToolTip" xml:space="preserve">
     <value>Für AAX Dateien mit 44,1 kHz, bei denen das ESDS-Atom falsch ausgebildet sein kann.</value>
   </data>
+  <data name="lblVarBitRate.Text" xml:space="preserve">
+    <value>Variable Bitrate verwenden</value>
+  </data>
+  <data name="lblVarBitRate.ToolTip" xml:space="preserve">
+    <value>Erzeugt üblicherweise kleinere Ausgabedateien 
+ohne Einbußen bei der Tonqualität, benötigt ggf. 
+aber deutlich länger für die Konvertierierung.</value>
+  </data>
+  <data name="lblRedBitRate.Text" xml:space="preserve">
+    <value>Bitrate verringern</value>
+  </data>
+  <data name="lblRedBitRate.ToolTip" xml:space="preserve">
+    <value>Reduziert die Bitrate auf den eingestellten Wert, falls die Bitrate der Quelldatei größer ist. 
+Kleinere Dateien, aber schlechtere Tonqualität. Benötigt ggf. länger für die Konvertierung.
+Wenn variable Bitrate ebenfalls gesetzt ist, wird ein geeignetes Äquivalent verwendet.  </value>
+  </data>
+  <data name="comBoxPrefEmbChapTimes.Items" xml:space="preserve">
+    <value>Nein</value>
+  </data>
+  <data name="comBoxPrefEmbChapTimes.Items1" xml:space="preserve">
+    <value>In Sprechpause</value>
+  </data>
+  <data name="comBoxPrefEmbChapTimes.Items2" xml:space="preserve">
+    <value>Immer</value>
+  </data>
+  <data name="comBoxArtist.Items" xml:space="preserve">
+    <value>&lt;leer&gt;</value>
+  </data>
+  <data name="comBoxArtist.Items1" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="comBoxArtist.Items2" xml:space="preserve">
+    <value>Autor (; Sprecher)</value>
+  </data>
+  <data name="comBoxArtist.Items3" xml:space="preserve">
+    <value>Autor; Sprecher</value>
+  </data>
+  <data name="comBoxArtist.Items4" xml:space="preserve">
+    <value>(Sprecher)</value>
+  </data>
+  <data name="comBoxArtist.Items5" xml:space="preserve">
+    <value>Sprecher</value>
+  </data>
+  <data name="comBoxArtist.ToolTip" xml:space="preserve">
+    <value>Sprecher in Klammern wird nur eingetragen,
+wenn "Sprecher hinzufügen" im Hauptfenster gesetzt ist.</value>
+  </data>
+  <data name="comBoxAlbumArtist.Items" xml:space="preserve">
+    <value>&lt;leer&gt;</value>
+  </data>
+  <data name="comBoxAlbumArtist.Items1" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="comBoxAlbumArtist.Items2" xml:space="preserve">
+    <value>Autor (; Sprecher)</value>
+  </data>
+  <data name="comBoxAlbumArtist.Items3" xml:space="preserve">
+    <value>Autor; Sprecher</value>
+  </data>
+  <data name="comBoxAlbumArtist.Items5" xml:space="preserve">
+    <value>Sprecher</value>
+  </data>
+  <data name="comBoxAlbumArtist.ToolTip" xml:space="preserve">
+    <value>Sprecher in Klammern wird nur eingetragen,
+wenn "Sprecher hinzufügen" im Hauptfenster gesetzt ist.</value>
+  </data>
+  <data name="comBoxComposer.Items" xml:space="preserve">
+    <value>&lt;leer&gt;</value>
+  </data>
+  <data name="comBoxComposer.Items1" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="comBoxComposer.Items2" xml:space="preserve">
+    <value>Autor (; Sprecher)</value>
+  </data>
+  <data name="comBoxComposer.Items3" xml:space="preserve">
+    <value>Autor; Sprecher</value>
+  </data>
+  <data name="comBoxComposer.Items4" xml:space="preserve">
+    <value>(Sprecher)</value>
+  </data>
+  <data name="comBoxComposer.Items5" xml:space="preserve">
+    <value>Sprecher</value>
+  </data>
+  <data name="comBoxComposer.ToolTip" xml:space="preserve">
+    <value>Sprecher in Klammern wird nur eingetragen,
+wenn "Sprecher hinzufügen" im Hauptfenster gesetzt ist.</value>
+  </data>
+  <data name="comBoxConductor.Items" xml:space="preserve">
+    <value>&lt;leer&gt;</value>
+  </data>
+  <data name="comBoxConductor.Items1" xml:space="preserve">
+    <value>Autor</value>
+  </data>
+  <data name="comBoxConductor.Items2" xml:space="preserve">
+    <value>Autor (; Sprecher)</value>
+  </data>
+  <data name="comBoxConductor.Items3" xml:space="preserve">
+    <value>Autor; Sprecher</value>
+  </data>
+  <data name="comBoxConductor.Items4" xml:space="preserve">
+    <value>(Sprecher)</value>
+  </data>
+  <data name="comBoxConductor.Items5" xml:space="preserve">
+    <value>Sprecher</value>
+  </data>
+  <data name="comBoxConductor.ToolTip" xml:space="preserve">
+    <value>Sprecher in Klammern wird nur eingetragen,
+wenn "Sprecher hinzufügen" im Hauptfenster gesetzt ist.</value>
+  </data>
+  <data name="comBoxRedBitRate.Items" xml:space="preserve">
+    <value>nein</value>
+  </data>
+  <data name="lblArtist.Text" xml:space="preserve">
+    <value>Eintrag: Artist</value>
+  </data>
+  <data name="lblAlbumArtist.Text" xml:space="preserve">
+    <value>Eintrag: Album Artist</value>
+  </data>
+  <data name="lblComposer.Text" xml:space="preserve">
+    <value>Eintrag: Composer</value>
+  </data>
+  <data name="lblConductor.Text" xml:space="preserve">
+    <value>Eintrag: Conductor</value>
+  </data>
   <data name="tabPage1.Text" xml:space="preserve">
     <value>Allgemein</value>
-  </data>
-  <data name="tabPage1.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="lblIntermedCopySingle.Text" xml:space="preserve">
     <value>Zwischenkopie im Modus "Eine Datei"</value>
   </data>
-  <data name="lblIntermedCopySingle.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="lblFixAacEnc.Text" xml:space="preserve">
     <value>AAC-Codierung reparieren für 44,1 kHz</value>
-  </data>
-  <data name="lblFixAacEnc.ToolTip" xml:space="preserve">
-    <value />
-  </data>
-  <data name="tableLayoutPanel2.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="tabPage2.Text" xml:space="preserve">
     <value>Konvertierung</value>
   </data>
-  <data name="tabPage2.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tabPage3.Text" xml:space="preserve">
+    <value>Kapitel</value>
   </data>
-  <data name="tabControl1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="tabPage4.Text" xml:space="preserve">
+    <value>Meta-Einträge</value>
+  </data>
+  <data name="lblPrefEmbChapTimes.Text" xml:space="preserve">
+    <value>Eingebettete Kapitelmarken bevorzugen</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Grundeinstellungen</value>
-  </data>
-  <data name="$this.ToolTip" xml:space="preserve">
-    <value />
   </data>
 </root>

@@ -32,6 +32,11 @@ namespace audiamus.aux.ex {
           n == 0 ? 1 : 1 + (int)Math.Log10 (Math.Abs (n));
   }
 
+  public static class ExDouble {
+    public static double MinMax (this double value, double min, double max) => 
+      Min (Max (value, min), max);
+  }
+
   public static class ExNullable {
     public static bool IsNullOrWhiteSpace (this string s) => string.IsNullOrWhiteSpace (s); 
     public static bool IsNullOrEmpty (this string s) => string.IsNullOrEmpty (s); 
@@ -47,7 +52,8 @@ namespace audiamus.aux.ex {
   }
 
   public static class ExString {
-    public static string Combine (this IEnumerable<string> values, char separator = ';') {
+    public const char SEPARATOR = ';';
+    public static string Combine (this IEnumerable<string> values, char separator = SEPARATOR) {
       if (values is null)
         return null;
       var sb = new StringBuilder ();
@@ -75,17 +81,28 @@ namespace audiamus.aux.ex {
     }
 
     static readonly char[] InvalidFileNameChars = Path.GetInvalidFileNameChars ();
+    static readonly char[] DoubtfulFileNameChars = {
+      '¡', '¢', '£', '¤', '¥', '¦', '§', '¨', '©', 'ª', '«', '¬', '®', '¯', '°', '±',
+      '²', '³', '´', 'µ', '¶', '·', '¸', '¹', 'º', '»', '¼', '½', '¾', '¿', '×', '÷',
+      '‘', '’', 'ƒ', '„', '…', '†', '‡', 'ˆ', '‰', '‹', '’', '“', '”', '•', '–', '—',
+      '˜', '™', '›'
+    };
 
     public static string Prune (this string s, char[] invalid) {
+      char[] doubtful = null;
       if (s is null)
         return null;
-      if (invalid is null)
+      if (invalid is null) {
         invalid = InvalidFileNameChars;
+        doubtful = DoubtfulFileNameChars;
+      }
       StringBuilder sb = new StringBuilder ();
       foreach (char c in s) {
         if (invalid.Contains (c))
           continue;
         //sb.Append (',');
+        else if (doubtful?.Contains (c) ?? false)
+          continue;
         else
           sb.Append (c);
       }

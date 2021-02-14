@@ -1,11 +1,11 @@
-﻿#pragma warning disable CS0642  
+﻿//#define MULTIPART_TEST 
+#pragma warning disable CS0642  // "Possible mistaken empty statement"
 
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
+using System.Text.RegularExpressions;
 using audiamus.aaxconv.lib.ex;
 using audiamus.aux;
 using audiamus.aux.ex;
@@ -13,6 +13,10 @@ using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv.lib {
   partial class TagAndFileNamingHelper {
+#if MULTIPART_TEST
+    private static int __numpart = 0;
+    private static readonly object __lockable = new object ();
+#endif
 
     enum ENamedChapters {
       Number = 0,
@@ -33,14 +37,15 @@ namespace audiamus.aaxconv.lib {
     public const string CHAPTER = "Chapter";
     public const string PART = "Part";
 
-    // apple
+    // custom tags
     const string NRT = "nrt";
     const string DES = "des";
     const string PUB = "pub";
+    const string RLDT = "rldt";
+    const string WMRK = "wmrk";
 
-    // audible
-    const string PUBDATE = "pubdate";
-    const string LONG_DESC = "long_description";
+    const string RGX_COPYRIGHT_YEAR = @"\D(\d{4})\D";
+    static readonly Regex __rgxCopyrightYear = new Regex (RGX_COPYRIGHT_YEAR, RegexOptions.Compiled);
 
     readonly string _sepDash = Singleton<ChainPunctuationDash>.Instance.Infix[0];
     readonly string[] _seps = Singleton<ChainPunctuationDot>.Instance.Infix;
@@ -74,6 +79,7 @@ namespace audiamus.aaxconv.lib {
     private string Part => part ();
     private string FullPath => fullPath ();
     private string File => file ();
+    private static string Wmrk { get; }
 
     private string ExtMp4 => Settings.M4B ? EXT_M4B : EXT_M4A;
 
@@ -112,6 +118,10 @@ namespace audiamus.aaxconv.lib {
         return prefix ?? CHAPTER;
       }
     }
+
+    static TagAndFileNamingHelper () =>
+      Wmrk = $"Processed by {ApplEnv.ApplName} {ApplEnv.AssemblyVersion}";
+ 
 
     private TagAndFileNamingHelper (AaxFileItem aaxFileItem) => _aaxFileItem = aaxFileItem;
 
@@ -160,8 +170,8 @@ namespace audiamus.aaxconv.lib {
     public static bool ReadMetaData (AaxFileItem aaxFileItem) =>
       new TagAndFileNamingHelper (aaxFileItem).readMetaData ();
 
-    public static bool WriteMetaData (IResources resources, INamingAndModeSettings settings, Book book, Track track) =>
-      new TagAndFileNamingHelper (resources, settings, book, track).writeMetaData ();
+    public static bool WriteMetaData (IResources resources, IConvSettings settings, Book book, Track track, bool withChapters = false) =>
+      new TagAndFileNamingHelper (resources, settings, book, track).writeMetaDataAtl (settings, withChapters);
 
     public static bool WriteMetaDataChapters (IResources resources, INamingAndModeSettings settings, Book book, Track track) =>
       new TagAndFileNamingHelper (resources, settings, book, track).writeMetaDataChapters ();
@@ -481,114 +491,141 @@ namespace audiamus.aaxconv.lib {
       if (_aaxFileItem is null)
         return false;
       bool succ = readMetadataFFmpeg ();
-      succ = succ && readMetadataTaglib ();
+      succ = succ && readMetadataAtl ();
 
       return succ;
     }
 
-    private bool readMetadataTaglib () {
+    private bool readMetadataAtl () {
       Log0 (3, this);
+
       var afi = _aaxFileItem;
       if (afi.HasExtAA)
-        return readMetadataTaglibAudible ();
+        return readMetadataAtlAa ();
       else
-        return readMetadataTaglibM4a ();
+        return readMetadataAtlAax ();
     }
 
-    private bool readMetadataTaglibM4a () {
-      var afi = _aaxFileItem;
-      Log (3, this, $"\"{afi.FileName.SubstitUser ()}\"");
-      TagLib.File file = null;
+    private bool readMetadataAtlAa () {
+      Log0 (3, this);
       try {
-        file = TagLib.File.Create (afi.FileName, "taglib/m4a", TagLib.ReadStyle.Average);
-      } catch (Exception exc) {
-        Log (1, this, $"{afi.FileName.SubstitUser()}, {exc.ToShortString ()}");
-        return readMetadataTaglibAudible ();
-      }
 
-      using (file) {
-        var tags = file.Tag;
+        var afi = _aaxFileItem;
+        ATL.Track tags = new ATL.Track (afi.FileName);
 
         afi.BookTitle = tags.Title.Decode ();
-        afi.Authors = tags.AlbumArtists.Decode ();
-        var pic = tags.Pictures.FirstOrDefault ();
-        if (pic != null) {
-          afi.Cover = pic.Data?.Data;
-          if (afi.Cover != null && afi.Cover.Length > AaPictureExtractor.PNG_HDR.Count) {
-            if (pic.Filename != null)
-              afi.CoverExt = Path.GetExtension (pic.Filename).ToLower ();
-            else
-              imageTypeFromData ();
-          }
+        afi.Authors = tags.Composer.Decode ().SplitTrim ();
+        afi.Narrators = tags.Artist.Decode ().SplitTrim ();
+        afi.Abstract = tags.Description.Decode ();
 
-        }
+        getCoverImage (afi, tags);
+
+        afi.Publisher = tags.Publisher.Decode ();
+        afi.Copyright = tags.Copyright.Decode ();
+        afi.Genre = tags.Genre?.Decode ().SplitTrim().FirstOrDefault();
+
+        afi.PublishingDate = tags.PublishingDate;
+
+      } catch (Exception exc) {
+        Log (1, this, exc.ToShortString());
+        return false;
+      }
+
+      return true;
+    }
+
+    private bool readMetadataAtlAax () {
+      Log0 (3, this);
+
+      try {
+
+        var afi = _aaxFileItem;
+        ATL.Track tags = new ATL.Track (afi.FileName);
+
+        afi.BookTitle = tags.Title.Decode ();
+        afi.Authors = tags.AlbumArtist.Decode ().SplitTrim ();
+
+        getCoverImage (afi, tags);
+
+        afi.Copyright = tags.Copyright.Decode ();
         try {
           afi.PublishingDate = new DateTime ((int)tags.Year, 1, 1);
         } catch (Exception) { }
-        afi.Copyright = tags.Copyright.Decode ();
-        afi.Genre = tags.Genres.FirstOrDefault ()?.Decode ();
+        if (!afi.PublishingDate.HasValue || afi.PublishingDate.Value.Year > DateTime.Now.Year + 2) {
+          DateTime date = default;
+          bool succ = false;
+          string rldt = atlCustomTag (tags, RLDT);
+          if (!rldt.IsNullOrWhiteSpace ())
+            succ = DateTime.TryParse (rldt, out date);
+          if (succ)
+            afi.PublishingDate = date;
 
-        var atags = file.GetTag (TagLib.TagTypes.Apple) as TagLib.Mpeg4.AppleTag;
-        if (atags is null)
-          return true;
-        afi.Narrators = appleCustomTag (atags, NRT).Decode ().SplitTrim ();
-        afi.Abstract = appleCustomTag (atags, DES).Decode ();
-        afi.Publisher = appleCustomTag (atags, PUB).Decode ();
-      }
+          if (!afi.PublishingDate.HasValue || afi.PublishingDate.Value.Year > DateTime.Now.Year + 2 && !afi.Copyright.IsNullOrWhiteSpace ()) {
+            var match = __rgxCopyrightYear.Match (afi.Copyright);
+            if (match.Success) {
+              succ = int.TryParse (match.Groups[1].Value, out int year);
+              if (succ) {
+                try {
+                  afi.PublishingDate = new DateTime (year, 1, 1);
+                } catch (Exception) { }
+              }
+            }
+          }
+        }
 
-      return true;
-    }
+        afi.Genre = tags.Genre?.Decode ().SplitTrim ().FirstOrDefault ();
 
-    private bool readMetadataTaglibAudible () {
-      var afi = _aaxFileItem;
-      Log (3, this, $"\"{afi.FileName.SubstitUser ()}\"");
-      TagLib.File file = null;
-      try {
-        file = TagLib.File.Create (afi.FileName, "audio/x-audible", TagLib.ReadStyle.Average);
+        afi.Narrators = atlCustomTag (tags, NRT).Decode ().SplitTrim ();
+        afi.Abstract = atlCustomTag (tags, DES).Decode ();
+        afi.Publisher = atlCustomTag (tags, PUB).Decode ();
+
+#if MULTIPART_TEST
+        {
+          int pn;
+          lock (__lockable) {
+            pn = ++__numpart;
+          }
+          afi.BookTitle = $"My long book title - latest version, released, complete: Book Part {pn}: my book";
+          afi.Authors = new string[] { "John Doe" };
+          afi.Narrators = new string[] { "Jane Doe" };
+        }
+#endif
+
+
       } catch (Exception exc) {
-        Log (1, this, $"{afi.FileName.SubstitUser ()}, {exc.ToShortString ()}");
+        Log (1, this, exc.ToShortString());
         return false;
       }
-      using (file) {
-        var tags = file.Tag as TagLib.Audible.Tag;
-        if (tags is null) {
-          Log (1, this, $"{afi.FileName.SubstitUser ()}, error type mismatch: {file.Tag.GetType().FullName}");
-          return false;
-        }
-        afi.BookTitle = tags.Title.Decode ();
-        afi.Authors = tags.Author.Decode ().SplitTrim ();
-        afi.Narrators = tags.Narrator.Decode ().SplitTrim ();
-        afi.Abstract = tags.Description.Decode ();
-        var pic = tags.Pictures.FirstOrDefault ();
-        if (pic != null) {
-          afi.Cover = pic.Data?.Data;
-          if (pic.Filename != null)
-            afi.CoverExt = Path.GetExtension (pic.Filename);
-        }
-        afi.Publisher = tags.Album.Decode ();
-        afi.Copyright = tags.Copyright.Decode ();
-        afi.Genre = tags.Genres.FirstOrDefault ()?.Decode ();
-
-        if (pic is null) {
-          afi.Cover = AaPictureExtractor.Extract (afi.FileName);
-          imageTypeFromData ();
-        }
-
-        string date = audibleCustomTag (tags, PUBDATE);
-        if (!(date is null)) {
-          bool succ = DateTime.TryParse (date, out var datetime);
-          if (succ)
-            afi.PublishingDate = datetime;
-        }
-
-        string desc = audibleCustomTag (tags, LONG_DESC);
-        if (desc?.Length > afi.Abstract?.Length)
-          afi.Abstract = desc;
 
 
-      }
       return true;
     }
+
+    private static void getCoverImage (AaxFileItem afi, ATL.Track tags) {
+      var pic = tags.EmbeddedPictures.FirstOrDefault ();
+      if (pic != null) {
+        afi.Cover = pic.PictureData;
+        switch (pic.NativeFormat) {
+          case Commons.ImageFormat.Jpeg:
+            afi.CoverExt = EXT_JPG;
+            break;
+          case Commons.ImageFormat.Png:
+            afi.CoverExt = EXT_PNG;
+            break;
+        }
+      }
+    }
+
+    private string atlCustomTag (ATL.Track tags, string key) {
+      if (key.Length == 3)
+        key = "©" + key;
+      bool succ = tags.AdditionalFields.TryGetValue (key, out string value);
+      if (succ)
+        return value;
+      else
+        return null;
+    }
+
 
     private bool readMetadataFFmpeg () {
       var afi = _aaxFileItem;
@@ -606,148 +643,143 @@ namespace audiamus.aaxconv.lib {
       return succ;
     }
 
-    private void imageTypeFromData () {
-      var afi = _aaxFileItem;
-      var hdr = new ArraySegment<byte> (afi.Cover, 0, AaPictureExtractor.JPG_HDR.Count);
-      if (AaPictureExtractor.JPG_HDR.SequenceEqual (hdr))
-        afi.CoverExt = EXT_JPG;
-      else {
-        hdr = new ArraySegment<byte> (afi.Cover, 0, AaPictureExtractor.PNG_HDR.Count);
-        if (AaPictureExtractor.PNG_HDR.SequenceEqual (hdr))
-          afi.CoverExt = EXT_PNG;
-      }
-    }
-
     private void setTrackTitle () => _track.Title = Title;
 
-    private bool writeMetaData () {
+
+    private bool writeMetaDataAtl (IRoleTagAssigmentSettings settings, bool withChapters) {
       _isFileName = false;
       _track.Title = Title; // save for playlist
 
       if (_aaxFileItem is null)
         return false;
       var afi = _aaxFileItem;
-      TagLib.File tagfile = null;
-      try {
-        tagfile = TagLib.File.Create (_track.FileName);
-      } catch (Exception exc) {
-        Log (1, this, $"{nameof (TagLib.File.Create)}, {exc.ToShortString ()}");
-        return false;
-      }
 
-      using (tagfile) {
-        var tags = tagfile.Tag;
+      IEnumerable<Chapter> chapters = null;
+      if (withChapters)
+        chapters = getChapters ();
 
-        if (tags.TagTypes.HasFlag (TagLib.TagTypes.Id3v2) && ApplEnv.OSVersion.Major < 10) {
-          if (tags is TagLib.NonContainer.Tag nct) {
-            var t = nct.Tags.Where (k => k.TagTypes.HasFlag (TagLib.TagTypes.Id3v2)).FirstOrDefault ();
-            if (t is TagLib.Id3v2.Tag id3v2) {
-              id3v2.Version = 3;
-              Log (3, this, $"track=\"{Title}\" \"{Path.GetFileName (_track.FileName)}\": {nameof (TagLib.Id3v2)} downgraded to version {id3v2.Version}");
-            }
-          }
-        }
-
-        // album
-        tags.Album = _book.TitleTag;
-
-        // album artist  
-        tags.AlbumArtists = _book.AuthorTag.SplitTrim ();
-
-        // performer/narrator
-        if (Settings.Narrator) {
-          var authors = new List<string> ();
-          authors.AddRange (tags.AlbumArtists);
-          authors.AddRange (afi.Narrators);
-          tags.Performers = authors.ToArray ();
-
-          var roles = new List<string> ();
-          foreach (var _ in tags.AlbumArtists)
-            roles.Add (nameof (afi.Author));
-          foreach (var _ in afi.Narrators)
-            roles.Add (nameof (afi.Narrator));
-
-          tags.PerformersRole = roles.ToArray ();
-        } else {
-          tags.Performers = tags.AlbumArtists;
-          var roles = new string[tags.AlbumArtists.Length];
-          for (int i = 0; i < roles.Length; i++)
-            roles[i] = nameof (afi.Author);
-          tags.PerformersRole = roles;
-        }
-
-        // comment
-        tags.Comment = afi.Abstract;
-
-        // year
-        tags.Year = (uint)((_book.CustomNames?.YearTag ?? afi.PublishingDate)?.Year ?? 0);
-
-        // genre
-        string genre = _book.CustomNames?.GenreTag ?? getGenre (afi);
-        tags.Genres = new string[] { genre };
-
-        // copyright
-        tags.Copyright = afi.Copyright;
-
-        // publisher
-        tags.Publisher = afi.Publisher;
-
-        // disc
-        tags.Disc = (uint)_numbers.nDsk;
-
-        // disc count
-        tags.DiscCount = (uint)_numbers.nDsks;
-
-        // title 
-        tags.Title = Title;
-
-        // track
-        tags.Track = (uint)_numbers.nTrk;
-
-        // track count
-        tags.TrackCount = (uint)_numbers.nTrks;
-
-
-        // cover picture
-        if (!(afi.Cover is null)) {
-          var pic = new TagLib.Picture (new TagLib.ByteVector (afi.Cover)) {
-            Type = TagLib.PictureType.FrontCover
-          };
-          tags.Pictures = new TagLib.IPicture[] { pic };
-        }
-
+      //lock (__lockableATL) 
+      {
+        ATL.Track tags;
         try {
-          tagfile.Save ();
+
+          tags = new ATL.Track (_track.FileName);
+
+          tagSubFormat (tags);
+
+          tags.DurationMs = _track.Time.Duration.TotalMilliseconds;
+
+          // album
+          tags.Album = _book.TitleTag;
+
+          // performers
+          tags.Artist = buildPerformerTag (settings.TagArtist, settings.Narrator, _book.AuthorTag, afi.Narrators);
+          tags.AlbumArtist = buildPerformerTag (settings.TagAlbumArtist, settings.Narrator, _book.AuthorTag, afi.Narrators);
+          tags.Composer = buildPerformerTag (settings.TagComposer, settings.Narrator, _book.AuthorTag, afi.Narrators);
+          tags.Conductor = buildPerformerTag (settings.TagConductor, settings.Narrator, _book.AuthorTag, afi.Narrators);
+
+          // comment
+          tags.Comment = afi.Abstract;
+
+          // year
+          tags.Year = (int)((_book.CustomNames?.YearTag ?? afi.PublishingDate)?.Year ?? 0);
+
+          // genre
+          string genre = _book.CustomNames?.GenreTag ?? getGenre (afi);
+          tags.Genre = genre;
+
+          // copyright
+          tags.Copyright = afi.Copyright;
+
+          // publisher
+          tags.Publisher = afi.Publisher;
+
+          // disc
+          tags.DiscNumber = _numbers.nDsk;
+
+          // disc count
+          tags.DiscTotal = _numbers.nDsks;
+
+          // title 
+          tags.Title = Title;
+
+          // track
+          tags.TrackNumber = _numbers.nTrk;
+
+          // track count
+          tags.TrackTotal = _numbers.nTrks;
+
+          // cover picture
+          var pi = ATL.PictureInfo.fromBinaryData (afi.Cover, ATL.PictureInfo.PIC_TYPE.Front);
+          tags.EmbeddedPictures.Add (pi);
+
+          if (withChapters)
+            writeChapters (tags, chapters);
+
+          // HACK test only
+          //tags.Album = "My Album ÄÖÜäöüß";
+          //tags.Artist = "My Artist ÄÖÜäöüß";
+          //tags.AlbumArtist = "My AlbumArtist ÄÖÜäöüß";
+          //tags.Composer = "My Composer ÄÖÜäöüß";
+          //tags.Conductor = "My Conductor ÄÖÜäöüß";
+          //tags.Genre = "My Genre ÄÖÜäöüß";
+          //tags.Copyright = "My Copyright ÄÖÜäöüß";
+          //tags.Publisher = "My Publisher ÄÖÜäöüß";
+          //tags.Title = "My Title ÄÖÜäöüß";
+
+          tags.AdditionalFields[WMRK] = Wmrk;
+
+          // HACK test only
+          tags.Save ();
+
         } catch (Exception exc) {
-          Log (1, this, $"{nameof (tagfile.Save)}, {exc.ToShortString ()}");
+          Log (1, this, exc.ToShortString ());
           return false;
         }
+      }
+      return true;
 
-        return true;
+    }
+
+    private void tagSubFormat (ATL.Track tags) {
+      var metafmt = tags.MetadataFormats.Where (f => string.Equals (f.ShortName, "ID3v2", StringComparison.InvariantCultureIgnoreCase)).FirstOrDefault ();
+
+      if (!metafmt.IsNull () && ApplEnv.OSVersion.Major < 10) {
+        ATL.Settings.ID3v2_tagSubVersion = 3;
+        Log (3, this, $"track=\"{Title}\" \"{Path.GetFileName (_track.FileName)}\": {metafmt.Name} downgraded to version {ATL.Settings.ID3v2_tagSubVersion}");
+      } else
+        ATL.Settings.ID3v2_tagSubVersion = 4;
+    }
+
+    private string buildPerformerTag (ERoleTagAssignment tagArtist, bool narrator, string authorTag, string[] narrators) {
+      switch (tagArtist) {
+        default:
+          return string.Empty;
+        case ERoleTagAssignment.author:
+          return authorTag;
+        case ERoleTagAssignment.author__narrator__:
+          if (narrator)
+            return $"{authorTag}{ExString.SEPARATOR} {narrators.Combine()}";
+          else
+            return authorTag;
+        case ERoleTagAssignment.author_narrator:
+          return $"{authorTag}{ExString.SEPARATOR} {narrators.Combine()}";
+        case ERoleTagAssignment.__narrator__:
+          if (narrator)
+            return narrators.Combine ();
+          else
+            return string.Empty;
+        case ERoleTagAssignment.narrator:
+          return narrators.Combine ();
       }
 
     }
 
-
     private bool writeMetaDataChapters () {
-      if (_part is null)
-        return false;
-
-      IEnumerable<Chapter> chapters = null;
-      switch (ConvMode) {
-        case EConvMode.single:
-          chapters = _part.Chapters2;
-          break;
-        default:
-          chapters = _track.MetaChapters;
-          break;
-      }
+      var chapters = getChapters ();
 
       if (chapters.IsNullOrEmpty ())
-        return true;
-
-      Log (3, this, $"\"{Path.GetFileName (_track.FileName.SubstitUser())}\": #chapters={chapters.Count()}");
-
+        return false;
 
       //lock (__lockableATL) 
       {
@@ -756,24 +788,9 @@ namespace audiamus.aaxconv.lib {
 
           tagFile = new ATL.Track (_track.FileName);
 
-          ATL.Settings.ID3v2_tagSubVersion = 3;
-          ATL.Settings.MP4_createNeroChapters = true;
-          ATL.Settings.MP4_createQuicktimeChapters = true;
-          ATL.Settings.FileBufferSize = 2_000_000;
-          //ATL.Settings.ForceDiskIO = true;
-
-          tagFile.Chapters.Clear ();
-
-
-          foreach (var ch in chapters) {
-            Log (3, this, ch.ToString ());
-            var chi = new ATL.ChapterInfo {
-              StartTime = (uint)ch.Time.Begin.TotalMilliseconds,
-              EndTime = (uint)ch.Time.End.TotalMilliseconds,
-              Title = ch.Name
-            };
-            tagFile.Chapters.Add (chi);
-          }
+          tagSubFormat (tagFile);
+          
+          writeChapters (tagFile, chapters);
 
           tagFile.Save ();
 
@@ -786,40 +803,51 @@ namespace audiamus.aaxconv.lib {
 
     }
 
+    private IEnumerable<Chapter> getChapters () {
+      if (_part is null)
+        return null;
 
+      IEnumerable<Chapter> chapters = null;
+      switch (ConvMode) {
+        case EConvMode.single:
+          chapters = _part.Chapters2;
+          break;
+        default:
+          chapters = _track.MetaChapters;
+          break;
+      }
+
+      return chapters;
+    }
+
+    private void writeChapters (ATL.Track tagFile, IEnumerable<Chapter> chapters) {
+      if (chapters.IsNullOrEmpty ())
+        return;
+
+      Log (3, this, $"\"{Path.GetFileName (_track.FileName.SubstitUser ())}\": #chapters={chapters.Count ()}");
+
+      //ATL.Settings.ID3v2_tagSubVersion = 3;
+      ATL.Settings.MP4_createNeroChapters = true;
+      ATL.Settings.MP4_createQuicktimeChapters = true;
+      ATL.Settings.FileBufferSize = 2_000_000;
+      //ATL.Settings.ForceDiskIO = true;
+
+      tagFile.Chapters.Clear ();
+
+
+      foreach (var ch in chapters) {
+        Log (3, this, ch.ToString ());
+        var chi = new ATL.ChapterInfo {
+          StartTime = (uint)ch.Time.Begin.TotalMilliseconds,
+          EndTime = (uint)ch.Time.End.TotalMilliseconds,
+          Title = ch.Name
+        };
+        tagFile.Chapters.Add (chi);
+      }
+    }
 
     private string getGenre (AaxFileItem afi) => GetGenre (Settings, afi);
     
-    //TagLib.Mpeg4.AppleTag
-    private static string appleCustomTag (TagLib.Mpeg4.AppleTag atags, string key) {
-      var type = atags.GetType ();
-      var mi = type.GetMethod ("FixId", BindingFlags.NonPublic | BindingFlags.Static);
-      if (mi is null)
-        return null;
-      var bvKey = new TagLib.ByteVector (key);
-      var aBvKey = mi.Invoke (atags, new object[] { bvKey }) as TagLib.ReadOnlyByteVector;
-      var tag = atags.GetText (aBvKey);
-      if (tag.Length > 1) {
-        var sb = new StringBuilder ();
-        foreach (string s in tag) {
-          if (sb.Length > 0)
-            sb.Append ("; ");
-          sb.Append (s);
-        }
-        return sb.ToString ();
-      } else
-        return tag.FirstOrDefault();
-    }
-
-    //TagLib.Audible.Tag
-    private static string audibleCustomTag (TagLib.Audible.Tag atags, string key) {
-      var type = atags.GetType ();
-      var mi = type.GetMethod ("getTag", BindingFlags.NonPublic | BindingFlags.Instance);
-      if (mi is null)
-        return null;
-      var tag = mi.Invoke (atags, new object[] { key }) as string;
-      return tag;
-    }
   }
 
 }

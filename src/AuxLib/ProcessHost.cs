@@ -47,7 +47,7 @@ namespace audiamus.aux {
         p.Start ();
         p.PriorityClass = ProcessPriorityClass.BelowNormal;
 
-        Singleton<ProcessList>.Instance.AddProcess (p);
+        Singleton<ProcessList>.Instance.Add (p);
         Process = p;
 
         if (async) {
@@ -58,7 +58,7 @@ namespace audiamus.aux {
         }
         p.WaitForExit ();
 
-        Singleton<ProcessList>.Instance.RemoveProcess (p);
+        Singleton<ProcessList>.Instance.Remove (p);
         Process = null;
 
         if (!async) {

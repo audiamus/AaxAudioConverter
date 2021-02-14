@@ -119,6 +119,7 @@
     <Compile Include="GenresForm.Designer.cs">
       <DependentUpon>GenresForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="PerformanceHandler.cs" />
     <Compile Include="PreviewForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -304,6 +305,10 @@
       <Project>{d8e74eae-8661-4764-baef-e9e138779d85}</Project>
       <Name>AuxWin.DialogBox</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PerfLib\PerfLib.csproj">
+      <Project>{AB642D01-29BF-4FBC-A001-E1795AC38108}</Project>
+      <Name>PerfLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PropGridLib\PropGridLib.csproj">
       <Project>{7B091DC6-75AA-403C-AD5E-EA3CB6610CD0}</Project>
       <Name>PropGridLib</Name>
@@ -318,6 +323,9 @@
   <ItemGroup>
     <None Include="AaxAudioConverter.latest.de.rtf" />
     <None Include="AaxAudioConverter.latest.rtf" />
+    <None Include="ffmpeg32.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Resources\hidden features de.png" />
     <Content Include="Resources\hidden features en.png" />
     <None Include="ffmpeg.exe">

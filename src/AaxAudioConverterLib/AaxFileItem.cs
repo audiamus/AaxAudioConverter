@@ -6,7 +6,7 @@ using AA = audiamus.aaxconv.lib.AudibleAppContentMetadata;
 using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv.lib {
-  public class AaxFileItem : IEquatable<AaxFileItem> {
+  public class AaxFileItem : IEquatable<AaxFileItem>, IAudioQuality {
     public const string EXT_JPG = ".jpg";
     public const string EXT_PNG = ".png";
     public const string EXT_AAX = ".aax";

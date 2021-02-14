@@ -133,13 +133,14 @@
     <value>Nummerierung der Stücke</value>
   </data>
   <data name="TrackNumberingDescription" xml:space="preserve">
-    <value>Nummerierung der einzelnen Stücke im Titel-Tag. Platzhalter werden durch aktuelle Werte ersetzt.</value>
+    <value>Nummerierung der einzelnen Stücke im Titel-Tag. Platzhalter werden durch aktuelle Werte ersetzt. Nur für Modus "Unterteile Kapitel".</value>
   </data>
   <data name="Narrator" xml:space="preserve">
     <value>Sprecher hinzufügen</value>
   </data>
   <data name="NarratorDescription" xml:space="preserve">
-    <value>Fügt Namen des Sprechers zum Künstler-Tag hinzu, wenn [ja].</value>
+    <value>Fügt Namen des Sprechers zum Künstler-Tag hinzu, wenn [ja].
+Wirkung kann in den Grundeinstellungen angepasst werden.</value>
   </data>
   <data name="GenreNaming" xml:space="preserve">
     <value>Namensgebung Genre</value>

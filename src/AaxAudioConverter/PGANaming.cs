@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Media;
 using System.Resources;
 using audiamus.aaxconv.lib;
@@ -16,6 +17,9 @@ namespace audiamus.aaxconv {
     #endregion const
     
     #region Public Properties
+
+    [Browsable (false)]
+    public Func<bool> IsInSplitChapterMode { private get; set; }
 
     [PropertyOrder (1)]
     [TypeConverter (typeof(EnumChainConverterRM<EFileNaming, ChainPunctuationDash>))]
@@ -125,6 +129,8 @@ namespace audiamus.aaxconv {
     public void Update () {
       PropertyCommands[nameof (ChapterName)].ReadOnly = ChapterNaming != EGeneralNamingEx.custom;
       PropertyCommands[nameof (GenreName)].ReadOnly = GenreNaming != EGeneralNaming.custom;
+      PropertyCommands[nameof (TrackNumbering)].ReadOnly = !(IsInSplitChapterMode?.Invoke() ?? true);
+      PropertyCommands[nameof (ChapterNaming)].ReadOnly = !(IsInSplitChapterMode?.Invoke() ?? true);
       naming ();
       RefreshDelegate?.Invoke ();
     }

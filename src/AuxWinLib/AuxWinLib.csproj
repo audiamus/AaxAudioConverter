@@ -53,6 +53,9 @@
     <Compile Include="InteractionCallbackHandler.cs" />
     <Compile Include="ListViewColumnSorter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VerticalProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AuxLib\AuxLib.csproj">

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using audiamus.aux.ex;
+using audiamus.aaxconv.lib.ex;
 using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv.lib {
@@ -61,10 +62,11 @@ namespace audiamus.aaxconv.lib {
     }
 
     public EParts CheckParts () {
-      Parts.Sort ((x, y) => x.AaxFileItem.BookTitle.CompareTo (y.AaxFileItem.BookTitle));
+      //Parts.Sort ((x, y) => x.AaxFileItem.BookTitle.CompareTo (y.AaxFileItem.BookTitle));
       bool hasParts = Parts.Where (p => p.PartNumber > 0).Any ();
       bool allParts = false;
       if (hasParts) {
+        Parts.Sort ((x, y) => x.PartNumber.CompareTo (y.PartNumber));
         int highestPart = Parts.Select (x => x.PartNumber).Max ();
         int partsSum = Parts.Select (x => x.PartNumber).Sum ();
         int expectedSum = highestPart * (highestPart + 1) / 2;
@@ -82,15 +84,20 @@ namespace audiamus.aaxconv.lib {
       return PartsType;
     }
 
-    public void InitProgress (EConvFormat format) {
+    public void InitProgress (IConvSettings settings) {
       if (Parts.IsNullOrEmpty ())
         return;
 
-      bool isAA = Parts.First ().AaxFileItem.IsAA;
-      bool wantMp3 = format == EConvFormat.mp3;
-      bool transcode = isAA != wantMp3;
+      //var afi = Parts.First ().AaxFileItem;
+      //var (abr, sbr) = bitrateSettings.ApplicableBitRate (afi.AvgBitRate);
+      //bool changeBitRate = abr != 0;
 
-      Progress = new ProgressData (Parts.Count, transcode);
+      //bool isAA = afi.IsAA;
+      //bool wantMp3 = format == EConvFormat.mp3;
+      //bool transcode = changeBitRate || isAA != wantMp3;
+      bool isTranscode = Parts.First ().IsTrancodeConversion (settings);
+
+      Progress = new ProgressData (Parts.Count, isTranscode);
     }
 
 
@@ -212,6 +219,20 @@ namespace audiamus.aaxconv.lib {
         part.CreateCueSheet (settings);
     }
 
+    public void AdjustTimesWithPreference (EPreferEmbeddedChapterTimes preference) {
+      Log (3, this, () => $"\"{SortingTitle.Shorten ()}\"");
+      foreach (var part in Parts)
+        part.AdjustTimesWithPreference (preference);
+    }
+
+
+    public void PreferEmbeddedChapterTimes (EPreferEmbeddedChapterTimes preference) {
+      if (!HasNamedChapters || preference == EPreferEmbeddedChapterTimes.no)
+        return;
+      Log (3, this, () => $"\"{SortingTitle.Shorten ()}\"");
+      foreach (var part in Parts)
+        part.PreferEmbeddedChapterTimes (preference == EPreferEmbeddedChapterTimes.always);
+    }
 
     public void SetMetaChapters (IConvSettings settings) {
       Log (3, this, () => $"\"{SortingTitle.Shorten ()}\"");

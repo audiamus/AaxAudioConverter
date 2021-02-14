@@ -133,13 +133,14 @@
     <value>Track numbering pattern</value>
   </data>
   <data name="TrackNumberingDescription" xml:space="preserve">
-    <value>Track numbering pattern in title tag. Placeholders will be substituted with current values.</value>
+    <value>Track numbering pattern in title tag. Placeholders will be substituted with current values. For "split-chapter" mode only.</value>
   </data>
   <data name="Narrator" xml:space="preserve">
     <value>Add Narrator</value>
   </data>
   <data name="NarratorDescription" xml:space="preserve">
-    <value>Will add narrator name to artists/performers tag if [yes].</value>
+    <value>Will add narrator name to artists tag if [yes].
+Behavior can be customized in Basic Settings.</value>
   </data>
   <data name="GenreNaming" xml:space="preserve">
     <value>Genre naming</value>

@@ -70,6 +70,18 @@ namespace audiamus.aaxconv.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RelaxedFFmpegVersionCheck {
+            get {
+                return ((bool)(this["RelaxedFFmpegVersionCheck"]));
+            }
+            set {
+                this["RelaxedFFmpegVersionCheck"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("mp3")]
         public global::audiamus.aaxconv.lib.EConvFormat ConvFormat {
             get {
@@ -452,6 +464,30 @@ namespace audiamus.aaxconv.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool VariableBitRate {
+            get {
+                return ((bool)(this["VariableBitRate"]));
+            }
+            set {
+                this["VariableBitRate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("off")]
+        public global::audiamus.aaxconv.lib.EReducedBitRate ReducedBitRate {
+            get {
+                return ((global::audiamus.aaxconv.lib.EReducedBitRate)(this["ReducedBitRate"]));
+            }
+            set {
+                this["ReducedBitRate"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool AutoLaunchPlayer {
             get {
@@ -523,18 +559,6 @@ namespace audiamus.aaxconv.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public string NoStartupTip {
-            get {
-                return ((string)(this["NoStartupTip"]));
-            }
-            set {
-                this["NoStartupTip"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int SettingsTab {
             get {
@@ -542,6 +566,66 @@ namespace audiamus.aaxconv.Properties {
             }
             set {
                 this["SettingsTab"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("no")]
+        public global::audiamus.aaxconv.lib.EPreferEmbeddedChapterTimes PreferEmbeddedChapterTimes {
+            get {
+                return ((global::audiamus.aaxconv.lib.EPreferEmbeddedChapterTimes)(this["PreferEmbeddedChapterTimes"]));
+            }
+            set {
+                this["PreferEmbeddedChapterTimes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("author__narrator__")]
+        public global::audiamus.aaxconv.lib.ERoleTagAssignment TagArtist {
+            get {
+                return ((global::audiamus.aaxconv.lib.ERoleTagAssignment)(this["TagArtist"]));
+            }
+            set {
+                this["TagArtist"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("none")]
+        public global::audiamus.aaxconv.lib.ERoleTagAssignment TagAlbumArtist {
+            get {
+                return ((global::audiamus.aaxconv.lib.ERoleTagAssignment)(this["TagAlbumArtist"]));
+            }
+            set {
+                this["TagAlbumArtist"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("none")]
+        public global::audiamus.aaxconv.lib.ERoleTagAssignment TagComposer {
+            get {
+                return ((global::audiamus.aaxconv.lib.ERoleTagAssignment)(this["TagComposer"]));
+            }
+            set {
+                this["TagComposer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("none")]
+        public global::audiamus.aaxconv.lib.ERoleTagAssignment TagConductor {
+            get {
+                return ((global::audiamus.aaxconv.lib.ERoleTagAssignment)(this["TagConductor"]));
+            }
+            set {
+                this["TagConductor"] = value;
             }
         }
     }

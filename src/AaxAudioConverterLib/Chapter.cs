@@ -6,7 +6,12 @@ using static audiamus.aux.Logging;
 
 namespace audiamus.aaxconv.lib {
 
-  class Chapter {
+  interface IChapter {
+    ITimeInterval Time { get; }
+    string Name { get; }
+  }
+
+  class Chapter : IChapter {
 
     public const int MS_MIN_CHAPTER_LENGTH = 1;
     public static readonly TimeSpan TS_MIN_LAST_CHAPTER_LENGTH = TimeSpan.FromSeconds (1);
@@ -38,7 +43,9 @@ namespace audiamus.aaxconv.lib {
 
     public string TmpFileName { get; set; }
 
-    public TimeAdjustments TimeAdjustment { get; private set; } 
+    public TimeAdjustments TimeAdjustment { get; private set; }
+
+    ITimeInterval IChapter.Time => Time;
 
     public Chapter () { }
 
@@ -181,18 +188,87 @@ namespace audiamus.aaxconv.lib {
       handleChapterMark (nextChapter);
     }
 
+    private void setNewBgn (TimeSpan begin) {
+      Log (3, this, () => $"named: {this}, bgn time replaced with: {begin.ToStringHMSm()}");
+      if (TimeAdjustment is null)
+        TimeAdjustment = new TimeAdjustments ();
+      TimeAdjustment.Begin = begin - Time.Begin; 
+    }
 
-    public void AdjustTime () {
-      Log (3, this, () => $"{this}; {TimeAdjustment}");
+    public IEnumerable<Chapter> SetNewEnd (TimeSpan end, Chapter nextChapter, bool always) {
+      if (!always) {
+        bool isSil = true;
+        if (end < Time.End) {
+          if (Silences != null) {
+            TimeSpan relEnd = end - Time.Begin;
+            isSil = Silences.Where (s => s.Begin <= relEnd && s.End >= relEnd).Any ();
+          }
+        } else if (nextChapter?.Silences != null) {
+          TimeSpan relBgn = end - nextChapter.Time.Begin;
+          isSil = nextChapter.Silences.Where (s => s.Begin <= relBgn && s.End >= relBgn).Any ();
+        };
+        if (!isSil)
+          return null;
+      }
+
+      Log (3, this, () => $"named: {this}, end time replaced with: {end.ToStringHMSm()}");
+      var chapters = new List<Chapter> ();
+      if (TimeAdjustment is null)
+        TimeAdjustment = new TimeAdjustments ();
+      TimeAdjustment.End = end - Time.End;
+      chapters.Add (this);
+      if (!nextChapter.IsNull ()) {
+        nextChapter.setNewBgn (end);
+        chapters.Add (nextChapter);
+      }
+      return chapters;
+    }
+
+    public void AdjustTime (Chapter nextChapter) {
       if (TimeAdjustment is null)
         return;
+
+      Log (3, this, () => $"{this}; {TimeAdjustment}");
+
+      // if the chapter becomes longer, there may be silence at the beginning of the next chapter that must go here.
+      // if the chapter becomes shorter, there may be silence at the end of this chapter that must go to the next chapter.
+      // it will also affect partial silence between both chapters which has to be split
+      // solved by simply duplicating affected silences
+
+      if (nextChapter?.Silences != null && TimeAdjustment.End != TimeSpan.Zero) {
+        TimeSpan adjEnd = Time.Duration + TimeAdjustment.End;
+        if (TimeAdjustment.End > TimeSpan.Zero) {
+          // need all silences in next with a begin earlier than adjustment
+          var affected = nextChapter.Silences.Where (s => s.Begin <= TimeAdjustment.End).ToList();
+
+          foreach (var aff in affected) {
+            var sil = new TimeInterval (aff, Time.Duration);
+            Silences.Add (sil);
+          }
+
+
+        } else { // < Zero
+          // need all silences in this with an end later than adjustment
+          var affected = Silences.Where (s => s.End >= adjEnd).ToList();
+
+          foreach (var aff in affected) {
+            var sil = new TimeInterval (aff, -Time.Duration);
+            nextChapter.Silences.Add (sil);
+          }
+          nextChapter.Silences.Sort ((x, y) => TimeSpan.Compare(x.Begin, y.Begin));
+
+        }
+      }
+
 
       Time.Begin += TimeAdjustment.Begin;
       Time.End += TimeAdjustment.End;
 
       if (!Silences.IsNullOrEmpty()) {
-        if (TimeAdjustment.Begin != TimeSpan.Zero)
-          foreach (var sil in Silences) {
+        var zeros = new List<int> ();
+        if (TimeAdjustment.Begin != TimeSpan.Zero) {
+          for (int i = 0; i < Silences.Count; i++) {
+            var sil = Silences[i];
             if (TimeAdjustment.Begin > TimeSpan.Zero) {
               sil.Begin -= TimeAdjustment.Begin;
               sil.End -= TimeAdjustment.Begin;
@@ -200,14 +276,31 @@ namespace audiamus.aaxconv.lib {
               sil.End -= TimeAdjustment.Begin;
               sil.Begin -= TimeAdjustment.Begin;
             }
+
+            if (sil.Begin < TimeSpan.Zero)
+              sil.Begin = TimeSpan.Zero;
+            if (sil.Duration == TimeSpan.Zero)
+              zeros.Add (i);
           }
 
+          zeros.Reverse ();
+          foreach (int i in zeros)
+            Silences.RemoveAt (i);
+
+        }
         if (TimeAdjustment.End != TimeSpan.Zero) {
+          while (Silences.Last().Begin > Time.Duration )
+            Silences.RemoveAt (Silences.Count - 1);
+
           var sil = Silences.Last ();
-          if (sil.Begin > Time.Duration)
-            Silences.Remove (sil);
-          else 
-            sil.End = Time.Duration; // should equal chapter duration
+          if (sil.End > Time.Duration)
+            sil.End = Time.Duration;
+
+          //var sil = Silences.Last ();
+          //if (sil.Begin > Time.Duration)
+          //  Silences.Remove (sil);
+          //else 
+          //  sil.End = Time.Duration; // should equal chapter duration
         }
       }
 
@@ -330,6 +423,10 @@ namespace audiamus.aaxconv.lib {
 
       TimeInterval silence = closestToChapterMark (silences);
 
+      if (silence is null) {
+        Log (3, this, () => $"{this}; silence is <null>");
+        return true;
+      }
       Log (3, this, () => $"{this}; assumed end #{silences.IndexOf (silence) + 1}/{silences.Count}: {silence}");
 
       setAdjustment (next, silence);
@@ -378,6 +475,9 @@ namespace audiamus.aaxconv.lib {
     }
 
     private void setAdjustment (Chapter nextChapter, TimeInterval silence) {
+      if (silence is null)
+        return;
+
       if (TimeAdjustment is null)
         TimeAdjustment = new TimeAdjustments ();
 

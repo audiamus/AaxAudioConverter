@@ -12,10 +12,13 @@ namespace audiamus.aaxconv.lib {
     private const int IVL_MS = 200;
 
 
-    public static void Copy (string sourceFileName, string destFileName, bool overwrite, Action<ProgressMessage> report = null) =>
-     Copy (sourceFileName, destFileName, overwrite, null, report);
+    public static bool Copy (string sourceFileName, string destFileName, bool overwrite, 
+        Action<ProgressMessage> report = null, Func<bool> cancel = null) =>
+     Copy (sourceFileName, destFileName, overwrite, null, report, cancel);
 
-    public static void Copy (string sourceFileName, string destFileName, bool overwrite, IFileCopyCallout callout, Action<ProgressMessage> report = null) {
+    public static bool Copy (string sourceFileName, string destFileName, bool overwrite, IFileCopyCallout callout, 
+      Action<ProgressMessage> report = null, Func<bool> cancel = null
+    ) {
       byte[] buf = new byte[BUFSIZ];
 
       DateTime dt0 = DateTime.Now;
@@ -31,6 +34,10 @@ namespace audiamus.aaxconv.lib {
 
           int read = 0;
           while (true) {
+
+            if (cancel?.Invoke () ?? false)
+              return false;
+
             read = wfioRd.ReadBlocks (BUFSIZ);
             if (read <= 0)
               break;
@@ -51,6 +58,7 @@ namespace audiamus.aaxconv.lib {
           };
         }
       }
+      return true;
     }
   }
 }

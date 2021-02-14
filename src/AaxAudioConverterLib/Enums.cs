@@ -114,4 +114,37 @@ namespace audiamus.aaxconv.lib {
     MaxSplitChapter = 15,
     MaxTimeSplit = 90
   }
+
+  public enum EReducedBitRate {
+    off,
+    _128k,
+    _96k,
+    _64k,
+    _48k,
+    _32k,
+    _24k
+  }
+
+  public enum EPreferEmbeddedChapterTimes {
+    no,
+    ifSilent,
+    always
+  }
+
+  public enum ERoleTag {
+    none,
+    artist,
+    albumArtist,
+    composer,
+    conductor
+  }
+
+  public enum ERoleTagAssignment {
+    none,
+    author,
+    author__narrator__,
+    author_narrator,
+    __narrator__,
+    narrator
+  }
 }

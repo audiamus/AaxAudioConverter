@@ -386,4 +386,13 @@ Copies will not be made. </value>
   <data name="MsgInvalidInternalFileType" xml:space="preserve">
     <value>Actual file format is not AAX or AA.</value>
   </data>
+  <data name="MsgFFmpegFileError1" xml:space="preserve">
+    <value>FFmpeg transcoding error for</value>
+  </data>
+  <data name="MsgFFmpegFileError2" xml:space="preserve">
+    <value>and</value>
+  </data>
+  <data name="MsgFFmpegFileError3" xml:space="preserve">
+    <value>more files.</value>
+  </data>
 </root>

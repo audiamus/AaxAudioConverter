@@ -34,4 +34,4 @@
 |Einstellungen Kapitel
 |![](Settings3.de.png?raw=true)
 |Einstellungen Meta-Einträge
-|![](Settings2.de.png?raw=true)
+|![](Settings4.de.png?raw=true)

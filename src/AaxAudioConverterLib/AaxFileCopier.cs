@@ -44,10 +44,10 @@ namespace audiamus.aaxconv.lib {
       } else
         stub = _book.TitleFile;
 
+      bool simsBySeriesCopied = false;
+
       foreach (var part in _book.Parts) {
         string indir = Path.GetDirectoryName (part.AaxFileItem.FileName);
-
-        //using (new ResourceGuard (() => Callbacks.Progress (new ProgressMessage { IncSteps = 1 }))) {
 
         if (string.Equals (indir.StripUnc (), outdir.StripUnc (), StringComparison.InvariantCultureIgnoreCase)) {
           Log (3, this, $"same dir, skip: indir=\"{indir.SubstitUser ()}\", outdir=\"{outdir.SubstitUser ()}\"");
@@ -83,19 +83,32 @@ namespace audiamus.aaxconv.lib {
         if (!succ)
           return false;
 
-        if (!(cmf?.Filename is null)) {
-          string metafile = Path.GetFileName (cmf.Filename);
-          string metaOutfile = Path.Combine (outdir, metafile);
-          try {
-            Log (3, this, $"copy \"{cmf.Filename.SubstitUser ()}\" to \"{metaOutfile.SubstitUser ()}\"");
-            File.Copy (cmf.Filename, metaOutfile, true);
-          } catch (Exception exc) {
-            Log (1, this, exc.ToShortString ());
+        copyMetaFie (outdir, cmf);
+
+        if (!simsBySeriesCopied) {
+          if (part.AaxFileItem.SimsBySeriesFile is null) {
+            var appSimsBySeries = new AudibleAppSimsBySeries ();
+            appSimsBySeries.GetSimsBySeries (part, true);
           }
-          //}
+          var smf = part.AaxFileItem.SimsBySeriesFile;
+          copyMetaFie (outdir, smf);
+          simsBySeriesCopied = true;
         }
       }
       return true;
+    }
+
+    private void copyMetaFie (string outdir, AudibleAppContentMetadata.AsinJsonFile mf) {
+      if (!(mf?.Filename is null)) {
+        string metafile = Path.GetFileName (mf.Filename);
+        string metaOutfile = Path.Combine (outdir, metafile);
+        try {
+          Log (3, this, $"copy \"{mf.Filename.SubstitUser ()}\" to \"{metaOutfile.SubstitUser ()}\"");
+          File.Copy (mf.Filename, metaOutfile, true);
+        } catch (Exception exc) {
+          Log (1, this, exc.ToShortString ());
+        }
+      }
     }
   }
 }

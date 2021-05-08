@@ -27,14 +27,91 @@ namespace audiamus.aaxconv.lib {
       }
     }
 
+    public class ExternalBookMeta {
+
+      const string RGX_SEQNO = @"(\D*)((\d*)(\.\d+)?)(\D*)";
+      private static readonly Regex RgxSeqNo = new Regex (RGX_SEQNO, RegexOptions.Compiled);  
+
+      public List<string> Authors { get; set; }
+      public List<(string title, string seq)> Series { get; set; }
+      public string Book { get; set; }
+
+      public bool HasSeries => !SeriesString ().IsNullOrWhiteSpace ();
+
+      public override string ToString () {
+        string author = Authors.FirstOrDefault ();
+        var series = Series?.FirstOrDefault ();
+        if (series is null)
+          return $"{author} - {Book}";
+        else {
+          string title = series.Value.title;
+          string seq = series.Value.seq;
+          return $"{author} - {title} [{seq}] - {Book}";
+        }
+      }
+
+      public string SeriesString () {
+        var series = Series?.FirstOrDefault ();
+        if (series is null)
+          return null;
+        else 
+          return series.Value.title;
+      }
+
+      public string ToString (byte numDigits) {
+        string author = Authors.FirstOrDefault();
+        var series = Series?.FirstOrDefault ();
+        if (series is null)
+          return $"{author} - {Book}";
+        else {
+          string title = series.Value.title;
+          return $"{author} - {title} {SeqStringFramed (numDigits)} - {Book}";
+        }
+      }
+
+      public string SeqStringFramed (byte numDigits) {
+        string seq = SeqString (numDigits);
+        if (seq.IsNullOrWhiteSpace ())
+          return string.Empty;
+        return $"[{seq}]";
+      }
+
+      public string SeqString (byte numDigits) {
+        var series = Series?.FirstOrDefault ();
+        if (series is null)
+          return string.Empty;
+        string sn = series.Value.seq;
+        var match = RgxSeqNo.Match (sn);
+        if (!match.Success)
+          return sn;
+
+        string p1 = match.Groups[1].Value;
+        string p2 = match.Groups[2].Value;
+        string p2a = match.Groups[3].Value;
+        string p2b = match.Groups[4].Value;
+        string p3 = match.Groups[5].Value;
+
+        if (p2.IsNullOrWhiteSpace ())
+          return p1 + p3;
+
+        int.TryParse (p2a, out int p2ai);
+        string format = "D" + numDigits;
+        string p2af = p2ai.ToString (format);
+
+        return p1 + p2af + p2b + p3;
+      }
+    }
+
     public ProgressData Progress { get; private set; }
     public string SortingTitle { get; private set; }
     public string PartNameStub { get; set; }
     public string ChapterNameStub { get; set; }
     public bool IsNewAuthor { get; set; }
+    public bool IsNewSeries { get; set; }
     public string OutDirectoryLong { get; set; }
     public List<Part> Parts { get; } = new List<Part> ();
     public EParts PartsType { get; private set; }
+    public ExternalBookMeta ExternalMeta { get; set; }
 
     public string AuthorTag => CustomNames?.AuthorTag ?? TagCaption.Author;
     public string AuthorFile => CustomNames?.AuthorFile ?? FileCaption.Author;
@@ -50,6 +127,8 @@ namespace audiamus.aaxconv.lib {
     internal Caption TagCaption { get; set; }
     internal CustomTagFileNames CustomNames { get; set; }
 
+    internal bool HasSeries => ExternalMeta?.HasSeries ?? false; 
+    
     public Book (string sortingtitle) => SortingTitle = sortingtitle;
 
     public Book (AaxFileItem fi) : this (fi.BookTitle) => AddPart (fi);

@@ -18,6 +18,7 @@ using audiamus.aux.ex;
 using static audiamus.aux.ApplEnv;
 using static audiamus.aux.Logging;
 using Encoding = audiamus.aux.Encoding;
+using AACM = audiamus.aaxconv.lib.AudibleAppContentMetadata;
 
 namespace audiamus.aaxconv.lib {
   public partial class AaxAudioConverter : IPreviewTitle, IDisposable {
@@ -157,6 +158,12 @@ namespace audiamus.aaxconv.lib {
       }
     }
 
+    public async Task<bool> VerifyFFmpegPathVersionAsync (
+      Func<InteractionMessage, bool?> callback, bool? relaxedFFmpegVersionCheck = null
+    ) {
+      return await Task.Run (() => VerifyFFmpegPathVersion (callback, relaxedFFmpegVersionCheck));
+    }
+
     public bool VerifyFFmpegPathVersion (Func<InteractionMessage, bool?> callback, bool? relaxedFFmpegVersionCheck = null) {
       var version = VerifyFFmpegPath (relaxedFFmpegVersionCheck);
       bool succ = !version.IsNull();
@@ -276,6 +283,7 @@ namespace audiamus.aaxconv.lib {
 
           try {
             var item = new AaxFileItem (path);
+            Log (3, this, () => $"\"{item}\"");
             items.Add (item);
           } catch (Exception exc) {
             exceptionCallback (exc);
@@ -437,6 +445,12 @@ namespace audiamus.aaxconv.lib {
         if (!book.IsNull ())
           books.Add (book);
 
+
+        if (Settings.ConvertByFileDate)
+          books = books
+            .OrderBy (b => b.Parts.FirstOrDefault ()?.AaxFileItem.FileDate ?? default)
+            .ToList ();
+
         convertBooksParallel (books);
 
         setAutoLaunchAudioFile (books);
@@ -474,16 +488,36 @@ namespace audiamus.aaxconv.lib {
     private void convertBooksParallel (IEnumerable<Book> books) {
       Log (2, this, () => $"#books={books.Count ()}, #parts={books.SelectMany (b => b.Parts).Count ()}");
 
-      MultiBookInitDirectoryQuestion = books.Count () > 1 ? new MultiBookInitDirectoryHandling () : null;
+      initMultiBookInitDirectoryQuestion (books);
 
       initProgress (books);
-      
+
       // parallel only in "single" mode
       try {
         Parallel.ForEach (books, parallelOptions (DegreeOfParallelismLimit.Book), b => convertBook (b));
       } catch (OperationCanceledException) { }
 
       cleanTempDirectory ();
+    }
+
+    private void initMultiBookInitDirectoryQuestion (IEnumerable<Book> books) {
+      bool preAnswered = Settings.OutFolderConflict != EOutFolderConflict.ask;
+      bool needsMultiBookInitDirectoryQuestion = books.Count () > 1 || preAnswered;
+
+      MultiBookInitDirectoryQuestion = needsMultiBookInitDirectoryQuestion ? new MultiBookInitDirectoryHandling () : null;
+      if (MultiBookInitDirectoryQuestion != null && preAnswered) {
+        MultiBookInitDirectoryQuestion.HasBeenAnswered = true;
+        bool? answer = null;
+        switch (Settings.OutFolderConflict) {
+          case EOutFolderConflict.overwrite:
+            answer = true;
+            break;
+          case EOutFolderConflict.new_folder:
+            answer = false;
+            break;
+        }
+        MultiBookInitDirectoryQuestion.Answer = answer;
+      }
     }
 
     private void initProgress (IEnumerable<Book> books) {
@@ -570,6 +604,9 @@ namespace audiamus.aaxconv.lib {
           Log (3, this, () => $"{nameof (ProgressMessage.ResetSteps)}");
           Callbacks.Progress (new ProgressMessage { ResetSteps = true });
         }
+
+        // long books, single mode: default 32bit FFmpeg may run out of memory
+        book.Parts.ForEach (p => p.SetFFmpegPrefer64Bit (Settings));
 
         // Check activation codes
         //   and generally decodable format 
@@ -1198,7 +1235,8 @@ namespace audiamus.aaxconv.lib {
 
             FFmpeg ffmpeg1 = new FFmpeg (part.AaxFileItem.FileName) {
               Cancel = Callbacks.Cancel,
-              Progress = threadProg.Report
+              Progress = threadProg.Report,
+              PreferInternal64Bit = part.FFmpegPrefer64Bit
             };
             Log (3, this, () => $"{nameof (ffmpeg1.Transcode)} in=\"{part.AaxFileItem.FileName.SubstitUser ()}\", out=\"{part.TmpFileName.SubstitUser ()}\"");
             bool succ = ffmpeg1.Transcode (part.TmpFileName, FFmpeg.ETranscode.copy | FFmpeg.ETranscode.noChapters, part.ActivationCode);
@@ -1431,7 +1469,8 @@ namespace audiamus.aaxconv.lib {
               var t = chapter.Time;
               FFmpeg ffmpeg1 = new FFmpeg (infile) {
                 Cancel = Callbacks.Cancel,
-                Progress = threadProg.Report
+                Progress = threadProg.Report,
+                PreferInternal64Bit = part.FFmpegPrefer64Bit
               };
               var modifiers = FFmpeg.ETranscode.copy | FFmpeg.ETranscode.noChapters;
               Log (3, this, () => $"{nameof (FFmpeg.Transcode)} out=\"{chapter.TmpFileName.SubstitUser ()}\", ac={!string.IsNullOrEmpty (actcode)}, {t}");
@@ -1534,7 +1573,8 @@ namespace audiamus.aaxconv.lib {
               var t = chapter.Time;
               FFmpeg ffmpeg1 = new FFmpeg (infile) {
                 Cancel = Callbacks.Cancel,
-                Progress = threadProg.Report
+                Progress = threadProg.Report,
+                PreferInternal64Bit = part.FFmpegPrefer64Bit
               };
               var modifiers = FFmpeg.ETranscode.copy | FFmpeg.ETranscode.noChapters;
               Log (3, this, () => $"{nameof (ffmpeg1.Transcode)} out=\"{chapter.TmpFileName.SubstitUser()}\", {t}");
@@ -1554,7 +1594,8 @@ namespace audiamus.aaxconv.lib {
             using (var threadProg = new ThreadProgress (Callbacks.Progress)) {
               FFmpeg ffmpeg2 = new FFmpeg (chapter.TmpFileName) {
                 Cancel = Callbacks.Cancel,
-                Progress = threadProg.Report
+                Progress = threadProg.Report,
+                PreferInternal64Bit = part.FFmpegPrefer64Bit
               };
               bool succ = ffmpeg2.DetectSilence (part.ActivationCode);
               if (!succ) {
@@ -1761,7 +1802,8 @@ namespace audiamus.aaxconv.lib {
     private FFmpeg createFFmpegForTranscoding (ThreadProgress threadProg, Book.Part part, string inFile, string metafile = null) {
       var ffmpeg = new FFmpeg (inFile, metafile) {
         Cancel = Callbacks.Cancel,
-        Progress = threadProg.Report
+        Progress = threadProg.Report,
+        PreferInternal64Bit = part.FFmpegPrefer64Bit
       };
       bool applyBitrateAnyway = Settings.ConvFormat == EConvFormat.mp3 && !part.IsMp3Stream;
       ffmpeg.SetBitRate (Settings, part.AaxFileItem, applyBitrateAnyway);
@@ -1863,7 +1905,8 @@ namespace audiamus.aaxconv.lib {
 
       FFmpeg ffmpeg = new FFmpeg (sourceFile) {
         Cancel = Callbacks.Cancel,
-        Progress = threadProg.Report
+        Progress = threadProg.Report,
+        PreferInternal64Bit = part.FFmpegPrefer64Bit
       };
       
       succ = transcodeTrack (ffmpeg, modifiers, part.ActivationCode, tim, intermediateFile, part, null);
@@ -1909,11 +1952,27 @@ namespace audiamus.aaxconv.lib {
     }
 
     private void getContentMetadata (Book.Part part) {
-      if (Settings.NamedChapters == ENamedChapters.no)
+      bool namedChapters = Settings.NamedChapters != ENamedChapters.no;
+      bool withSeries = Settings.WithSeriesTitle;
+      if (!(namedChapters || withSeries))
         return;
 
+      AACM.EFlags flags = default;
+      if (withSeries && !namedChapters) 
+        flags = AACM.EFlags.skuOnly;
+
       var appMetadadata = new AudibleAppContentMetadata ();
-      appMetadadata.GetContentMetadata (part);
+      appMetadadata.GetContentMetadata (part, flags);
+
+      var simsBySeries = new AudibleAppSimsBySeries ();
+      simsBySeries.GetSimsBySeries (part);
+
+      // test only
+      //var ser = part.Book.ExternalMeta;
+      //string s1 = ser.SeqString (Settings.NumDigitsSeriesSeqNo);
+      //string s2 = ser.SeqString (Settings.NumDigitsSeriesSeqNo);
+      //string s3 = ser.SeqString (Settings.NumDigitsSeriesSeqNo);
+      //string s4 = ser.SeqString (Settings.NumDigitsSeriesSeqNo);
     }
 
     private bool updateTags (Book book, Track track) {
@@ -2002,10 +2061,10 @@ namespace audiamus.aaxconv.lib {
 
     private void deleteOutDirectory (Book book) {
       try {
-        DirectoryInfo dia = Directory.GetParent (book.OutDirectoryLong);
-        DirectoryInfo dib = new DirectoryInfo (book.OutDirectoryLong);
+        DirectoryInfo diParent = Directory.GetParent (book.OutDirectoryLong);
+        DirectoryInfo diBook = new DirectoryInfo (book.OutDirectoryLong);
         if (book.PartsType != Book.EParts.some) {
-          dib.Delete (true);
+          diBook.Delete (true);
         } else {
           foreach (var part in book.Parts) {
             string dir = TagAndFileNamingHelper.GetPartDirectoryName (Resources, Settings, part);
@@ -2014,16 +2073,28 @@ namespace audiamus.aaxconv.lib {
               dic.Delete (true);
             }
           }
-          int n = dib.GetDirectories ().Count ();
+          int n = diBook.GetDirectories ().Count ();
           if (n == 0)
-            dib.Delete (true);
+            diBook.Delete (true);
         }
 
-        if (!Settings.FlatFolders && book.IsNewAuthor && !(dia is null)) {
-          int n = dia.GetDirectories ().Count ();
-          if (n == 0)
-            dia.Delete (true);
+        if (!Settings.FlatFolders && !(diParent is null)) {
+          if (book.IsNewSeries) {
+            DirectoryInfo diParentAuthor = diParent.Parent;
+            int n = diParent.GetDirectories ().Count ();
+            if (n == 0) {
+              diParent.Delete (true);
+              diParent = diParentAuthor;
+            }
+          }
+          if (book.IsNewAuthor && !(diParent is null)) {
+            int n = diParent.GetDirectories ().Count ();
+            if (n == 0) {
+              diParent.Delete (true);
+            }
+          }
         }
+
       } catch (Exception exc) {
         exceptionCallback (exc);
       }
@@ -2066,18 +2137,53 @@ namespace audiamus.aaxconv.lib {
 
       string rootDirLong = Settings.OutputDirectory.AsUnc();
 
-      string outDirLong;
-      string outDirAuthorLong;
+      string outDirLong = rootDirLong;
+      string outDirBookParentLong = rootDirLong;
+      string series = string.Empty;
+      string seriesSeqNo = string.Empty;
       try {
-        if (string.IsNullOrWhiteSpace (author)) {
-          outDirAuthorLong = rootDirLong;
-          outDirLong = Path.Combine (rootDirLong, title);
-        } else {
-          outDirAuthorLong = Path.Combine (rootDirLong, author);
-          if (!Directory.Exists (outDirAuthorLong))
+
+        // author + series + title
+        
+        // do we have an author?
+        if (!string.IsNullOrWhiteSpace (author)) {
+          outDirLong = Path.Combine (outDirLong, author);
+          if (!Directory.Exists (outDirLong))
             book.IsNewAuthor = true;
-          outDirLong = Path.Combine (outDirAuthorLong, title);
+          outDirBookParentLong = outDirLong;
         }
+
+        // do we have a series?
+        if (book.HasSeries) {
+          series = book.ExternalMeta.SeriesString().Prune();
+          seriesSeqNo = book.ExternalMeta.SeqStringFramed (Settings.NumDigitsSeriesSeqNo).Prune();
+          outDirLong = Path.Combine (outDirLong, series);
+          if (!Directory.Exists (outDirLong))
+            book.IsNewSeries = true;
+          outDirBookParentLong = outDirLong;
+        }
+
+        // we always should have a title
+
+        // full caption for title folder?
+        if (Settings.FullCaptionBookFolder) {
+          var sb = new StringBuilder ();
+          if (!author.IsNullOrWhiteSpace ()) { 
+            sb.Append (author);
+            sb.Append (" - ");
+          }
+          if (!series.IsNullOrWhiteSpace ()) {
+            sb.Append (series);
+            if (!seriesSeqNo.IsNullOrWhiteSpace ())
+              sb.Append ($" {seriesSeqNo}");
+            sb.Append (" - ");
+          }
+          sb.Append (title);
+          title = sb.ToString ();
+        } else if (!seriesSeqNo.IsNullOrWhiteSpace ())
+          title = $"{seriesSeqNo} {title}";
+
+        outDirLong = Path.Combine (outDirLong, title);
 
         bool newFolder = false;
         if (Directory.Exists (outDirLong)) {
@@ -2098,7 +2204,7 @@ namespace audiamus.aaxconv.lib {
           while (true) {
             dirtitle = $"{title} ({n})";
             outDirLong = Path.Combine (
-              outDirAuthorLong,
+              outDirBookParentLong,
               dirtitle
             );
             if (!Directory.Exists (outDirLong))
@@ -2270,6 +2376,6 @@ namespace audiamus.aaxconv.lib {
       Callbacks.Interact (message, ECallbackType.error);
     }
 
-#endregion Private Methods
+    #endregion Private Methods
   }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using audiamus.aux.ex;
 using audiamus.aaxconv.lib.ex;
 using static audiamus.aux.Logging;
+using audiamus.aux;
 
 namespace audiamus.aaxconv.lib {
   partial class Book {
@@ -24,11 +25,14 @@ namespace audiamus.aaxconv.lib {
       public TimeSpan BrandOutro { get; set; }
       public TimeSpan Duration { get; set; }
       public bool ChaptersCurtailed { get; set; }
+      public string SKU { get; set; }
 
       public string TmpFileName { get; set; }
       public string TmpFileNameIntermedCopy { get; set; }
       public string TmpFileNameAACFixed { get; set; }
       public string ApplicableInFileNameForTranscode => TmpFileName ?? TmpFileNameAACFixed ?? AaxFileItem.FileName;
+
+      public bool FFmpegPrefer64Bit { get; private set; }
 
       public bool IsMp3Stream {
         get
@@ -50,6 +54,7 @@ namespace audiamus.aaxconv.lib {
         Book = book;
         AaxFileItem = fi;
         PartNumber = part;
+        Duration = fi.Duration;
       }
 
       public void ComplementChapterNames () {
@@ -93,7 +98,28 @@ namespace audiamus.aaxconv.lib {
         return isTranscode;
       }
 
-      
+      static readonly TimeSpan DurationFFmpeg64Bit = TimeSpan.FromHours (32);
+
+      // long books, single mode: default 32bit FFmpeg may run out of memory
+      public void SetFFmpegPrefer64Bit (IConvSettings settings) {
+        if (settings.ConvMode != EConvMode.single) 
+          return;
+
+        if (!settings.FFMpegDirectory.IsNullOrWhiteSpace ())
+          return;
+
+        TimeSpan durationFFmpeg64Bit = DurationFFmpeg64Bit;
+        if (settings.FFmpeg64bitHours > 0)
+          durationFFmpeg64Bit = TimeSpan.FromHours (settings.FFmpeg64bitHours);
+        if (Duration < durationFFmpeg64Bit)
+          return;
+
+        FFmpegPrefer64Bit = ApplEnv.Is64BitOperatingSystem;
+        Log (3, this, () => 
+          $"\"{Book.SortingTitle.Shorten ()}\" {nameof(FFmpegPrefer64Bit)}={FFmpegPrefer64Bit}");
+      }
+
+
       private void adjustTimes () {
 
         Log (3, this, () => $"\"{Book.SortingTitle.Shorten ()}\"");

@@ -1,5 +1,5 @@
 #define MyAppSetupName 'AAX Audio Converter'
-#define MyAppVersion '1.16'
+#define MyAppVersion '1.17'
 #define MyProgramExe = 'AaxAudioConverter.exe'
 #define MyCompany = 'audiamus'
 #define MyAppName = 'AaxAudioConverter'
@@ -14,20 +14,23 @@ VersionInfoVersion={#MyAppVersion}
 VersionInfoCompany={#MyCompany}
 AppPublisher={#MyCompany}
 AppPublisherURL=https://github.com/audiamus/AaxAudioConverter
-;AppSupportURL=http://...
-;AppUpdatesURL=http://...
+
 OutputBaseFilename=AaxAudioConverter-{#MyAppVersion}-Setup
 DefaultGroupName={#MyCompany}
-DefaultDirName={pf}\{#MyCompany}\{#MyAppSetupName}
+DefaultDirName={autopf}\{#MyCompany}\{#MyAppSetupName}
 UninstallDisplayIcon={app}\{#MyProgramExe}
 OutputDir=.\Setup
 SourceDir=..\AaxAudioConverter\bin\Release
-AllowNoIcons=yes
-;SetupIconFile=MyProgramIcon
 SolidCompression=yes
+
 DisableWelcomePage=no
+WizardStyle=modern
+AllowNoIcons=yes
 
 PrivilegesRequired=admin
+PrivilegesRequiredOverridesAllowed=dialog
+UsePreviousPrivileges=yes
+
 ArchitecturesAllowed=x86 x64
 ArchitecturesInstallIn64BitMode=x64
 
@@ -49,8 +52,8 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 
 [Files]
 Source: "{#MyAppName}.exe"; DestDir: "{app}"
-Source: "{#FFmpeg}.exe"; DestDir: "{app}"; DestName: "{#FFmpeg}.exe"; Check: Is64BitInstallMode
-Source: "{#FFmpeg}32.exe"; DestDir: "{app}"; DestName: "{#FFmpeg}.exe"; Check: not Is64BitInstallMode
+Source: "{#FFmpeg}64.exe"; DestDir: "{app}"; DestName: "{#FFmpeg}64.exe"; Check: Is64BitInstallMode
+Source: "{#FFmpeg}.exe"; DestDir: "{app}"; DestName: "{#FFmpeg}.exe"; 
 Source: "{#MyAppName}.exe.config"; DestDir: "{app}"
 Source: "{#MyAppName}*.pdf"; DestDir: "{app}"
 Source: "de\{#MyAppName}.resources.dll"; DestDir: "{app}\de"
@@ -62,7 +65,7 @@ Type: files; Name: "{app}\*.html"
 Name: "{group}\{#MyAppSetupName}"; Filename: "{app}\{#MyProgramExe}"
 Name: "{group}\{#MyAppSetupName} {cm:MyDocName}"; Filename: "{app}\{cm:MyDocFile}"
 Name: "{group}\{cm:UninstallProgram,{#MyAppSetupName}}"; Filename: "{uninstallexe}"
-Name: "{commondesktop}\{#MyAppSetupName}"; Filename: "{app}\{#MyProgramExe}"; Tasks: desktopicon
+Name: "{autodesktop}\{#MyAppSetupName}"; Filename: "{app}\{#MyProgramExe}"; Tasks: desktopicon
 
 
 [Run]

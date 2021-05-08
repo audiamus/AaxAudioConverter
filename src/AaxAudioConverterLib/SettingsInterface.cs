@@ -5,7 +5,7 @@ namespace audiamus.aaxconv.lib {
     EFileNaming FileNaming { get; set; }
     ETitleNaming TitleNaming { get; set; }
     ETrackNumbering TrackNumbering { get; set; }
-    bool Narrator { get; set; }
+    bool TotalTracks { get; set; }
     EGeneralNaming GenreNaming { get; set; }
     string GenreName { get; set; }
     EGeneralNamingEx ChapterNaming { get; set; }
@@ -59,7 +59,7 @@ namespace audiamus.aaxconv.lib {
   }
 
   public interface IRoleTagAssigmentSettings {
-    bool Narrator { get; set; }
+    bool? Narrator { get; set; }
 
     ERoleTagAssignment TagArtist { get; set; }
     ERoleTagAssignment TagAlbumArtist { get; set; }
@@ -67,24 +67,29 @@ namespace audiamus.aaxconv.lib {
     ERoleTagAssignment TagConductor { get; set; }
   }
 
-  public interface IConvSettings : 
-    INamingAndModeSettings, IActivationSettings, ITitleSettingsEx, 
+  public interface IConvSettings :
+    INamingAndModeSettings, IActivationSettings, ITitleSettingsEx,
     IUpdateSetting, IAaxCopySettings, IBitRateSettings,
-    IRoleTagAssigmentSettings
-  {
+    IRoleTagAssigmentSettings {
     bool NonParallel { get; }
-    [ToString (typeof(ToStringConverterPath))]
+    int FFmpeg64bitHours { get; }
+    [ToString (typeof (ToStringConverterPath))]
     string InputDirectory { get; set; }
-    [ToString (typeof(ToStringConverterPath))]
+    [ToString (typeof (ToStringConverterPath))]
     string OutputDirectory { get; set; }
-    [ToString (typeof(ToStringConverterPath))]
+    [ToString (typeof (ToStringConverterPath))]
     string FFMpegDirectory { get; set; }
     bool RelaxedFFmpegVersionCheck { get; set; }
+    bool ConvertByFileDate { get; set; }
     byte TrkDurMins { get; set; }
     string PartNames { get; set; }
     string Genres { get; set; }
     bool FlatFolders { get; set; }
     EFlatFolderNaming FlatFolderNaming { get; set; }
+    bool WithSeriesTitle { get; set; }
+    byte NumDigitsSeriesSeqNo { get; set; }
+    bool FullCaptionBookFolder { get; set; }
+    EOutFolderConflict OutFolderConflict {get; set;}
     uint ShortChapterSec { get; set; }
     uint VeryShortChapterSec { get; set; }
     EVerifyAdjustChapterMarks VerifyAdjustChapterMarks { get; set; }

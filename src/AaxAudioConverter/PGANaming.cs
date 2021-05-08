@@ -52,9 +52,9 @@ namespace audiamus.aaxconv {
 
     [PropertyOrder (4)]
     [TypeConverter (typeof (BooleanYesNoConverterRM))]
-    public bool Narrator {
-      get => DataSource.Narrator;
-      set => DataSource.Narrator = value;
+    public bool TotalTracks {
+      get => DataSource.TotalTracks;
+      set => DataSource.TotalTracks = value;
     }
 
     [PropertyOrder (5)]

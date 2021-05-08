@@ -7,17 +7,75 @@ using System.Text.RegularExpressions;
 using audiamus.aux.ex;
 using Newtonsoft.Json;
 using static audiamus.aux.Logging;
+using AA = audiamus.aaxconv.lib.AudibleAppContentMetadata;
 
 namespace audiamus.aaxconv.lib {
   class AudibleAppContentMetadata {
 
-    internal class ContentMetadataFile {
+    [Flags]
+    internal enum EFlags {
+      fileOnly = 1,
+      skuOnly = 2
+    }
+
+    internal class AsinJsonFile {
       public readonly string Filename;
       public readonly string ASIN;
 
-      public ContentMetadataFile (string filename, string asin) {
+      public AsinJsonFile (string filename, string asin) {
         Filename = filename;
         ASIN = asin;
+      }
+
+      public static AsinJsonFile FindFile (string asinFile, string contentDirPath, string subDir, string asin) {
+        {
+          // local
+          string localPath = Path.Combine (contentDirPath, asinFile).AsUncIfLong ();
+          if (File.Exists (localPath))
+            return new AsinJsonFile (localPath, asin);
+        }
+        {
+          // relative
+          string subDirPath = GetRelativePath (contentDirPath, subDir);
+          if (subDirPath != null) {
+            string relativePath = Path.Combine (subDirPath, asinFile).AsUncIfLong ();
+            if (File.Exists (relativePath))
+              return new AsinJsonFile (relativePath, asin);
+          }
+        }
+        {
+          // absolute
+          var subDirPaths = GetAbsolutePaths (subDir);
+          if (subDirPaths != null) {
+            foreach (var subDirPath in subDirPaths) {
+              string absolutePath = Path.Combine (subDirPath, asinFile).AsUncIfLong ();
+              if (File.Exists (absolutePath))
+                return new AsinJsonFile (absolutePath, asin);
+            }
+          }
+        }
+
+        Log (3, typeof (AsinJsonFile), () => $"{asinFile} not found.");
+        return null;
+      }
+
+      public static string GetRelativePath (string contentDirPath, string subDir) {
+        var diLocalState = Directory.GetParent (contentDirPath);
+        if (diLocalState is null)
+          return null;
+        string localStateDir = diLocalState.FullName;
+        string subDirPath = Path.Combine (localStateDir, subDir);
+        if (Directory.Exists (subDirPath))
+          return subDirPath;
+        return null;
+      }
+
+      public static IEnumerable<string> GetAbsolutePaths (string subDir) {
+        var absDirs = ActivationCodeApp.GetPackageDirectories ();
+        if (absDirs is null)
+          return null;
+        var subDirPaths = absDirs.Select (d => Path.Combine (d, subDir));
+        return subDirPaths;
       }
     }
 
@@ -27,31 +85,45 @@ namespace audiamus.aaxconv.lib {
     const string JSON = ".json";
 
     const string RGX_ASIN_AAX = @"_([0-9A-Z]{10})(_|$|\.)";
-    static readonly Regex __regexAsinAax = new Regex (RGX_ASIN_AAX, RegexOptions.Compiled); 
+    static readonly Regex __regexAsinAax = new Regex (RGX_ASIN_AAX, RegexOptions.Compiled);
 
-    public void GetContentMetadata (Book.Part part, bool fileOnly = false) {
+    public void GetContentMetadata (Book.Part part, bool fileOnly) => 
+      GetContentMetadata (part, fileOnly ? EFlags.fileOnly : default);
+
+    public void GetContentMetadata (Book.Part part, EFlags flags = default) {
       var filename = part.AaxFileItem.FileName;
-      Log (3, this, () => $"\"{filename.SubstitUser ()}\", file only={fileOnly}");
+      Log (3, this, () => $"\"{filename.SubstitUser ()}\", flags={flags}");
 
-      var contentMetadataFile = findContentMetadataFile (filename);
-      if (contentMetadataFile is null || contentMetadataFile.Filename is null) {
-        part.AaxFileItem.ContentMetadataFile = new ContentMetadataFile (null, null);
-        return;
+      try {
+        var contentMetadataFile = findContentMetadataFile (filename);
+        if (contentMetadataFile is null || contentMetadataFile.Filename is null) {
+          part.AaxFileItem.ContentMetadataFile = new AsinJsonFile (null, null);
+          return;
+        }
+
+        part.AaxFileItem.ContentMetadataFile = contentMetadataFile;
+        string metafile = contentMetadataFile.Filename;
+        Log (3, this, () => $"\"{metafile.SubstitUser ()}\"");
+
+        if (flags.HasFlag (EFlags.fileOnly))
+          return;
+
+        getContentMetaChapters (part, metafile, flags.HasFlag (EFlags.skuOnly));
+      } catch (Exception exc ) {
+        Log (1, this, () => exc.ToShortString ());
       }
-
-      part.AaxFileItem.ContentMetadataFile = contentMetadataFile;
-      string metafile = contentMetadataFile.Filename;
-      Log (3, this, () => $"\"{metafile.SubstitUser ()}\"");
-
-      if (fileOnly)
-        return;
-
-      getContentMetaChapters (part, metafile);
     }
 
-    private void getContentMetaChapters (Book.Part part, string metafile) {
+    private void getContentMetaChapters (Book.Part part, string metafile, bool skuOnly) {
       string json = File.ReadAllText (metafile);
       var metadata = JsonConvert.DeserializeObject<json.AppContentMetadata> (json);
+
+      // get the SKU
+      part.SKU = metadata.content_metadata.content_reference.sku;
+      Log (3, this, () => $"SKU={part.SKU}");
+
+      if (skuOnly)
+        return;
 
       // set the chapters
       var chapters = new List<Chapter> ();
@@ -111,7 +183,7 @@ namespace audiamus.aaxconv.lib {
     }
 
 
-    private ContentMetadataFile findContentMetadataFile (string fileName) {
+    private AsinJsonFile findContentMetadataFile (string fileName) {
       // try to find content metadata file, either locally, relative or absolute
 
       // find and isolate asin
@@ -127,39 +199,8 @@ namespace audiamus.aaxconv.lib {
       string contentDir = Path.GetDirectoryName (fileName).StripUnc();
       string contentmetafile = CONTENT_METADATA + asin + JSON;
 
-      {
-        // local
-        string localPath = Path.Combine (contentDir, contentmetafile).AsUncIfLong();
-        if (File.Exists (localPath))
-          return new ContentMetadataFile (localPath, asin);
-      }
-      {
-        // relative
-        var diLocalState = Directory.GetParent (contentDir);
-        if (!(diLocalState is null)) {
-          string localStateDir = diLocalState.FullName;
-          string cacheDir = Path.Combine (localStateDir, FILESCACHE);
-
-          string relativePath = Path.Combine (cacheDir, contentmetafile).AsUncIfLong ();
-          if (File.Exists (relativePath))
-            return new ContentMetadataFile (relativePath, asin);
-        }
-      }
-      {
-        // absolute
-        var absDirs = ActivationCodeApp.GetPackageDirectories ();
-        if (absDirs is null)
-          return null;
-        var cacheDirs = absDirs.Select (d => Path.Combine (d, FILESCACHE));
-        foreach (var cacheDir in cacheDirs) {
-          string absolutePath = Path.Combine (cacheDir, contentmetafile).AsUncIfLong ();
-          if (File.Exists (absolutePath))
-            return new ContentMetadataFile (absolutePath, asin);
-        }
-      }
-
-      Log (3, this, () => $"{contentmetafile} not found.");
-      return null;
+      return AsinJsonFile.FindFile (contentmetafile, contentDir, FILESCACHE, asin);
     }
+
   }
 }

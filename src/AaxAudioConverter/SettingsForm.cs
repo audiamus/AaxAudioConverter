@@ -29,6 +29,7 @@ namespace audiamus.aaxconv {
 
     public bool SettingsReset { get; private set; }
     public bool Dirty { get; private set; }
+    public bool ListViewDirty { get; private set; }
 
     public new bool Enabled {
       get => _enabled;
@@ -128,63 +129,149 @@ namespace audiamus.aaxconv {
 
     private void initControlsFromSettings () {
       tabControl1.SelectedIndex = Settings.SettingsTab;
-      
-      txtBoxCustPart.Text = Settings.PartNames;
-      txtBoxCustTitleChars.Text = Settings.AddnlValTitlePunct;
-      ckBoxFileAssoc.Checked = Settings.FileAssoc ?? false;
 
-      using (new ResourceGuard (x => _flag = x))
-        comBoxPartName.SelectedIndex = (int)Settings.PartNaming;
-      txtBoxPartName.Enabled = Settings.PartNaming == EGeneralNaming.custom;
-      updatePartNaming ();
+      initControlsFromSettingsGeneral ();
+      initControlsFromSettingsFolder ();
+      initControlsFromSettingsConversion ();
+      initControlsFromSettingsChapters ();
+      intoControlsFromSettingsMetaTags ();
+    }
 
-      comBoxNamedChapters.SelectedIndex = (int)Settings.NamedChapters;
-      enablePreferEmbeddedChapterTimes ();
+    private void initControlsFromSettingsGeneral () {
+      // tab page General
 
-      ckBoxFlatFolders.Checked = Settings.FlatFolders;
-      comBoxFlatFolders.Enabled = Settings.FlatFolders;
-      using (new ResourceGuard (x => _flag = x))
-        comBoxFlatFolders.SelectedIndex = (int)Settings.FlatFolderNaming;
-
-      ckBoxExtraMetaFiles.Checked = Settings.ExtraMetaFiles;
-      ckBoxIntermedCopySingle.Checked = Settings.IntermedCopySingle;
-      using (new ResourceGuard (x => _flag = x))
-        comBoxFixAacEncoding.SelectedIndex = (int)Settings.FixAACEncoding;
-
-      ckBoxVarBitRate.Checked = Settings.VariableBitRate;
-      using (new ResourceGuard (x => _flag = x))
-        comBoxRedBitRate.SelectedIndex = (int)Settings.ReducedBitRate;
-
-      ckBoxLatin1.Checked = Settings.Latin1EncodingForPlaylist;
-      ckBoxLaunchPlayer.Checked = Settings.AutoLaunchPlayer;
       ckBoxFfmpegVersCheck.Checked = Settings.RelaxedFFmpegVersionCheck;
-
+      
       var codes = _converter.NumericActivationCodes?.Select (c => c.ToHexDashString ()).ToArray ();
       if (!(codes is null))
         listBoxActCode.Items.AddRange (codes);
 
-      comBoxLang.SetCultures (typeof(MainForm), Settings);
+      ckBoxFileAssoc.Checked = Settings.FileAssoc ?? false;
+
+      ckBoxDateClm.Checked = Settings.FileDateColumn;
+
+      btnAaxCopyDir.Enabled = Settings.AaxCopyMode != default;
+      using (new ResourceGuard (x => _flag = x))
+        _cbAdapterAaxCopyMode =
+          new ComboBoxEnumAdapter<EAaxCopyMode> (comBoxAaxCopy, this.GetDefaultResourceManager (), Settings.AaxCopyMode);
+
+      ckBoxLaunchPlayer.Checked = Settings.AutoLaunchPlayer;
 
       comBoxUpdate.SelectedIndex = (int)Settings.OnlineUpdate;
 
+      comBoxLang.SetCultures (typeof (MainForm), Settings);
+    }
+
+    private void initControlsFromSettingsFolder () {
+      // tab page Folder
+
+      ckBoxFlatFolders.Checked = Settings.FlatFolders;      
+      enableFlatFoldersDependencies (Settings.FlatFolders);
+      using (new ResourceGuard (x => _flag = x))
+        comBoxFlatFolders.SelectedIndex = (int)Settings.FlatFolderNaming;
+
+      ckBoxSeries.Checked = Settings.WithSeriesTitle;
+      panelSeriesDigits.Enabled = Settings.WithSeriesTitle;
+      numUpDnSeriesDigits.Value = Settings.NumDigitsSeriesSeqNo;
+
+      ckBoxFullCaptionBookFolder.Checked = Settings.FullCaptionBookFolder;
+
+      using (new ResourceGuard (x => _flag = x))
+        comBoxPartName.SelectedIndex = (int)Settings.PartNaming;
+      txtBoxPartName.Enabled = Settings.PartNaming == EGeneralNaming.custom;    
+      updatePartNaming ();
+
+      using (new ResourceGuard (x => _flag = x))
+        comBoxOutFolderConflict.SelectedIndex = (int)Settings.OutFolderConflict;
+
+    }
+
+    private void initControlsFromSettingsConversion () {
+
+      // tab page Conversion
+
+      txtBoxCustPart.Text = Settings.PartNames;
+      
+      txtBoxCustTitleChars.Text = Settings.AddnlValTitlePunct;
+      
+      ckBoxIntermedCopySingle.Checked = Settings.IntermedCopySingle;
+      
+      using (new ResourceGuard (x => _flag = x))
+        comBoxFixAacEncoding.SelectedIndex = (int)Settings.FixAACEncoding;
+
+      ckBoxVarBitRate.Checked = Settings.VariableBitRate;
+      
+      using (new ResourceGuard (x => _flag = x))
+        comBoxRedBitRate.SelectedIndex = (int)Settings.ReducedBitRate;
+
+      comBoxM4B.SelectedIndex = Settings.M4B ? 1 : 0;
+
+      ckBoxLatin1.Checked = Settings.Latin1EncodingForPlaylist;
+      
+      ckBoxExtraMetaFiles.Checked = Settings.ExtraMetaFiles;
+    }
+
+    private void initControlsFromSettingsChapters () {
+      // tab page Chapters
+
+      comBoxNamedChapters.SelectedIndex = (int)Settings.NamedChapters;
+      enablePreferEmbeddedChapterTimes ();
+      
       nudShortChapter.Value = Settings.ShortChapterSec;
       nudVeryShortChapter.Value = Settings.VeryShortChapterSec;
 
       comBoxVerAdjChapters.SelectedIndex = (int)Settings.VerifyAdjustChapterMarks;
       comBoxPrefEmbChapTimes.SelectedIndex = (int)Settings.PreferEmbeddedChapterTimes;
+    }
 
-      comBoxArtist.SelectedIndex = (int)Settings.TagArtist;
-      comBoxAlbumArtist.SelectedIndex = (int)Settings.TagAlbumArtist;
-      comBoxComposer.SelectedIndex = (int)Settings.TagComposer;
-      comBoxConductor.SelectedIndex = (int)Settings.TagConductor;
+    private void intoControlsFromSettingsMetaTags () {
+      // tab page Tags
 
-      comBoxM4B.SelectedIndex = Settings.M4B ? 1 : 0;
+      comBoxArtist.SelectedIndex = indexOfRole (Settings.TagArtist);
+      comBoxAlbumArtist.SelectedIndex = indexOfRole (Settings.TagAlbumArtist);
+      comBoxComposer.SelectedIndex = indexOfRole (Settings.TagComposer);
+      comBoxConductor.SelectedIndex = indexOfRole (Settings.TagConductor);
 
-      using (new ResourceGuard (x => _flag = x))
-        _cbAdapterAaxCopyMode = 
-          new ComboBoxEnumAdapter<EAaxCopyMode> (comBoxAaxCopy, this.GetDefaultResourceManager (), Settings.AaxCopyMode);
+      Settings.Narrator = null;
+    }
 
-      btnAaxCopyDir.Enabled = Settings.AaxCopyMode != default;
+    private int indexOfRole (ERoleTagAssignment role) {
+      bool narrator = Settings.Narrator ?? false;
+      switch (role) {
+        default:
+        case ERoleTagAssignment.none:
+          return 0;
+        case ERoleTagAssignment.author:
+          return 1;
+        case ERoleTagAssignment.author__narrator__:
+          if (narrator)
+            return 2;
+          else
+            return 1;
+        case ERoleTagAssignment.author_narrator:
+          return 2;
+        case ERoleTagAssignment.__narrator__:
+          if (narrator)
+            return 3;
+          else
+            return 0;
+        case ERoleTagAssignment.narrator:
+          return 3;
+      }
+    }
+
+    private ERoleTagAssignment roleOfIndex (int index) {
+      switch (index) {
+        default:
+        case 0: 
+          return ERoleTagAssignment.none;
+        case 1:
+          return ERoleTagAssignment.author;
+        case 2:
+          return ERoleTagAssignment.author_narrator;
+        case 3:
+          return ERoleTagAssignment.narrator;
+      }
     }
 
     private void selectAll () {
@@ -270,47 +357,31 @@ namespace audiamus.aaxconv {
 
       Settings.SettingsTab = tabControl1.SelectedIndex;
 
-      Settings.PartNaming = updateSettings (Settings.PartNaming, (EGeneralNaming)comBoxPartName.SelectedIndex);
-      Settings.PartName = updateSettings (Settings.PartName, txtBoxPartName.Text);
-      Settings.ExtraMetaFiles = updateSettings (Settings.ExtraMetaFiles, ckBoxExtraMetaFiles.Checked);
-      Settings.Latin1EncodingForPlaylist = updateSettings (Settings.Latin1EncodingForPlaylist, ckBoxLatin1.Checked);
+      updateSettingsFromControlsGeneral ();
+      updateSettingsFromControlsFolder ();
+      updateSettingsFromControlsConversion ();
+      updateSettingsFromControlsChapters ();
+      updateSettingsFromControlsMetaTags ();
+    }
 
-      Settings.FlatFolders = updateSettings (Settings.FlatFolders, ckBoxFlatFolders.Checked);
-      Settings.FlatFolderNaming = updateSettings (Settings.FlatFolderNaming, (EFlatFolderNaming)comBoxFlatFolders.SelectedIndex);
-
-      Settings.PartNames = updateSettings (Settings.PartNames, txtBoxCustPart.Text);
-      Settings.AddnlValTitlePunct = updateSettings (Settings.AddnlValTitlePunct, txtBoxCustTitleChars.Text);
-
-      Settings.ShortChapterSec = updateSettings (Settings.ShortChapterSec, (uint)nudShortChapter.Value);
-      Settings.VeryShortChapterSec = updateSettings (Settings.VeryShortChapterSec, (uint)nudVeryShortChapter.Value);
-      Settings.VerifyAdjustChapterMarks = updateSettings (Settings.VerifyAdjustChapterMarks, (EVerifyAdjustChapterMarks)comBoxVerAdjChapters.SelectedIndex);
-      Settings.PreferEmbeddedChapterTimes = updateSettings (Settings.PreferEmbeddedChapterTimes, (EPreferEmbeddedChapterTimes)comBoxPrefEmbChapTimes.SelectedIndex);
-      Settings.NamedChapters = updateSettings (Settings.NamedChapters, (ENamedChapters)comBoxNamedChapters.SelectedIndex);
-
-      Settings.IntermedCopySingle = updateSettings (Settings.IntermedCopySingle, ckBoxIntermedCopySingle.Checked);
-      Settings.FixAACEncoding = updateSettings (Settings.FixAACEncoding, (EFixAACEncoding)comBoxFixAacEncoding.SelectedIndex);
-
-      Settings.M4B = updateSettings (Settings.M4B, comBoxM4B.SelectedIndex == 1);
-      Settings.AaxCopyMode = updateSettings (Settings.AaxCopyMode, _cbAdapterAaxCopyMode.Value);
-
-      Settings.VariableBitRate = updateSettings (Settings.VariableBitRate, ckBoxVarBitRate.Checked);
-      Settings.ReducedBitRate = updateSettings (Settings.ReducedBitRate, (EReducedBitRate)comBoxRedBitRate.SelectedIndex);
-
-      Settings.TagArtist = updateSettings (Settings.TagArtist, (ERoleTagAssignment)comBoxArtist.SelectedIndex);
-      Settings.TagAlbumArtist = updateSettings (Settings.TagAlbumArtist, (ERoleTagAssignment)comBoxAlbumArtist.SelectedIndex);
-      Settings.TagComposer = updateSettings (Settings.TagComposer, (ERoleTagAssignment)comBoxComposer.SelectedIndex);
-      Settings.TagConductor = updateSettings (Settings.TagConductor, (ERoleTagAssignment)comBoxConductor.SelectedIndex);
-
-      Settings.AutoLaunchPlayer = ckBoxLaunchPlayer.Checked;
-      Settings.OnlineUpdate = (EOnlineUpdate)comBoxUpdate.SelectedIndex;
+    private void updateSettingsFromControlsGeneral () {
+      // tab page General
 
       Settings.RelaxedFFmpegVersionCheck = updateSettings (Settings.RelaxedFFmpegVersionCheck, ckBoxFfmpegVersCheck.Checked);
-
+      
       bool ck = ckBoxFileAssoc.Checked;
       if ((Settings.FileAssoc ?? false) != ck) {
         Settings.FileAssoc = ck;
         new FileAssoc (Settings, this).Update ();
       }
+
+      Settings.FileDateColumn = updateSettings (Settings.FileDateColumn, ckBoxDateClm.Checked, true);
+
+      Settings.AaxCopyMode = updateSettings (Settings.AaxCopyMode, _cbAdapterAaxCopyMode.Value);
+
+      Settings.AutoLaunchPlayer = ckBoxLaunchPlayer.Checked;
+      
+      Settings.OnlineUpdate = (EOnlineUpdate)comBoxUpdate.SelectedIndex;
 
       if (Culture.ChangeLanguage (comBoxLang, Settings)) {
         Settings.Save ();
@@ -325,12 +396,77 @@ namespace audiamus.aaxconv {
 
         Environment.Exit (0);
       }
-
     }
 
-    private T updateSettings<T> (T oldValue, T newValue) {
-      if (!object.Equals (oldValue, newValue))
+    private void updateSettingsFromControlsFolder () {
+      // tab page Folder
+      Settings.FlatFolders = updateSettings (Settings.FlatFolders, ckBoxFlatFolders.Checked);
+      Settings.FlatFolderNaming = updateSettings (Settings.FlatFolderNaming, (EFlatFolderNaming)comBoxFlatFolders.SelectedIndex);
+
+      Settings.WithSeriesTitle = updateSettings (Settings.WithSeriesTitle, ckBoxSeries.Checked);
+      Settings.NumDigitsSeriesSeqNo = updateSettings (Settings.NumDigitsSeriesSeqNo, (byte)numUpDnSeriesDigits.Value);
+      
+      Settings.FullCaptionBookFolder = updateSettings (Settings.FullCaptionBookFolder, ckBoxFullCaptionBookFolder.Checked);
+
+      Settings.PartNaming = updateSettings (Settings.PartNaming, (EGeneralNaming)comBoxPartName.SelectedIndex);
+      Settings.PartName = updateSettings (Settings.PartName, txtBoxPartName.Text);
+
+      Settings.OutFolderConflict =
+        updateSettings (Settings.OutFolderConflict, (EOutFolderConflict)comBoxOutFolderConflict.SelectedIndex);
+    }
+
+    private void updateSettingsFromControlsConversion () {
+      // tab page Conversion
+      
+      Settings.PartNames = updateSettings (Settings.PartNames, txtBoxCustPart.Text);
+      
+      Settings.AddnlValTitlePunct = updateSettings (Settings.AddnlValTitlePunct, txtBoxCustTitleChars.Text);
+      
+      Settings.IntermedCopySingle = updateSettings (Settings.IntermedCopySingle, ckBoxIntermedCopySingle.Checked);
+      
+      Settings.FixAACEncoding = updateSettings (Settings.FixAACEncoding, (EFixAACEncoding)comBoxFixAacEncoding.SelectedIndex);
+      
+      Settings.VariableBitRate = updateSettings (Settings.VariableBitRate, ckBoxVarBitRate.Checked);
+      
+      Settings.ReducedBitRate = updateSettings (Settings.ReducedBitRate, (EReducedBitRate)comBoxRedBitRate.SelectedIndex);
+      
+      Settings.M4B = updateSettings (Settings.M4B, comBoxM4B.SelectedIndex == 1);
+      
+      Settings.Latin1EncodingForPlaylist = updateSettings (Settings.Latin1EncodingForPlaylist, ckBoxLatin1.Checked);
+      
+      Settings.ExtraMetaFiles = updateSettings (Settings.ExtraMetaFiles, ckBoxExtraMetaFiles.Checked);
+    }
+
+    private void updateSettingsFromControlsChapters () {
+      // tab page Chapters
+      Settings.NamedChapters = updateSettings (Settings.NamedChapters, (ENamedChapters)comBoxNamedChapters.SelectedIndex);
+
+      Settings.ShortChapterSec = updateSettings (Settings.ShortChapterSec, (uint)nudShortChapter.Value);
+      
+      Settings.VeryShortChapterSec = updateSettings (Settings.VeryShortChapterSec, (uint)nudVeryShortChapter.Value);
+      
+      Settings.VerifyAdjustChapterMarks = 
+        updateSettings (Settings.VerifyAdjustChapterMarks, (EVerifyAdjustChapterMarks)comBoxVerAdjChapters.SelectedIndex);
+      
+      Settings.PreferEmbeddedChapterTimes = 
+        updateSettings (Settings.PreferEmbeddedChapterTimes, (EPreferEmbeddedChapterTimes)comBoxPrefEmbChapTimes.SelectedIndex);
+    }
+
+    private void updateSettingsFromControlsMetaTags () {
+      // tab page Meta Tags
+
+      Settings.TagArtist = updateSettings (Settings.TagArtist, roleOfIndex (comBoxArtist.SelectedIndex));
+      Settings.TagAlbumArtist = updateSettings (Settings.TagAlbumArtist, roleOfIndex (comBoxAlbumArtist.SelectedIndex));
+      Settings.TagComposer = updateSettings (Settings.TagComposer, roleOfIndex (comBoxComposer.SelectedIndex));
+      Settings.TagConductor = updateSettings (Settings.TagConductor, roleOfIndex(comBoxConductor.SelectedIndex));
+    }
+
+    private T updateSettings<T> (T oldValue, T newValue, bool affectsListView = false) {
+      if (!object.Equals (oldValue, newValue)) {
         Dirty = true;
+        if (affectsListView)
+          ListViewDirty = true;
+      }
       return newValue;
     }
 
@@ -344,8 +480,22 @@ namespace audiamus.aaxconv {
 
     private void ckBoxFlatFolders_CheckedChanged (object sender, EventArgs e) {
       bool flatFolders = ckBoxFlatFolders.Checked;
-      comBoxFlatFolders.Enabled = flatFolders;
+      enableFlatFoldersDependencies (flatFolders);
     }
+
+    private void enableFlatFoldersDependencies (bool flatFolders) {
+      comBoxFlatFolders.Enabled = flatFolders;
+      lblFullCaptionBookFolder.Enabled = !flatFolders;
+      ckBoxFullCaptionBookFolder.Enabled = !flatFolders;
+      lblSeries.Enabled = !flatFolders;
+      panelSeries.Enabled = !flatFolders;
+    }
+
+    private void ckBoxSeries_CheckedChanged (object sender, EventArgs e) {
+      bool withSeries = ckBoxSeries.Checked;
+      panelSeriesDigits.Enabled = withSeries;
+    }
+
 
     private void comBoxAaxCopy_SelectedIndexChanged (object sender, EventArgs e) {
       if (_flag || _cbAdapterAaxCopyMode is null)
@@ -391,5 +541,6 @@ namespace audiamus.aaxconv {
         e.Graphics.DrawString (tp.Text, e.Font, textBrush, e.Bounds.X + 1, e.Bounds.Y + 3);
       }
     }
+
   }
 }

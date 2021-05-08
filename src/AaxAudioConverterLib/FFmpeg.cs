@@ -26,6 +26,7 @@ namespace audiamus.aaxconv.lib {
 
     #region const
     public const string FFMPEG_EXE = "ffmpeg.exe";
+    public const string FFMPEG64_EXE = "ffmpeg64.exe";
 
     const string OUTPUT = "<OUTPUT>";
     const string INPUT = "<INPUT>";
@@ -87,21 +88,28 @@ namespace audiamus.aaxconv.lib {
 
     #endregion
     #region props
-    private static string FFmpegExePath {
+    private string FFmpegExePath {
       get
       {
-        string dir = FFmpegDir;
-        if (!Directory.Exists (dir))
-          dir = GetFFmpegDir?.Invoke ();
-        if (!Directory.Exists (dir))
-          return FFMPEG_EXE;
-        return Path.Combine (dir, FFMPEG_EXE);
+        string path;
+        // Internal 64 bit goes without prior version check
+        if (PreferInternal64Bit && File.Exists (FFMPEG64_EXE))
+          path = FFMPEG64_EXE;
+        else {
+          string dir = GetFFmpegDir?.Invoke ();
+          if (!Directory.Exists (dir))
+            path = FFMPEG_EXE;
+          else
+            path = Path.Combine (dir, FFMPEG_EXE);
+        }
+        Log (4, this, () => ID + path.SubstitUser());
+        return path;
       }
     }
 
     public static Func<string> GetFFmpegDir { get; set; }
-    public static string FFmpegDir { get; set; }
 
+    public bool PreferInternal64Bit { private get; set; }
     public bool TranscodingError => _error;
 
     internal Func<bool> Cancel { private get; set; }

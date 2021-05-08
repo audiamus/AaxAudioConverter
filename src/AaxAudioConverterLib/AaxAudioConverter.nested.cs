@@ -95,7 +95,9 @@ namespace audiamus.aaxconv.lib {
     }
 
     class MultiBookInitDirectoryHandling {
+      // null: not yet; false: yes, but ask again; true: yes and don't ask again
       public bool? HasBeenAnswered { get; set; }
+      // null: skip; false: new file; true: overwrite
       public bool? Answer { get; set; }
     }
 

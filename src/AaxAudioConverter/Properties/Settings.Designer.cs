@@ -12,7 +12,7 @@ namespace audiamus.aaxconv.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.9.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -29,6 +29,15 @@ namespace audiamus.aaxconv.Properties {
         public bool NonParallel {
             get {
                 return ((bool)(this["NonParallel"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int FFmpeg64bitHours {
+            get {
+                return ((int)(this["FFmpeg64bitHours"]));
             }
         }
         
@@ -77,6 +86,18 @@ namespace audiamus.aaxconv.Properties {
             }
             set {
                 this["RelaxedFFmpegVersionCheck"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FileDateColumn {
+            get {
+                return ((bool)(this["FileDateColumn"]));
+            }
+            set {
+                this["FileDateColumn"] = value;
             }
         }
         
@@ -155,9 +176,20 @@ namespace audiamus.aaxconv.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool Narrator {
+        public bool TotalTracks {
             get {
-                return ((bool)(this["Narrator"]));
+                return ((bool)(this["TotalTracks"]));
+            }
+            set {
+                this["TotalTracks"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Nullable<System.Boolean> Narrator {
+            get {
+                return ((global::System.Nullable<System.Boolean>)(this["Narrator"]));
             }
             set {
                 this["Narrator"] = value;
@@ -351,6 +383,54 @@ namespace audiamus.aaxconv.Properties {
             }
             set {
                 this["FlatFolderNaming"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool WithSeriesTitle {
+            get {
+                return ((bool)(this["WithSeriesTitle"]));
+            }
+            set {
+                this["WithSeriesTitle"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("2")]
+        public byte NumDigitsSeriesSeqNo {
+            get {
+                return ((byte)(this["NumDigitsSeriesSeqNo"]));
+            }
+            set {
+                this["NumDigitsSeriesSeqNo"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FullCaptionBookFolder {
+            get {
+                return ((bool)(this["FullCaptionBookFolder"]));
+            }
+            set {
+                this["FullCaptionBookFolder"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("ask")]
+        public global::audiamus.aaxconv.lib.EOutFolderConflict OutFolderConflict {
+            get {
+                return ((global::audiamus.aaxconv.lib.EOutFolderConflict)(this["OutFolderConflict"]));
+            }
+            set {
+                this["OutFolderConflict"] = value;
             }
         }
         

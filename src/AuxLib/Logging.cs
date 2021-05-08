@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using static audiamus.aux.ApplEnv;
 
 namespace audiamus.aux {
@@ -23,7 +22,7 @@ namespace audiamus.aux {
         this (null, message) { }
 
       public LogMessage (string context, string message) :
-        this (DateTime.Now, Environment.CurrentManagedThreadId, context, message) { }
+        this (DateTime.Now, Thread.CurrentThread.ManagedThreadId, context, message) { }
 
       public LogMessage (DateTime timestamp, int threadId, string context, string message) {
         DateTime = timestamp;
@@ -36,16 +35,6 @@ namespace audiamus.aux {
 
     #endregion Nested Classes
     #region singleton
-    //private static Logger __instance;
-    //private static Logger Instance {
-    //  get
-    //  {
-    //    if (__instance is null)
-    //      __instance = new Logger ();
-    //    return __instance;
-    //  }
-    //}
-
     private static Logging Instance { get; } = new Logging ();
 
     #endregion singleton
@@ -57,15 +46,12 @@ namespace audiamus.aux {
     private readonly object _lockable = new object ();
     private bool _instantFlush;
     private bool _fullClassNames;
-    //private bool _initDone;
     private int _level = -1;
     private string _currentfilename;
     private uint _filecount;
     private DateTime _filedate;
-    //private long _filesize = DefaultFileSize;
     private string _filestub;
     private bool _ignoreExisting;
-    //private bool _useDefaultTraceListener = true;
     private StreamWriter _logStreamWriter;
     private System.Threading.Timer _flushTimer;
     private uint _linecount;
@@ -226,7 +212,6 @@ namespace audiamus.aux {
     }
 
     private void closeWriter () {
-      string prevfilename = _currentfilename;
       if (!(_logStreamWriter is null)) {
         _logStreamWriter.Dispose ();
       }

@@ -72,7 +72,8 @@ namespace audiamus.aaxconv.lib {
 
     private IResources Resources => _resources;
 
-    private string Track => track ();
+    private string Track => trackEx ();
+    private string TrackForFile => Track.Replace('/', ',');
     private string Title => titleNaming ();
     private string Chapter => chapter ();
     private string ChapterName => _track?.Chapter.Name;
@@ -235,6 +236,14 @@ namespace audiamus.aaxconv.lib {
         case EConvMode.splitChapters:
           return chapterNamedTrackForSplitChapters ();
       };
+    }
+
+    private string trackEx () {
+      string trk = track ();
+      if (Settings.TotalTracks)
+        return $"{trk}/{_numbers.nTrks}";
+      else
+        return trk;
     }
 
     private string chapterNamedTrackForChapters () {
@@ -427,15 +436,15 @@ namespace audiamus.aaxconv.lib {
       switch (Settings.FileNaming) {
         case EFileNaming.track:
         default:
-          return Track;
+          return TrackForFile;
         case EFileNaming.track_book:
-          return Track + p + _book.TitleFile;
+          return TrackForFile + p + _book.TitleFile;
         case EFileNaming.track_book_author:
-          return Track + p + _book.TitleFile + p + _book.AuthorFile;
+          return TrackForFile + p + _book.TitleFile + p + _book.AuthorFile;
         case EFileNaming.author_book_track:
-          return _book.AuthorFile + p + _book.TitleFile + p + Track;
+          return _book.AuthorFile + p + _book.TitleFile + p + TrackForFile;
         case EFileNaming.book_track:
-          return _book.TitleFile + p + Track;
+          return _book.TitleFile + p + TrackForFile;
       }
     }
 
@@ -667,16 +676,14 @@ namespace audiamus.aaxconv.lib {
 
           tagSubFormat (tags);
 
-          tags.DurationMs = _track.Time.Duration.TotalMilliseconds;
-
           // album
           tags.Album = _book.TitleTag;
 
           // performers
-          tags.Artist = buildPerformerTag (settings.TagArtist, settings.Narrator, _book.AuthorTag, afi.Narrators);
-          tags.AlbumArtist = buildPerformerTag (settings.TagAlbumArtist, settings.Narrator, _book.AuthorTag, afi.Narrators);
-          tags.Composer = buildPerformerTag (settings.TagComposer, settings.Narrator, _book.AuthorTag, afi.Narrators);
-          tags.Conductor = buildPerformerTag (settings.TagConductor, settings.Narrator, _book.AuthorTag, afi.Narrators);
+          tags.Artist = buildPerformerTag (settings.TagArtist, _book.AuthorTag, afi.Narrators);
+          tags.AlbumArtist = buildPerformerTag (settings.TagAlbumArtist, _book.AuthorTag, afi.Narrators);
+          tags.Composer = buildPerformerTag (settings.TagComposer, _book.AuthorTag, afi.Narrators);
+          tags.Conductor = buildPerformerTag (settings.TagConductor, _book.AuthorTag, afi.Narrators);
 
           // comment
           tags.Comment = afi.Abstract;
@@ -751,24 +758,24 @@ namespace audiamus.aaxconv.lib {
         ATL.Settings.ID3v2_tagSubVersion = 4;
     }
 
-    private string buildPerformerTag (ERoleTagAssignment tagArtist, bool narrator, string authorTag, string[] narrators) {
+    private string buildPerformerTag (ERoleTagAssignment tagArtist, string authorTag, string[] narrators) {
       switch (tagArtist) {
         default:
           return string.Empty;
         case ERoleTagAssignment.author:
           return authorTag;
-        case ERoleTagAssignment.author__narrator__:
-          if (narrator)
-            return $"{authorTag}{ExString.SEPARATOR} {narrators.Combine()}";
-          else
-            return authorTag;
+        //case ERoleTagAssignment.author__narrator__:
+        //  if (narrator)
+        //    return $"{authorTag}{ExString.SEPARATOR} {narrators.Combine()}";
+        //  else
+        //    return authorTag;
         case ERoleTagAssignment.author_narrator:
           return $"{authorTag}{ExString.SEPARATOR} {narrators.Combine()}";
-        case ERoleTagAssignment.__narrator__:
-          if (narrator)
-            return narrators.Combine ();
-          else
-            return string.Empty;
+        //case ERoleTagAssignment.__narrator__:
+        //  if (narrator)
+        //    return narrators.Combine ();
+        //  else
+        //    return string.Empty;
         case ERoleTagAssignment.narrator:
           return narrators.Combine ();
       }

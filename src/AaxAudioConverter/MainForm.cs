@@ -20,6 +20,7 @@ using audiamus.perf;
 using Microsoft.WindowsAPICodePack.Dialogs;
 using static audiamus.aux.ApplEnv;
 using static audiamus.aux.Logging;
+using Timer = System.Windows.Forms.Timer;
 
 namespace audiamus.aaxconv {
 
@@ -37,6 +38,7 @@ namespace audiamus.aaxconv {
     private readonly ProgressProcessor _progress;
     private readonly InteractionCallbackHandler<EInteractionCustomCallback> _interactionHandler;
     private readonly SystemMenu _systemMenu;
+    private readonly Timer _resizeTimer;
 
     private readonly PerformanceMonitor _perfMonitor;
     private readonly PerformanceHandler _perfHandler;
@@ -52,6 +54,7 @@ namespace audiamus.aaxconv {
     private bool _resetFlagTrackLength;
     private bool _ffMpegPathVerified;
     private bool _updateAvailableFlag; 
+    private bool _resizeFlag; 
 
     private Point _contextMenuPoint;
 
@@ -73,14 +76,18 @@ namespace audiamus.aaxconv {
       _systemMenu.AddCommand (R.SysMenuItemAbout, onSysMenuAbout, true);
       _systemMenu.AddCommand (R.SysMenuItemSettings, onSysMenuBasicSettings, false);
       _systemMenu.AddCommand ($"{R.SysMenuItemHelp}\tF1", onSysMenuHelp, false);
-      
+
       _progress = new ProgressProcessor (progressBarPart, progressBarTrack, lblProgress);
 
       _pgaNaming = new PGANaming (Settings) {
         RefreshDelegate = propGridNaming.Refresh,
         IsInSplitChapterMode = () => Settings.ConvMode == EConvMode.splitChapters
       };
-  
+
+      presetListView ();
+
+      Settings.FixNarrator ();
+
       _converter = new AaxAudioConverter (Settings, Resources.Default);
 
       initRadionButtons ();
@@ -99,6 +106,9 @@ namespace audiamus.aaxconv {
       _perfProgress = new Progress<IPerfCallback> (_perfHandler.Update);
       _perfMonitor = new PerformanceMonitor { Callback = _perfProgress.Report };
 
+      _resizeTimer = new Timer ();
+      _resizeTimer.Tick += resizeTimer_Tick;
+      _resizeTimer.Interval = 100;
     }
 
     #endregion Public Constructors
@@ -150,7 +160,7 @@ namespace audiamus.aaxconv {
 
     #region Protected Methods
 
-    protected override void OnActivated (EventArgs e) {
+    protected override async void OnActivated (EventArgs e) {
       base.OnActivated (e);
 
       if (_initDone)
@@ -165,14 +175,14 @@ namespace audiamus.aaxconv {
 
       checkAudibleActivationCode ();
 
-      ensureFFmpegPath ();
-
       showStartupHint ();
 
       enableAll (true);
       var args = Environment.GetCommandLineArgs ();
       if (args.Length > 1)
         addFile (args[1]);
+
+      await ensureFFmpegPathAsync ();
     }
 
     protected override void OnLoad (EventArgs e) {
@@ -180,13 +190,18 @@ namespace audiamus.aaxconv {
 
       presetInpuDirectory ();
 
-      if (Settings.OutputDirectory != null && Directory.Exists (Settings.OutputDirectory))
-        lblSaveTo.SetTextAsPathWithEllipsis (Settings.OutputDirectory);
+      setLabelSaveTo ();
 
       propGridNaming.SelectedObject = _pgaNaming;
       propGridNaming.Refresh ();
-      
+
       checkOnlineUpdate ();
+    }
+
+
+    private void setLabelSaveTo () {
+      if (Settings.OutputDirectory != null && Directory.Exists (Settings.OutputDirectory))
+        lblSaveTo.SetTextAsPathWithEllipsis (Settings.OutputDirectory);
     }
 
     protected override void OnClosing (CancelEventArgs e) {
@@ -269,6 +284,7 @@ namespace audiamus.aaxconv {
 
     private void reinitControlsFromSettings () {
       initRadionButtons ();
+      presetListView (true);
       _pgaNaming.Update ();
       lblSaveTo.SetTextAsPathWithEllipsis (Settings.OutputDirectory ?? string.Empty);
       _previewForm?.UpdatePreview ();
@@ -290,6 +306,11 @@ namespace audiamus.aaxconv {
 
       if (dlg.Dirty) {
         enableButtonConvert ();
+        if (dlg.ListViewDirty) {
+          presetListView (true);
+          btnConvert.Enabled = false;
+          listViewAaxFiles.Focus ();
+        }
         _ffMpegPathVerified = _converter.VerifiedFFmpegPath;
       }
       enableAll (true);
@@ -422,17 +443,17 @@ namespace audiamus.aaxconv {
       panelExec.Enabled = enable;
     }
 
-    private void ensureFFmpegPath () {
+    private async Task ensureFFmpegPathAsync () {
       bool succ = false;
       if (!string.IsNullOrWhiteSpace (Settings.FFMpegDirectory)) {
-        succ = _converter.VerifyFFmpegPathVersion (_interactionHandler.Interact);
+        succ = await _converter.VerifyFFmpegPathVersionAsync (_interactionHandler.Interact);
       } else {
         string ffmpegdir = ApplEnv.ApplDirectory;
         string path = Path.Combine (ffmpegdir, FFmpeg.FFMPEG_EXE);
         if (File.Exists (path)) {
           Settings.FFMpegDirectory = ffmpegdir;
           using (new ResourceGuard (() => Settings.FFMpegDirectory = null))
-            succ = _converter.VerifyFFmpegPathVersion (_interactionHandler.Interact);
+            succ = await _converter.VerifyFFmpegPathVersionAsync (_interactionHandler.Interact);
         }
       }
 
@@ -444,6 +465,7 @@ namespace audiamus.aaxconv {
       }
 
       _ffMpegPathVerified = succ;
+      enableAll (true);
     }
 
 
@@ -490,40 +512,125 @@ namespace audiamus.aaxconv {
       }
     }
 
-    private void refillListView () {
-      listViewAaxFiles.Items.Clear ();
-      foreach (var pr in _fileItems) {
-        var fi = pr.FileItem;
-        var lvi = pr.ListViewItem;
-        if (lvi is null) {
-          lvi = new ListViewItem {
-            Text = fi.BookTitle,
-          };
-          lvi.SubItems.Add (fi.Author);
-          lvi.SubItems.Add ($"{fi.FileSize / (1024 * 1024)} MB");
-          lvi.SubItems.Add (fi.Duration.ToStringHMS());
-          lvi.SubItems.Add (fi.PublishingDate?.Year.ToString ());
-          lvi.SubItems.Add (fi.Narrator);
-          lvi.SubItems.Add ($"{fi.SampleRate} Hz");
-          lvi.SubItems.Add ($"{fi.AvgBitRate} kb/s");
+    private void presetListView (bool refill = false) {
+      if (Settings.FileDateColumn) {
+        if (!listViewAaxFiles.Columns.Contains (clmHdrFileDate))
+          listViewAaxFiles.Columns.Add (clmHdrFileDate);
+      } else {
+        if (listViewAaxFiles.Columns.Contains (clmHdrFileDate))
+          listViewAaxFiles.Columns.Remove (clmHdrFileDate);
+      }
 
-          lvi.SubItems[0].Tag = _converter.SortingTitleWithPart (fi);
-          lvi.SubItems[2].Tag = fi.FileSize;
-          lvi.SubItems[6].Tag = fi.SampleRate;
-          lvi.SubItems[7].Tag = fi.AvgBitRate;
+      if (refill)
+        refillListView (true);
+      else {
+        adaptListViewColumnsWidthsForDate ();
+      }
+    }
 
-          pr.ListViewItem = lvi;
+    private void adaptListViewColumnsWidthsForDate () {
+      if (Settings.FileDateColumn) {
+        int wid = clmHdrFileDate.Width;
+        clmHdrAlbum.Width -= wid / 2;
+        clmHdrArtist.Width -= wid / 4;
+        clmHdrNarrator.Width -= wid / 4;
+      }
+    }
+
+    private void refillListView (bool recreate = false) {
+
+      var ci = Thread.CurrentThread.CurrentCulture;
+      var ciui = Thread.CurrentThread.CurrentUICulture;
+      if (ciui is null)
+        ciui = ci;
+
+      Thread.CurrentThread.CurrentCulture = ciui;
+      using (new ResourceGuard (() => Thread.CurrentThread.CurrentCulture = ci)) {
+
+        listViewAaxFiles.Items.Clear ();
+        foreach (var pr in _fileItems) {
+          var fi = pr.FileItem;
+          var lvi = pr.ListViewItem;
+          if (lvi is null || recreate) {
+            lvi = new ListViewItem {
+              Text = fi.BookTitle,
+            };
+            lvi.SubItems.Add (fi.Author);
+            lvi.SubItems.Add ($"{fi.FileSize / (1024 * 1024)} MB");
+            lvi.SubItems.Add (fi.Duration.ToStringHMS ());
+            lvi.SubItems.Add (fi.PublishingDate?.Year.ToString ());
+            lvi.SubItems.Add (fi.Narrator);
+            lvi.SubItems.Add ($"{fi.SampleRate} Hz");
+            lvi.SubItems.Add ($"{fi.AvgBitRate} kb/s");
+
+            if (Settings.FileDateColumn)
+              lvi.SubItems.Add (fi.FileDate.ToShortDateString ());
+
+            lvi.SubItems[0].Tag = _converter.SortingTitleWithPart (fi);
+            lvi.SubItems[2].Tag = fi.FileSize;
+            lvi.SubItems[6].Tag = fi.SampleRate;
+            lvi.SubItems[7].Tag = fi.AvgBitRate;
+
+            if (Settings.FileDateColumn)
+              lvi.SubItems[8].Tag = fi.FileDate;
+
+            pr.ListViewItem = lvi;
+
+            Log (3, this, () => {
+              const string CC = "taslynmbd";
+              var sb = new StringBuilder ();
+              int cnt = lvi.SubItems.Count;
+              int n = Math.Min (CC.Length, cnt);
+              for (int i = 0; i < n; i++) {
+                if (sb.Length > 0)
+                  sb.Append (", ");
+                string qt = (i <= 1 || i == 5) ? "\"" : string.Empty;
+                sb.Append ($"{CC[i]}={qt}{lvi.SubItems[i].Text}{qt}");
+              }
+              return sb.ToString ();
+            });
+          }
+          listViewAaxFiles.Items.Add (lvi);
         }
-        listViewAaxFiles.Items.Add (lvi);
       }
 
-      if (listViewAaxFiles.Items.Count > 0) {
-        listViewAaxFiles.AutoResizeColumns (ColumnHeaderAutoResizeStyle.ColumnContent);
-        listViewAaxFiles.AutoResizeColumns (ColumnHeaderAutoResizeStyle.HeaderSize);
-      }
+      adjustListViewColumnWidths ();
 
       if (listViewAaxFiles.Items.Count == 1)
         listViewAaxFiles.Items[0].Selected = true;
+
+    }
+
+    private void adjustListViewColumnWidths () {
+      using (new ResourceGuard (x => _resizeFlag = x)) {
+        if (listViewAaxFiles.Items.Count > 0) {
+          listViewAaxFiles.AutoResizeColumns (ColumnHeaderAutoResizeStyle.ColumnContent);
+          listViewAaxFiles.AutoResizeColumns (ColumnHeaderAutoResizeStyle.HeaderSize);
+        } else
+          adjustEmptyListViewColumnWidths ();
+      }
+    }
+
+    private void adjustEmptyListViewColumnWidths () {
+      const int widLast = 60;
+      const int marg = 2;
+      listViewAaxFiles.AutoResizeColumns (ColumnHeaderAutoResizeStyle.HeaderSize);
+
+      int wid = 0;
+      for (int i = 0; i < listViewAaxFiles.Columns.Count - 1; i++) {
+        var clm = listViewAaxFiles.Columns[i];
+        wid += clm.Width;
+      }
+      wid += widLast;
+      int delta = listViewAaxFiles.Width - wid - 2 * marg; // margin
+
+      if (delta > 0) {
+        clmHdrAlbum.Width += (int)(delta * 0.45);
+        clmHdrArtist.Width += delta / 4;
+        clmHdrNarrator.Width += delta / 4;
+        clmHdrSize.Width += delta / 20;
+        listViewAaxFiles.Columns[listViewAaxFiles.Columns.Count - 1].Width = widLast + marg;
+      }
     }
 
     private bool? customInteractionHandler (InteractionMessage<EInteractionCustomCallback> im) {
@@ -638,6 +745,9 @@ namespace audiamus.aaxconv {
 
     private void listViewAaxFiles_ColumnClick (object sender, ColumnClickEventArgs e) {
       ListView lv = (ListView)sender;
+
+      Settings.ConvertByFileDate = 
+        e.Column == listViewAaxFiles.Columns.IndexOf(clmHdrFileDate);
 
       // Determine if clicked column is already the column that is being sorted.
       if (e.Column == _lvwColumnSorter.SortColumn) {
@@ -902,6 +1012,25 @@ namespace audiamus.aaxconv {
       Settings.TrkDurMins = (byte)numUpDnTrkLen.Value;
       enableButtonConvert ();
     }
+
+    private void lblSaveTo_SizeChanged (object sender, EventArgs e) {
+      setLabelSaveTo ();
+    }
+
+    private void listViewAaxFiles_SizeChanged (object sender, EventArgs e) {
+      if (_fileItems.Count > 0)
+        return;
+      _resizeTimer.Stop ();
+      if (_resizeFlag)
+        return;
+      _resizeTimer.Start ();
+    }
+
+    private void resizeTimer_Tick (object sender, EventArgs e) {
+      _resizeTimer.Stop ();
+      adjustListViewColumnWidths ();
+    }
+
     #endregion Event Handlers
   }
 }

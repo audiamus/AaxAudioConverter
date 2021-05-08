@@ -135,12 +135,11 @@
   <data name="TrackNumberingDescription" xml:space="preserve">
     <value>Track numbering pattern in title tag. Placeholders will be substituted with current values. For "split-chapter" mode only.</value>
   </data>
-  <data name="Narrator" xml:space="preserve">
-    <value>Add Narrator</value>
+  <data name="TotalTracks" xml:space="preserve">
+    <value>Add total tracks</value>
   </data>
-  <data name="NarratorDescription" xml:space="preserve">
-    <value>Will add narrator name to artists tag if [yes].
-Behavior can be customized in Basic Settings.</value>
+  <data name="TotalTracksDescription" xml:space="preserve">
+    <value>Will add the total number of tracks to the track numbering pattern if [yes].</value>
   </data>
   <data name="GenreNaming" xml:space="preserve">
     <value>Genre naming</value>

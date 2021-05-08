@@ -323,12 +323,12 @@
   <ItemGroup>
     <None Include="AaxAudioConverter.latest.de.rtf" />
     <None Include="AaxAudioConverter.latest.rtf" />
-    <None Include="ffmpeg32.exe">
+    <Content Include="ffmpeg.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <Content Include="Resources\hidden features de.png" />
     <Content Include="Resources\hidden features en.png" />
-    <None Include="ffmpeg.exe">
+    <None Include="ffmpeg64.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="FodyWeavers.xml" />

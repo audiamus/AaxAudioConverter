@@ -33,11 +33,11 @@
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ATL, Version=3.18.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\z440.atl.core.3.18.0\lib\net45\ATL.dll</HintPath>
+    <Reference Include="ATL, Version=3.20.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\z440.atl.core.3.20.0\lib\net45\ATL.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -54,8 +54,9 @@
     <Compile Include="ActivationCodeApp.cs" />
     <Compile Include="ActivationCodeRegistry.cs" />
     <Compile Include="AudibleAppContentMetadata.cs" />
+    <Compile Include="AudibleAppSimsBySeries.cs" />
     <Compile Include="Book.Part.cs" />
-    <Compile Include="ContentMetadataJson.cs" />
+    <Compile Include="ContentMetadata.json.cs" />
     <Compile Include="ExtraMetaFiles.cs" />
     <Compile Include="FFMetaData.cs" />
     <Compile Include="FileEx.cs" />
@@ -68,6 +69,8 @@
     <Compile Include="Chapter.cs" />
     <Compile Include="Interfaces.cs" />
     <Compile Include="Book.Progress.cs" />
+    <Compile Include="SeriesTitles.json.cs" />
+    <Compile Include="SimsBySeries.json.cs" />
     <Compile Include="ThreadProgress.cs" />
     <Compile Include="ToStringConverters.cs" />
     <Compile Include="Track.cs" />

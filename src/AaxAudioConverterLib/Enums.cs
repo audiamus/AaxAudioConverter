@@ -42,6 +42,9 @@ namespace audiamus.aaxconv.lib {
     track,
     chapter_a_track,
     track_b_chapter_c,
+    track_b_nTrks_c,
+    chapter_a_track_b_nTrks_c,
+    track_b_chapter_c_b_nTrks_c,
   }
 
   public enum ELongTitle { no, book_series, series_book, as_is }
@@ -140,11 +143,18 @@ namespace audiamus.aaxconv.lib {
   }
 
   public enum ERoleTagAssignment {
-    none,
-    author,
-    author__narrator__,
-    author_narrator,
-    __narrator__,
-    narrator
+    none = 0,
+    author = 1,
+    author__narrator__ = 2, // DEPRECATED
+    author_narrator = 3, // => 2
+    __narrator__ = 4, // DEPRECATED
+    narrator = 5 // => 3
+  }
+
+  public enum EOutFolderConflict {
+    ask,
+    overwrite,
+    new_folder,
+    skip
   }
 }

@@ -58,6 +58,6 @@ namespace audiamus.aaxconv.lib.ex {
 
   public static class ConvSettingsEx {
     public static bool UseEmbeddedChapterTimes (this IConvSettings settings) =>
-      settings.PreferEmbeddedChapterTimes != EPreferEmbeddedChapterTimes.no && settings.NamedChapters != ENamedChapters.no;
+      settings.PreferEmbeddedChapterTimes == EPreferEmbeddedChapterTimes.ifSilent && settings.NamedChapters != ENamedChapters.no;
   }
 }

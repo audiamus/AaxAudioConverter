@@ -16,6 +16,7 @@ namespace audiamus.aaxconv.lib {
     public bool HasExtAA { get; private set; }
     public bool IsAA { get; internal set; }
     public long FileSize { get; internal set; }
+    public DateTime FileDate { get; internal set; }
     public string BookTitle { get; internal set; }
     public string [] Authors { get; internal set; }
     public string Author => Authors.Combine (); 
@@ -35,13 +36,16 @@ namespace audiamus.aaxconv.lib {
     public uint NumChapters { get; set; }
     public bool Converted { get; set; }
     public CustomTagFileNames CustomNames { get; set; }
-    internal AA.ContentMetadataFile ContentMetadataFile { get; set; }
+    internal AA.AsinJsonFile ContentMetadataFile { get; set; }
+    internal AA.AsinJsonFile SimsBySeriesFile { get; set; }
 
     public AaxFileItem (string path) {
       FileName = path;
       string ext = Path.GetExtension (path).ToLowerInvariant ();
       HasExtAA = ext == EXT_AA;
-      FileSize = new FileInfo (path).Length;
+      var fi = new FileInfo (path);
+      FileSize = fi.Length;
+      FileDate = fi.LastWriteTime;
 
       bool succ = TagAndFileNamingHelper.ReadMetaData (this);
       if (!succ) {

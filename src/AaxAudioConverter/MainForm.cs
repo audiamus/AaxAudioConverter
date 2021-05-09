@@ -38,7 +38,7 @@ namespace audiamus.aaxconv {
     private readonly ProgressProcessor _progress;
     private readonly InteractionCallbackHandler<EInteractionCustomCallback> _interactionHandler;
     private readonly SystemMenu _systemMenu;
-    private readonly Timer _resizeTimer;
+    private readonly Timer _resizeTimer = new Timer ();
 
     private readonly PerformanceMonitor _perfMonitor;
     private readonly PerformanceHandler _perfHandler;
@@ -68,7 +68,8 @@ namespace audiamus.aaxconv {
     #region Public Constructors
 
     public MainForm () {
-      InitializeComponent ();
+      using (new ResourceGuard (x => _resizeFlag = x))
+        InitializeComponent ();
 
       Log (1, this, () => $"{ApplName} {AssemblyVersion} as {(Is64BitProcess ? "64" : "32")}bit process on Windows {OSVersion} {(Is64BitOperatingSystem ? "64" : "32")}bit");
 
@@ -106,7 +107,6 @@ namespace audiamus.aaxconv {
       _perfProgress = new Progress<IPerfCallback> (_perfHandler.Update);
       _perfMonitor = new PerformanceMonitor { Callback = _perfProgress.Report };
 
-      _resizeTimer = new Timer ();
       _resizeTimer.Tick += resizeTimer_Tick;
       _resizeTimer.Interval = 100;
     }
@@ -1020,10 +1020,10 @@ namespace audiamus.aaxconv {
     private void listViewAaxFiles_SizeChanged (object sender, EventArgs e) {
       if (_fileItems.Count > 0)
         return;
-      _resizeTimer.Stop ();
+      _resizeTimer?.Stop ();
       if (_resizeFlag)
         return;
-      _resizeTimer.Start ();
+      _resizeTimer?.Start ();
     }
 
     private void resizeTimer_Tick (object sender, EventArgs e) {

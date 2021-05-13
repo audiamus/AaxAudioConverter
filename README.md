@@ -49,15 +49,15 @@ The application requires .Net Framework 4.7.1 to be installed. On Windows 10 sys
 AAX Audio Converter is configured to support high DPI monitors under Windows 10. It will scale properly when the user changes the DPI or scale factor. 
 
 ## Download
-Windows setup package version 1.17, English and German, with manuals, plus FFmpeg executable:
+Windows setup package version 1.17.1, English and German, with manuals, plus FFmpeg executable:
 
-**[AaxAudioConverter-1.17.0.1-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.17.0.1/AaxAudioConverter-1.17.0.1-Setup.exe)**
+**[AaxAudioConverter-1.17.1-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.17.1/AaxAudioConverter-1.17.1-Setup.exe)**
 
 Manuals (also included in the setup package):
 
-**[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.17.0.1/AaxAudioConverter.pdf)**
+**[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.17.1/AaxAudioConverter.pdf)**
 
-**[German](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.17.0.1/AaxAudioConverter.de.pdf)**
+**[German](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.17.1/AaxAudioConverter.de.pdf)**
 
 
 ## Dependencies

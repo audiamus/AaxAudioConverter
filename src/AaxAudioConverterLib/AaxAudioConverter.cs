@@ -1964,15 +1964,11 @@ namespace audiamus.aaxconv.lib {
       var appMetadadata = new AudibleAppContentMetadata ();
       appMetadadata.GetContentMetadata (part, flags);
 
+      if (!withSeries)
+        return;
+
       var simsBySeries = new AudibleAppSimsBySeries ();
       simsBySeries.GetSimsBySeries (part);
-
-      // test only
-      //var ser = part.Book.ExternalMeta;
-      //string s1 = ser.SeqString (Settings.NumDigitsSeriesSeqNo);
-      //string s2 = ser.SeqString (Settings.NumDigitsSeriesSeqNo);
-      //string s3 = ser.SeqString (Settings.NumDigitsSeriesSeqNo);
-      //string s4 = ser.SeqString (Settings.NumDigitsSeriesSeqNo);
     }
 
     private bool updateTags (Book book, Track track) {
@@ -2134,6 +2130,7 @@ namespace audiamus.aaxconv.lib {
     }
 
     private string initDirectory (Book book, string author, string title) {
+      Log (3, this, () => $"book:\"{book.SortingTitle.Shorten()}\", author={(author is null ? "<null>" : $"\"{author}\"")}, title=\"{title}\"");
 
       string rootDirLong = Settings.OutputDirectory.AsUnc();
 
@@ -2141,12 +2138,13 @@ namespace audiamus.aaxconv.lib {
       string outDirBookParentLong = rootDirLong;
       string series = string.Empty;
       string seriesSeqNo = string.Empty;
+
       try {
 
         // author + series + title
         
         // do we have an author?
-        if (!string.IsNullOrWhiteSpace (author)) {
+        if (!(Settings.FlatFolders || author.IsNullOrWhiteSpace ())) {
           outDirLong = Path.Combine (outDirLong, author);
           if (!Directory.Exists (outDirLong))
             book.IsNewAuthor = true;
@@ -2154,7 +2152,7 @@ namespace audiamus.aaxconv.lib {
         }
 
         // do we have a series?
-        if (book.HasSeries) {
+        if (Settings.WithSeriesTitle && book.HasSeries) {
           series = book.ExternalMeta.SeriesString().Prune();
           seriesSeqNo = book.ExternalMeta.SeqStringFramed (Settings.NumDigitsSeriesSeqNo).Prune();
           outDirLong = Path.Combine (outDirLong, series);

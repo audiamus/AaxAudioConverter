@@ -182,7 +182,7 @@ namespace audiamus.aaxconv {
       if (args.Length > 1)
         addFile (args[1]);
 
-      await ensureFFmpegPathAsync ();
+      await ensureFFmpegPathAsync (Settings.RelaxedFFmpegVersionCheck);
     }
 
     protected override void OnLoad (EventArgs e) {
@@ -443,17 +443,17 @@ namespace audiamus.aaxconv {
       panelExec.Enabled = enable;
     }
 
-    private async Task ensureFFmpegPathAsync () {
+    private async Task ensureFFmpegPathAsync (bool acceptMismatchedVersion = false) {
       bool succ = false;
       if (!string.IsNullOrWhiteSpace (Settings.FFMpegDirectory)) {
-        succ = await _converter.VerifyFFmpegPathVersionAsync (_interactionHandler.Interact);
+        succ = await _converter.VerifyFFmpegPathVersionAsync (_interactionHandler.Interact, Settings.RelaxedFFmpegVersionCheck, acceptMismatchedVersion);
       } else {
         string ffmpegdir = ApplEnv.ApplDirectory;
         string path = Path.Combine (ffmpegdir, FFmpeg.FFMPEG_EXE);
         if (File.Exists (path)) {
           Settings.FFMpegDirectory = ffmpegdir;
           using (new ResourceGuard (() => Settings.FFMpegDirectory = null))
-            succ = await _converter.VerifyFFmpegPathVersionAsync (_interactionHandler.Interact);
+            succ = await _converter.VerifyFFmpegPathVersionAsync (_interactionHandler.Interact, Settings.RelaxedFFmpegVersionCheck, acceptMismatchedVersion);
         }
       }
 

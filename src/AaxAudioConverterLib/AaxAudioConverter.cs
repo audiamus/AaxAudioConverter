@@ -159,12 +159,12 @@ namespace audiamus.aaxconv.lib {
     }
 
     public async Task<bool> VerifyFFmpegPathVersionAsync (
-      Func<InteractionMessage, bool?> callback, bool? relaxedFFmpegVersionCheck = null
+      Func<InteractionMessage, bool?> callback, bool? relaxedFFmpegVersionCheck = null, bool autoAcceptMismatch = false
     ) {
-      return await Task.Run (() => VerifyFFmpegPathVersion (callback, relaxedFFmpegVersionCheck));
+      return await Task.Run (() => VerifyFFmpegPathVersion (callback, relaxedFFmpegVersionCheck, autoAcceptMismatch));
     }
 
-    public bool VerifyFFmpegPathVersion (Func<InteractionMessage, bool?> callback, bool? relaxedFFmpegVersionCheck = null) {
+    public bool VerifyFFmpegPathVersion (Func<InteractionMessage, bool?> callback, bool? relaxedFFmpegVersionCheck = null, bool autoAcceptMismatch = false) {
       var version = VerifyFFmpegPath (relaxedFFmpegVersionCheck);
 
       bool succ = Version.TryParse(version, out Version parsedVersion);
@@ -176,7 +176,7 @@ namespace audiamus.aaxconv.lib {
         sb.AppendLine ($"{Resources.MsgFFmpegVersion3}?");
         sb.Append ($"({Resources.MsgFFmpegVersion4}.)");
 
-        succ = callback (new InteractionMessage { Message = sb.ToString (), Type = ECallbackType.question }) ?? false;
+        succ = autoAcceptMismatch || (callback(new InteractionMessage { Message = sb.ToString (), Type = ECallbackType.question }) ?? false);
       }
 
       return succ;

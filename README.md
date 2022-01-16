@@ -13,6 +13,7 @@ Convert Audible aax files to mp3 and m4a/m4b
 - Also offers basic support for older .aa files.
 - Windows application, with all the classic features of the Windows eco-system.
 - Requires either activated Audible App, (legacy) Audible Manager, or personal activation code.
+  - _It appears that the Win10 Audible app is no longer available. You may want to try the new [BookLibConnect downloader](https://github.com/audiamus/BookLibConnect) which is to become an integrated component of AAX Audio Converter in the future._   
 - Processing Modes: 
   - One output file per input file.
   - Multiple output files per input file, divided by chapter.

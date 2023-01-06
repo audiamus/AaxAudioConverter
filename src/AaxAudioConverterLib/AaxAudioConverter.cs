@@ -2133,53 +2133,55 @@ namespace audiamus.aaxconv.lib {
       Log (3, this, () => $"book:\"{book.SortingTitle.Shorten()}\", author={(author is null ? "<null>" : $"\"{author}\"")}, title=\"{title}\"");
 
       string rootDirLong = Settings.OutputDirectory.AsUnc();
-
       string outDirLong = rootDirLong;
       string outDirBookParentLong = rootDirLong;
-      string series = string.Empty;
-      string seriesSeqNo = string.Empty;
 
       try {
+        if (!Settings.FlatFolders) {
+          string series = string.Empty;
+          string seriesSeqNo = string.Empty;
 
-        // author + series + title
-        
-        // do we have an author?
-        if (!(Settings.FlatFolders || author.IsNullOrWhiteSpace ())) {
-          outDirLong = Path.Combine (outDirLong, author);
-          if (!Directory.Exists (outDirLong))
-            book.IsNewAuthor = true;
-          outDirBookParentLong = outDirLong;
-        }
-
-        // do we have a series?
-        if (Settings.WithSeriesTitle && book.HasSeries) {
-          series = book.ExternalMeta.SeriesString().Prune();
-          seriesSeqNo = book.ExternalMeta.SeqStringFramed (Settings.NumDigitsSeriesSeqNo).Prune();
-          outDirLong = Path.Combine (outDirLong, series);
-          if (!Directory.Exists (outDirLong))
-            book.IsNewSeries = true;
-          outDirBookParentLong = outDirLong;
-        }
-
-        // we always should have a title
-
-        // full caption for title folder?
-        if (Settings.FullCaptionBookFolder) {
-          var sb = new StringBuilder ();
-          if (!author.IsNullOrWhiteSpace ()) { 
-            sb.Append (author);
-            sb.Append (" - ");
+          // author + series + title
+          
+          
+          // do we have an author?
+          if (!author.IsNullOrWhiteSpace ()) {
+            outDirLong = Path.Combine (outDirLong, author);
+            if (!Directory.Exists (outDirLong))
+              book.IsNewAuthor = true;
+            outDirBookParentLong = outDirLong;
           }
-          if (!series.IsNullOrWhiteSpace ()) {
-            sb.Append (series);
-            if (!seriesSeqNo.IsNullOrWhiteSpace ())
-              sb.Append ($" {seriesSeqNo}");
-            sb.Append (" - ");
+
+          // do we have a series?
+          if (Settings.WithSeriesTitle && book.HasSeries) {
+            series = book.ExternalMeta.SeriesString ().Prune ();
+            seriesSeqNo = book.ExternalMeta.SeqStringFramed (Settings.NumDigitsSeriesSeqNo).Prune ();
+            outDirLong = Path.Combine (outDirLong, series);
+            if (!Directory.Exists (outDirLong))
+              book.IsNewSeries = true;
+            outDirBookParentLong = outDirLong;
           }
-          sb.Append (title);
-          title = sb.ToString ();
-        } else if (!seriesSeqNo.IsNullOrWhiteSpace ())
-          title = $"{seriesSeqNo} {title}";
+
+          // we always should have a title
+
+          // full caption for title folder?
+          if (Settings.FullCaptionBookFolder) {
+            var sb = new StringBuilder ();
+            if (!author.IsNullOrWhiteSpace ()) {
+              sb.Append (author);
+              sb.Append (" - ");
+            }
+            if (!series.IsNullOrWhiteSpace ()) {
+              sb.Append (series);
+              if (!seriesSeqNo.IsNullOrWhiteSpace ())
+                sb.Append ($" {seriesSeqNo}");
+              sb.Append (" - ");
+            }
+            sb.Append (title);
+            title = sb.ToString ();
+          } else if (!seriesSeqNo.IsNullOrWhiteSpace ())
+            title = $"{seriesSeqNo} {title}";
+        }
 
         outDirLong = Path.Combine (outDirLong, title);
 

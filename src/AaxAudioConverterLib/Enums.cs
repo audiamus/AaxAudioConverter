@@ -94,6 +94,13 @@ namespace audiamus.aaxconv.lib {
     promptForInstall
   }
 
+  public enum EUpdateInteract {
+    newVersAvail,
+    installNow,
+    installLater,
+    mayAskAgain,
+  }
+
   public enum EVerifyAdjustChapters {
     no = 0,
     splitChapterMode = 1,

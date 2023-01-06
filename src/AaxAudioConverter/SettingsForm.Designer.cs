@@ -52,6 +52,8 @@
       this.ckBoxLaunchPlayer = new System.Windows.Forms.CheckBox();
       this.lblUpdate = new System.Windows.Forms.Label();
       this.comBoxUpdate = new System.Windows.Forms.ComboBox();
+      this.lblUpdateOthers = new System.Windows.Forms.Label();
+      this.btnResetOnlineUpdOthers = new System.Windows.Forms.Button();
       this.lblLang = new System.Windows.Forms.Label();
       this.comBoxLang = new System.Windows.Forms.ComboBox();
       this.lblPartName = new System.Windows.Forms.Label();
@@ -92,10 +94,10 @@
       this.pnlPrefEmbChapTim = new System.Windows.Forms.Panel();
       this.comBoxPrefEmbChapTimes = new System.Windows.Forms.ComboBox();
       this.comBoxOutFolderConflict = new System.Windows.Forms.ComboBox();
-      this.lblFullCaptionBookFolder = new System.Windows.Forms.Label();
       this.ckBoxSeries = new System.Windows.Forms.CheckBox();
       this.numUpDnSeriesDigits = new System.Windows.Forms.NumericUpDown();
       this.ckBoxFullCaptionBookFolder = new System.Windows.Forms.CheckBox();
+      this.lblFullCaptionBookFolder = new System.Windows.Forms.Label();
       this.comBoxArtist = new System.Windows.Forms.ComboBox();
       this.comBoxAlbumArtist = new System.Windows.Forms.ComboBox();
       this.comBoxComposer = new System.Windows.Forms.ComboBox();
@@ -205,8 +207,10 @@
       this.tableLayoutPanel1.Controls.Add(this.ckBoxLaunchPlayer, 1, 7);
       this.tableLayoutPanel1.Controls.Add(this.lblUpdate, 0, 8);
       this.tableLayoutPanel1.Controls.Add(this.comBoxUpdate, 1, 8);
-      this.tableLayoutPanel1.Controls.Add(this.lblLang, 0, 9);
-      this.tableLayoutPanel1.Controls.Add(this.comBoxLang, 1, 9);
+      this.tableLayoutPanel1.Controls.Add(this.lblUpdateOthers, 0, 9);
+      this.tableLayoutPanel1.Controls.Add(this.btnResetOnlineUpdOthers, 1, 9);
+      this.tableLayoutPanel1.Controls.Add(this.lblLang, 0, 10);
+      this.tableLayoutPanel1.Controls.Add(this.comBoxLang, 1, 10);
       this.tableLayoutPanel1.Name = "tableLayoutPanel1";
       this.toolTip1.SetToolTip(this.tableLayoutPanel1, resources.GetString("tableLayoutPanel1.ToolTip"));
       // 
@@ -369,6 +373,20 @@
             resources.GetString("comBoxUpdate.Items2")});
       this.comBoxUpdate.Name = "comBoxUpdate";
       this.toolTip1.SetToolTip(this.comBoxUpdate, resources.GetString("comBoxUpdate.ToolTip"));
+      // 
+      // lblUpdateOthers
+      // 
+      resources.ApplyResources(this.lblUpdateOthers, "lblUpdateOthers");
+      this.lblUpdateOthers.Name = "lblUpdateOthers";
+      this.toolTip1.SetToolTip(this.lblUpdateOthers, resources.GetString("lblUpdateOthers.ToolTip"));
+      // 
+      // btnResetOnlineUpdOthers
+      // 
+      resources.ApplyResources(this.btnResetOnlineUpdOthers, "btnResetOnlineUpdOthers");
+      this.btnResetOnlineUpdOthers.Name = "btnResetOnlineUpdOthers";
+      this.toolTip1.SetToolTip(this.btnResetOnlineUpdOthers, resources.GetString("btnResetOnlineUpdOthers.ToolTip"));
+      this.btnResetOnlineUpdOthers.UseVisualStyleBackColor = true;
+      this.btnResetOnlineUpdOthers.Click += new System.EventHandler(this.btnResetOnlineUpdOthers_Click);
       // 
       // lblLang
       // 
@@ -676,12 +694,6 @@
       this.comBoxOutFolderConflict.Name = "comBoxOutFolderConflict";
       this.toolTip1.SetToolTip(this.comBoxOutFolderConflict, resources.GetString("comBoxOutFolderConflict.ToolTip"));
       // 
-      // lblFullCaptionBookFolder
-      // 
-      resources.ApplyResources(this.lblFullCaptionBookFolder, "lblFullCaptionBookFolder");
-      this.lblFullCaptionBookFolder.Name = "lblFullCaptionBookFolder";
-      this.toolTip1.SetToolTip(this.lblFullCaptionBookFolder, resources.GetString("lblFullCaptionBookFolder.ToolTip"));
-      // 
       // ckBoxSeries
       // 
       resources.ApplyResources(this.ckBoxSeries, "ckBoxSeries");
@@ -707,6 +719,12 @@
       this.ckBoxFullCaptionBookFolder.Name = "ckBoxFullCaptionBookFolder";
       this.toolTip1.SetToolTip(this.ckBoxFullCaptionBookFolder, resources.GetString("ckBoxFullCaptionBookFolder.ToolTip"));
       this.ckBoxFullCaptionBookFolder.UseVisualStyleBackColor = true;
+      // 
+      // lblFullCaptionBookFolder
+      // 
+      resources.ApplyResources(this.lblFullCaptionBookFolder, "lblFullCaptionBookFolder");
+      this.lblFullCaptionBookFolder.Name = "lblFullCaptionBookFolder";
+      this.toolTip1.SetToolTip(this.lblFullCaptionBookFolder, resources.GetString("lblFullCaptionBookFolder.ToolTip"));
       // 
       // comBoxArtist
       // 
@@ -1037,7 +1055,6 @@
     private System.Windows.Forms.Button btnFfmpegLoc;
     private System.Windows.Forms.TextBox txtBoxCustPart;
     private System.Windows.Forms.ToolTip toolTip1;
-    private System.Windows.Forms.Label lblLang;
     private System.Windows.Forms.Button btnReset;
     private System.Windows.Forms.Panel panelActCode;
     private System.Windows.Forms.ListBox listBoxActCode;
@@ -1068,7 +1085,6 @@
     private System.Windows.Forms.Label lblNamedChapters;
     private System.Windows.Forms.Label lblRegActCode;
     private System.Windows.Forms.Label lblPartName;
-    private System.Windows.Forms.ComboBox comBoxLang;
     private System.Windows.Forms.CheckBox ckBoxLaunchPlayer;
     private System.Windows.Forms.Label lblLaunchPlayer;
     private System.Windows.Forms.ComboBox comBoxM4B;
@@ -1123,5 +1139,9 @@
     private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
     private System.Windows.Forms.ComboBox comBoxRedBitRate;
     private System.Windows.Forms.Panel panelSeriesDigits;
+    private System.Windows.Forms.Label lblLang;
+    private System.Windows.Forms.ComboBox comBoxLang;
+    private System.Windows.Forms.Label lblUpdateOthers;
+    private System.Windows.Forms.Button btnResetOnlineUpdOthers;
   }
 }

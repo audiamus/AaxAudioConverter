@@ -24,7 +24,7 @@ namespace audiamus.aaxconv.lib.json {
     public string acr { get; set; }
     public string asin { get; set; }
     public string content_format { get; set; }
-    public int content_size_in_bytes { get; set; }
+    public long content_size_in_bytes { get; set; }
     public string marketplace { get; set; }
     public string sku { get; set; }
     public string tempo { get; set; }

@@ -239,7 +239,10 @@ Are you sure?</value>
   </data>
   <data name="MsgNoteActivationCode" xml:space="preserve">
     <value>Note: The code provided can only be
-verified when converting an .aax file</value>
+verified when converting an .aax file.
+
+(A dummy code will only work for books 
+downloaded with Book Lib Connect.)</value>
   </data>
   <data name="MsgProgCh" xml:space="preserve">
     <value>ch</value>
@@ -304,20 +307,16 @@ Restart now?</value>
     <value>Customization removed, [OK] to apply.</value>
   </data>
   <data name="MsgOnlineUpdateDownload" xml:space="preserve">
-    <value>of AaxAudioConverter is avaliable.
+    <value>New version {0}{1} of {2} is available.
 Download now?</value>
   </data>
-  <data name="MsgOnlineUpdateInstall" xml:space="preserve">
-    <value>of AaxAudioConverter is ready for installation.</value>
-  </data>
-  <data name="MsgOnlineUpdateNewVersion" xml:space="preserve">
-    <value>New version</value>
-  </data>
   <data name="MsgOnlineUpdateInstallLater" xml:space="preserve">
-    <value>Install now?</value>
+    <value>New version {0}{1} of {2} is ready for installation.
+Install now?</value>
   </data>
   <data name="MsgOnlineUpdateInstallNow" xml:space="preserve">
-    <value>Install now? (Will close current AaxAudioConverter window.)</value>
+    <value>New version {0}{1} of {2} is ready for installation.
+Install now? (Will close current {2} window.)</value>
   </data>
   <data name="HdrBitRate" xml:space="preserve">
     <value>Bit rate</value>
@@ -394,5 +393,29 @@ Copies will not be made. </value>
   </data>
   <data name="MsgFFmpegFileError3" xml:space="preserve">
     <value>more files.</value>
+  </data>
+  <data name="MsgOnlineUpdatePreview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="MsgOnlineUpdateDownloadOther" xml:space="preserve">
+    <value>Also available:
+{2} version {0}{1}.
+
+{3}
+
+Download and install now? 
+(Will not affect {4}.)</value>
+  </data>
+  <data name="MsgOnlineUpdateOtherAskAgain" xml:space="preserve">
+    <value>Will not install {2} version {0}{1}.
+Notify of future versions?</value>
+  </data>
+  <data name="MsgOnlineUpdateOtherInstallNow" xml:space="preserve">
+    <value>{2} version {0}{1} is ready for installation.
+
+{3}
+
+Install now? 
+(Will not affect {4}.)</value>
   </data>
 </root>

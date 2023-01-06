@@ -34,11 +34,11 @@ namespace audiamus.aaxconv {
     public string MsgDirectoryPartCreationCallback => R.MsgDirectoryPartCreationCallback;
     public string MsgDirectoryCreationCallbackForAll => R.MsgDirectoryCreationCallbackForAll;
     public string PartNames => R.PartNames;
-    public string MsgOnlineUpdateNewVersion => R.MsgOnlineUpdateNewVersion;
-    public string MsgOnlineUpdateDownload => R.MsgOnlineUpdateDownload;
-    public string MsgOnlineUpdateInstall => R.MsgOnlineUpdateInstall;
-    public string MsgOnlineUpdateInstallNow => R.MsgOnlineUpdateInstallNow;
-    public string MsgOnlineUpdateInstallLater => R.MsgOnlineUpdateInstallLater;
+    //public string MsgOnlineUpdateNewVersion => R.MsgOnlineUpdateNewVersion;
+    //public string MsgOnlineUpdateDownload => R.MsgOnlineUpdateDownload;
+    //public string MsgOnlineUpdateInstall => R.MsgOnlineUpdateInstall;
+    //public string MsgOnlineUpdateInstallNow => R.MsgOnlineUpdateInstallNow;
+    //public string MsgOnlineUpdateInstallLater => R.MsgOnlineUpdateInstallLater;
 
     public string HdrAuthor => R.HdrAuthor;
     public string HdrTitle => R.HdrTitle;

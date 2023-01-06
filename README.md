@@ -46,27 +46,27 @@ Convert Audible aax files to mp3 and m4a/m4b
 ## System Environment
 AAX Audio Converter will run on Windows 7 and above.
 
-The application requires .Net Framework 4.7.1 to be installed. On Windows 10 systems this should normally be the case, if the system is kept up to date. On older Windows versions, the Framework may have to be installed separately. AAX Audio Converter will detect the missing Framework and provide a link to the download, automatically opening the relevant Microsoft web page. 
+The application requires .Net Framework 4.8 to be installed. On Windows 10/11 systems this should normally be the case, if the system is kept up to date. On older Windows versions, the Framework may have to be installed separately. AAX Audio Converter will detect the missing Framework and provide a link to the download, automatically opening the relevant Microsoft web page. 
 
 AAX Audio Converter is configured to support high DPI monitors under Windows 10. It will scale properly when the user changes the DPI or scale factor. 
 
 ## Download
-Windows setup package version 1.17.1, English and German, with manuals, plus FFmpeg executable:
+Windows setup package version 1.18, English and German, with manuals, plus FFmpeg executable:
 
-**[AaxAudioConverter-1.17.1-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.17.1/AaxAudioConverter-1.17.1-Setup.exe)**
+**[AaxAudioConverter-1.18-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.18/AaxAudioConverter-1.18-Setup.exe)**
 
 Manuals (also included in the setup package):
 
-**[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.17.1/AaxAudioConverter.pdf)**
+**[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.18/AaxAudioConverter.pdf)**
 
-**[German](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.17.1/AaxAudioConverter.de.pdf)**
+**[German](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.18/AaxAudioConverter.de.pdf)**
 
 
 ## Dependencies
 ### Audible account
-AAX Audio Converter needs the user's personal Audible activation code to be able to process his/her Audible audiobooks.
+Unless books are downloaded with [Book Lib Connect](https://github.com/audiamus/BookLibConnect) - the recommended way -, AAX Audio Converter needs the user's personal Audible activation code to be able to process his/her Audible audiobooks.
 
-The easiest way to obtain the Audible activation code is to install and activate the “Audible App” for Windows 10 or (legacy) “Audible Manager”. The Audible App can be downloaded from the Audible website, on the software page. With Audible App/Manager installed and activated, i.e. associated with the Audible account, AAX Audio Converter should be able to find the activation code automatically.
+Without Book Lib Connect, the easiest way to obtain the Audible activation code is to install and activate legacy “Audible Manager”. While no longer available from Audible directly, other websites still list it. With Audible Manager installed and activated, i.e. associated with the Audible account, AAX Audio Converter should be able to find the activation code automatically.
 
 ### FFmpeg
 All audio processing in AAX Audio Converter, including DRM handling, is carried out by [FFmpeg](https://www.ffmpeg.org/). 

@@ -24,6 +24,7 @@ namespace audiamus.aaxconv {
     private bool _flag;
     private bool _enabled = true;
     private readonly string _title; 
+    private bool _flagResetUpdateOthers;
 
     private ComboBoxEnumAdapter<EAaxCopyMode> _cbAdapterAaxCopyMode;
 
@@ -339,6 +340,10 @@ namespace audiamus.aaxconv {
       Dirty |= string.Equals (newSetting, newSetting);
     }
 
+    private void btnResetOnlineUpdOthers_Click (object sender, EventArgs e) {
+      _flagResetUpdateOthers = true;
+    }
+
     private void btnReset_Click (object sender, EventArgs e) {
       if (MsgBox.Show (this, R.MsgResetAllSettings, 
         this.Text, MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
@@ -382,6 +387,9 @@ namespace audiamus.aaxconv {
       Settings.AutoLaunchPlayer = ckBoxLaunchPlayer.Checked;
       
       Settings.OnlineUpdate = (EOnlineUpdate)comBoxUpdate.SelectedIndex;
+
+      if (_flagResetUpdateOthers)
+        Settings.OnlineUpdateOthersDeclined = string.Empty;
 
       if (Culture.ChangeLanguage (comBoxLang, Settings)) {
         Settings.Save ();

@@ -244,7 +244,10 @@ Sind Sie sicher?</value>
   </data>
   <data name="MsgNoteActivationCode" xml:space="preserve">
     <value>Hinweis: Der eingegebene Code kann erst bei der 
-Konvertierung einer .aax-Datei verifiziert werden</value>
+Konvertierung einer .aax-Datei verifiziert werden. 
+
+(Ein gesetzter Pseudocode funktioniert nur für Bücher, 
+die mit Book Lib Connect heruntergeladen wurden.)</value>
   </data>
   <data name="MsgProgCh" xml:space="preserve">
     <value>Kap</value>
@@ -333,22 +336,16 @@ Jetzt neu starten?</value>
     <value>Keine Anpassungen mehr, übernehmen mit [OK]</value>
   </data>
   <data name="MsgOnlineUpdateDownload" xml:space="preserve">
-    <value>von AaxAudioConverter ist verfügbar.
+    <value>Eine neue Version {0}{1} von {2} ist verfügbar.{3}
 Jetzt herunterladen?</value>
   </data>
-  <data name="MsgOnlineUpdateInstall" xml:space="preserve">
-    <value>von AaxAudioConverter 
-ist zur Installation bereit.</value>
-  </data>
-  <data name="MsgOnlineUpdateNewVersion" xml:space="preserve">
-    <value>Neue Version</value>
-  </data>
   <data name="MsgOnlineUpdateInstallLater" xml:space="preserve">
-    <value>Jetzt installieren?</value>
+    <value>Neue Version {0}{1} von {2} ist zur Installation bereit.
+Jetzt installieren?</value>
   </data>
   <data name="MsgOnlineUpdateInstallNow" xml:space="preserve">
-    <value>Jetzt installieren? 
-(Schließt das aktuelle AaxAudioConverter-Fenster.)</value>
+    <value>Neue Version {0}{1} von {2} ist zur Installation bereit.
+Jetzt installieren? (Schließt das derzeitige {2}-Fenster.)</value>
   </data>
   <data name="MsgDirectoryCreationCallbackForAll" xml:space="preserve">
     <value>Bei den anderen Büchern genauso verfahren?</value>
@@ -413,5 +410,29 @@ ist zur Installation bereit.</value>
   </data>
   <data name="MsgFFmpegFileError3" xml:space="preserve">
     <value>weitere Dateien</value>
+  </data>
+  <data name="MsgOnlineUpdatePreview" xml:space="preserve">
+    <value>Vorschau</value>
+  </data>
+  <data name="MsgOnlineUpdateDownloadOther" xml:space="preserve">
+    <value>Außerdem verfügbar:
+{2} Version {0}{1}.
+
+{3}
+
+Jetzt herunterladen und installieren? 
+(Keine Auswirkung auf {4}.)</value>
+  </data>
+  <data name="MsgOnlineUpdateOtherAskAgain" xml:space="preserve">
+    <value>{2} Version {0}{1} wird nicht installiert.
+Bei neuer Version benachrichtigen?</value>
+  </data>
+  <data name="MsgOnlineUpdateOtherInstallNow" xml:space="preserve">
+    <value>{2} Version {0}{1} ist zur Installation bereit.
+
+{3}
+
+Jetzt installieren? 
+(Keine Auswirkung auf {4}.)</value>
   </data>
 </root>

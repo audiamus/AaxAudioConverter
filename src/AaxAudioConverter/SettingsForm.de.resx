@@ -267,6 +267,26 @@ Nur für erstes oder einzeln konvertiertes Buch.</value>
   <data name="comBoxUpdate.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="lblUpdateOthers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 270</value>
+  </data>
+  <data name="lblUpdateOthers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>219, 30</value>
+  </data>
+  <data name="lblUpdateOthers.Text" xml:space="preserve">
+    <value>Online-Update/Installation
+ verwandter Anwendungen</value>
+  </data>
+  <data name="lblUpdateOthers.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="btnResetOnlineUpdOthers.Text" xml:space="preserve">
+    <value>Rücksetzen</value>
+  </data>
+  <data name="btnResetOnlineUpdOthers.ToolTip" xml:space="preserve">
+    <value>Erlaubt Benachrichtigungen zur Installation oder zum Update 
+verwandter Anwendungen. Löscht zuvorige Ablehnungen.</value>
+  </data>
   <data name="lblLang.Text" xml:space="preserve">
     <value>Sprache</value>
   </data>
@@ -426,8 +446,8 @@ wenn die Namen nicht eindeutig sind. </value>
   </data>
   <data name="ckBoxExtraMetaFiles.ToolTip" xml:space="preserve">
     <value>Die Buchbeschreibung wird in jede erzeugte Audiodatei 
-iimmr mit eingebettet. Diese Option erzeugt eine zusätzliche 
-und separate Text- und Bild-Datei mit der selben Infoirmation. </value>
+immer mit eingebettet. Diese Option erzeugt eine zusätzliche 
+und separate Text- und Bild-Datei mit der selben Information. </value>
   </data>
   <data name="lblM4B.Text" xml:space="preserve">
     <value>Dateityp für MP4-Audio</value>
@@ -511,10 +531,6 @@ Wenn variable Bitrate ebenfalls gesetzt ist, wird ein geeignetes Äquivalent ver
 Ausgabeordner für die Konvertierung eines Buches 
 bereits existiert.</value>
   </data>
-  <data name="lblFullCaptionBookFolder.Text" xml:space="preserve">
-    <value>Komplette Bezeichnung
- für Buch-Ordner</value>
-  </data>
   <data name="ckBoxSeries.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 9</value>
   </data>
@@ -540,6 +556,13 @@ den zugehörigen Metadaten gefunden wird
   <data name="ckBoxFullCaptionBookFolder.ToolTip" xml:space="preserve">
     <value>Wenn gesetzt, wird der Buch-Ordner mit Autor, Serien- und Buchtitel beschriftet.
 (Nur für hierarchische Ordnerstruktur.)</value>
+  </data>
+  <data name="lblFullCaptionBookFolder.Text" xml:space="preserve">
+    <value>Komplette Bezeichnung
+ für Buch-Ordner</value>
+  </data>
+  <data name="lblFullCaptionBookFolder.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="comBoxArtist.Items" xml:space="preserve">
     <value>&lt;leer&gt;</value>

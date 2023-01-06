@@ -117,26 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btnDummy.Text" xml:space="preserve">
+    <value>Pseudo für Book Lib Connect</value>
+  </data>
+  <data name="btnDummy.ToolTip" xml:space="preserve">
+    <value>Platzhalter-Aktivierungscode erzeugen</value>
+  </data>
   <data name="btnCancel.Text" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="panel1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 230</value>
+  <data name="btnCancel.ToolTip" xml:space="preserve">
+    <value />
   </data>
+  <data name="btnOk.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="panel1.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 197</value>
+    <value>15, 272</value>
+  </data>
+  <data name="textBox1.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="lblInfo.Size" type="System.Drawing.Size, System.Drawing">
-    <value>270, 163</value>
+    <value>319, 247</value>
   </data>
   <data name="lblInfo.Text" xml:space="preserve">
-    <value>Der einfachste Weg, den Audible-Aktivierungscode zu erhalten, ist die Installation und Aktivierung der "Audible App" (Windows 10) oder des älteren „Audible Manager“. Die App kann von der Audible-Webseite unter Software heruntergeladen werden. Nach der Installation und Aktivierung von Audible App/Manager, d.h. der Verknüpfung mit dem eigenen Audible-Konto, sollte AaxAudioConverter den Aktivierungscode automatisch finden. 
+    <value>Der einfachste Weg, AAX Audio Converter zu nutzen, ist das Herunterladen der Bücher mit Book Lib Connect . Dann ist kein echter Aktivierungscode mehr erforderlich. 
+Auf [Pseudo für Book Lib Connect] klicken, um einen Platzhaltercode zu setzen. 
+
+Eine andere Möglichkeit ist der frühere „Audible Manager“. Obwohl bei Audible selbst nicht mehr verfügbar, ist dieses Programm noch auf anderen Webseiten zu finden. Nach der Installation und Aktivierung von Audible Manager, d.h. der Verknüpfung mit dem eigenen Audible-Konto, sollte AAX Audio Converter den Aktivierungscode automatisch finden. 
+
+(Audible hat seine eigene Win 10 App inzwischen eingestellt, die ursprünglich bevorzugte Option, vor Book Lib Connect.)
 
 Falls bekannt, kann der Aktivierungscode hier auch manuell eingegeben werden.</value>
   </data>
+  <data name="lblInfo.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="lblFormat.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 181</value>
+    <value>15, 256</value>
   </data>
   <data name="lblFormat.Size" type="System.Drawing.Size, System.Drawing">
     <value>165, 13</value>
@@ -144,10 +167,19 @@ Falls bekannt, kann der Aktivierungscode hier auch manuell eingegeben werden.</v
   <data name="lblFormat.Text" xml:space="preserve">
     <value>Format: 8 hex-Zeichen xx-xx-xx-xx</value>
   </data>
-  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>295, 282</value>
+  <data name="lblFormat.ToolTip" xml:space="preserve">
+    <value />
+  </data>
+  <data name="linkLblBLC.Location" type="System.Drawing.Point, System.Drawing">
+    <value>153, 22</value>
+  </data>
+  <data name="linkLblBLC.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>Audible-Aktivierungscode</value>
+  </data>
+  <data name="$this.ToolTip" xml:space="preserve">
+    <value />
   </data>
 </root>

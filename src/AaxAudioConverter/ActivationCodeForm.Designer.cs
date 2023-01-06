@@ -23,22 +23,35 @@
     /// the contents of this method with the code editor.
     /// </summary>
     private void InitializeComponent () {
+      this.components = new System.ComponentModel.Container();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ActivationCodeForm));
       this.panel1 = new System.Windows.Forms.Panel();
+      this.btnDummy = new System.Windows.Forms.Button();
       this.btnCancel = new System.Windows.Forms.Button();
       this.btnOk = new System.Windows.Forms.Button();
       this.textBox1 = new System.Windows.Forms.TextBox();
       this.lblInfo = new System.Windows.Forms.Label();
       this.lblFormat = new System.Windows.Forms.Label();
+      this.linkLblBLC = new System.Windows.Forms.LinkLabel();
+      this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
       this.panel1.SuspendLayout();
       this.SuspendLayout();
       // 
       // panel1
       // 
-      resources.ApplyResources(this.panel1, "panel1");
+      this.panel1.Controls.Add(this.btnDummy);
       this.panel1.Controls.Add(this.btnCancel);
       this.panel1.Controls.Add(this.btnOk);
+      resources.ApplyResources(this.panel1, "panel1");
       this.panel1.Name = "panel1";
+      // 
+      // btnDummy
+      // 
+      resources.ApplyResources(this.btnDummy, "btnDummy");
+      this.btnDummy.Name = "btnDummy";
+      this.toolTip1.SetToolTip(this.btnDummy, resources.GetString("btnDummy.ToolTip"));
+      this.btnDummy.UseVisualStyleBackColor = true;
+      this.btnDummy.Click += new System.EventHandler(this.btnDummy_Click);
       // 
       // btnCancel
       // 
@@ -70,12 +83,20 @@
       resources.ApplyResources(this.lblFormat, "lblFormat");
       this.lblFormat.Name = "lblFormat";
       // 
+      // linkLblBLC
+      // 
+      resources.ApplyResources(this.linkLblBLC, "linkLblBLC");
+      this.linkLblBLC.Name = "linkLblBLC";
+      this.linkLblBLC.TabStop = true;
+      this.linkLblBLC.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLblBLC_LinkClicked);
+      // 
       // ActivationCodeForm
       // 
       this.AcceptButton = this.btnCancel;
       resources.ApplyResources(this, "$this");
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.CancelButton = this.btnCancel;
+      this.Controls.Add(this.linkLblBLC);
       this.Controls.Add(this.lblFormat);
       this.Controls.Add(this.lblInfo);
       this.Controls.Add(this.textBox1);
@@ -98,5 +119,8 @@
     private System.Windows.Forms.TextBox textBox1;
     private System.Windows.Forms.Label lblInfo;
     private System.Windows.Forms.Label lblFormat;
+    private System.Windows.Forms.Button btnDummy;
+    private System.Windows.Forms.LinkLabel linkLblBLC;
+    private System.Windows.Forms.ToolTip toolTip1;
   }
 }

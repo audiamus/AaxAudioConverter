@@ -7,15 +7,19 @@ namespace audiamus.aaxconv {
     bool? ShowStartupTip { get; set; }
     bool FileDateColumn { get; set; }
     int SettingsTab { get; set; }
-    
+  
     void Save ();
     void FixNarrator ();
   }
 
+  interface IAppSettingsOnlineUpdateEx {
+    string OnlineUpdateUrl { get; }
+    bool OnlineUpdateDebug { get; }
+  }
 
   namespace Properties {
     [System.Configuration.SettingsProvider (typeof (aux.LocalFileSettingsProvider))]
-    partial class Settings : IAppSettings {
+    partial class Settings : IAppSettings, IAppSettingsOnlineUpdateEx {
 
       public bool ConvertByFileDate { get; set; }
 

@@ -19,7 +19,7 @@ namespace audiamus.aaxconv.Properties {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -602,6 +602,9 @@ namespace audiamus.aaxconv.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Note: The code provided can only be
         ///verified when converting an .aax file.
+        ///
+        ///(A dummy code will only work for books 
+        ///downloaded with Book Lib Connect.).
         /// </summary>
         internal static string MsgNoteActivationCode {
             get {
@@ -610,7 +613,7 @@ namespace audiamus.aaxconv.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to of AaxAudioConverter is avaliable.
+        ///   Looks up a localized string similar to New version {0}{1} of {2} is available.
         ///Download now?.
         /// </summary>
         internal static string MsgOnlineUpdateDownload {
@@ -620,16 +623,23 @@ namespace audiamus.aaxconv.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to of AaxAudioConverter is ready for installation..
+        ///   Looks up a localized string similar to Also available:
+        ///{2} version {0}{1}.
+        ///
+        ///{3}
+        ///
+        ///Download and install now? 
+        ///(Will not affect {4}.).
         /// </summary>
-        internal static string MsgOnlineUpdateInstall {
+        internal static string MsgOnlineUpdateDownloadOther {
             get {
-                return ResourceManager.GetString("MsgOnlineUpdateInstall", resourceCulture);
+                return ResourceManager.GetString("MsgOnlineUpdateDownloadOther", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Install now?.
+        ///   Looks up a localized string similar to New version {0}{1} of {2} is ready for installation.
+        ///Install now?.
         /// </summary>
         internal static string MsgOnlineUpdateInstallLater {
             get {
@@ -638,7 +648,8 @@ namespace audiamus.aaxconv.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Install now? (Will close current AaxAudioConverter window.).
+        ///   Looks up a localized string similar to New version {0}{1} of {2} is ready for installation.
+        ///Install now? (Will close current {2} window.).
         /// </summary>
         internal static string MsgOnlineUpdateInstallNow {
             get {
@@ -647,11 +658,35 @@ namespace audiamus.aaxconv.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New version.
+        ///   Looks up a localized string similar to Will not install {2} version {0}{1}.
+        ///Notify of future versions?.
         /// </summary>
-        internal static string MsgOnlineUpdateNewVersion {
+        internal static string MsgOnlineUpdateOtherAskAgain {
             get {
-                return ResourceManager.GetString("MsgOnlineUpdateNewVersion", resourceCulture);
+                return ResourceManager.GetString("MsgOnlineUpdateOtherAskAgain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {2} version {0}{1} is ready for installation.
+        ///
+        ///{3}
+        ///
+        ///Install now? 
+        ///(Will not affect {4}.).
+        /// </summary>
+        internal static string MsgOnlineUpdateOtherInstallNow {
+            get {
+                return ResourceManager.GetString("MsgOnlineUpdateOtherInstallNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preview.
+        /// </summary>
+        internal static string MsgOnlineUpdatePreview {
+            get {
+                return ResourceManager.GetString("MsgOnlineUpdatePreview", resourceCulture);
             }
         }
         

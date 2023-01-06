@@ -37,6 +37,7 @@ namespace audiamus.aaxconv.lib {
 
   public interface IUpdateSetting {
     EOnlineUpdate OnlineUpdate { get; set; }
+    string OnlineUpdateOthersDeclined { get; set; }
   }
 
   public interface IAaxCopySettings {

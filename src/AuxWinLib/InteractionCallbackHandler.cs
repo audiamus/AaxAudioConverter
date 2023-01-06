@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Media;
 using System.Windows.Forms;
+using audiamus.aux.ex;
 
 namespace audiamus.aux.win {
   public class InteractionCallbackHandler : IInteractionCallback<InteractionMessage, bool?> {
@@ -81,4 +82,47 @@ namespace audiamus.aux.win {
       }
     }
   }
+
+  public class InteractionCallbackHandler2<T> : InteractionCallbackHandler, IInteractionCallback<InteractionMessage2<T>, bool?>
+  where T : class {
+
+    private Func<InteractionMessage2<T>, bool?> CustomHandler { get; }
+    private Func<T, string> CustomMessage { get; }
+
+
+    public InteractionCallbackHandler2 (Control parent, Func<InteractionMessage2<T>, bool?> customHandler) : base (parent) {
+      CustomHandler = customHandler;
+    }
+
+    public InteractionCallbackHandler2 (Control parent, Func<T, string> customMessage) : base (parent) {
+      CustomMessage = customMessage;
+    }
+
+    public bool? Interact (InteractionMessage2<T> im) {
+      return Interact ((InteractionMessage)im);
+    }
+
+    public override bool? Interact (InteractionMessage im) {
+      switch (im) {
+        case InteractionMessage2<T> imt:
+          if (imt.Custom is null)
+            return base.Interact (imt);
+          else {
+            if (!(CustomHandler is null))
+              return CustomHandler (imt);
+            else if (!(CustomMessage is null)) {
+              string msg = CustomMessage (imt.Custom);
+              if (msg.IsNullOrWhiteSpace ())
+                return null;
+              var im2 = new InteractionMessage (im.Type, msg);
+              return base.Interact (im2);
+            } else
+              return null;
+          }
+        default:
+          return base.Interact (im);
+      }
+    }
+  }
+
 }

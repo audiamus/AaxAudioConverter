@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
@@ -73,6 +74,15 @@ namespace audiamus.aaxconv {
 
       DialogResult = DialogResult.OK;
       Close ();
+    }
+
+    private void btnDummy_Click (object sender, EventArgs e) {
+      textBox1.Text = "00-00-00-00";
+    }
+
+    private void linkLblBLC_LinkClicked (object sender, LinkLabelLinkClickedEventArgs e) {
+      string link = "https://github.com/audiamus/BookLibConnect";
+      Process.Start (link);
     }
   }
 }

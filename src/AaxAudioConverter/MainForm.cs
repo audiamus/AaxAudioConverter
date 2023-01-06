@@ -34,9 +34,11 @@ namespace audiamus.aaxconv {
     private readonly List<AaxFileItemEx> _fileItems = new List<AaxFileItemEx> ();
     private readonly ListViewColumnSorter _lvwColumnSorter;
     private readonly IAppSettings _settings = Properties.Settings.Default;
+    private readonly IAppSettingsOnlineUpdateEx _onlupdexSettings = Properties.Settings.Default;
     private readonly PGANaming _pgaNaming;
     private readonly ProgressProcessor _progress;
     private readonly InteractionCallbackHandler<EInteractionCustomCallback> _interactionHandler;
+    private readonly InteractionCallbackHandler2<UpdateInteractionMessage> _interactionHandlerUpdate;
     private readonly SystemMenu _systemMenu;
     private readonly Timer _resizeTimer = new Timer ();
 
@@ -102,6 +104,7 @@ namespace audiamus.aaxconv {
       _lvwColumnSorter.Order = SortOrder.Ascending;
 
       _interactionHandler = new InteractionCallbackHandler<EInteractionCustomCallback> (this, customInteractionHandler);
+      _interactionHandlerUpdate = new InteractionCallbackHandler2<UpdateInteractionMessage> (this, updateInteractMessage);
 
       _perfHandler = new PerformanceHandler (vprogbarNumProc, vprogbarCpu, toolTip1);
       _perfProgress = new Progress<IPerfCallback> (_perfHandler.Update);
@@ -245,16 +248,27 @@ namespace audiamus.aaxconv {
 
     #region Private Methods
 
+    private OnlineUpdate newOnlineUpdate () =>
+      new OnlineUpdate (Settings, ApplEnv.ApplName, _onlupdexSettings.OnlineUpdateUrl, _onlupdexSettings.OnlineUpdateDebug);
+
     private async void checkOnlineUpdate () {
-      var update = new OnlineUpdate (Settings, Resources.Default);
-      await update.UpdateAsync (_interactionHandler, () => Application.Exit(), isBusyForUpdate);
+      var update = newOnlineUpdate ();
+
+      var interact =
+        new InteractionCallback<InteractionMessage2<UpdateInteractionMessage>, bool?> (_interactionHandlerUpdate.Interact);
+
+      await update.UpdateAsync (interact, () => Application.Exit(), isBusyForUpdate);
     }
 
     private async void handleDeferredUpdateAsync () {
-      var update = new OnlineUpdate (Settings, Resources.Default);
-      await update.InstallAsync (_interactionHandler, () => Application.Exit ());
+      var update = newOnlineUpdate ();
+
+      var interact =
+        new InteractionCallback<InteractionMessage2<UpdateInteractionMessage>, bool?> (_interactionHandlerUpdate.Interact);
+
+      await update.InstallAsync (interact, () => Application.Exit ());
     }
-    
+
     private bool isBusyForUpdate () {
       bool busy = this.listViewAaxFiles.Items.Count > 0;
       if (busy)
@@ -270,6 +284,50 @@ namespace audiamus.aaxconv {
       else
         return defdir;
     }
+
+    private string updateInteractMessage (UpdateInteractionMessage uim) {
+      string msg = null;
+      var pi = uim.PckInfo;
+      if (pi.DefaultApp) {
+        switch (uim.Kind) {
+          case EUpdateInteract.newVersAvail:
+            msg = string.Format (R.MsgOnlineUpdateDownload,
+              pi.Version, preview (pi.Preview), pi.AppName);
+            break;
+          case EUpdateInteract.installNow:
+            msg = string.Format (
+              R.MsgOnlineUpdateInstallNow,
+              pi.Version, preview (pi.Preview), pi.AppName);
+            break;
+          case EUpdateInteract.installLater:
+            msg = string.Format (
+              R.MsgOnlineUpdateInstallLater,
+              pi.Version, preview (pi.Preview), pi.AppName);
+            break;
+        }
+      } else {
+        switch (uim.Kind) {
+          case EUpdateInteract.newVersAvail:
+            msg = string.Format (R.MsgOnlineUpdateDownloadOther,
+              pi.Version, preview (pi.Preview), pi.AppName, desc (pi.Descript), uim.RefAppName);
+            break;
+          case EUpdateInteract.installNow:
+            msg = string.Format (R.MsgOnlineUpdateOtherInstallNow,
+              pi.Version, preview (pi.Preview), pi.AppName, desc (pi.Descript), uim.RefAppName);
+            break;
+          case EUpdateInteract.mayAskAgain:
+            msg = string.Format (R.MsgOnlineUpdateOtherAskAgain,
+              pi.Version, preview (pi.Preview), pi.AppName);
+            break;
+        }
+      }
+      return msg;
+
+      string preview (bool pvw) => pvw ? $" ({R.MsgOnlineUpdatePreview})" : string.Empty;
+      string desc (string dsc) => !dsc.IsNullOrWhiteSpace () ? $"\"{dsc}\"" : string.Empty;
+
+    }
+
 
     private void presetInpuDirectory () {
       if (!string.IsNullOrEmpty(Settings.InputDirectory) && Directory.Exists (Settings.InputDirectory))

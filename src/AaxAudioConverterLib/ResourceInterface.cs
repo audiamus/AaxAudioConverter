@@ -23,11 +23,11 @@
     string PartNamePrefixStandard { get; }
     string ChapterNamePrefixStandard { get; }
 
-    string MsgOnlineUpdateNewVersion { get; }
-    string MsgOnlineUpdateDownload { get; }
-    string MsgOnlineUpdateInstall { get; }
-    string MsgOnlineUpdateInstallNow { get; }
-    string MsgOnlineUpdateInstallLater { get; }
+    //string MsgOnlineUpdateNewVersion { get; }
+    //string MsgOnlineUpdateDownload { get; }
+    //string MsgOnlineUpdateInstall { get; }
+    //string MsgOnlineUpdateInstallNow { get; }
+    //string MsgOnlineUpdateInstallLater { get; }
 
     string HdrAuthor { get; }
     string HdrTitle { get; }

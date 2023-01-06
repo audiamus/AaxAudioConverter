@@ -144,7 +144,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="M4B" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="AaxCopyMode" Type="audiamus.aaxconv.lib.EAaxCopyMode" Scope="User">
       <Value Profile="(Default)">no</Value>
@@ -175,6 +175,15 @@
     </Setting>
     <Setting Name="TagConductor" Type="audiamus.aaxconv.lib.ERoleTagAssignment" Scope="User">
       <Value Profile="(Default)">none</Value>
+    </Setting>
+    <Setting Name="OnlineUpdateUrl" Type="System.String" Scope="Application">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="OnlineUpdateDebug" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="OnlineUpdateOthersDeclined" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

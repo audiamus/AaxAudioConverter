@@ -145,7 +145,18 @@ namespace audiamus.aux.ex {
       return s.Substring (0, partLen1).Trim() + '…' + s.Substring (p2).Trim();
     }
 
-
+    public static string WithSpaces (this string s) {
+      StringBuilder sb = new StringBuilder ();
+      s = s.Trim ();
+      sb.Append (s[0]);
+      for (int i = 1; i < s.Length; i++) {
+        char c = s[i];
+        if (char.IsUpper (c))
+          sb.Append (' ');
+        sb.Append (c);
+      }
+      return sb.ToString ();
+    }
   }
 
   public static class ExTimeSpan {

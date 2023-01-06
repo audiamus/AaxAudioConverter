@@ -151,8 +151,11 @@
     <value>Preset for the question message box, if the 
 output folder for a book conversion already exists. </value>
   </data>
+  <data name="&gt;&gt;lblUsrActCode.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="pnlPrefEmbChapTim.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+    <value>4</value>
   </data>
   <data name="&gt;&gt;comBoxConductor.Parent" xml:space="preserve">
     <value>tableLayoutPanel5</value>
@@ -165,6 +168,9 @@ output folder for a book conversion already exists. </value>
   </data>
   <data name="btnCancel.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
+  </data>
+  <data name="&gt;&gt;tabPage2.Parent" xml:space="preserve">
+    <value>tabControl1</value>
   </data>
   <data name="btnUsrActCode.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
@@ -184,6 +190,9 @@ output folder for a book conversion already exists. </value>
   <data name="&gt;&gt;numUpDnSeriesDigits.Type" xml:space="preserve">
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;comBoxFixAacEncoding.Parent" xml:space="preserve">
+    <value>tableLayoutPanel3</value>
+  </data>
   <data name="&gt;&gt;lblVyShSecDur.Parent" xml:space="preserve">
     <value>panelSkipVeryShort</value>
   </data>
@@ -192,6 +201,9 @@ output folder for a book conversion already exists. </value>
   </data>
   <data name="lblCustTitleChars.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
+  </data>
+  <data name="lblLang.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="lblDateClm.ToolTip" xml:space="preserve">
     <value />
@@ -236,13 +248,13 @@ with the file date of the AAX/AA file.</value>
     <value>Author</value>
   </data>
   <data name="panelSeries.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
+    <value>1</value>
   </data>
   <data name="comBoxLang.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>10</value>
   </data>
-  <data name="&gt;&gt;tableLayoutPanel4.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="tabPage1.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="panelActCode.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
@@ -259,9 +271,6 @@ with the file date of the AAX/AA file.</value>
   <data name="&gt;&gt;comBoxM4B.Parent" xml:space="preserve">
     <value>tableLayoutPanel3</value>
   </data>
-  <data name="lblShSecDur.Text" xml:space="preserve">
-    <value>sec duration</value>
-  </data>
   <data name="panelFlatFolders.ToolTip" xml:space="preserve">
     <value />
   </data>
@@ -277,8 +286,8 @@ with the file date of the AAX/AA file.</value>
   <data name="&gt;&gt;lblRedBitRate.Parent" xml:space="preserve">
     <value>tableLayoutPanel3</value>
   </data>
-  <data name="tableLayoutPanel4.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 3</value>
+  <data name="&gt;&gt;btnResetOnlineUpdOthers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="comBoxUpdate.Items1" xml:space="preserve">
     <value>Prompt for download</value>
@@ -317,7 +326,7 @@ with the file date of the AAX/AA file.</value>
     <value>Reset</value>
   </data>
   <data name="ckBoxDateClm.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="lblPrefEmbChapTimes.Text" xml:space="preserve">
     <value>Prefer embedded chapter times</value>
@@ -382,9 +391,6 @@ with the file date of the AAX/AA file.</value>
   <data name="btnAaxCopyDir.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="&gt;&gt;lblFixAacEnc.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;lblSeriesDigits.Name" xml:space="preserve">
     <value>lblSeriesDigits</value>
   </data>
@@ -410,10 +416,10 @@ with the file date of the AAX/AA file.</value>
     <value>0</value>
   </data>
   <data name="comBoxRedBitRate.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
+    <value>5</value>
   </data>
-  <data name="&gt;&gt;comBoxPrefEmbChapTimes.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="comBoxFixAacEncoding.Items" xml:space="preserve">
+    <value>No</value>
   </data>
   <data name="panelFlatFolders.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
@@ -421,8 +427,8 @@ with the file date of the AAX/AA file.</value>
   <data name="&gt;&gt;lblRedBitRate.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
-  <data name="lblFileAssoc.ToolTip" xml:space="preserve">
-    <value />
+  <data name="&gt;&gt;comBoxPrefEmbChapTimes.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
     <value>toolTip1</value>
@@ -440,7 +446,7 @@ with the file date of the AAX/AA file.</value>
     <value>tableLayoutPanel2</value>
   </data>
   <data name="ckBoxIntermedCopySingle.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;comBoxVerAdjChapters.Name" xml:space="preserve">
     <value>comBoxVerAdjChapters</value>
@@ -454,8 +460,8 @@ with the file date of the AAX/AA file.</value>
   <data name="&gt;&gt;lblFfmpegVersCheck.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;tabPage5.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="tableLayoutPanel4.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;ckBoxDateClm.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -494,7 +500,10 @@ with the file date of the AAX/AA file.</value>
     <value>tableLayoutPanel1</value>
   </data>
   <data name="ckBoxFileAssoc.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>4</value>
+  </data>
+  <data name="tableLayoutPanel4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 3</value>
   </data>
   <data name="lblExtraMetaFiles.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -542,11 +551,14 @@ with the file date of the AAX/AA file.</value>
   <data name="comBoxAlbumArtist.Items2" xml:space="preserve">
     <value>Author; Narrator</value>
   </data>
+  <data name="lblUpdateOthers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>219, 23</value>
+  </data>
   <data name="&gt;&gt;lblLaunchPlayer.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="tableLayoutPanel4.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="tableLayoutPanel5.RowCount" type="System.Int32, mscorlib">
+    <value>14</value>
   </data>
   <data name="lblFfmpegVersCheck.ToolTip" xml:space="preserve">
     <value>Accept non-official FFmpeg builds, as long as 
@@ -555,17 +567,14 @@ they fit the minimum version number</value>
   <data name="&gt;&gt;numUpDnSeriesDigits.Parent" xml:space="preserve">
     <value>panelSeriesDigits</value>
   </data>
-  <data name="&gt;&gt;ckBoxFfmpegVersCheck.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;txtBoxPartName.Type" xml:space="preserve">
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;ckBoxFullCaptionBookFolder.Parent" xml:space="preserve">
+    <value>tableLayoutPanel2</value>
+  </data>
   <data name="&gt;&gt;comBoxComposer.Name" xml:space="preserve">
     <value>comBoxComposer</value>
-  </data>
-  <data name="tableLayoutPanel5.RowCount" type="System.Int32, mscorlib">
-    <value>14</value>
   </data>
   <data name="lblExtraMetaFiles.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
@@ -607,7 +616,7 @@ they fit the minimum version number</value>
     <value>1</value>
   </data>
   <data name="ckBoxSeries.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+    <value>0</value>
   </data>
   <data name="&gt;&gt;comBoxOutFolderConflict.Name" xml:space="preserve">
     <value>comBoxOutFolderConflict</value>
@@ -642,7 +651,7 @@ they fit the minimum version number</value>
   <data name="&gt;&gt;tableLayoutPanel2.Parent" xml:space="preserve">
     <value>tabPage2</value>
   </data>
-  <data name="&gt;&gt;comBoxUpdate.Type" xml:space="preserve">
+  <data name="&gt;&gt;comBoxFixAacEncoding.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="btnUsrActCode.ToolTip" xml:space="preserve">
@@ -687,8 +696,8 @@ they fit the minimum version number</value>
   <data name="&gt;&gt;panelSkipShort.Name" xml:space="preserve">
     <value>panelSkipShort</value>
   </data>
-  <data name="&gt;&gt;pnlPrefEmbChapTim.Name" xml:space="preserve">
-    <value>pnlPrefEmbChapTim</value>
+  <data name="lblIntermedCopySingle.Text" xml:space="preserve">
+    <value>Intermediate copy for single file mode</value>
   </data>
   <data name="&gt;&gt;lblPartName.Parent" xml:space="preserve">
     <value>tableLayoutPanel2</value>
@@ -719,7 +728,7 @@ but may significantly slow down conversion.</value>
     <value>235, 128</value>
   </data>
   <data name="tableLayoutPanel1.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
-    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="lblFfmpegLoc" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="btnFfmpegLoc" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="ckBoxFfmpegVersCheck" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblFfmpegVersCheck" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lblRegActCode" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="panelActCode" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblUsrActCode" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="btnUsrActCode" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblFileAssoc" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="ckBoxFileAssoc" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblDateClm" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="ckBoxDateClm" Row="5" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblAaxCopy" Row="6" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="panelAaxCopy" Row="6" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblLaunchPlayer" Row="7" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="ckBoxLaunchPlayer" Row="7" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblUpdate" Row="8" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comBoxUpdate" Row="8" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblLang" Row="9" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comBoxLang" Row="9" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,46,23016,Percent,53,76984" /&gt;&lt;Rows Styles="Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,20,Absolute,20,Absolute,20,Absolute,20,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="lblFfmpegLoc" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="btnFfmpegLoc" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="ckBoxFfmpegVersCheck" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblFfmpegVersCheck" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="lblRegActCode" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="panelActCode" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblUsrActCode" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="btnUsrActCode" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblFileAssoc" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="ckBoxFileAssoc" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblDateClm" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="ckBoxDateClm" Row="5" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblAaxCopy" Row="6" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="panelAaxCopy" Row="6" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblLaunchPlayer" Row="7" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="ckBoxLaunchPlayer" Row="7" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblUpdate" Row="8" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comBoxUpdate" Row="8" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblUpdateOthers" Row="9" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="btnResetOnlineUpdOthers" Row="9" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblLang" Row="10" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comBoxLang" Row="10" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,46,23016,Percent,53,76984" /&gt;&lt;Rows Styles="Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,20,Absolute,20,Absolute,20,Absolute,20,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
   </data>
   <data name="comBoxAlbumArtist.Items" xml:space="preserve">
     <value>&lt;empty&gt;</value>
@@ -727,8 +736,8 @@ but may significantly slow down conversion.</value>
   <data name="btnOK.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
   </data>
-  <data name="&gt;&gt;tabPage2.Parent" xml:space="preserve">
-    <value>tabControl1</value>
+  <data name="btnResetOnlineUpdOthers.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
   </data>
   <data name="lblSeries.Text" xml:space="preserve">
     <value>Series title in folder structure</value>
@@ -736,17 +745,14 @@ but may significantly slow down conversion.</value>
   <data name="lblCustPart.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="&gt;&gt;tableLayoutPanel5.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="lblOutFolderConflict.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="comBoxArtist.Items" xml:space="preserve">
     <value>&lt;empty&gt;</value>
   </data>
   <data name="&gt;&gt;nudVeryShortChapter.Parent" xml:space="preserve">
     <value>panelSkipVeryShort</value>
-  </data>
-  <data name="panelSeriesDigits.Size" type="System.Drawing.Size, System.Drawing">
-    <value>221, 24</value>
   </data>
   <data name="&gt;&gt;lblRedBitRate.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -755,7 +761,10 @@ but may significantly slow down conversion.</value>
     <value />
   </data>
   <data name="numUpDnSeriesDigits.TabIndex" type="System.Int32, mscorlib">
-    <value>17</value>
+    <value>2</value>
+  </data>
+  <data name="lblUpdateOthers.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="&gt;&gt;btnOK.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -782,8 +791,8 @@ when stripping off trailing meta information from the title text. </value>
   <data name="tabControl1.Size" type="System.Drawing.Size, System.Drawing">
     <value>501, 452</value>
   </data>
-  <data name="lblLang.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+  <data name="&gt;&gt;ckBoxFileAssoc.ZOrder" xml:space="preserve">
+    <value>9</value>
   </data>
   <data name="&gt;&gt;panelSkipShort.ZOrder" xml:space="preserve">
     <value>3</value>
@@ -791,11 +800,11 @@ when stripping off trailing meta information from the title text. </value>
   <data name="lblVyShSecDur.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="&gt;&gt;lblSeries.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="comBoxVerAdjChapters.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
+    <value>3</value>
+  </data>
+  <data name="lblUpdateOthers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 273</value>
   </data>
   <data name="&gt;&gt;tableLayoutPanel4.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -818,14 +827,14 @@ when stripping off trailing meta information from the title text. </value>
   <data name="&gt;&gt;tabPage1.Type" xml:space="preserve">
     <value>System.Windows.Forms.TabPage, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="lblIntermedCopySingle.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
   <data name="tabPage5.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="tabPage5.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
+  </data>
+  <data name="btnResetOnlineUpdOthers.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 3, 3</value>
   </data>
   <data name="lblFileAssoc.Size" type="System.Drawing.Size, System.Drawing">
     <value>219, 27</value>
@@ -834,7 +843,7 @@ when stripping off trailing meta information from the title text. </value>
     <value>Left</value>
   </data>
   <data name="comBoxComposer.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>2</value>
   </data>
   <data name="lblExtraMetaFiles.Text" xml:space="preserve">
     <value>Extra files for book info and cover image</value>
@@ -847,6 +856,9 @@ when stripping off trailing meta information from the title text. </value>
   </data>
   <data name="tableLayoutPanel3.Size" type="System.Drawing.Size, System.Drawing">
     <value>487, 420</value>
+  </data>
+  <data name="tabPage3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>4, 22</value>
   </data>
   <data name="&gt;&gt;txtBoxPartName.Parent" xml:space="preserve">
     <value>panelPartName</value>
@@ -885,7 +897,7 @@ when stripping off trailing meta information from the title text. </value>
     <value>144, 24</value>
   </data>
   <data name="comBoxM4B.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+    <value>6</value>
   </data>
   <data name="panelFlatFolders.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -914,8 +926,8 @@ when stripping off trailing meta information from the title text. </value>
   <data name="lblUsrActCode.Text" xml:space="preserve">
     <value>User provided Audible activation code</value>
   </data>
-  <data name="&gt;&gt;lblExtraMetaFiles.Name" xml:space="preserve">
-    <value>lblExtraMetaFiles</value>
+  <data name="&gt;&gt;lblShSecDur.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;panelSeries.ZOrder" xml:space="preserve">
     <value>3</value>
@@ -968,8 +980,11 @@ when stripping off trailing meta information from the title text. </value>
   <data name="lblFlatFolders.Text" xml:space="preserve">
     <value>Flat folder structure and naming</value>
   </data>
+  <data name="&gt;&gt;btnResetOnlineUpdOthers.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
+  </data>
   <data name="comBoxAlbumArtist.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>1</value>
   </data>
   <data name="lblNamedChapters.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
@@ -1017,6 +1032,9 @@ when stripping off trailing meta information from the title text. </value>
   <data name="comBoxAlbumArtist.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
   </data>
+  <data name="lblUpdate.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="&gt;&gt;panelSeriesDigits.Parent" xml:space="preserve">
     <value>panelSeries</value>
   </data>
@@ -1038,8 +1056,8 @@ when stripping off trailing meta information from the title text. </value>
   <data name="pnlPrefEmbChapTim.ToolTip" xml:space="preserve">
     <value>Named chapters must be enabled to use this option</value>
   </data>
-  <data name="&gt;&gt;tableLayoutPanel5.Name" xml:space="preserve">
-    <value>tableLayoutPanel5</value>
+  <data name="&gt;&gt;lblSeries.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="txtBoxPartName.Location" type="System.Drawing.Point, System.Drawing">
     <value>145, 5</value>
@@ -1098,9 +1116,6 @@ when stripping off trailing meta information from the title text. </value>
   <data name="comBoxM4B.Items1" xml:space="preserve">
     <value>.m4b</value>
   </data>
-  <data name="lblIntermedCopySingle.Text" xml:space="preserve">
-    <value>Intermediate copy for single file mode</value>
-  </data>
   <data name="lblFfmpegLoc.Text" xml:space="preserve">
     <value>Path to FFmpeg.exe</value>
   </data>
@@ -1113,11 +1128,14 @@ when stripping off trailing meta information from the title text. </value>
   <data name="lblFlatFolders.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 1</value>
   </data>
-  <data name="comBoxArtist.Items3" xml:space="preserve">
-    <value>Narrator</value>
+  <data name="&gt;&gt;tableLayoutPanel4.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="comBoxFixAacEncoding.ToolTip" xml:space="preserve">
     <value>For 44.1 kHz AAX files, where ESDS atom may be ill-formed</value>
+  </data>
+  <data name="lblComposer.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="&gt;&gt;lblLang.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1195,7 +1213,7 @@ when stripping off trailing meta information from the title text. </value>
     <value>235, 128</value>
   </data>
   <data name="comBoxConductor.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="panelAaxCopy.ToolTip" xml:space="preserve">
     <value />
@@ -1221,8 +1239,8 @@ when stripping off trailing meta information from the title text. </value>
   <data name="lblFixAacEnc.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
   </data>
-  <data name="&gt;&gt;comBoxFixAacEncoding.Parent" xml:space="preserve">
-    <value>tableLayoutPanel3</value>
+  <data name="&gt;&gt;comBoxUpdate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="panelSkipVeryShort.ToolTip" xml:space="preserve">
     <value />
@@ -1245,8 +1263,8 @@ when stripping off trailing meta information from the title text. </value>
   <data name="lblLang.Size" type="System.Drawing.Size, System.Drawing">
     <value>219, 23</value>
   </data>
-  <data name="comBoxVerAdjChapters.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
+  <data name="lblFileAssoc.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
   <data name="&gt;&gt;comBoxArtist.Parent" xml:space="preserve">
     <value>tableLayoutPanel5</value>
@@ -1257,6 +1275,9 @@ when stripping off trailing meta information from the title text. </value>
   <data name="comBoxPrefEmbChapTimes.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 2</value>
   </data>
+  <data name="comBoxFixAacEncoding.Items1" xml:space="preserve">
+    <value>In MP4 single file mode with intermed. copy</value>
+  </data>
   <data name="comBoxFixAacEncoding.Items2" xml:space="preserve">
     <value>In all MP4 conversion modes</value>
   </data>
@@ -1266,8 +1287,8 @@ when stripping off trailing meta information from the title text. </value>
   <data name="lblSeries.Location" type="System.Drawing.Point, System.Drawing">
     <value>47, 33</value>
   </data>
-  <data name="&gt;&gt;comBoxPrefEmbChapTimes.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="lblShSecDur.Text" xml:space="preserve">
+    <value>sec duration</value>
   </data>
   <data name="&gt;&gt;tableLayoutPanel4.Parent" xml:space="preserve">
     <value>tabPage4</value>
@@ -1326,14 +1347,14 @@ when stripping off trailing meta information from the title text. </value>
   <data name="&gt;&gt;panelSkipVeryShort.Parent" xml:space="preserve">
     <value>tableLayoutPanel4</value>
   </data>
-  <data name="panelPartName.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="ckBoxLatin1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
   </data>
   <data name="&gt;&gt;panelRight.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="panelSkipVeryShort.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>2</value>
   </data>
   <data name="&gt;&gt;comBoxAaxCopy.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1394,10 +1415,10 @@ The difference is in name only, the content will be the same.</value>
     <value>12</value>
   </data>
   <data name="comBoxArtist.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>0</value>
   </data>
-  <data name="tabPage3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>3, 3, 3, 3</value>
+  <data name="lblIntermedCopySingle.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
   </data>
   <data name="lblShSecDur.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
@@ -1430,7 +1451,7 @@ The difference is in name only, the content will be the same.</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="panelSkipShort.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>1</value>
   </data>
   <data name="btnReset.ToolTip" xml:space="preserve">
     <value>Reset all settings to default values.</value>
@@ -1445,7 +1466,7 @@ The difference is in name only, the content will be the same.</value>
     <value>47, 123</value>
   </data>
   <data name="comBoxAaxCopy.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>0</value>
   </data>
   <data name="ckBoxLaunchPlayer.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -1453,14 +1474,17 @@ The difference is in name only, the content will be the same.</value>
   <data name="&gt;&gt;btnUsrActCode.Type" xml:space="preserve">
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="lblRedBitRate.Text" xml:space="preserve">
+    <value>Reduce bit rate</value>
+  </data>
   <data name="lblNamedChapters.Location" type="System.Drawing.Point, System.Drawing">
     <value>11, 1</value>
   </data>
   <data name="panelSeriesDigits.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="&gt;&gt;lblShSecDur.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="&gt;&gt;pnlPrefEmbChapTim.Name" xml:space="preserve">
+    <value>pnlPrefEmbChapTim</value>
   </data>
   <data name="lblFfmpegVersCheck.Text" xml:space="preserve">
     <value>Relaxed FFmpeg version check</value>
@@ -1507,6 +1531,9 @@ The difference is in name only, the content will be the same.</value>
   <data name="lblUsrActCode.Size" type="System.Drawing.Size, System.Drawing">
     <value>219, 27</value>
   </data>
+  <data name="&gt;&gt;btnResetOnlineUpdOthers.Name" xml:space="preserve">
+    <value>btnResetOnlineUpdOthers</value>
+  </data>
   <data name="lblSkipVeryShort.Text" xml:space="preserve">
     <value>Skip very short chapter at
  begin and end, if present</value>
@@ -1519,6 +1546,9 @@ The difference is in name only, the content will be the same.</value>
   </data>
   <data name="&gt;&gt;panelSeriesDigits.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comBoxPrefEmbChapTimes.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="tableLayoutPanel3.LayoutSettings" type="System.Windows.Forms.TableLayoutSettings, System.Windows.Forms">
     <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;&lt;TableLayoutSettings&gt;&lt;Controls&gt;&lt;Control Name="lblCustPart" Row="0" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="txtBoxCustPart" Row="0" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblCustTitleChars" Row="1" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="txtBoxCustTitleChars" Row="1" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblIntermedCopySingle" Row="2" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="ckBoxIntermedCopySingle" Row="2" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblFixAacEnc" Row="3" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comBoxFixAacEncoding" Row="3" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblVarBitRate" Row="4" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="ckBoxVarBitRate" Row="4" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblRedBitRate" Row="5" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comBoxRedBitRate" Row="5" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblM4B" Row="6" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="comBoxM4B" Row="6" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblLatin1" Row="7" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="ckBoxLatin1" Row="7" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;Control Name="lblExtraMetaFiles" Row="8" RowSpan="1" Column="0" ColumnSpan="1" /&gt;&lt;Control Name="ckBoxExtraMetaFiles" Row="8" RowSpan="1" Column="1" ColumnSpan="1" /&gt;&lt;/Controls&gt;&lt;Columns Styles="Percent,46,23016,Percent,53,76984" /&gt;&lt;Rows Styles="Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,30,Absolute,20,Absolute,20,Absolute,20,Absolute,20,Absolute,20" /&gt;&lt;/TableLayoutSettings&gt;</value>
@@ -1537,9 +1567,6 @@ The difference is in name only, the content will be the same.</value>
   </data>
   <data name="&gt;&gt;comBoxFlatFolders.Name" xml:space="preserve">
     <value>comBoxFlatFolders</value>
-  </data>
-  <data name="tabPage1.ToolTip" xml:space="preserve">
-    <value />
   </data>
   <data name="&gt;&gt;listBoxActCode.Name" xml:space="preserve">
     <value>listBoxActCode</value>
@@ -1596,7 +1623,7 @@ The difference is in name only, the content will be the same.</value>
     <value>10, 3, 3, 3</value>
   </data>
   <data name="txtBoxCustTitleChars.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;lblM4B.ZOrder" xml:space="preserve">
     <value>12</value>
@@ -1617,7 +1644,7 @@ The difference is in name only, the content will be the same.</value>
     <value>txtBoxCustPart</value>
   </data>
   <data name="ckBoxLatin1.TabIndex" type="System.Int32, mscorlib">
-    <value>11</value>
+    <value>7</value>
   </data>
   <data name="&gt;&gt;lblComposer.Name" xml:space="preserve">
     <value>lblComposer</value>
@@ -1638,7 +1665,7 @@ The difference is in name only, the content will be the same.</value>
     <value>lblDateClm</value>
   </data>
   <data name="comBoxFixAacEncoding.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+    <value>3</value>
   </data>
   <data name="lblLatin1.TabIndex" type="System.Int32, mscorlib">
     <value>11</value>
@@ -1694,8 +1721,8 @@ The difference is in name only, the content will be the same.</value>
   <data name="lblUpdate.Size" type="System.Drawing.Size, System.Drawing">
     <value>219, 23</value>
   </data>
-  <data name="&gt;&gt;lblOutFolderConflict.Name" xml:space="preserve">
-    <value>lblOutFolderConflict</value>
+  <data name="&gt;&gt;ckBoxVarBitRate.ZOrder" xml:space="preserve">
+    <value>9</value>
   </data>
   <data name="tableLayoutPanel3.RowCount" type="System.Int32, mscorlib">
     <value>14</value>
@@ -1742,6 +1769,12 @@ The difference is in name only, the content will be the same.</value>
   <data name="lblCustPart.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
   </data>
+  <data name="&gt;&gt;lblOutFolderConflict.Name" xml:space="preserve">
+    <value>lblOutFolderConflict</value>
+  </data>
+  <data name="lblUpdateOthers.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="&gt;&gt;lblSeries.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
@@ -1770,10 +1803,10 @@ The difference is in name only, the content will be the same.</value>
     <value>comBoxPrefEmbChapTimes</value>
   </data>
   <data name="panelActCode.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="ckBoxLaunchPlayer.TabIndex" type="System.Int32, mscorlib">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="ckBoxLaunchPlayer.Location" type="System.Drawing.Point, System.Drawing">
     <value>235, 218</value>
@@ -1784,7 +1817,7 @@ The difference is in name only, the content will be the same.</value>
   <data name="lblLatin1.Size" type="System.Drawing.Size, System.Drawing">
     <value>219, 27</value>
   </data>
-  <data name="comBoxPrefEmbChapTimes.ToolTip" xml:space="preserve">
+  <data name="lblFileAssoc.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="lblFixAacEnc.ToolTip" xml:space="preserve">
@@ -1811,8 +1844,8 @@ The difference is in name only, the content will be the same.</value>
   <data name="&gt;&gt;btnReset.Parent" xml:space="preserve">
     <value>panelRight</value>
   </data>
-  <data name="&gt;&gt;comBoxLang.Name" xml:space="preserve">
-    <value>comBoxLang</value>
+  <data name="&gt;&gt;ckBoxSeries.Parent" xml:space="preserve">
+    <value>panelSeries</value>
   </data>
   <data name="&gt;&gt;comBoxOutFolderConflict.Parent" xml:space="preserve">
     <value>tableLayoutPanel2</value>
@@ -1829,8 +1862,8 @@ The difference is in name only, the content will be the same.</value>
   <data name="txtBoxCustPart.Size" type="System.Drawing.Size, System.Drawing">
     <value>247, 20</value>
   </data>
-  <data name="&gt;&gt;lblShipShort.Parent" xml:space="preserve">
-    <value>tableLayoutPanel4</value>
+  <data name="&gt;&gt;comBoxOutFolderConflict.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="lblFlatFolders.Size" type="System.Drawing.Size, System.Drawing">
     <value>188, 27</value>
@@ -1840,9 +1873,6 @@ The difference is in name only, the content will be the same.</value>
   </data>
   <data name="&gt;&gt;comBoxNamedChapters.Name" xml:space="preserve">
     <value>comBoxNamedChapters</value>
-  </data>
-  <data name="panelSkipShort.Size" type="System.Drawing.Size, System.Drawing">
-    <value>254, 30</value>
   </data>
   <data name="listBoxActCode.Size" type="System.Drawing.Size, System.Drawing">
     <value>112, 30</value>
@@ -1873,8 +1903,8 @@ Will use suitable equivalent if variable bit rate is set.</value>
   <data name="lblRegActCode.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="lblSeriesDigits.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
+  <data name="btnResetOnlineUpdOthers.Location" type="System.Drawing.Point, System.Drawing">
+    <value>235, 273</value>
   </data>
   <data name="&gt;&gt;comBoxNamedChapters.Parent" xml:space="preserve">
     <value>tableLayoutPanel4</value>
@@ -1906,6 +1936,10 @@ Will use suitable equivalent if variable bit rate is set.</value>
   <data name="ckBoxFlatFolders.ToolTip" xml:space="preserve">
     <value>No folder hierarchy for author and book title</value>
   </data>
+  <data name="btnResetOnlineUpdOthers.ToolTip" xml:space="preserve">
+    <value>Reenables prompt for installiion or update 
+of related apps, if previously declined.</value>
+  </data>
   <data name="tableLayoutPanel3.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
@@ -1921,11 +1955,8 @@ Will use suitable equivalent if variable bit rate is set.</value>
   <data name="&gt;&gt;tabPage1.Parent" xml:space="preserve">
     <value>tabControl1</value>
   </data>
-  <data name="&gt;&gt;comBoxFixAacEncoding.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="comBoxOutFolderConflict.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
+    <value>4</value>
   </data>
   <data name="&gt;&gt;ckBoxLaunchPlayer.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -1944,9 +1975,6 @@ Will use suitable equivalent if variable bit rate is set.</value>
   </data>
   <data name="tabPage1.Text" xml:space="preserve">
     <value>General</value>
-  </data>
-  <data name="&gt;&gt;lblVarBitRate.Name" xml:space="preserve">
-    <value>lblVarBitRate</value>
   </data>
   <data name="lblSkipVeryShort.Size" type="System.Drawing.Size, System.Drawing">
     <value>219, 27</value>
@@ -1999,8 +2027,8 @@ Will use suitable equivalent if variable bit rate is set.</value>
   <data name="&gt;&gt;ckBoxIntermedCopySingle.Parent" xml:space="preserve">
     <value>tableLayoutPanel3</value>
   </data>
-  <data name="lblFileAssoc.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
+  <data name="panelSkipShort.Size" type="System.Drawing.Size, System.Drawing">
+    <value>254, 30</value>
   </data>
   <data name="&gt;&gt;ckBoxFlatFolders.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -2011,8 +2039,8 @@ Will use suitable equivalent if variable bit rate is set.</value>
   <data name="&gt;&gt;panelRight.Name" xml:space="preserve">
     <value>panelRight</value>
   </data>
-  <data name="lblM4B.ToolTip" xml:space="preserve">
-    <value />
+  <data name="lblSeriesDigits.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
   </data>
   <data name="lblCustPart.Text" xml:space="preserve">
     <value>Custom search word(s) for "part"
@@ -2034,7 +2062,7 @@ Will use suitable equivalent if variable bit rate is set.</value>
     <value>11, 91</value>
   </data>
   <data name="&gt;&gt;lblLang.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>20</value>
   </data>
   <data name="ckBoxFfmpegVersCheck.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -2075,6 +2103,9 @@ Will use suitable equivalent if variable bit rate is set.</value>
   <data name="comBoxComposer.Items1" xml:space="preserve">
     <value>Author</value>
   </data>
+  <data name="&gt;&gt;lblUpdateOthers.Name" xml:space="preserve">
+    <value>lblUpdateOthers</value>
+  </data>
   <data name="comBoxComposer.Items3" xml:space="preserve">
     <value>Narrator</value>
   </data>
@@ -2100,7 +2131,7 @@ Will use suitable equivalent if variable bit rate is set.</value>
     <value />
   </data>
   <data name="panelAaxCopy.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="panelSeriesDigits.Location" type="System.Drawing.Point, System.Drawing">
     <value>66, 0</value>
@@ -2132,11 +2163,8 @@ Will use suitable equivalent if variable bit rate is set.</value>
   <data name="comBoxPartName.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 5</value>
   </data>
-  <data name="&gt;&gt;ckBoxFullCaptionBookFolder.Parent" xml:space="preserve">
-    <value>tableLayoutPanel2</value>
-  </data>
-  <data name="lblSeries.TabIndex" type="System.Int32, mscorlib">
-    <value>16</value>
+  <data name="btnResetOnlineUpdOthers.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
   </data>
   <data name="&gt;&gt;tableLayoutPanel1.Parent" xml:space="preserve">
     <value>tabPage1</value>
@@ -2150,8 +2178,14 @@ Will use suitable equivalent if variable bit rate is set.</value>
   <data name="lblM4B.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 181</value>
   </data>
+  <data name="&gt;&gt;tableLayoutPanel5.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="&gt;&gt;lblVerAdjChapters.Parent" xml:space="preserve">
     <value>tableLayoutPanel4</value>
+  </data>
+  <data name="&gt;&gt;lblRedBitRate.Name" xml:space="preserve">
+    <value>lblRedBitRate</value>
   </data>
   <data name="comBoxConductor.Items" xml:space="preserve">
     <value>&lt;empty&gt;</value>
@@ -2159,14 +2193,11 @@ Will use suitable equivalent if variable bit rate is set.</value>
   <data name="lblArtist.Size" type="System.Drawing.Size, System.Drawing">
     <value>109, 27</value>
   </data>
-  <data name="lblSkipVeryShort.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
   <data name="tabPage2.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
-  <data name="lblUpdate.ToolTip" xml:space="preserve">
-    <value />
+  <data name="&gt;&gt;btnResetOnlineUpdOthers.ZOrder" xml:space="preserve">
+    <value>19</value>
   </data>
   <data name="lblVarBitRate.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
@@ -2196,7 +2227,7 @@ Will use suitable equivalent if variable bit rate is set.</value>
     <value>20, 14</value>
   </data>
   <data name="&gt;&gt;comBoxLang.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>21</value>
   </data>
   <data name="lblDateClm.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 150</value>
@@ -2238,8 +2269,8 @@ characters for filtered book title</value>
   <data name="lblIntermedCopySingle.Size" type="System.Drawing.Size, System.Drawing">
     <value>219, 27</value>
   </data>
-  <data name="&gt;&gt;lblUsrActCode.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;lblShipShort.Parent" xml:space="preserve">
+    <value>tableLayoutPanel4</value>
   </data>
   <data name="ckBoxFfmpegVersCheck.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>10, 3, 3, 3</value>
@@ -2263,10 +2294,7 @@ characters for filtered book title</value>
     <value>15</value>
   </data>
   <data name="panelPartName.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
-  </data>
-  <data name="&gt;&gt;ckBoxSeries.Parent" xml:space="preserve">
-    <value>panelSeries</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;lblNamedChapters.Parent" xml:space="preserve">
     <value>tableLayoutPanel4</value>
@@ -2302,7 +2330,7 @@ characters for filtered book title</value>
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="btnAaxCopyDir.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>1</value>
   </data>
   <data name="lblPartName.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 93</value>
@@ -2321,6 +2349,9 @@ characters for filtered book title</value>
   </data>
   <data name="panelSeries.Size" type="System.Drawing.Size, System.Drawing">
     <value>287, 24</value>
+  </data>
+  <data name="lblAlbumArtist.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
   </data>
   <data name="lblFlatFolders.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -2351,6 +2382,9 @@ characters for filtered book title</value>
   </data>
   <data name="&gt;&gt;lblExtraMetaFiles.Parent" xml:space="preserve">
     <value>tableLayoutPanel3</value>
+  </data>
+  <data name="comBoxPrefEmbChapTimes.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="&gt;&gt;listBoxActCode.Type" xml:space="preserve">
     <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -2387,8 +2421,8 @@ instead of default UTF8</value>
   <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="ckBoxLatin1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Left</value>
+  <data name="lblSeries.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
   </data>
   <data name="&gt;&gt;lblLang.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -2408,11 +2442,8 @@ instead of default UTF8</value>
   <data name="&gt;&gt;tabPage2.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;lblLatin1.ZOrder" xml:space="preserve">
-    <value>14</value>
-  </data>
-  <data name="comBoxVerAdjChapters.Location" type="System.Drawing.Point, System.Drawing">
-    <value>243, 94</value>
+  <data name="&gt;&gt;comBoxLang.Name" xml:space="preserve">
+    <value>comBoxLang</value>
   </data>
   <data name="ckBoxLaunchPlayer.ToolTip" xml:space="preserve">
     <value>If set,will launch default media player.
@@ -2463,11 +2494,14 @@ Only first or single book in conversion.</value>
   <data name="btnRegActCode.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="lblUpdateOthers.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
   <data name="tableLayoutPanel3.ColumnCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="tableLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="comBoxArtist.Items3" xml:space="preserve">
+    <value>Narrator</value>
   </data>
   <data name="lblFixAacEnc.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
@@ -2481,8 +2515,8 @@ Only first or single book in conversion.</value>
   <data name="lblCustTitleChars.Size" type="System.Drawing.Size, System.Drawing">
     <value>219, 27</value>
   </data>
-  <data name="tabPage3.Location" type="System.Drawing.Point, System.Drawing">
-    <value>4, 22</value>
+  <data name="panelSeriesDigits.TabIndex" type="System.Int32, mscorlib">
+    <value>18</value>
   </data>
   <data name="&gt;&gt;ckBoxSeries.Name" xml:space="preserve">
     <value>ckBoxSeries</value>
@@ -2502,8 +2536,8 @@ Only first or single book in conversion.</value>
   <data name="&gt;&gt;listBoxActCode.Parent" xml:space="preserve">
     <value>panelActCode</value>
   </data>
-  <data name="comBoxFixAacEncoding.Items1" xml:space="preserve">
-    <value>In MP4 single file mode with intermed. copy</value>
+  <data name="&gt;&gt;lblVarBitRate.Name" xml:space="preserve">
+    <value>lblVarBitRate</value>
   </data>
   <data name="&gt;&gt;lblFileAssoc.ZOrder" xml:space="preserve">
     <value>8</value>
@@ -2512,7 +2546,7 @@ Only first or single book in conversion.</value>
     <value>Left</value>
   </data>
   <data name="comBoxUpdate.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="comBoxNamedChapters.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>10, 3, 3, 3</value>
@@ -2563,7 +2597,7 @@ Only first or single book in conversion.</value>
     <value>Fill</value>
   </data>
   <data name="lblLang.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 273</value>
+    <value>3, 303</value>
   </data>
   <data name="&gt;&gt;lblFlatFolders.Type" xml:space="preserve">
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -2577,11 +2611,14 @@ Only first or single book in conversion.</value>
   <data name="tabControl1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
   </data>
+  <data name="lblUpdateOthers.Text" xml:space="preserve">
+    <value>Online update/install related apps</value>
+  </data>
   <data name="&gt;&gt;lblShipShort.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;lblVarBitRate.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;lblLatin1.ZOrder" xml:space="preserve">
+    <value>14</value>
   </data>
   <data name="lblShipShort.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -2639,11 +2676,11 @@ associated meta data.
   <data name="panelPartName.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>0, 0, 0, 0</value>
   </data>
-  <data name="lblSeries.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Right</value>
-  </data>
   <data name="lblRedBitRate.TabIndex" type="System.Int32, mscorlib">
     <value>15</value>
+  </data>
+  <data name="&gt;&gt;tableLayoutPanel3.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="panelFlatFolders.Location" type="System.Drawing.Point, System.Drawing">
     <value>194, 0</value>
@@ -2678,8 +2715,11 @@ associated meta data.
   <data name="&gt;&gt;btnAaxCopyDir.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;ckBoxVarBitRate.ZOrder" xml:space="preserve">
-    <value>9</value>
+  <data name="btnResetOnlineUpdOthers.Text" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
+    <value>tabControl1</value>
   </data>
   <data name="comBoxPrefEmbChapTimes.Items" xml:space="preserve">
     <value>No</value>
@@ -2720,9 +2760,6 @@ associated meta data.
   <data name="listBoxActCode.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="&gt;&gt;comBoxOutFolderConflict.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
   <data name="&gt;&gt;lblShipShort.Name" xml:space="preserve">
     <value>lblShipShort</value>
   </data>
@@ -2741,8 +2778,11 @@ associated meta data.
   <data name="tableLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 3</value>
   </data>
-  <data name="btnAaxCopyDir.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+  <data name="&gt;&gt;lblUpdateOthers.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="comBoxVerAdjChapters.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
   </data>
   <data name="&gt;&gt;lblFullCaptionBookFolder.Parent" xml:space="preserve">
     <value>tableLayoutPanel2</value>
@@ -2766,7 +2806,10 @@ associated meta data.
     <value>tableLayoutPanel4</value>
   </data>
   <data name="tableLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+    <value>0</value>
+  </data>
+  <data name="&gt;&gt;panelFlatFolders.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="btnOK.Location" type="System.Drawing.Point, System.Drawing">
     <value>24, 22</value>
@@ -2801,11 +2844,14 @@ associated meta data.
   <data name="lblUsrActCode.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <data name="&gt;&gt;ckBoxFileAssoc.ZOrder" xml:space="preserve">
-    <value>9</value>
+  <data name="&gt;&gt;tabPage5.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="btnAaxCopyDir.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
   </data>
   <data name="comBoxLang.Location" type="System.Drawing.Point, System.Drawing">
-    <value>235, 274</value>
+    <value>235, 304</value>
   </data>
   <data name="lblDateClm.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
     <value>MiddleRight</value>
@@ -2868,7 +2914,7 @@ associated meta data.
     <value>comBoxRedBitRate</value>
   </data>
   <data name="ckBoxFullCaptionBookFolder.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+    <value>2</value>
   </data>
   <data name="ckBoxLatin1.ToolTip" xml:space="preserve">
     <value>For audio player hard- and software that does not support 
@@ -2886,8 +2932,8 @@ non-ASCII characters in .m3u playlist, if formatted as Unicode UTF8 </value>
   <data name="&gt;&gt;nudShortChapter.Name" xml:space="preserve">
     <value>nudShortChapter</value>
   </data>
-  <data name="lblFullCaptionBookFolder.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
+  <data name="btnResetOnlineUpdOthers.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="&gt;&gt;lblFfmpegVersCheck.Parent" xml:space="preserve">
     <value>tableLayoutPanel1</value>
@@ -2917,8 +2963,8 @@ non-ASCII characters in .m3u playlist, if formatted as Unicode UTF8 </value>
   <data name="comBoxLang.Size" type="System.Drawing.Size, System.Drawing">
     <value>203, 21</value>
   </data>
-  <data name="&gt;&gt;tabControl1.Name" xml:space="preserve">
-    <value>tabControl1</value>
+  <data name="&gt;&gt;lblFixAacEnc.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tabPage4.Parent" xml:space="preserve">
     <value>tabControl1</value>
@@ -2936,8 +2982,7 @@ non-ASCII characters in .m3u playlist, if formatted as Unicode UTF8 </value>
     <value>comBoxAlbumArtist</value>
   </data>
   <data name="lblFullCaptionBookFolder.ToolTip" xml:space="preserve">
-    <value>Should create smaller output files without losing audio quality, 
-but may significantly slow down conversion.</value>
+    <value />
   </data>
   <data name="lblFlatFolders.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -2958,6 +3003,9 @@ but may significantly slow down conversion.</value>
   <data name="comBoxFixAacEncoding.Size" type="System.Drawing.Size, System.Drawing">
     <value>247, 21</value>
   </data>
+  <data name="nudVeryShortChapter.Location" type="System.Drawing.Point, System.Drawing">
+    <value>10, 5</value>
+  </data>
   <data name="lblNamedChapters.Size" type="System.Drawing.Size, System.Drawing">
     <value>219, 27</value>
   </data>
@@ -2966,6 +3014,9 @@ but may significantly slow down conversion.</value>
   </data>
   <data name="lblShSecDur.ToolTip" xml:space="preserve">
     <value />
+  </data>
+  <data name="&gt;&gt;lblVarBitRate.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="lblVarBitRate.Size" type="System.Drawing.Size, System.Drawing">
     <value>219, 27</value>
@@ -2982,8 +3033,8 @@ but may significantly slow down conversion.</value>
   <data name="panelActCode.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="lblComposer.ToolTip" xml:space="preserve">
-    <value />
+  <data name="&gt;&gt;lblUpdateOthers.Parent" xml:space="preserve">
+    <value>tableLayoutPanel1</value>
   </data>
   <data name="&gt;&gt;lblLatin1.Parent" xml:space="preserve">
     <value>tableLayoutPanel3</value>
@@ -2991,8 +3042,11 @@ but may significantly slow down conversion.</value>
   <data name="lblLang.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="&gt;&gt;lblRedBitRate.Name" xml:space="preserve">
-    <value>lblRedBitRate</value>
+  <data name="panelPartName.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
+  <data name="nudShortChapter.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>10, 3, 3, 3</value>
   </data>
   <data name="lblFfmpegLoc.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
@@ -3001,7 +3055,7 @@ but may significantly slow down conversion.</value>
     <value>24, 2</value>
   </data>
   <data name="txtBoxCustPart.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>0</value>
   </data>
   <data name="tableLayoutPanel5.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
@@ -3111,6 +3165,9 @@ but may significantly slow down conversion.</value>
   <data name="panelSkipVeryShort.Location" type="System.Drawing.Point, System.Drawing">
     <value>233, 60</value>
   </data>
+  <data name="lblUpdateOthers.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Right</value>
+  </data>
   <data name="lblComposer.Size" type="System.Drawing.Size, System.Drawing">
     <value>109, 27</value>
   </data>
@@ -3127,7 +3184,7 @@ but may significantly slow down conversion.</value>
     <value>Tag: Composer</value>
   </data>
   <data name="btnUsrActCode.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="&gt;&gt;ckBoxExtraMetaFiles.Name" xml:space="preserve">
     <value>ckBoxExtraMetaFiles</value>
@@ -3157,7 +3214,7 @@ but may significantly slow down conversion.</value>
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="ckBoxExtraMetaFiles.TabIndex" type="System.Int32, mscorlib">
-    <value>12</value>
+    <value>8</value>
   </data>
   <data name="comBoxUpdate.Items2" xml:space="preserve">
     <value>Auto download, prompt for installation</value>
@@ -3167,6 +3224,9 @@ but may significantly slow down conversion.</value>
   </data>
   <data name="lblSeries.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
+  </data>
+  <data name="lblUpdateOthers.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
   </data>
   <data name="ckBoxVarBitRate.Size" type="System.Drawing.Size, System.Drawing">
     <value>63, 14</value>
@@ -3189,8 +3249,8 @@ but may significantly slow down conversion.</value>
   <data name="comBoxPrefEmbChapTimes.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>10, 3, 3, 3</value>
   </data>
-  <data name="lblAlbumArtist.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+  <data name="&gt;&gt;lblExtraMetaFiles.Name" xml:space="preserve">
+    <value>lblExtraMetaFiles</value>
   </data>
   <data name="&gt;&gt;ckBoxFullCaptionBookFolder.Type" xml:space="preserve">
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -3234,11 +3294,11 @@ but may significantly slow down conversion.</value>
   <data name="&gt;&gt;nudShortChapter.Parent" xml:space="preserve">
     <value>panelSkipShort</value>
   </data>
-  <data name="comBoxFixAacEncoding.Items" xml:space="preserve">
-    <value>No</value>
+  <data name="&gt;&gt;ckBoxFfmpegVersCheck.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="nudVeryShortChapter.Location" type="System.Drawing.Point, System.Drawing">
-    <value>10, 5</value>
+  <data name="tableLayoutPanel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
   <data name="&gt;&gt;comBoxRedBitRate.Type" xml:space="preserve">
     <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -3261,20 +3321,29 @@ but may significantly slow down conversion.</value>
   <data name="comBoxLang.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>10, 3, 3, 3</value>
   </data>
+  <data name="&gt;&gt;tableLayoutPanel5.Name" xml:space="preserve">
+    <value>tableLayoutPanel5</value>
+  </data>
+  <data name="comBoxVerAdjChapters.Location" type="System.Drawing.Point, System.Drawing">
+    <value>243, 94</value>
+  </data>
   <data name="&gt;&gt;comBoxConductor.Name" xml:space="preserve">
     <value>comBoxConductor</value>
   </data>
-  <data name="&gt;&gt;tableLayoutPanel3.ZOrder" xml:space="preserve">
-    <value>0</value>
+  <data name="lblSeries.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Right</value>
   </data>
   <data name="&gt;&gt;btnRegActCode.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="lblFullCaptionBookFolder.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleRight</value>
+  </data>
   <data name="&gt;&gt;lblFixAacEnc.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="lblRedBitRate.Text" xml:space="preserve">
-    <value>Reduce bit rate</value>
+  <data name="lblSkipVeryShort.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="lblAlbumArtist.Text" xml:space="preserve">
     <value>Tag: Album Artist</value>
@@ -3283,7 +3352,7 @@ but may significantly slow down conversion.</value>
     <value>130, 20</value>
   </data>
   <data name="ckBoxVarBitRate.TabIndex" type="System.Int32, mscorlib">
-    <value>14</value>
+    <value>4</value>
   </data>
   <data name="&gt;&gt;panelSeries.Parent" xml:space="preserve">
     <value>tableLayoutPanel2</value>
@@ -3297,6 +3366,9 @@ but may significantly slow down conversion.</value>
   <data name="panelRight.ToolTip" xml:space="preserve">
     <value />
   </data>
+  <data name="tabPage3.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>3, 3, 3, 3</value>
+  </data>
   <data name="lblUpdate.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
   </data>
@@ -3307,8 +3379,8 @@ but may significantly slow down conversion.</value>
     <value>Number of digits of a numerical sequence number 
 for the book title within the series.</value>
   </data>
-  <data name="tabControl1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="lblLang.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
   </data>
   <data name="nudShortChapter.Size" type="System.Drawing.Size, System.Drawing">
     <value>85, 20</value>
@@ -3343,8 +3415,8 @@ for the book title within the series.</value>
   <data name="ckBoxVarBitRate.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>10, 3, 3, 3</value>
   </data>
-  <data name="&gt;&gt;panelFlatFolders.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="btnResetOnlineUpdOthers.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Left</value>
   </data>
   <data name="txtBoxCustPart.Location" type="System.Drawing.Point, System.Drawing">
     <value>235, 5</value>
@@ -3355,9 +3427,6 @@ for the book title within the series.</value>
   <data name="lblArtist.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Right</value>
   </data>
-  <data name="panelSeriesDigits.TabIndex" type="System.Int32, mscorlib">
-    <value>18</value>
-  </data>
   <data name="lblFfmpegVersCheck.Size" type="System.Drawing.Size, System.Drawing">
     <value>219, 23</value>
   </data>
@@ -3367,6 +3436,9 @@ for the book title within the series.</value>
   <data name="&gt;&gt;txtBoxCustPart.Parent" xml:space="preserve">
     <value>tableLayoutPanel3</value>
   </data>
+  <data name="lblM4B.ToolTip" xml:space="preserve">
+    <value />
+  </data>
   <data name="btnReset.Size" type="System.Drawing.Size, System.Drawing">
     <value>75, 23</value>
   </data>
@@ -3374,10 +3446,13 @@ for the book title within the series.</value>
     <value>10, 3, 3, 3</value>
   </data>
   <data name="ckBoxFfmpegVersCheck.TabIndex" type="System.Int32, mscorlib">
-    <value>8</value>
+    <value>1</value>
   </data>
   <data name="&gt;&gt;lblSeriesDigits.ZOrder" xml:space="preserve">
     <value>1</value>
+  </data>
+  <data name="tabControl1.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="ckBoxSeries.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Left</value>
@@ -3410,13 +3485,16 @@ for the book title within the series.</value>
     <value>Only in split-chapter and split-time modes</value>
   </data>
   <data name="comBoxNamedChapters.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
+    <value>0</value>
   </data>
-  <data name="nudShortChapter.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>10, 3, 3, 3</value>
+  <data name="panelSeriesDigits.Size" type="System.Drawing.Size, System.Drawing">
+    <value>221, 24</value>
   </data>
   <data name="comBoxArtist.Size" type="System.Drawing.Size, System.Drawing">
     <value>195, 21</value>
+  </data>
+  <data name="&gt;&gt;lblUpdateOthers.ZOrder" xml:space="preserve">
+    <value>18</value>
   </data>
   <data name="ckBoxFileAssoc.Size" type="System.Drawing.Size, System.Drawing">
     <value>63, 14</value>
@@ -3451,12 +3529,12 @@ for the book title within the series.</value>
   <data name="btnFfmpegLoc.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="lblOutFolderConflict.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleRight</value>
-  </data>
   <data name="comBoxM4B.Items" xml:space="preserve">
     <value>.m4a</value>
   </data>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>de</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

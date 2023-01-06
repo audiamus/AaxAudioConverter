@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
+using Microsoft.Win32.SafeHandles;
 
 namespace audiamus.aux.w32 {
   unsafe public class WinFileIO : IDisposable {
@@ -35,15 +36,16 @@ namespace audiamus.aux.w32 {
     private const uint OPEN_EXISTING = 3;
     private const uint CREATE_ALWAYS = 2;
     private const uint CREATE_NEW = 1;
+    private const uint FILE_SHARE_READ = 1;
     private const int BlockSize = 65536;
-    //
+
     private GCHandle gchBuf;            // Handle to GCHandle object used to pin the I/O buffer in memory.
-    private System.IntPtr pHandle;      // Handle to the file to be read from or written to.
+    private SafeHandle handle;          // Handle to the file to be read from or written to
     private void* pBuffer;              // Pointer to the buffer used to perform I/O.
 
     // Define the Windows system functions that are called by this class via COM Interop:
-    [System.Runtime.InteropServices.DllImport ("kernel32", SetLastError = true)]
-    static extern unsafe System.IntPtr CreateFile
+    [System.Runtime.InteropServices.DllImport ("kernel32", SetLastError = true, CharSet = CharSet.Unicode)]
+    static extern unsafe SafeFileHandle CreateFile
     (
        string FileName,          // file name
        uint DesiredAccess,       // access mode
@@ -57,7 +59,7 @@ namespace audiamus.aux.w32 {
     [System.Runtime.InteropServices.DllImport ("kernel32", SetLastError = true)]
     static extern unsafe bool ReadFile
     (
-       System.IntPtr hFile,      // handle to file
+       SafeHandle handle,         // handle to file
        void* pBuffer,            // data buffer
        int NumberOfBytesToRead,  // number of bytes to read
        int* pNumberOfBytesRead,  // number of bytes read
@@ -67,7 +69,7 @@ namespace audiamus.aux.w32 {
     [System.Runtime.InteropServices.DllImport ("kernel32", SetLastError = true)]
     static extern unsafe bool WriteFile
     (
-      IntPtr handle,					   // handle to file
+      SafeHandle handle,			   // handle to file
       void* pBuffer,             // data buffer
       int NumberOfBytesToWrite,	 // Number of bytes to write.
       int* pNumberOfBytesWritten,// Number of bytes that were written..
@@ -81,14 +83,12 @@ namespace audiamus.aux.w32 {
     );
 
     public WinFileIO () {
-      pHandle = IntPtr.Zero;
     }
 
     public WinFileIO (Array Buffer) {
       // This constructor is provided so that the buffer can be pinned in memory.
       // Cleanup must be called in order to unpin the buffer.
       PinBuffer (Buffer);
-      pHandle = IntPtr.Zero;
     }
 
     protected void Dispose (bool disposing) {
@@ -135,8 +135,8 @@ namespace audiamus.aux.w32 {
       // This function uses the Windows API CreateFile function to open an existing file.
       // A return value of true indicates success.
       Close ();
-      pHandle = CreateFile (FileName, GENERIC_READ, 0, 0, OPEN_EXISTING, 0, 0);
-      if (pHandle == System.IntPtr.Zero) {
+      handle = CreateFile (FileName, GENERIC_READ, FILE_SHARE_READ, 0, OPEN_EXISTING, 0, 0);
+      if (handle.IsInvalid) {
         Win32Exception WE = new Win32Exception ();
         IOException AE = new IOException ("WinFileIO:OpenForReading - Could not open file " +
           FileName + " - " + WE.Message);
@@ -149,8 +149,8 @@ namespace audiamus.aux.w32 {
       // If the file exists, it will be overwritten.
       Close ();
       uint create = overwrite ? CREATE_ALWAYS : CREATE_NEW;
-      pHandle = CreateFile (FileName, GENERIC_WRITE, 0, 0, create, 0, 0);
-      if (pHandle == System.IntPtr.Zero) {
+      handle = CreateFile (FileName, GENERIC_WRITE, 0, 0, create, 0, 0);
+      if (handle.IsInvalid) {
         Win32Exception WE = new Win32Exception ();
         IOException AE = new IOException ("WinFileIO:OpenForWriting - Could not open file " +
           FileName + " - " + WE.Message);
@@ -162,7 +162,7 @@ namespace audiamus.aux.w32 {
       // This function reads in a file up to BytesToRead using the Windows API function ReadFile.  The return value
       // is the number of bytes read.
       int BytesRead = 0;
-      if (!ReadFile (pHandle, pBuffer, BytesToRead, &BytesRead, 0)) {
+      if (!ReadFile (handle, pBuffer, BytesToRead, &BytesRead, 0)) {
         Win32Exception WE = new Win32Exception ();
         IOException AE = new IOException ("WinFileIO:Read - Error occurred reading a file. - " +
           WE.Message);
@@ -180,7 +180,7 @@ namespace audiamus.aux.w32 {
       byte* pBuf = (byte*)pBuffer;
       // Do until there are no more bytes to read or the buffer is full.
       for (; ; ) {
-        if (!ReadFile (pHandle, pBuf, BlockSize, &BytesReadInBlock, 0)) {
+        if (!ReadFile (handle, pBuf, BlockSize, &BytesReadInBlock, 0)) {
           // This is an error condition.  The error msg can be obtained by creating a Win32Exception and
           // using the Message property to obtain a description of the error that was encountered.
           Win32Exception WE = new Win32Exception ();
@@ -203,7 +203,7 @@ namespace audiamus.aux.w32 {
       // Do until there are no more bytes to read or the buffer is full.
       do {
         BlockByteSize = Math.Min (BlockSize, BytesToRead - BytesRead);
-        if (!ReadFile (pHandle, pBuf, BlockByteSize, &BytesReadInBlock, 0)) {
+        if (!ReadFile (handle, pBuf, BlockByteSize, &BytesReadInBlock, 0)) {
           Win32Exception WE = new Win32Exception ();
           IOException AE = new IOException ("WinFileIO:ReadBytes - Error occurred reading a file. - "
             + WE.Message);
@@ -220,7 +220,7 @@ namespace audiamus.aux.w32 {
     public int Write (int BytesToWrite) {
       // Writes out the file in one swoop using the Windows WriteFile function.
       int NumberOfBytesWritten;
-      if (!WriteFile (pHandle, pBuffer, BytesToWrite, &NumberOfBytesWritten, 0)) {
+      if (!WriteFile (handle, pBuffer, BytesToWrite, &NumberOfBytesWritten, 0)) {
         Win32Exception WE = new Win32Exception ();
         IOException AE = new IOException ("WinFileIO:Write - Error occurred writing a file. - " +
           WE.Message);
@@ -238,7 +238,7 @@ namespace audiamus.aux.w32 {
       // Do until there are no more bytes to write.
       do {
         BytesToWrite = Math.Min (RemainingBytes, BlockSize);
-        if (!WriteFile (pHandle, pBuf, BytesToWrite, &BytesWritten, 0)) {
+        if (!WriteFile (handle, pBuf, BytesToWrite, &BytesWritten, 0)) {
           // This is an error condition.  The error msg can be obtained by creating a Win32Exception and
           // using the Message property to obtain a description of the error that was encountered.
           Win32Exception WE = new Win32Exception ();
@@ -255,12 +255,11 @@ namespace audiamus.aux.w32 {
 
     public bool Close () {
       // This function closes the file handle.
-      bool Success = true;
-      if (pHandle != IntPtr.Zero) {
-        Success = CloseHandle (pHandle);
-        pHandle = IntPtr.Zero;
+      if (!(handle is null || handle.IsInvalid || handle.IsClosed)) {
+        handle.Close ();
+        return true;
       }
-      return Success;
+      return false;
     }
   }
 }

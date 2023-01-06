@@ -364,9 +364,10 @@ namespace audiamus.aaxconv.lib {
 
     const string RGX_INVALID_DATA = "Invalid data found when processing input$";
 
-    private static readonly Regex _rgxVersion = new Regex (@"^ffmpeg version\s+([\d\.]+)[\s-_].*FFmpeg developers", 
+    private static readonly Regex _rgxVersion = new Regex (@"^ffmpeg version\s+([\d(\.|\-)]+)[\s-_].*FFmpeg developers", 
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
-    private static readonly Regex _rgxVersionRelaxed = new Regex (@"^ffmpeg version\s+\D*([\d\.]+).+", 
+    //private static readonly Regex _rgxVersionRelaxed = new Regex (@"^ffmpeg version\s+\D*([\d\.]+).+", 
+    private static readonly Regex _rgxVersionRelaxed = new Regex (@"^ffmpeg version\s+(.+)$", 
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
     private static readonly Regex _rgxMuxFinal = new Regex (@"video.*audio.*muxing overhead", 
       RegexOptions.Compiled | RegexOptions.IgnoreCase);
@@ -427,11 +428,15 @@ namespace audiamus.aaxconv.lib {
       if (!match.Success)
         return;
 
-      _success = true;
-      bool succ = Version.TryParse (match.Groups[1].Value, out Version version);
+      string vers = match.Groups[1].Value.Replace ('-','.');
 
+      _success = true;
+
+      bool succ = Version.TryParse (vers, out Version version);
       if (succ)
         Version = version;
+      else if (_relaxedVersionParsing)
+        Version = new Version (9999, 9999);
     }
 
     private void ffMpegAsyncHandlerAudioMeta (object sendingProcess, DataReceivedEventArgs outLine) {

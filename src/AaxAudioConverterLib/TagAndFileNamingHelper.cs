@@ -585,8 +585,14 @@ namespace audiamus.aaxconv.lib {
         afi.Genre = tags.Genre?.Decode ().SplitTrim ().FirstOrDefault ();
 
         afi.Narrators = atlCustomTag (tags, NRT).Decode ().SplitTrim ();
-        afi.Abstract = atlCustomTag (tags, DES).Decode ();
-        afi.Publisher = atlCustomTag (tags, PUB).Decode ();
+
+        afi.Abstract = tags.Description?.Decode ();
+        if (afi.Abstract.IsNullOrWhiteSpace ())
+          afi.Abstract = atlCustomTag (tags, DES).Decode ();
+
+        afi.Publisher = tags.Publisher?.Decode ();
+        if (afi.Publisher.IsNullOrWhiteSpace ())
+          afi.Publisher = atlCustomTag (tags, PUB).Decode ();
 
 #if MULTIPART_TEST
         {

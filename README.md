@@ -23,7 +23,7 @@ Convert Audible aax files to mp3 and m4a/m4b
 - Creates additional playlist if more than one output file is created per book.
 - Handles books with multiple parts.
 - Manages and preserves all meta-tag information, including chapter meta data.
-- Supports named chapters, for .aax files downloaded with the Audible App.
+- Supports named chapters, for .aax files downloaded with Book Lib Connect.
 - Can adjust inaccurate chapter marks.
 - Allows customization of output naming: files, folders and tags.
 - Special functions:
@@ -51,15 +51,15 @@ The application requires .Net Framework 4.8 to be installed. On Windows 10/11 sy
 AAX Audio Converter is configured to support high DPI monitors under Windows 10. It will scale properly when the user changes the DPI or scale factor. 
 
 ## Download
-Windows setup package version 1.18.1, English and German, with manuals, plus FFmpeg executable:
+Windows setup package version 1.18.2, English and German, with manuals, plus FFmpeg executable:
 
-**[AaxAudioConverter-1.18.1-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.18.1/AaxAudioConverter-1.18.1-Setup.exe)**
+**[AaxAudioConverter-1.18.2-Setup.exe](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.18.2/AaxAudioConverter-1.18.2-Setup.exe)**
 
 Manuals (also included in the setup package):
 
-**[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.18.1/AaxAudioConverter.pdf)**
+**[English](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.18.2/AaxAudioConverter.pdf)**
 
-**[German](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.18.1/AaxAudioConverter.de.pdf)**
+**[German](https://github.com/audiamus/AaxAudioConverter/releases/download/v1.18.2/AaxAudioConverter.de.pdf)**
 
 
 ## Dependencies

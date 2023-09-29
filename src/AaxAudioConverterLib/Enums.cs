@@ -42,9 +42,9 @@ namespace audiamus.aaxconv.lib {
     track,
     chapter_a_track,
     track_b_chapter_c,
-    track_b_nTrks_c,
-    chapter_a_track_b_nTrks_c,
-    track_b_chapter_c_b_nTrks_c,
+    //track_b_nTrks_c,
+    //chapter_a_track_b_nTrks_c,
+    //track_b_chapter_c_b_nTrks_c,
   }
 
   public enum ELongTitle { no, book_series, series_book, as_is }

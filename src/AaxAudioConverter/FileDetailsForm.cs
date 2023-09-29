@@ -34,7 +34,9 @@ namespace audiamus.aaxconv {
       richTextBoxMeta.Rtf = rtf;
 
       var converter = new ImageConverter ();
-      pictureBox.Image = converter.ConvertFrom (fileItem.Cover) as Image;
+      try {
+        pictureBox.Image = converter.ConvertFrom (fileItem.Cover) as Image;
+      } catch { }
 
       richTextBoxAbstract.Clear ();
       richTextBoxAbstract.Text = fileItem.Abstract;

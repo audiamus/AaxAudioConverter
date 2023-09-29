@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -616,7 +617,7 @@ namespace audiamus.aaxconv.lib {
       return true;
     }
 
-    private static void getCoverImage (AaxFileItem afi, ATL.Track tags) {
+    private void getCoverImage (AaxFileItem afi, ATL.Track tags) {
       var pic = tags.EmbeddedPictures.FirstOrDefault ();
       if (pic != null) {
         afi.Cover = pic.PictureData;
@@ -628,7 +629,9 @@ namespace audiamus.aaxconv.lib {
             afi.CoverExt = EXT_PNG;
             break;
         }
-      }
+        Log (3, this, () => $"Cover image {afi.CoverExt}, {afi.Cover.Length} bytes");
+      } else
+        Log (3, this, () => "No cover image");
     }
 
     private string atlCustomTag (ATL.Track tags, string key) {
@@ -723,8 +726,12 @@ namespace audiamus.aaxconv.lib {
           tags.TrackTotal = _numbers.nTrks;
 
           // cover picture
-          var pi = ATL.PictureInfo.fromBinaryData (afi.Cover, ATL.PictureInfo.PIC_TYPE.Front);
-          tags.EmbeddedPictures.Add (pi);
+          try {
+            var pi = ATL.PictureInfo.fromBinaryData (afi.Cover, ATL.PictureInfo.PIC_TYPE.Front);
+            tags.EmbeddedPictures.Add (pi);
+          } catch (Exception exc) {
+            Log (3, this, () => $"No or invalid cover image: {exc.ToShortString ()}");
+          }
 
           if (withChapters)
             writeChapters (tags, chapters);

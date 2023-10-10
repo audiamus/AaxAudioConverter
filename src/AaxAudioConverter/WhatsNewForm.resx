@@ -183,18 +183,6 @@
   <data name="btnOK.Text" xml:space="preserve">
     <value>OK</value>
   </data>
-  <data name="&gt;&gt;btnOK.Name" xml:space="preserve">
-    <value>btnOK</value>
-  </data>
-  <data name="&gt;&gt;btnOK.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;btnOK.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;btnOK.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
   <data name="lblPrev.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
   </data>
@@ -212,18 +200,6 @@
   </data>
   <data name="lblPrev.Text" xml:space="preserve">
     <value>For release notes to previous versions see the manual.</value>
-  </data>
-  <data name="&gt;&gt;lblPrev.Name" xml:space="preserve">
-    <value>lblPrev</value>
-  </data>
-  <data name="&gt;&gt;lblPrev.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;lblPrev.Parent" xml:space="preserve">
-    <value>panel1</value>
-  </data>
-  <data name="&gt;&gt;lblPrev.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="richTextBox1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>

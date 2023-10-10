@@ -10,7 +10,7 @@ namespace audiamus.aaxconv.lib {
     readonly IInteractionCallback<InteractionMessage, bool?> _interaction;
 
     public CancellationToken CancellationToken => _token;
-    public bool Cancelled => _token != null ? _token.IsCancellationRequested : false;  
+    public bool Cancelled => _token.IsCancellationRequested;  
 
     public CallbackWrapper (CancellationToken token, IProgress<ProgressMessage> progress, IInteractionCallback<InteractionMessage, bool?> interaction = null) {
       _token = token;
@@ -19,7 +19,7 @@ namespace audiamus.aaxconv.lib {
     }
 
     public bool Cancel () {
-      return _token != null ? _token.IsCancellationRequested : false;
+      return _token.IsCancellationRequested;
     }
 
     public void Progress (ProgressMessage msg) {

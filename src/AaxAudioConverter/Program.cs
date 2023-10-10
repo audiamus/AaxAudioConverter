@@ -25,6 +25,7 @@ namespace audiamus.aaxconv {
           Logging.Level = (int)loglevel;
         }
 
+        Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
         Application.EnableVisualStyles ();
         Application.SetCompatibleTextRenderingDefault (false);
 

@@ -1,0 +1,10 @@
+.vs
+bin
+obj
+packages
+*.bak
+/src/AaxAudioConverter/*.user
+/src/AaxAudioConverter/FodyWeavers.xsd
+/src/AaxAudioConverter/ffmpeg.exe
+/src/AaxAudioConverter/ffmpeg64.exe
+

@@ -20,7 +20,7 @@ namespace audiamus.aux {
 
     public static Version AssemblyVersion { get; } = EntryAssembly.GetName ().Version;
     public static string AssemblyTitle { get; } = 
-      getAttribute<AssemblyTitleAttribute> ()?.Title ?? Path.GetFileNameWithoutExtension (ExecutingAssembly.CodeBase);
+      getAttribute<AssemblyTitleAttribute> ()?.Title ?? Path.GetFileNameWithoutExtension (ExecutingAssembly.Location);
     public static string AssemblyProduct { get; } = getAttribute<AssemblyProductAttribute> ()?.Product;
     public static string AssemblyCopyright { get; } = getAttribute<AssemblyCopyrightAttribute> ()?.Copyright;
     public static string AssemblyCompany { get; } = getAttribute<AssemblyCompanyAttribute> ()?.Company;

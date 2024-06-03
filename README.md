@@ -44,7 +44,7 @@ Convert Audible aax files to mp3 and m4a/m4b
   - Incorporating a number of snippets from the Open Source community. 
 
 ## System Environment
-AAX Audio Converter will run on Windows 7 and above.
+AAX Audio Converter will run on Windows 10 and above. (Win 7 may still work, but only if auto-update is disabled.)
 
 The application requires .Net Framework 4.8 to be installed. On Windows 10/11 systems this should normally be the case, if the system is kept up to date. On older Windows versions, the Framework may have to be installed separately. AAX Audio Converter will detect the missing Framework and provide a link to the download, automatically opening the relevant Microsoft web page. 
 
